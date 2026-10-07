@@ -3,3 +3,6 @@ node_modules/
 dist/
 build/
 .cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/

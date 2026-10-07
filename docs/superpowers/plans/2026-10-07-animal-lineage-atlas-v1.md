@@ -52,22 +52,25 @@
 ### Task 2: Search and media resolver packages
 
 **Files:**
+- Create: `package.json`, `package-lock.json`
 - Create: `packages/search/search.ts`
 - Create: `packages/media/resolver.ts`
 - Create: `packages/media/fixtures/local-media-manifest.json`
 - Create: `packages/media/fixtures/local-media-swatch.svg`
 - Create: `tests/search-media.test.mjs`
+- Modify: `.gitignore`
 
 **Interfaces:**
 - Produces: `normalizeSearchKey(value: string) -> string`, `searchAnimals(index, query, facets) -> AnimalSummary[]`.
 - Produces: `resolvePublicMedia(reference) -> MediaResult`, `createLocalResolver(manifest) -> (reference) -> MediaResult`; results contain only an allowed URL, source link, or placeholder description.
 
+- [ ] Add the minimal ESM package test harness (`node --import tsx --test`) and TypeScript/esbuild/tsx dev dependencies; install them before writing the tests so Node can import TypeScript modules.
 - [ ] Write `test_normalizes_case_spacing_and_diacritics`, `test_searches_names_aliases_ids_and_institutions`, `test_country_and_taxon_facets`, `test_remote_media_requires_embedding_permission`, `test_remote_media_failure_returns_placeholder`, and `test_local_resolver_reads_manifest_contract`.
-- [ ] Run `npm test -- --test-name-pattern=search-media`; confirm imports fail because the package files do not exist.
+- [ ] Run `npm test -- tests/search-media.test.mjs`; confirm imports fail because the package files do not exist.
 - [ ] Implement normalization without changing stored display values; retain all matching aliases and facet filters.
 - [ ] Implement a public resolver that uses direct URLs only when `embedding_status` and `rights_status` permit embedding; otherwise return a neutral placeholder plus `source_page_url`.
 - [ ] Implement the injected local-manifest resolver and generic swatch fixture with source, credit, relative path, checksum, and archive status.
-- [ ] Run `npm test -- --test-name-pattern=search-media`; confirm pass.
+- [ ] Run `npm test -- tests/search-media.test.mjs`; confirm pass.
 - [ ] Commit as `feat: add atlas search and media resolvers`.
 
 ### Task 3: Reusable genealogy layout and interaction state
@@ -82,10 +85,10 @@
 - Produces: `createViewState(initial) -> { get(), update(patch), openProfile(id), closeProfile() }`; profile changes do not reset graph state.
 
 - [ ] Write `test_simple_family_has_parent_child_edges`, `test_multi_generation_rows`, `test_independent_unknown_parents_create_no_nodes`, `test_convergent_ancestor_has_one_node`, `test_probable_edge_style_is_distinct`, `test_country_change_does_not_split_family`, `test_node_limit_reports_truncation`, and `test_profile_close_restores_tree_state`.
-- [ ] Run `npm test -- --test-name-pattern=genealogy`; confirm expected missing-module failures.
+- [ ] Run `npm test -- tests/genealogy.test.mjs`; confirm expected missing-module failures.
 - [ ] Implement bounded ancestor/descendant expansion, stable layer/row placement, shared-ancestor deduplication, edge status/type, country display grouping, and node-limit reporting.
 - [ ] Implement URL-profile state updates without losing focus, filters, zoom, or selected group.
-- [ ] Run `npm test -- --test-name-pattern=genealogy`; confirm pass.
+- [ ] Run `npm test -- tests/genealogy.test.mjs`; confirm pass.
 - [ ] Commit as `feat: add reusable genealogy layout and view state`.
 
 ### Task 4: Red-panda migration and report
@@ -144,7 +147,7 @@
 - Produces accessible tree controls, searchable profiles, `<dialog>` details, source links, media placeholders, and query URL `?animal=<id>`.
 
 - [ ] Write `test_profile_query_loads_expected_animal`, `test_profile_shows_approximate_date`, `test_image_failure_keeps_profile_usable`, `test_controls_are_keyboard_operable`, `test_language_switch_renders_all_interface_locales`, and `test_graph_and_profile_share_no_photo_bytes`.
-- [ ] Run `npm test -- --test-name-pattern=ui-contract`; confirm missing app modules/markup fail as expected.
+- [ ] Run `npm test -- tests/ui-contract.test.mjs`; confirm missing app modules/markup fail as expected.
 - [ ] Implement desktop/mobile layout, SVG graph, keyboard zoom/pan/focus controls, EN/JA/RU interface strings, country/taxon filters, accessible placeholders, citations, and direct profile query parsing.
 - [ ] Preserve focus/filters/pan/zoom/selected group while profile opens/closes; use only names present in data.
 - [ ] Run UI contract tests and inspect built HTML/CSS/JS; confirm pass.
@@ -164,7 +167,7 @@
 - Each atlas provides a visible Coverage and Limitations view, with bilingual/multilingual interface copy.
 
 - [ ] Write `test_hub_counts_match_canonical_data`, `test_hub_explains_public_studbooks_and_scope`, `test_media_policy_and_offline_future_are_visible`, and `test_child_links_use_required_base_paths`.
-- [ ] Run `npm test -- --test-name-pattern=hub-contract`; confirm expected missing-file failures.
+- [ ] Run `npm test -- tests/hub-contract.test.mjs`; confirm expected missing-file failures.
 - [ ] Implement the hub mission, evidence/uncertainty, source corrections, data versions, public-media policy, offline package concept, and atlas cards.
 - [ ] Add human-reviewed EN/JA/RU interface strings and source-name fallback behavior.
 - [ ] Run hub tests and generated catalog checks; confirm pass.
@@ -173,7 +176,8 @@
 ### Task 8: Static build, no-photo checks, and GitHub Actions
 
 **Files:**
-- Create: `package.json`, `package-lock.json`, `tsconfig.json`, `esbuild.config.mjs`
+- Modify: `package.json`, `package-lock.json`, `.gitignore`
+- Create: `tsconfig.json`, `esbuild.config.mjs`
 - Create: `tools/build_atlases.py`, `tools/check_no_animal_photos.py`
 - Create: `.github/workflows/ci.yml`
 - Modify: `.gitignore`
