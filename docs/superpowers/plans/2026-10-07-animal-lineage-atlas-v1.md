@@ -206,11 +206,11 @@
 - Browser smoke opens all four paths, checks search/direct profiles, language toggles, no-photo fallback, keyboard basics, desktop and mobile layouts, and JavaScript/network errors.
 - Measurement reports bundle bytes, payload bytes, search timings, and SVG layout timings for representative family graphs.
 
-- [ ] Write browser assertions for hub/cards, all child pages, representative direct profiles, profile state restoration, mobile layout, language switching, source links, and blocked remote images.
-- [ ] Run browser tests locally or in GitHub Actions; inspect desktop 1440×1000 and mobile 390×844 screenshots with remote photos blocked.
-- [ ] Fix defects revealed by visual/a11y/performance review; preserve reproducible reports and screenshot location outside Git.
-- [ ] Run `python3 tools/measure_release.py dist`; save measured values into `docs/QA_REPORT.json`.
-- [ ] Commit as `test: record atlas browser and performance evidence`.
+- [x] Write browser assertions for hub/cards, all child pages, representative direct profiles, profile state restoration, mobile layout, language switching, source links, and blocked remote images.
+- [x] Run browser tests locally or in GitHub Actions; inspect desktop 1440×1000 and mobile 390×844 screenshots with remote photos blocked.
+- [x] Fix defects revealed by visual/a11y/performance review; preserve reproducible reports and screenshot location outside Git.
+- [x] Run `python3 tools/measure_release.py dist`; save measured values into `docs/QA_REPORT.json`.
+- [x] Commit as `test: record atlas browser and performance evidence`.
 
 ### Task 10: Required documentation and release metadata
 

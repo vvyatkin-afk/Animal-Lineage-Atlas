@@ -1,0 +1,178 @@
+{
+  "schema_version": "1.0.0",
+  "measured_at_utc": "2026-10-07T20:15:52+00:00",
+  "repository": "vvyatkin-afk/Animal-Lineage-Atlas",
+  "source_revision": "cde802e1dc4f5eac6cab4af87f7351c71ba2fcf4",
+  "worktree_dirty": true,
+  "release_root": "dist",
+  "runtime": {
+    "python": "3.13.5",
+    "node": "v20.19.2"
+  },
+  "release_sizes": {
+    "applications": {
+      "atlas": {
+        "files_bytes": {
+          "catalog.json": 2542,
+          "index.html": 7387,
+          "main.js": 37109,
+          "styles.css": 11780
+        },
+        "bundle_bytes": 48889,
+        "data_payload_bytes": 2542,
+        "total_bytes": 58818
+      },
+      "atlas.red-panda": {
+        "files_bytes": {
+          "index.html": 5179,
+          "main.js": 71057,
+          "runtime.json": 269771,
+          "styles.css": 11466
+        },
+        "bundle_bytes": 82523,
+        "data_payload_bytes": 269771,
+        "total_bytes": 357473
+      },
+      "atlas.polar-bear": {
+        "files_bytes": {
+          "index.html": 5181,
+          "main.js": 71057,
+          "runtime.json": 47573,
+          "styles.css": 11466
+        },
+        "bundle_bytes": 82523,
+        "data_payload_bytes": 47573,
+        "total_bytes": 135277
+      },
+      "atlas.hippopotamus": {
+        "files_bytes": {
+          "index.html": 5185,
+          "main.js": 71057,
+          "runtime.json": 14920,
+          "styles.css": 11466
+        },
+        "bundle_bytes": 82523,
+        "data_payload_bytes": 14920,
+        "total_bytes": 102628
+      }
+    },
+    "total_bytes": 654196
+  },
+  "engine_timings": {
+    "red-panda": {
+      "search": {
+        "samples": 60,
+        "median_ms": 0.871,
+        "p95_ms": 1.959,
+        "mean_ms": 1.001,
+        "query_cases": [
+          {
+            "query": "風太（フウタ）",
+            "matches": 1
+          },
+          {
+            "query": "red-panda:futa",
+            "matches": 1
+          },
+          {
+            "query": "Ailurus fulgens",
+            "matches": 83
+          }
+        ]
+      },
+      "genealogy_layout": {
+        "samples": 30,
+        "median_ms": 0.185,
+        "p95_ms": 0.594,
+        "mean_ms": 0.327,
+        "representative_nodes": 48,
+        "representative_edges": 47,
+        "representative_truncated": false
+      }
+    },
+    "polar-bear": {
+      "search": {
+        "samples": 60,
+        "median_ms": 0.166,
+        "p95_ms": 0.382,
+        "mean_ms": 0.209,
+        "query_cases": [
+          {
+            "query": "Franz",
+            "matches": 1
+          },
+          {
+            "query": "polar-bear:franz",
+            "matches": 1
+          },
+          {
+            "query": "Ursus maritimus",
+            "matches": 22
+          }
+        ]
+      },
+      "genealogy_layout": {
+        "samples": 30,
+        "median_ms": 0.053,
+        "p95_ms": 0.557,
+        "mean_ms": 0.139,
+        "representative_nodes": 7,
+        "representative_edges": 6,
+        "representative_truncated": false
+      }
+    },
+    "hippopotamus": {
+      "search": {
+        "samples": 60,
+        "median_ms": 0.025,
+        "p95_ms": 0.034,
+        "mean_ms": 0.025,
+        "query_cases": [
+          {
+            "query": "Bibi",
+            "matches": 1
+          },
+          {
+            "query": "hippopotamus:bibi",
+            "matches": 1
+          },
+          {
+            "query": "Hippopotamus amphibius",
+            "matches": 5
+          }
+        ]
+      },
+      "genealogy_layout": {
+        "samples": 30,
+        "median_ms": 0.016,
+        "p95_ms": 0.455,
+        "mean_ms": 0.081,
+        "representative_nodes": 3,
+        "representative_edges": 2,
+        "representative_truncated": false
+      }
+    }
+  },
+  "browser_validation": {
+    "runner": "Playwright Chromium",
+    "viewports_css_pixels": [
+      "1440x1000 desktop",
+      "390x844 mobile"
+    ],
+    "external_image_policy": "External image requests are blocked; one permitted test image is deliberately failed to verify fallback.",
+    "screenshots_directory": "/tmp/animal-lineage-atlas-qa/",
+    "tests": {
+      "passed": 6,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "duration_ms": 11820.895
+    },
+    "screenshots": {
+      "hippopotamus-mobile.png": 105486,
+      "hub-desktop.png": 446778,
+      "red-panda-desktop.png": 277061,
+      "red-panda-mobile.png": 89872
+    }
+  }
+}

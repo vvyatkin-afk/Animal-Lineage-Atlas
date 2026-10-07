@@ -7,6 +7,7 @@
     "build": "python3 tools/build_atlases.py",
     "check:no-photos": "python3 tools/check_no_animal_photos.py .",
     "lint": "eslint tests/*.test.mjs tools/*.mjs esbuild.config.mjs",
+    "measure:release": "python3 tools/measure_release.py",
     "test": "node --import tsx --test",
     "test:browser": "playwright test",
     "test:python": "python3 -m unittest discover -v",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.4",
     "esbuild": "^0.28.2",
     "eslint": "^10.12.0",
     "globals": "^17.13.0",

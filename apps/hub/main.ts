@@ -1,5 +1,5 @@
 import { getUiMessages, type UiMessages } from '../../packages/i18n/index.ts';
-import { buildHubCatalog, type HubAtlasInput } from './catalog.ts';
+import type { buildHubCatalog } from './catalog.ts';
 
 type HubCard = ReturnType<typeof buildHubCatalog>[number];
 
@@ -49,8 +49,7 @@ async function bootHub() {
   if (!cardsRoot || !languageSelect) throw new Error('Hub content is incomplete.');
   const response = await fetch('./catalog.json', { credentials: 'same-origin' });
   if (!response.ok) throw new Error(`Could not load atlas catalog (${response.status})`);
-  const sourceData = await response.json() as HubAtlasInput[];
-  const catalog = buildHubCatalog(sourceData);
+  const catalog = await response.json() as HubCard[];
   const storageKey = 'animal-lineage-atlas:hub:v1';
   try {
     const saved = localStorage.getItem(storageKey);
