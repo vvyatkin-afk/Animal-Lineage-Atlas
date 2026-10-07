@@ -26,12 +26,14 @@ These totals describe the checked-in canonical JSON files. The project does not 
 Requirements: Node.js 20.19 or later and Python 3.12 or later.
 
 ```sh
+python3 -m pip install -r requirements-ci.txt
 npm ci
 npm run lint
 npm run typecheck
 npm test
 npm run test:python
 npm run validate:data
+npm run validate:schema
 npm run check:no-photos
 npm run build
 python3 tools/check_no_animal_photos.py dist
@@ -51,3 +53,5 @@ The static build emits `dist/atlas`, `dist/atlas.red-panda`, `dist/atlas.polar-b
 - [Machine-readable QA report](docs/QA_REPORT.json) records bundle sizes, runtime payloads, browser results, and search/layout timings.
 
 The public repository and production bundles contain no animal-photo files, copied thumbnails, or embedded animal photos. Media is shown only when the recorded rights and embedding status allow it; otherwise the interface keeps a source link and placeholder.
+
+Navigation, controls, help copy, source categories, and coverage scope/limitations are available in English, Japanese, and Russian. Proper names and cited source titles retain their curated spelling; changing the interface language does not alter source records.

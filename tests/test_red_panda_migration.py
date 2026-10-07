@@ -155,8 +155,10 @@ class RedPandaMigrationTests(unittest.TestCase):
     def test_imports_all_named_source_nodes(self):
         report = self.migrate()
         atlas = self.read_atlas()
+        canonical = json.loads((ROOT / "atlases" / "red-panda" / "atlas.json").read_text(encoding="utf-8"))
         self.assertEqual(report.animal_count, 2)
         self.assertEqual({item["id"] for item in atlas["animals"]}, {"red-panda:mother", "red-panda:cub"})
+        self.assertEqual(atlas["coverage"]["translations"], canonical["coverage"]["translations"])
         self.assertEqual(len(json.loads((self.directory / "legacy_id_map.json").read_text(encoding="utf-8"))["mappings"]), 2)
 
     def test_local_photo_paths_are_dropped(self):

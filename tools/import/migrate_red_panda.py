@@ -30,6 +30,15 @@ TAXON = "Ailurus fulgens"
 REVIEWED_GLOBAL_COUNTS = {"profiles": 1559, "zoos": 320, "family_edges": 2386, "litter_edges": 1049}
 
 
+def _canonical_red_panda_coverage_translations() -> dict[str, Any]:
+    canonical_path = ROOT / "atlases" / "red-panda" / "atlas.json"
+    canonical = json.loads(canonical_path.read_text(encoding="utf-8"))
+    translations = canonical.get("coverage", {}).get("translations")
+    if not isinstance(translations, dict):
+        raise ValueError("Canonical red-panda coverage translations are missing.")
+    return translations
+
+
 @dataclass(frozen=True)
 class MigrationReport:
     animal_count: int
@@ -602,6 +611,7 @@ def migrate_red_panda(
                 "Names are retained in Japanese where the cited source provides no verified transliteration.",
                 "Media is link-only; no animal photos or direct image URLs are bundled.",
             ],
+            "translations": _canonical_red_panda_coverage_translations(),
             "last_reviewed": accessed_date,
         },
         "animals": animals,

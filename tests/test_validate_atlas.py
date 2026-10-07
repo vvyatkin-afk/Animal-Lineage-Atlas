@@ -33,6 +33,10 @@ def minimal_atlas():
             "taxon": "Hippopotamus amphibius",
             "scope": "One test animal",
             "limitations": ["Test fixture only"],
+            "translations": {
+                "ja": {"scope": "テスト対象の動物1頭", "limitations": ["テスト用データのみ"]},
+                "ru": {"scope": "Одно тестовое животное", "limitations": ["Только тестовые данные"]},
+            },
             "last_reviewed": "2026-10-07",
         },
         "animals": [
@@ -83,6 +87,11 @@ class ValidateAtlasTests(unittest.TestCase):
 
     def test_accepts_minimal_atlas(self):
         self.assertEqual(self.validator.validate_atlas(minimal_atlas()), [])
+
+    def test_rejects_incomplete_coverage_translation(self):
+        atlas = minimal_atlas()
+        atlas["coverage"]["translations"]["ja"]["limitations"] = []
+        self.assertIn("invalid_coverage_translation", issue_codes(self.validator.validate_atlas(atlas)))
 
     def test_rejects_dangling_relationship(self):
         atlas = minimal_atlas()

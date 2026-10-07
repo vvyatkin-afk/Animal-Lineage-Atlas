@@ -184,7 +184,7 @@ def main() -> int:
         "measured_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "repository": "vvyatkin-afk/Animal-Lineage-Atlas",
         "source_revision": revision,
-        "worktree_dirty": bool(source_changes),
+        "source_worktree_dirty_excluding_report": bool(source_changes),
         "release_root": release_label,
         "runtime": {"python": platform.python_version(), "node": subprocess.run(
             ["node", "--version"], check=True, capture_output=True, text=True

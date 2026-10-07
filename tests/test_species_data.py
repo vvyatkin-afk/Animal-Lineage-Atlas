@@ -27,6 +27,18 @@ def relationships_by_pair(atlas: dict) -> dict[tuple[str, str, str], dict]:
 
 
 class SpeciesDataTests(unittest.TestCase):
+    def test_core_coverage_is_available_in_all_interface_locales(self):
+        for species in ("red-panda", "polar-bear", "hippopotamus"):
+            with self.subTest(species=species):
+                coverage = load_atlas(species)["coverage"]
+                self.assertIn("translations", coverage)
+                self.assertEqual(set(coverage["translations"]), {"ja", "ru"})
+                for locale in ("ja", "ru"):
+                    translated = coverage["translations"][locale]
+                    self.assertTrue(translated["scope"].strip())
+                    self.assertEqual(len(translated["limitations"]), len(coverage["limitations"]))
+                    self.assertTrue(all(item.strip() for item in translated["limitations"]))
+
     def test_polar_bear_relationships_have_primary_evidence(self):
         atlas = load_atlas("polar-bear")
         sources = sources_by_id(atlas)

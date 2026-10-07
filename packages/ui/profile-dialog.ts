@@ -1,5 +1,6 @@
 import { resolvePublicMedia, type MediaReference, type MediaResult } from '../media/resolver.ts';
 import { formatAtlasDate, type AtlasDate } from './date-format.ts';
+import type { LocalizableCoverage } from '../i18n/index.ts';
 
 type AtlasSource = { id: string; title: string; url: string; publisher?: string };
 type AtlasAnimal = {
@@ -29,11 +30,11 @@ export type AtlasDocument = {
   institutions?: Array<{ id: string; names: Array<{ value: string; language?: string }>; country_code?: string; location?: string }>;
   media: Array<MediaReference & { animal_id: string; credit?: string | null; source_ids?: string[] }>;
   sources: AtlasSource[];
-  coverage?: { scope?: string; limitations?: string[] };
+  coverage?: LocalizableCoverage;
 };
 
 type ProfileMessages = {
-  appTitle: string; noMedia: string; mediaUnavailable: string; sourceLabel: string; sourcesLabel: string;
+  appTitle: string; noMedia: string; mediaUnavailable: string; localMediaUnavailable: string; sourceLabel: string; sourcesLabel: string;
   eventsLabel: string; relationshipsLabel: string; claimsLabel: string; dateLabel: string;
   sexLabel: string; statusLabel: string; institutionLabel: string; fromInstitutionLabel: string;
   toInstitutionLabel: string; unknownValue: string;
@@ -70,7 +71,7 @@ function relationshipText(type: string, animalIsChild: boolean, messages: Profil
 export function buildProfileModel(
   atlas: AtlasDocument,
   animalId: string | null,
-  mediaOptions: { remoteFailed?: boolean; locale?: string } = {},
+  mediaOptions: { remoteFailed?: boolean; locale?: string; mediaResolver?: (item: MediaReference) => MediaResult } = {},
 ) {
   const animal = atlas.animals.find((candidate) => candidate.id === animalId);
   if (!animal) return null;
@@ -101,7 +102,7 @@ export function buildProfileModel(
   }));
   const media = atlas.media.filter((item) => item.animal_id === animal.id).map((item) => ({
     item,
-    presentation: resolvePublicMedia(item, mediaOptions),
+    presentation: mediaOptions.mediaResolver?.(item) ?? resolvePublicMedia(item, mediaOptions),
     sources: sourceList(atlas, item.source_ids),
   }));
   const nameSources = sourceList(atlas, animal.name.source_ids);
@@ -167,11 +168,12 @@ function mediaMarkup(
   if (!media.length) return `<div class="media-placeholder" role="img" aria-label="${escapeHtml(messages.noMedia)}">${escapeHtml(messages.noMedia)}</div>`;
   return media.map(({ item, presentation, sources }) => {
     const image = presentation.kind === 'remote' || presentation.kind === 'local'
-      ? `<img class="profile-image" src="${escapeHtml(presentation.src)}" alt="${escapeHtml(name)}" data-image-fallback="${escapeHtml(messages.noMedia)}">`
+      ? `<img class="profile-image" src="${escapeHtml(presentation.src)}" alt="${escapeHtml(name)}" data-image-fallback="${escapeHtml(presentation.kind === 'local' ? messages.localMediaUnavailable : messages.mediaUnavailable)}">`
       : `<div class="media-placeholder" role="img" aria-label="${escapeHtml(presentation.description)}">${escapeHtml(presentation.description)}</div>`;
-    const sourceUrl = presentation.kind === 'placeholder' ? presentation.sourceUrl : presentation.sourceUrl;
+    const sourceUrl = presentation.sourceUrl;
     const link = sourceUrl ? `<p><a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(messages.sourceLabel)}</a></p>` : '';
-    const credit = item.credit ? `<p class="media-credit">${escapeHtml(item.credit)}</p>` : '';
+    const creditText = item.credit ?? (presentation.kind === 'local' ? presentation.credit : null);
+    const credit = creditText ? `<p class="media-credit">${escapeHtml(creditText)}</p>` : '';
     return `<figure class="profile-media">${image}${credit}${link}${sourceLinks(sources, messages.sourceLabel)}</figure>`;
   }).join('');
 }

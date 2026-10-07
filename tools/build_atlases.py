@@ -93,6 +93,10 @@ def build_atlases(output_root: Path) -> list[Path]:
             text=True,
         )
         _compact_json(REPO_ROOT / "atlases" / species / "atlas.json", output_dir / "runtime.json")
+        (output_dir / "local-media-manifest.json").write_text(
+            json.dumps({"format": "animal-lineage-atlas-local-media-manifest-v1", "items": []}, separators=(",", ":")) + "\n",
+            encoding="utf-8",
+        )
         built_paths.append(output_dir)
 
     findings = scan_tree(output_root)

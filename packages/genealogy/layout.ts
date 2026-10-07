@@ -53,8 +53,11 @@ export interface GenealogyGraph {
   truncated: boolean;
 }
 
-const RELATION_TYPES = new Set<RelationshipType>([
+const DISPLAY_RELATION_TYPES = new Set<RelationshipType>([
   'biological_mother', 'biological_father', 'foster', 'adoptive', 'social',
+]);
+const GENERATION_RELATION_TYPES = new Set<RelationshipType>([
+  'biological_mother', 'biological_father', 'foster', 'adoptive',
 ]);
 
 export function buildGenealogy(
@@ -72,7 +75,7 @@ export function buildGenealogy(
   const parentRelations = new Map<string, GraphRelationship[]>();
   const childRelations = new Map<string, GraphRelationship[]>();
   for (const relation of relationships) {
-    if (!RELATION_TYPES.has(relation.type)) continue;
+    if (!GENERATION_RELATION_TYPES.has(relation.type)) continue;
     const childEdges = parentRelations.get(relation.object) ?? [];
     childEdges.push(relation);
     parentRelations.set(relation.object, childEdges);
@@ -152,7 +155,7 @@ export function buildGenealogy(
 
   const includedIds = new Set(nodes.map((node) => node.id));
   const edges = relationships
-    .filter((relation) => includedIds.has(relation.subject) && includedIds.has(relation.object) && RELATION_TYPES.has(relation.type))
+    .filter((relation) => includedIds.has(relation.subject) && includedIds.has(relation.object) && DISPLAY_RELATION_TYPES.has(relation.type))
     .map((relation) => ({
       id: relation.id,
       from: relation.subject,

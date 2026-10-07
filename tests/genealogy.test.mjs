@@ -87,6 +87,39 @@ test('probable edge style is distinct in the graph model', async () => {
   assert.equal(graph.edges[0].type, 'biological_mother');
 });
 
+test('social partner links do not create ancestry generations', async () => {
+  const genealogy = await loadGenealogy();
+  assert.ok(genealogy, 'genealogy layout package should load');
+  const graph = genealogy.buildGenealogy(
+    [animal('focus'), animal('partner'), animal('partner-child')],
+    [
+      relation('edge:partner', 'focus', 'partner', 'confirmed', 'social'),
+      relation('edge:partner-child', 'partner', 'partner-child'),
+    ],
+    'focus',
+  );
+  assert.deepEqual(graph.nodes.map((node) => node.id), ['focus']);
+  assert.deepEqual(graph.generationRows.map((row) => row.generation), [0]);
+  assert.deepEqual(graph.edges, []);
+});
+
+test('social link remains visible when both animals enter through ancestry', async () => {
+  const genealogy = await loadGenealogy();
+  assert.ok(genealogy, 'genealogy layout package should load');
+  const graph = genealogy.buildGenealogy(
+    [animal('focus'), animal('child-a'), animal('child-b')],
+    [
+      relation('edge:focus-a', 'focus', 'child-a'),
+      relation('edge:focus-b', 'focus', 'child-b'),
+      relation('edge:social', 'child-a', 'child-b', 'confirmed', 'social'),
+    ],
+    'focus',
+  );
+  assert.equal(graph.nodes.find((node) => node.id === 'child-a')?.generation, 1);
+  assert.equal(graph.nodes.find((node) => node.id === 'child-b')?.generation, 1);
+  assert.equal(graph.edges.find((edge) => edge.id === 'edge:social')?.type, 'social');
+});
+
 test('country change does not split family', async () => {
   const genealogy = await loadGenealogy();
   assert.ok(genealogy, 'genealogy layout package should load');

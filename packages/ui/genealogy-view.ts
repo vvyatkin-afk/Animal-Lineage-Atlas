@@ -26,11 +26,16 @@ function createEdge(edge: GraphEdge, nodeById: Map<string, GraphNode>) {
   const parent = nodeById.get(edge.from);
   const child = nodeById.get(edge.to);
   if (!parent || !child) return null;
-  const startY = parent.y + 38;
-  const endY = child.y - 38;
-  const midY = (startY + endY) / 2;
+  const pathData = edge.type === 'social'
+    ? `M ${parent.x} ${parent.y} L ${child.x} ${child.y}`
+    : (() => {
+      const startY = parent.y + 38;
+      const endY = child.y - 38;
+      const midY = (startY + endY) / 2;
+      return `M ${parent.x} ${startY} C ${parent.x} ${midY}, ${child.x} ${midY}, ${child.x} ${endY}`;
+    })();
   const path = svgElement('path', {
-    d: `M ${parent.x} ${startY} C ${parent.x} ${midY}, ${child.x} ${midY}, ${child.x} ${endY}`,
+    d: pathData,
     class: `genealogy-edge edge-${edge.type.replaceAll('_', '-')} status-${edge.status}`,
     'data-edge-id': edge.id,
     'data-edge-status': edge.status,

@@ -31,6 +31,9 @@ test('all four independent static paths are emitted', async () => {
   }
   for (const appPath of appPaths.slice(1)) {
     assert.ok((await stat(path.join(outputRoot, appPath, 'runtime.json'))).isFile());
+    const mediaManifest = JSON.parse(await readFile(path.join(outputRoot, appPath, 'local-media-manifest.json'), 'utf8'));
+    assert.equal(mediaManifest.format, 'animal-lineage-atlas-local-media-manifest-v1');
+    assert.deepEqual(mediaManifest.items, []);
   }
   assert.ok((await stat(path.join(outputRoot, 'atlas', 'catalog.json'))).isFile());
 });

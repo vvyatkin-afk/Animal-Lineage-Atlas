@@ -3,7 +3,7 @@
 ## Source and paths
 
 - Repository: [vvyatkin-afk/Animal-Lineage-Atlas](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas)
-- Source implementation revision at QA: `15b6f18875db1973110900240e7668e92dd55121` (release documentation and deployment commits are tracked separately in Git).
+- Source implementation revision at QA: recorded in [`docs/QA_REPORT.json`](QA_REPORT.json).
 - Production root: `/var/www/html`
 - Public routes:
   - Hub: [http://204.168.161.237/atlas/](http://204.168.161.237/atlas/)
@@ -24,11 +24,11 @@ These counts are verified from the canonical JSON. None of the datasets claims g
 
 ## Build and QA evidence
 
-The static release contains 654,196 bytes across the four paths before transport compression. JavaScript plus CSS bundles total 296,458 bytes. Runtime JSON payloads are 269,771 bytes for red panda, 47,573 bytes for polar bear, and 14,920 bytes for hippopotamus; hub catalog JSON is 2,542 bytes. The machine-readable report includes individual assets and sampled search and genealogy timings.
+The static release contains 758,779 bytes across the four paths before transport compression. JavaScript plus CSS bundles total 383,233 bytes. Runtime JSON payloads are 272,047 bytes for red panda, 52,156 bytes for polar bear, and 18,081 bytes for hippopotamus; hub catalog JSON is 8,358 bytes. The machine-readable report includes individual assets and sampled search and genealogy timings.
 
-Local validation at the QA revision passed clean dependency installation, lint, strict typecheck, 36 Node tests, 27 Python tests, all three canonical validators, repository and built-release no-photo scans, all four builds, and 6/6 Playwright tests. Browser checks used Chromium at 1440×1000 and 390×844, blocked third-party image requests, tested a failed remote image fallback, and inspected screenshots at `/tmp/animal-lineage-atlas-qa/`. The screenshots contain placeholders only.
+Local validation at the QA revision passed clean dependency installation, lint, strict typecheck, 40 Node tests, 41 Python tests, JSON Schema and cross-reference validation for all three canonical datasets, repository and built-release no-photo scans, all four builds, and 8/8 Playwright tests. Browser checks used Chromium at 1440×1000 and 390×844, blocked third-party image requests, tested a failed remote image fallback, and inspected screenshots at `/tmp/animal-lineage-atlas-qa/`. The screenshots contain placeholders only.
 
-`docs/QA_REPORT.json` stores exact asset sizes, search and layout timings, browser totals, and screenshot sizes. CI will repeat the same checks on GitHub `main`; final CI run, deploy SHA, Nginx check, disk status, HTTP smoke results, and rollback manifest are recorded after deployment.
+`docs/QA_REPORT.json` stores exact asset sizes, search and layout timings, browser totals, and screenshot sizes. GitHub CI, deployment SHA, Nginx check, disk status, HTTP smoke results, and rollback manifest are recorded in the final deployment section after deployment.
 
 ## Media and source limits
 

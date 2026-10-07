@@ -14,12 +14,19 @@ This checklist records the required release path from `MASTER_EXECUTION_PROMPT.m
 
 ## Release work
 
-- [ ] Commit schema, source/evidence model, validators, genealogy/search/media resolver packages, and test fixtures.
-- [ ] Migrate the cited Futa-family dataset without photos; preserve uncertainty and unresolved items; generate ID map and migration report.
-- [ ] Research and build a source-bounded polar-bear atlas and a common-hippopotamus atlas; publish coverage and limitations.
-- [ ] Build the hub and shared responsive, keyboard-accessible English/Japanese/Russian interface.
-- [ ] Add CI checks for lint/typecheck, tests, schema/data validation, local-animal-photo prohibition, all-app builds, and browser smoke coverage where available.
-- [ ] Run independent code/data/browser review; fix findings; commit release and rollback documentation.
+- [x] Commit schema, source/evidence model, validators, genealogy/search/media resolver packages, and test fixtures.
+- [x] Migrate the cited Futa-family dataset without photos; preserve uncertainty and unresolved items; generate ID map and migration report.
+- [x] Research and build a source-bounded polar-bear atlas and a common-hippopotamus atlas; publish coverage and limitations.
+- [x] Build the hub and shared responsive, keyboard-accessible English/Japanese/Russian interface.
+- [x] Localize source categories and coverage scope/limitations in all three interface languages while retaining curated proper names and source titles.
+- [x] Add CI checks for lint/typecheck, tests, schema/data validation, local-animal-photo prohibition, all-app builds, and browser smoke coverage.
+- [x] Run independent code/data/browser review and fix findings; release and rollback documentation is present.
 - [ ] Push reviewed release to GitHub `main` and verify the exact deployed SHA matches it.
 - [ ] Deploy four path applications with isolated release directories/symlinks, preserving `/red-panda/`; verify Nginx config and HTTP/direct-profile/mobile behavior.
 - [ ] Record production smoke results, counts, source limits, photo audit, disk usage, and rollback target in machine-readable and human-readable release reports.
+
+## Current production preflight
+
+- The production web root is `/var/www/html`, owned by `root:root`; the workspace account cannot write there. The authorized deployment helper needs elevated privileges to stage the immutable release and atomically switch the four Atlas links.
+- `/usr/sbin/nginx -t` succeeds when run with `sudo -n`; unprivileged validation cannot read the configured TLS certificate. No Nginx configuration change is part of this deployment.
+- Before release, `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/` return 404; legacy `/red-panda/` returns 200. Free disk is 5.9 GB (84% used) at the current check. The final deployed SHA, route smoke checks, and legacy checksum are recorded after deployment.

@@ -12,7 +12,8 @@
     "test:browser": "playwright test",
     "test:python": "python3 -m unittest discover -v",
     "typecheck": "tsc --noEmit",
-    "validate:data": "python3 tools/validate_atlas.py atlases/red-panda/atlas.json && python3 tools/validate_atlas.py atlases/polar-bear/atlas.json && python3 tools/validate_atlas.py atlases/hippopotamus/atlas.json"
+    "validate:data": "python3 tools/validate_atlas.py atlases/red-panda/atlas.json && python3 tools/validate_atlas.py atlases/polar-bear/atlas.json && python3 tools/validate_atlas.py atlases/hippopotamus/atlas.json",
+    "validate:schema": "python3 tools/validate_schema.py atlases/red-panda/atlas.json atlases/polar-bear/atlas.json atlases/hippopotamus/atlas.json"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

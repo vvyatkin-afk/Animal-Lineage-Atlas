@@ -6,4 +6,4 @@ Every media record keeps its original source page URL. The runtime resolver retu
 
 When an image is unavailable, disallowed, or fails to load, the profile keeps its text, family links, source link, and neutral placeholder. The atlas does not proxy, scrape, or cache publisher images. Generic interface marks and vector placeholders are allowed when they are not animal-photo reproductions.
 
-Local image substitution is supported through an injected private-media manifest, not through the public data files. See [the offline archive design](OFFLINE_ARCHIVE_FUTURE.md).
+Local image substitution is supported through a per-path manifest, not through the public data files. Public builds ship an empty manifest; an owner-created private package can provide local assets and a populated manifest. See [the offline archive design](OFFLINE_ARCHIVE_FUTURE.md).

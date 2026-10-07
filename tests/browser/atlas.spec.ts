@@ -47,6 +47,16 @@ test('hub renders all atlas cards, changes locale, and works at desktop size', a
   await page.screenshot({ path: `${screenshotDir}/hub-desktop.png`, fullPage: true });
   await page.getByLabel('Interface language').selectOption('ja');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
+  await expect(page.locator('.top-nav')).toContainText('アトラス');
+  await expect(page.locator('[data-atlas-id="red-panda"] .card-scope')).toContainText('引用されたFuta家系');
+  await expect(page.locator('[data-atlas-id="red-panda"] .source-categories')).toContainText('動物園公式');
+  await page.locator('#language-select').selectOption('ru');
+  await expect(page.locator('[data-atlas-id="red-panda"] .card-scope')).toContainText('Слой данных по семейству Futa');
+  await expect(page.locator('[data-atlas-id="red-panda"] .source-categories')).toContainText('Официаль');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.locator('.language-control > span')).toBeVisible();
+  const hubLanguageFontSize = await page.locator('#language-select').evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize));
+  expect(hubLanguageFontSize).toBeGreaterThan(12);
   expect(errors).toEqual([]);
 });
 
@@ -101,7 +111,64 @@ test('historical facilities are searchable and transfer details retain both endp
   await expect(page.locator('#profile-title')).toHaveText('Vaida');
   await page.getByLabel('Interface language').selectOption('ja');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
+  await expect(page.locator('#atlas-kind')).toHaveText('ホッキョクグマのアトラス');
+  await expect(page.locator('#atlas-title')).toHaveText('ホッキョクグマの系譜');
   await expect(page.locator('label[for="search-input"]')).toHaveText('動物を検索');
+  await expect(page.locator('.tree-heading-row .eyebrow')).toHaveText('家族の記録');
+  await expect(page.locator('.graph-help')).toContainText('名前を選ぶ');
+  await expect(page.locator('.coverage-method')).toContainText('出典を示します');
+  expect(errors).toEqual([]);
+  await page.getByLabel('表示言語').selectOption('ru');
+  await expect(page.locator('#atlas-kind')).toHaveText('Атлас: Белый медведь');
+  await expect(page.locator('#atlas-title')).toHaveText('Родословная: Белый медведь');
+});
+
+test('child coverage scope and limitations follow Japanese and Russian locale choices', async ({ page }) => {
+  await page.goto('/atlas.hippopotamus/');
+  await page.getByLabel('Interface language').selectOption('ja');
+  await expect(page.locator('#coverage-scope')).toContainText('Cincinnati Zooで個体名が記録された5頭');
+  await expect(page.locator('#coverage-limitations')).toContainText('コビトカバ');
+  await page.locator('#language-select').selectOption('ru');
+  await expect(page.locator('#coverage-scope')).toContainText('Пять поимённо указанных обыкновенных бегемотов');
+  await expect(page.locator('#coverage-limitations')).toContainText('Карликовый бегемот');
+});
+
+test('optional local manifest renders a local media asset in the profile UI', async ({ page }) => {
+  const errors = observeErrors(page);
+  await page.route('**/atlas.red-panda/runtime.json', async (route) => {
+    const response = await route.fetch();
+    const atlas = await response.json() as { media: Array<Record<string, unknown>> };
+    atlas.media.push({
+      media_id: 'media:offline-ui-test',
+      animal_id: 'red-panda:futa',
+      source_page_url: 'https://example.org/source-record',
+      rights_status: 'fixture_only',
+      embedding_status: 'link_only',
+      credit: null,
+    });
+    await route.fulfill({ response, body: JSON.stringify(atlas) });
+  });
+  await page.route('**/atlas.red-panda/local-media-manifest.json', (route) => route.fulfill({
+    contentType: 'application/json',
+    body: JSON.stringify({
+      format: 'animal-lineage-atlas-local-media-manifest-v1',
+      items: [{
+        media_id: 'media:offline-ui-test', relative_path: 'local-media-swatch.svg',
+        original_source_url: 'https://example.org/source-record', credit: 'Offline archive fixture',
+        rights_status: 'fixture_only', checksum: 'sha256:fixture', archive_status: 'test_fixture',
+      }],
+    }),
+  }));
+  await page.route('**/atlas.red-panda/local-media-swatch.svg', (route) => route.fulfill({
+    contentType: 'image/svg+xml',
+    body: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><rect width="32" height="32" fill="#789"/></svg>',
+  }));
+  await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:futa')}`);
+  const localImage = page.locator('#profile-dialog img[src="./local-media-swatch.svg"]');
+  await expect(localImage).toBeVisible();
+  await expect(localImage).toHaveJSProperty('naturalWidth', 32);
+  await expect(page.locator('#profile-dialog')).toContainText('Offline archive fixture');
+  await expect(page.locator('#profile-dialog a[href="https://example.org/source-record"]')).toBeVisible();
   expect(errors).toEqual([]);
 });
 
@@ -137,6 +204,9 @@ test('mobile atlas fits the viewport and supports keyboard profile controls', as
   const errors = observeErrors(page);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`/atlas.hippopotamus/?animal=${encodeURIComponent('hippopotamus:fiona')}`);
+  await expect(page.locator('.language-control > span')).toBeVisible();
+  const atlasLanguageFontSize = await page.locator('#language-select').evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize));
+  expect(atlasLanguageFontSize).toBeGreaterThan(12);
   await expect(page.locator('svg[data-genealogy]')).toBeVisible();
   await page.getByRole('button', { name: 'Close profile' }).click();
   const width = await page.evaluate(() => document.documentElement.scrollWidth);

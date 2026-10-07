@@ -48,6 +48,24 @@ test('image failure leaves profile details and the source link available', async
   assert.equal(model.media[0].presentation.sourceUrl, 'https://example.org/animal');
 });
 
+test('profile model accepts the local archive resolver for an offline media item', async () => {
+  const profile = await loadProfile();
+  const media = await import('../packages/media/resolver.ts');
+  assert.ok(profile, 'profile module should load');
+  const manifest = JSON.parse(await readFile(new URL('../packages/media/fixtures/local-media-manifest.json', import.meta.url), 'utf8'));
+  const resolveLocalMedia = media.createLocalResolver(manifest);
+  const model = profile.buildProfileModel({
+    animals: [{ id: 'animal:local', taxon: 'Test taxon', name: { canonical: 'Local animal' } }],
+    events: [], relationships: [], claims: [], sources: [],
+    media: [{
+      media_id: 'media:fixture-swatch', animal_id: 'animal:local', source_page_url: 'https://example.org/source-record',
+      rights_status: 'fixture_only', embedding_status: 'link_only', credit: null, source_ids: [],
+    }],
+  }, 'animal:local', { mediaResolver: resolveLocalMedia });
+  assert.equal(model.media[0].presentation.kind, 'local');
+  assert.equal(model.media[0].presentation.src, './local-media-swatch.svg');
+});
+
 test('profile transfer events show both sourced institution endpoints', async () => {
   const profile = await loadProfile();
   assert.ok(profile, 'profile module should load');
@@ -121,6 +139,15 @@ test('all interface locales render the same required label keys', async () => {
   }
   assert.notEqual(messages.getUiMessages('ja').searchLabel, english.searchLabel);
   assert.notEqual(messages.getUiMessages('ru').searchLabel, english.searchLabel);
+  for (const key of ['graphHelpText', 'coverageMethod', 'familyHistoryLabel', 'siteFooterNote', 'catalogDescription']) {
+    assert.notEqual(messages.getUiMessages('ja')[key], english[key], `${key} has a Japanese translation`);
+    assert.notEqual(messages.getUiMessages('ru')[key], english[key], `${key} has a Russian translation`);
+  }
+  for (const template of ['../apps/atlas/index.html', '../apps/hub/index.html']) {
+    const html = await readFile(new URL(template, import.meta.url), 'utf8');
+    const keys = [...html.matchAll(/data-i18n(?:-[\w-]+)?="([A-Za-z][A-Za-z0-9]+)"/g)].map((match) => match[1]);
+    for (const key of keys) assert.ok(key in english, `${template} has a message for ${key}`);
+  }
 });
 
 test('profile and graph source contain no embedded or local animal photos', async () => {

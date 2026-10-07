@@ -156,6 +156,23 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
                 _issue(issues, "invalid_coverage", f"$.coverage.{field}", "Coverage value must be non-empty text.")
         if not isinstance(coverage.get("limitations"), list) or not all(isinstance(item, str) for item in coverage.get("limitations", [])):
             _issue(issues, "invalid_coverage", "$.coverage.limitations", "Coverage limitations must be a list of strings.")
+        translations = coverage.get("translations")
+        if not isinstance(translations, dict):
+            _issue(issues, "missing_coverage_translation", "$.coverage.translations", "Japanese and Russian coverage translations are required.")
+        else:
+            for locale in ("ja", "ru"):
+                translated = translations.get(locale)
+                path = f"$.coverage.translations.{locale}"
+                if not isinstance(translated, dict):
+                    _issue(issues, "missing_coverage_translation", path, "Coverage translation must be an object.")
+                    continue
+                if not _is_nonempty_string(translated.get("scope")):
+                    _issue(issues, "invalid_coverage_translation", f"{path}.scope", "Translated coverage scope must be non-empty text.")
+                translated_limitations = translated.get("limitations")
+                if not isinstance(translated_limitations, list) or not all(_is_nonempty_string(item) for item in translated_limitations):
+                    _issue(issues, "invalid_coverage_translation", f"{path}.limitations", "Translated limitations must be a list of non-empty strings.")
+                elif isinstance(coverage.get("limitations"), list) and len(translated_limitations) != len(coverage["limitations"]):
+                    _issue(issues, "invalid_coverage_translation", f"{path}.limitations", "Translated limitations must retain the same entries as the canonical text.")
         if not _valid_date_text(coverage.get("last_reviewed"), full_only=True):
             _issue(issues, "invalid_coverage_date", "$.coverage.last_reviewed", "Review date must be a valid YYYY-MM-DD date.")
 

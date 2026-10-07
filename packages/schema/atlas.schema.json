@@ -21,13 +21,22 @@
     "coverage": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["taxon", "scope", "limitations", "last_reviewed"],
+      "required": ["taxon", "scope", "limitations", "last_reviewed", "translations"],
       "properties": {
         "taxon": {"type": "string", "minLength": 1},
         "scope": {"type": "string", "minLength": 1},
         "limitations": {"type": "array", "items": {"type": "string"}},
         "last_reviewed": {"type": "string", "format": "date"},
         "source_categories": {"type": "array", "items": {"type": "string"}},
+        "translations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ja", "ru"],
+          "properties": {
+            "ja": {"$ref": "#/$defs/coverage_translation"},
+            "ru": {"$ref": "#/$defs/coverage_translation"}
+          }
+        },
         "accent": {"type": "string"}
       }
     },
@@ -40,6 +49,15 @@
     "sources": {"type": "array", "items": {"$ref": "#/$defs/source"}}
   },
   "$defs": {
+    "coverage_translation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "limitations"],
+      "properties": {
+        "scope": {"type": "string", "minLength": 1},
+        "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
     "id": {"type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]*$"},
     "status": {"enum": ["confirmed", "probable", "disputed", "unknown"]},
     "review": {

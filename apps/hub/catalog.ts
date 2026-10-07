@@ -1,3 +1,5 @@
+import type { LocalizableCoverage } from '../../packages/i18n/index.ts';
+
 interface HubAtlasDocument {
   release: { data_version: string; build_date?: string };
   coverage: {
@@ -6,6 +8,7 @@ interface HubAtlasDocument {
     limitations?: string[];
     last_reviewed?: string;
     source_categories?: string[];
+    translations?: LocalizableCoverage['translations'];
   };
   animals: unknown[];
   relationships: Array<{ type?: string; status?: string }>;
@@ -21,6 +24,14 @@ export const ATLAS_PATHS = {
 
 export type HubAtlasInput = { id: keyof typeof ATLAS_PATHS; document: HubAtlasDocument };
 
+function summarizeTranslations(translations: LocalizableCoverage['translations']) {
+  if (!translations) return undefined;
+  return Object.fromEntries(Object.entries(translations).map(([locale, content]) => [locale, {
+    scope: content.scope,
+    limitations: content.limitations.slice(0, 1),
+  }])) as LocalizableCoverage['translations'];
+}
+
 export function buildHubCatalog(atlases: HubAtlasInput[]) {
   return atlases.map(({ id, document }) => {
     const sourceCategories = document.coverage.source_categories?.length
@@ -35,6 +46,8 @@ export function buildHubCatalog(atlases: HubAtlasInput[]) {
       taxon: document.coverage.taxon ?? '',
       scope: document.coverage.scope ?? '',
       coverageWarning: document.coverage.limitations?.[0] ?? 'Coverage is limited to the cited public records.',
+      limitations: document.coverage.limitations ?? [],
+      translations: summarizeTranslations(document.coverage.translations),
       animalCount: document.animals.length,
       relationshipCount: document.relationships.length,
       sourceCount: document.sources.length,

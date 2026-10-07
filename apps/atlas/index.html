@@ -10,15 +10,15 @@
     <script type="module" src="./main.js"></script>
   </head>
   <body data-atlas="red-panda" data-base-path="/atlas.red-panda/">
-    <a class="skip-link" href="#main-content">Skip to atlas content</a>
+    <a class="skip-link" href="#main-content" data-i18n="skipLinkLabel">Skip to page content</a>
     <header class="site-header">
-      <a class="brand" href="/atlas/" aria-label="Animal Lineage Atlas home">
+      <a class="brand" href="/atlas/" aria-label="Animal Lineage Atlas home" data-i18n-aria-label="homeAriaLabel">
         <span class="brand-mark" aria-hidden="true">A</span>
-        <span><strong data-i18n="appTitle">Animal Lineage Atlas</strong><small>Evidence first · source linked</small></span>
+        <span><strong data-i18n="appTitle">Animal Lineage Atlas</strong><small data-i18n="brandTagline">Evidence first · source linked</small></span>
       </a>
       <label class="language-control">
         <span data-i18n="languageLabel">Interface language</span>
-        <select id="language-select" aria-label="Interface language">
+        <select id="language-select" aria-label="Interface language" data-i18n-aria-label="languageLabel">
           <option value="en">English</option>
           <option value="ja">日本語</option>
           <option value="ru">Русский</option>
@@ -37,7 +37,7 @@
       </section>
 
       <div class="atlas-layout">
-        <aside class="search-panel" aria-label="Search and filter animals">
+        <aside class="search-panel" aria-label="Search and filter animals" data-i18n-aria-label="searchRegionLabel">
           <form id="search-form" role="search">
             <label for="search-input" data-i18n="searchLabel">Search animals</label>
             <input id="search-input" type="search" autocomplete="off" placeholder="Name, alias, ID, or institution" data-i18n-placeholder="searchPlaceholder">
@@ -52,8 +52,8 @@
 
         <section class="tree-panel" aria-labelledby="tree-heading">
           <div class="tree-heading-row">
-            <div><p class="eyebrow">Family history</p><h2 id="tree-heading" data-i18n="treeLabel">Family tree</h2></div>
-            <div class="graph-controls" role="group" aria-label="Genealogy view controls">
+            <div><p class="eyebrow" data-i18n="familyHistoryLabel">Family history</p><h2 id="tree-heading" data-i18n="treeLabel">Family tree</h2></div>
+            <div class="graph-controls" role="group" aria-label="Family tree controls" data-i18n-aria-label="graphControlsLabel">
               <button id="pan-left" type="button" aria-label="Pan left" title="Pan left">←</button>
               <button id="pan-up" type="button" aria-label="Pan up" title="Pan up">↑</button>
               <button id="pan-down" type="button" aria-label="Pan down" title="Pan down">↓</button>
@@ -62,13 +62,13 @@
               <button id="zoom-in" type="button" aria-label="Zoom in" title="Zoom in">+</button>
             </div>
           </div>
-          <p class="graph-help">Select a name to open its profile. Drag the tree or use arrow keys to move; + and − change zoom.</p>
+          <p class="graph-help" data-i18n="graphHelpText">Select a name to open its profile. Drag the tree or use arrow keys to move; + and − change zoom.</p>
           <div id="genealogy-container" class="genealogy-container"></div>
           <details id="coverage-details" class="coverage-details">
             <summary data-i18n="coverageLabel">Coverage and limitations</summary>
             <p id="coverage-scope"></p>
             <ul id="coverage-limitations"></ul>
-            <p class="coverage-method">This atlas links each recorded family fact to its source. An unrecorded parent or date stays unknown; it is not filled with an invented animal or estimate.</p>
+            <p class="coverage-method" data-i18n="coverageMethod">Each recorded family fact links to its source. An unrecorded parent or date stays unknown; it is not filled with an invented animal or estimate.</p>
           </details>
         </section>
       </div>
@@ -76,11 +76,11 @@
 
     <dialog id="profile-dialog" aria-labelledby="profile-title">
       <div class="dialog-bar">
-        <span class="eyebrow">Animal profile</span>
+        <span class="eyebrow" data-i18n="profileEyebrow">Animal profile</span>
         <button id="close-profile" class="close-button" type="button" aria-label="Close profile" data-i18n-aria-label="closeProfileLabel">× <span data-i18n="closeProfileLabel">Close profile</span></button>
       </div>
       <div data-profile-content class="profile-content"></div>
     </dialog>
-    <footer class="site-footer"><a href="/atlas/" data-i18n="homeLabel">All atlases</a><span>Names follow their cited source. Interface language does not change source records.</span></footer>
+    <footer class="site-footer"><a href="/atlas/" data-i18n="homeLabel">All atlases</a><span data-i18n="siteFooterNote">Names follow their cited sources. Interface language does not change source records.</span></footer>
   </body>
 </html>

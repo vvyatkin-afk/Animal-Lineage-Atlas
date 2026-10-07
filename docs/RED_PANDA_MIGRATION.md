@@ -2,6 +2,8 @@
 
 The v1 red-panda atlas imports the cited, curated Futa-family layer from `FFJ-Red-Panda-Atlas-card-ui-20261007`, at source commit `fe97aff63d87948232462ea4b60873460de96948`. The input JSON hash matches the reviewed production tree asset recorded in the preflight checklist and migration report.
 
+Release review re-read `tree/data.json` from that commit in the available legacy repository. Its SHA-256 is `fae0383b8851fe8522c16692322576d456dcd49412b1aaa7fd51415806b6addd`, matching both the recorded production baseline and migration input hash. The source and target each contain 83 mapped IDs, and all 76 explicit parent relationships match after ID mapping.
+
 ## Imported corpus
 
 `atlases/red-panda/atlas.json` contains 83 named animals, 93 relationships, 173 events, 63 claims, 39 institutions or places, 78 link-only media references, and 95 source records. The 93 relationships include 76 explicit parent references and 17 social-partner links; the social links are not rendered as ancestry. The migration report records seven unnamed-outcome events covering eight outcomes and one unquantified birth event.

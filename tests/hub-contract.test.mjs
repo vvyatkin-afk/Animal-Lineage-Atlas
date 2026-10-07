@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 const loadCatalog = () => import('../apps/hub/catalog.ts').catch(() => null);
+const loadI18n = () => import('../packages/i18n/index.ts').catch(() => null);
 const atlasFiles = ['red-panda', 'polar-bear', 'hippopotamus'];
 const atlasDocs = await Promise.all(atlasFiles.map(async (species) => ({
   id: species,
@@ -23,6 +24,21 @@ test('hub counts match the canonical datasets', async () => {
     assert.equal(card.lastReviewed, document.coverage.last_reviewed);
     assert.ok(card.sourceCategories.length > 0);
     assert.equal(card.scope, document.coverage.scope);
+  }
+});
+
+test('every canonical source category has Japanese and Russian labels', async () => {
+  const i18n = await loadI18n();
+  assert.ok(i18n, 'shared translations should load');
+  for (const { id, document } of atlasDocs) {
+    const categories = document.coverage.source_categories?.length
+      ? document.coverage.source_categories
+      : [...new Set(document.sources.map((source) => source.source_type))];
+    for (const category of categories) {
+      const english = i18n.getSourceCategoryLabel(category, 'en');
+      assert.notEqual(i18n.getSourceCategoryLabel(category, 'ja'), english, `${id}:${category} needs a Japanese label`);
+      assert.notEqual(i18n.getSourceCategoryLabel(category, 'ru'), english, `${id}:${category} needs a Russian label`);
+    }
   }
 });
 

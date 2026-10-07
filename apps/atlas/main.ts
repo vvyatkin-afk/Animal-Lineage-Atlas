@@ -1,6 +1,7 @@
 import { buildGenealogy, type GraphAnimal, type GraphRelationship } from '../../packages/genealogy/layout.ts';
 import { createViewState } from '../../packages/genealogy/state.ts';
-import { getUiMessages, type UiMessages } from '../../packages/i18n/index.ts';
+import { getLocalizedCoverage, getUiMessages, type UiMessages } from '../../packages/i18n/index.ts';
+import { createLocalResolver, resolvePublicMedia, type LocalMediaManifest, type MediaReference, type MediaResult } from '../../packages/media/resolver.ts';
 import { buildAtlasSearchIndex } from '../../packages/search/atlas-index.ts';
 import { searchAnimals } from '../../packages/search/search.ts';
 import { getProfileIdFromSearch, buildProfileModel, renderProfileDialog, type AtlasDocument } from '../../packages/ui/profile-dialog.ts';
@@ -43,12 +44,28 @@ async function boot() {
   const response = await fetch(`${basePath}runtime.json`, { credentials: 'same-origin' });
   if (!response.ok) throw new Error(`Could not load atlas data (${response.status})`);
   const atlas = await response.json() as RuntimeAtlas;
-  const speciesNameByTaxon: Record<string, string> = {
-    'Ailurus fulgens': 'Red panda',
-    'Ursus maritimus': 'Polar bear',
-    'Hippopotamus amphibius': 'Common hippopotamus',
+  let resolveLocalMedia: ((reference: Pick<MediaReference, 'media_id'>) => MediaResult) | null = null;
+  try {
+    const manifestResponse = await fetch(`${basePath}local-media-manifest.json`, { credentials: 'same-origin' });
+    if (manifestResponse.ok) {
+      const manifest = await manifestResponse.json() as LocalMediaManifest;
+      if (manifest.format === 'animal-lineage-atlas-local-media-manifest-v1' && Array.isArray(manifest.items)) {
+        resolveLocalMedia = createLocalResolver(manifest);
+      }
+    }
+  } catch {
+    // A missing optional offline manifest leaves the public media resolver in use.
+  }
+  const mediaResolver = (reference: MediaReference): MediaResult => {
+    const local = resolveLocalMedia?.(reference);
+    return local?.kind === 'local' ? local : resolvePublicMedia(reference);
   };
-  const speciesName = speciesNameByTaxon[atlas.coverage?.taxon ?? ''] ?? atlas.animals[0]?.taxon ?? 'Animal';
+  const speciesNameKeyByTaxon: Record<string, keyof UiMessages> = {
+    'Ailurus fulgens': 'redPandaSpeciesName',
+    'Ursus maritimus': 'polarBearSpeciesName',
+    'Hippopotamus amphibius': 'hippopotamusSpeciesName',
+  };
+  const speciesNameKey = speciesNameKeyByTaxon[atlas.coverage?.taxon ?? ''];
   const localeFromStorage = (() => {
     try {
       const saved = localStorage.getItem(appStorageKey);
@@ -89,6 +106,7 @@ async function boot() {
   function updateStaticLabels() {
     const copy = labels();
     document.documentElement.lang = languageSelect.value || 'en';
+    document.title = copy.appTitle;
     for (const node of document.querySelectorAll<HTMLElement>('[data-i18n]')) {
       const key = node.dataset.i18n as keyof UiMessages | undefined;
       if (key && key in copy) node.textContent = copy[key];
@@ -151,7 +169,7 @@ async function boot() {
       if (dialog.open) dialog.close();
       return;
     }
-    const model = buildProfileModel(atlas, animalId, { locale: languageSelect.value || 'en' });
+    const model = buildProfileModel(atlas, animalId, { locale: languageSelect.value || 'en', mediaResolver });
     if (!model) {
       dialog.querySelector<HTMLElement>('[data-profile-content]')!.textContent = labels().profileNotFound;
       if (!dialog.open) dialog.showModal();
@@ -186,23 +204,27 @@ async function boot() {
 
   function renderCoverage() {
     const coverage = atlas.coverage ?? {};
-    requiredElement<HTMLElement>('atlas-kind').textContent = `${speciesName} atlas`;
-    requiredElement<HTMLElement>('atlas-title').textContent = `${speciesName} lineage`;
-    requiredElement<HTMLElement>('atlas-scope').textContent = coverage.scope ?? '';
-    requiredElement<HTMLElement>('coverage-scope').textContent = coverage.scope ?? '';
+    const copy = labels();
+    const localizedCoverage = getLocalizedCoverage(coverage, languageSelect.value || 'en');
+    const speciesName = speciesNameKey ? copy[speciesNameKey] : atlas.animals[0]?.taxon ?? 'Animal';
+    requiredElement<HTMLElement>('atlas-kind').textContent = copy.atlasKindTemplate.replace('{species}', speciesName);
+    requiredElement<HTMLElement>('atlas-title').textContent = copy.lineageTitleTemplate.replace('{species}', speciesName);
+    requiredElement<HTMLElement>('atlas-scope').textContent = localizedCoverage.scope;
+    requiredElement<HTMLElement>('coverage-scope').textContent = localizedCoverage.scope;
     requiredElement<HTMLElement>('animal-count').textContent = String(atlas.animals.length);
     const limitations = requiredElement<HTMLElement>('coverage-limitations');
-    limitations.replaceChildren(...(coverage.limitations ?? []).map((text) => {
+    limitations.replaceChildren(...localizedCoverage.limitations.map((text) => {
       const item = document.createElement('li');
       item.textContent = text;
       return item;
     }));
     document.body.style.setProperty('--species-accent', coverage.accent ?? '#315e50');
-    document.title = `${speciesName} · Animal Lineage Atlas`;
+    document.title = `${speciesName} · ${copy.appTitle}`;
   }
 
   function renderAll() {
     updateStaticLabels();
+    renderCoverage();
     populateFacets();
     renderResults();
     renderTree();
@@ -249,7 +271,6 @@ async function boot() {
     syncDialog(getProfileIdFromSearch(window.location.search));
   });
 
-  renderCoverage();
   renderAll();
   if (requestedProfile) syncDialog(requestedProfile);
 }
