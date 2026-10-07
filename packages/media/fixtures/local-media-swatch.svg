@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title id="title">Generic local media test swatch</title>
+  <rect width="160" height="160" rx="18" fill="#e8e2d7" />
+  <circle cx="80" cy="69" r="31" fill="#7f9585" />
+  <path d="M34 132h92" stroke="#45594d" stroke-width="6" stroke-linecap="round" />
+  <text x="80" y="148" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#304239">TEST ONLY</text>
+</svg>

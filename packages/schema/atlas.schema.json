@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://animal-lineage-atlas.org/schema/atlas-1.0.0.json",
+  "title": "Animal Lineage Atlas canonical dataset",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["release", "coverage", "animals", "claims", "relationships", "events", "institutions", "media", "sources"],
+  "properties": {
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "data_version", "engine_version", "build_date", "provenance"],
+      "properties": {
+        "schema_version": {"type": "string", "minLength": 1},
+        "data_version": {"type": "string", "minLength": 1},
+        "engine_version": {"type": "string", "minLength": 1},
+        "build_date": {"type": "string", "format": "date"},
+        "provenance": {"type": "string", "minLength": 1}
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["taxon", "scope", "limitations", "last_reviewed", "translations"],
+      "properties": {
+        "taxon": {"type": "string", "minLength": 1},
+        "scope": {"type": "string", "minLength": 1},
+        "limitations": {"type": "array", "items": {"type": "string"}},
+        "last_reviewed": {"type": "string", "format": "date"},
+        "source_categories": {"type": "array", "items": {"type": "string"}},
+        "translations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ja", "ru"],
+          "properties": {
+            "ja": {"$ref": "#/$defs/coverage_translation"},
+            "ru": {"$ref": "#/$defs/coverage_translation"}
+          }
+        },
+        "accent": {"type": "string"}
+      }
+    },
+    "animals": {"type": "array", "items": {"$ref": "#/$defs/animal"}},
+    "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+    "relationships": {"type": "array", "items": {"$ref": "#/$defs/relationship"}},
+    "events": {"type": "array", "items": {"$ref": "#/$defs/event"}},
+    "institutions": {"type": "array", "items": {"$ref": "#/$defs/institution"}},
+    "media": {"type": "array", "items": {"$ref": "#/$defs/media"}},
+    "sources": {"type": "array", "items": {"$ref": "#/$defs/source"}}
+  },
+  "$defs": {
+    "coverage_translation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "limitations"],
+      "properties": {
+        "scope": {"type": "string", "minLength": 1},
+        "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "id": {"type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]*$"},
+    "status": {"enum": ["confirmed", "probable", "disputed", "unknown"]},
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewed_on", "notes"],
+      "properties": {
+        "status": {"enum": ["reviewed", "needs_review", "unreviewed"]},
+        "reviewed_on": {"type": "string", "format": "date"},
+        "notes": {"type": "string"}
+      }
+    },
+    "name": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonical", "language", "source_ids", "localized"],
+      "properties": {
+        "canonical": {"type": "string", "minLength": 1},
+        "language": {"type": "string", "minLength": 2},
+        "source_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/id"}},
+        "localized": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "language", "source_ids"],
+            "properties": {
+              "value": {"type": "string", "minLength": 1},
+              "language": {"type": "string", "minLength": 2},
+              "source_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/id"}}
+            }
+          }
+        }
+      }
+    },
+    "alias": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "language", "source_ids"],
+      "properties": {
+        "value": {"type": "string", "minLength": 1},
+        "language": {"type": "string", "minLength": 2},
+        "source_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/id"}}
+      }
+    },
+    "external_id": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["namespace", "value"],
+      "properties": {
+        "namespace": {"type": "string", "minLength": 1},
+        "value": {"type": "string", "minLength": 1}
+      }
+    },
+    "date_value": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["precision", "value"], "properties": {"precision": {"const": "exact"}, "value": {"type": "string", "format": "date"}}},
+        {"type": "object", "additionalProperties": false, "required": ["precision", "value"], "properties": {"precision": {"const": "approximate"}, "value": {"type": "string", "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"}}},
+        {"type": "object", "additionalProperties": false, "required": ["precision", "start", "end"], "properties": {"precision": {"const": "range"}, "start": {"type": "string", "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"}, "end": {"type": "string", "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"}}},
+        {"type": "object", "additionalProperties": false, "required": ["precision", "notes"], "properties": {"precision": {"const": "unknown"}, "notes": {"type": "string", "minLength": 1}}}
+      ]
+    },
+    "animal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "taxon", "sex", "status", "name", "aliases", "external_ids", "review"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "taxon": {"type": "string", "minLength": 1},
+        "sex": {"enum": ["female", "male", "intersex", "unknown"]},
+        "status": {"enum": ["living", "deceased", "unknown"]},
+        "name": {"$ref": "#/$defs/name"},
+        "aliases": {"type": "array", "items": {"$ref": "#/$defs/alias"}},
+        "external_ids": {"type": "array", "items": {"$ref": "#/$defs/external_id"}},
+        "review": {"$ref": "#/$defs/review"}
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "subject", "claim_type", "value", "status", "source_ids", "review"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "subject": {"$ref": "#/$defs/id"},
+        "claim_type": {"type": "string", "minLength": 1}, "value": {},
+        "status": {"$ref": "#/$defs/status"},
+        "source_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/id"}},
+        "review": {"$ref": "#/$defs/review"}
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "subject", "object", "type", "status", "source_ids", "review"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "subject": {"$ref": "#/$defs/id"}, "object": {"$ref": "#/$defs/id"},
+        "type": {"enum": ["biological_mother", "biological_father", "foster", "adoptive", "social"]},
+        "status": {"$ref": "#/$defs/status"},
+        "source_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/id"}},
+        "review": {"$ref": "#/$defs/review"}
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "animal_id", "type", "date", "institution_id", "source_ids", "notes"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "animal_id": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/id"}]},
+        "related_animal_ids": {"type": "array", "items": {"$ref": "#/$defs/id"}},
+        "outcome_count": {"type": "integer", "minimum": 1},
+        "type": {"enum": ["birth", "death", "move", "transfer", "release", "observation"]},
+        "date": {"$ref": "#/$defs/date_value"},
+        "institution_id": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/id"}]},
+        "from_institution_id": {"$ref": "#/$defs/id"}, "to_institution_id": {"$ref": "#/$defs/id"},
+        "source_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/id"}},
+        "notes": {"type": "string"}
+      }
+    },
+    "institution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "names", "country_code", "location"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "names": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["value", "language"], "properties": {"value": {"type": "string", "minLength": 1}, "language": {"type": "string", "minLength": 2}}}},
+        "country_code": {"type": ["string", "null"], "pattern": "^[A-Z]{2}$"},
+        "location": {"type": ["string", "null"]}
+      }
+    },
+    "media": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["media_id", "animal_id", "source_page_url", "credit", "rights_status", "embedding_status", "offline_archive_eligible", "identity_confidence", "checked_date", "notes", "source_ids"],
+      "properties": {
+        "media_id": {"$ref": "#/$defs/id"}, "animal_id": {"$ref": "#/$defs/id"},
+        "source_page_url": {"type": "string", "format": "uri"}, "direct_remote_url": {"type": "string", "format": "uri"},
+        "credit": {"type": ["string", "null"]}, "rights_status": {"type": "string", "minLength": 1},
+        "embedding_status": {"enum": ["allowed", "link_only", "denied", "unknown"]},
+        "offline_archive_eligible": {"type": "boolean"}, "identity_confidence": {"$ref": "#/$defs/status"},
+        "checked_date": {"type": "string", "format": "date"}, "notes": {"type": "string"},
+        "source_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/id"}}
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "publisher", "url", "publication_date", "accessed_date", "source_type", "notes", "data_use"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "title": {"type": "string", "minLength": 1},
+        "publisher": {"type": "string", "minLength": 1}, "url": {"type": "string", "format": "uri"},
+        "publication_date": {"type": ["string", "null"]}, "accessed_date": {"type": "string", "format": "date"},
+        "source_type": {"type": "string", "minLength": 1}, "notes": {"type": "string"},
+        "data_use": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

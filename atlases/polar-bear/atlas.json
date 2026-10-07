@@ -1,0 +1,1956 @@
+{
+  "release": {
+    "schema_version": "1.0.0",
+    "data_version": "2026.10.07",
+    "engine_version": "1.0.0",
+    "build_date": "2026-10-07",
+    "provenance": "Compiled from linked public zoo records. Counts: 22 animals, 24 relationships, 38 events; the hub also computes counts from this canonical file."
+  },
+  "coverage": {
+    "taxon": "Ursus maritimus",
+    "scope": "A source-bounded public-history corpus: 10 bears named in Tallinn Zoo's history; Tonja, Wolodja, Fritz, Hertha, and their genetically documented parents Simona and Vrangel at Tierpark Berlin; five bears documented by Prague Zoo (Bora, Alík, Pú, Berta, Tom); and Tom's source-identified father Umca.",
+    "limitations": [
+      "This is not a complete European or international polar-bear studbook.",
+      "Tallinn Zoo gives only years for several births and deaths, and does not report dates for some transfers; those dates remain approximate or unknown.",
+      "The Berlin 2021 German genetics release corrects Tonja's identity and identifies Simona and Vrangel as parents of both Tonja and Wolodja. It also lists Fritz's death as 3 March 2017, conflicting with Tierpark's contemporary report and later article identifying 6 March; the conflict is preserved in disputed claims.",
+      "Only source-labeled official-page media links are retained; unknown rights and embedding permissions mean every reference is link-only, with no image files or direct image URLs.",
+      "The Prague Zoo Bora profile is historical and does not establish Bora's current status. Later official updates establish Berta's September 2023 death and Tom's March 2024 transfer to Almaty and May 2024 death; the dataset does not assert an unsupported Bora death date."
+    ],
+    "last_reviewed": "2026-10-07",
+    "source_categories": [
+      "official zoo histories",
+      "official zoo genetic announcement",
+      "official zoo announcements",
+      "official zoo profile",
+      "official zoo updates"
+    ],
+    "accent": "#315e50",
+    "translations": {
+      "ja": {
+        "scope": "出典で確認できる公開飼育史のコーパス：Tallinn Zooの歴史資料で名前が記載された10頭、Tierpark BerlinのTonja、Wolodja、Fritz、Hertha、および遺伝学的資料で親と確認されたSimonaとVrangel、Prague Zooが記録した5頭（Bora、Alík、Pú、Berta、Tom）、さらに出典で特定されたTomの父Umca。",
+        "limitations": [
+          "これはヨーロッパまたは国際的なホッキョクグマの完全な血統台帳ではありません。",
+          "Tallinn Zooは複数の出生と死亡について年のみを示し、一部の移送については日付を公表していません。そのため、該当する日付は概算または不明のままです。",
+          "Berlinが2021年に公表したドイツ語の遺伝学資料は、Tonjaの個体識別を訂正し、SimonaとVrangelがTonjaとWolodjaの両方の親であると特定しています。また、Fritzの死亡日を2017年3月3日と記載していますが、Tierparkの当時の報告および後年の記事では3月6日とされています。この食い違いは、見解が分かれている記録として保持しています。",
+          "出典の公式ページで明示されたメディアリンクのみを保持しています。権利および埋め込み許可が不明なため、すべてリンクのみとし、画像ファイルや画像への直接URLは含めていません。",
+          "Prague ZooのBoraのプロフィールは過去のもので、Boraの現在の状況を確定するものではありません。その後の公式更新により、Bertaが2023年9月に死亡したこと、Tomが2024年3月にAlmatyへ移送され、同年5月に死亡したことは確認されています。このデータセットでは、裏付けのないBoraの死亡日を断定していません。"
+        ]
+      },
+      "ru": {
+        "scope": "Корпус общедоступных сведений об истории, ограниченный указанными источниками: 10 медведей, названных в исторических материалах Tallinn Zoo; Tonja, Wolodja, Fritz, Hertha и их родители Simona и Vrangel, родство которых подтверждено генетическими данными, в Tierpark Berlin; пять медведей, сведения о которых приводит Prague Zoo (Bora, Alík, Pú, Berta, Tom); а также указанный в источнике отец Tom — Umca.",
+        "limitations": [
+          "Это не полный европейский или международный племенной реестр белых медведей.",
+          "Tallinn Zoo указывает только годы рождения и смерти нескольких медведей и не сообщает даты некоторых перемещений; такие даты остаются приблизительными или неизвестными.",
+          "Опубликованный в 2021 году немецкоязычный генетический материал Berlin исправляет идентификацию Tonja и указывает Simona и Vrangel как родителей и Tonja, и Wolodja. В нём также датой смерти Fritz указано 3 марта 2017 года, тогда как в современном событию сообщении Tierpark и более поздней статье указано 6 марта. Это расхождение сохранено среди спорных сведений.",
+          "Сохранены только ссылки на медиа, размещённые на официальных страницах источников и обозначенные там как материалы. Поскольку права и разрешение на встраивание неизвестны, приведены только ссылки — без файлов изображений и прямых URL изображений.",
+          "Профиль Bora на сайте Prague Zoo относится к прошлому и не устанавливает нынешний статус Bora. Последующие официальные обновления подтверждают смерть Berta в сентябре 2023 года, а также перемещение Tom в Almaty в марте 2024 года и его смерть в мае 2024 года. Датасет не утверждает неподтверждённую дату смерти Bora."
+        ]
+      }
+    }
+  },
+  "animals": [
+    {
+      "id": "polar-bear:franz",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Franz",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:tallinn-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:joosep",
+      "taxon": "Ursus maritimus",
+      "sex": "unknown",
+      "status": "deceased",
+      "name": {
+        "canonical": "Joosep",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:tallinn-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:vaida",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "deceased",
+      "name": {
+        "canonical": "Vaida",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:tallinn-history"
+        ],
+        "localized": []
+      },
+      "aliases": [
+        {
+          "value": "Uaidi",
+          "language": "en",
+          "source_ids": [
+            "source:polar-bear:tallinn-history"
+          ]
+        }
+      ],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:jasper",
+      "taxon": "Ursus maritimus",
+      "sex": "unknown",
+      "status": "unknown",
+      "name": {
+        "canonical": "Jasper",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:tallinn-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:marta",
+      "taxon": "Ursus maritimus",
+      "sex": "unknown",
+      "status": "unknown",
+      "name": {
+        "canonical": "Marta",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:tallinn-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:mart",
+      "taxon": "Ursus maritimus",
+      "sex": "unknown",
+      "status": "unknown",
+      "name": {
+        "canonical": "Mart",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:tallinn-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:friida",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Friida",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:tallinn-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:nord",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Nord",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:tallinn-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:nora",
+      "taxon": "Ursus maritimus",
+      "sex": "unknown",
+      "status": "unknown",
+      "name": {
+        "canonical": "Nora",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:tallinn-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:aron",
+      "taxon": "Ursus maritimus",
+      "sex": "unknown",
+      "status": "unknown",
+      "name": {
+        "canonical": "Aron",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:tallinn-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:tonja",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Tonja",
+        "language": "de",
+        "source_ids": [
+          "source:polar-bear:berlin-genetics",
+          "source:polar-bear:berlin-hertha-birth",
+          "source:polar-bear:berlin-hertha-name"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:wolodja",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Wolodja",
+        "language": "de",
+        "source_ids": [
+          "source:polar-bear:berlin-genetics",
+          "source:polar-bear:berlin-fritz-birth",
+          "source:polar-bear:berlin-fritz-death"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:fritz",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Fritz",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:berlin-fritz-birth",
+          "source:polar-bear:berlin-fritz-death"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:hertha",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Hertha",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:berlin-genetics",
+          "source:polar-bear:berlin-hertha-birth",
+          "source:polar-bear:berlin-hertha-name"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:simona",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Simona",
+        "language": "de",
+        "source_ids": [
+          "source:polar-bear:berlin-genetics"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:vrangel",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Vrangel",
+        "language": "de",
+        "source_ids": [
+          "source:polar-bear:berlin-genetics"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:bora",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Bora",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:prague-bora-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The linked Prague profile is historical and does not establish Bora's current status; status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:alik",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Alík",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:prague-bora-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:pu",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Pú",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:prague-bora-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Name and available source-backed facts reviewed; unreported current status remains unknown."
+      }
+    },
+    {
+      "id": "polar-bear:berta",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "deceased",
+      "name": {
+        "canonical": "Berta",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:prague-bora-history",
+          "source:polar-bear:prague-2024-update"
+        ],
+        "localized": []
+      },
+      "aliases": [
+        {
+          "value": "Albert",
+          "language": "en",
+          "source_ids": [
+            "source:polar-bear:prague-bora-history"
+          ]
+        }
+      ],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Prague Zoo reports Berta died in September 2023."
+      }
+    },
+    {
+      "id": "polar-bear:tom",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Tom",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:prague-bora-history",
+          "source:polar-bear:prague-2024-update",
+          "source:polar-bear:prague-tom-transfer",
+          "source:polar-bear:prague-tom-death"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Prague Zoo reports Tom died at Almaty Zoo in May 2024."
+      }
+    },
+    {
+      "id": "polar-bear:umca",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Umca",
+        "language": "cs",
+        "source_ids": [
+          "source:polar-bear:prague-tom-transfer"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Prague Zoo identifies Umca as Tom's father; no other individual history is included in this corpus."
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim:polar-bear:tonja-birth-2009-11-14",
+      "subject": "polar-bear:tonja",
+      "claim_type": "reported_birth_date",
+      "value": "2009-11-14",
+      "status": "disputed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Earlier records listed this date, but the zoo says genetic analysis corrected Tonja's identity and date."
+      }
+    },
+    {
+      "id": "claim:polar-bear:tonja-birth-2009-11-16",
+      "subject": "polar-bear:tonja",
+      "claim_type": "birth_date",
+      "value": "2009-11-16",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The 2021 genetic announcement's chronology identifies Tonja as the cub born to Simona and Vrangel on this date."
+      }
+    },
+    {
+      "id": "claim:polar-bear:fritz-death-2017-03-03",
+      "subject": "polar-bear:fritz",
+      "claim_type": "reported_death_date",
+      "value": "2017-03-03",
+      "status": "disputed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The 2021 German release chronology lists 3 March, conflicting with Tierpark's contemporary report and its later transfer article."
+      }
+    },
+    {
+      "id": "claim:polar-bear:fritz-death-2017-03-06",
+      "subject": "polar-bear:fritz",
+      "claim_type": "death_date",
+      "value": "2017-03-06",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:berlin-fritz-death",
+        "source:polar-bear:berlin-wolodja-moves"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Contemporary report says Fritz died Monday evening; the zoo's transfer article specifies that evening as 6 March."
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "relationship:polar-bear:franz-jasper",
+      "subject": "polar-bear:franz",
+      "object": "polar-bear:jasper",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vaida-jasper",
+      "subject": "polar-bear:vaida",
+      "object": "polar-bear:jasper",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:franz-marta",
+      "subject": "polar-bear:franz",
+      "object": "polar-bear:marta",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vaida-marta",
+      "subject": "polar-bear:vaida",
+      "object": "polar-bear:marta",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:franz-mart",
+      "subject": "polar-bear:franz",
+      "object": "polar-bear:mart",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vaida-mart",
+      "subject": "polar-bear:vaida",
+      "object": "polar-bear:mart",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:franz-friida",
+      "subject": "polar-bear:franz",
+      "object": "polar-bear:friida",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vaida-friida",
+      "subject": "polar-bear:vaida",
+      "object": "polar-bear:friida",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:friida-nora",
+      "subject": "polar-bear:friida",
+      "object": "polar-bear:nora",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:nord-nora",
+      "subject": "polar-bear:nord",
+      "object": "polar-bear:nora",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:friida-aron",
+      "subject": "polar-bear:friida",
+      "object": "polar-bear:aron",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:nord-aron",
+      "subject": "polar-bear:nord",
+      "object": "polar-bear:aron",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:simona-tonja",
+      "subject": "polar-bear:simona",
+      "object": "polar-bear:tonja",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vrangel-tonja",
+      "subject": "polar-bear:vrangel",
+      "object": "polar-bear:tonja",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:simona-wolodja",
+      "subject": "polar-bear:simona",
+      "object": "polar-bear:wolodja",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vrangel-wolodja",
+      "subject": "polar-bear:vrangel",
+      "object": "polar-bear:wolodja",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:tonja-fritz",
+      "subject": "polar-bear:tonja",
+      "object": "polar-bear:fritz",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics",
+        "source:polar-bear:berlin-fritz-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:wolodja-fritz",
+      "subject": "polar-bear:wolodja",
+      "object": "polar-bear:fritz",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics",
+        "source:polar-bear:berlin-fritz-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:tonja-hertha",
+      "subject": "polar-bear:tonja",
+      "object": "polar-bear:hertha",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics",
+        "source:polar-bear:berlin-hertha-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:wolodja-hertha",
+      "subject": "polar-bear:wolodja",
+      "object": "polar-bear:hertha",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics",
+        "source:polar-bear:berlin-hertha-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:alik-pu",
+      "subject": "polar-bear:alik",
+      "object": "polar-bear:pu",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:bora-berta",
+      "subject": "polar-bear:bora",
+      "object": "polar-bear:berta",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:alik-berta",
+      "subject": "polar-bear:alik",
+      "object": "polar-bear:berta",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "The cited zoo source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:umca-tom",
+      "subject": "polar-bear:umca",
+      "object": "polar-bear:tom",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:prague-tom-transfer"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Prague Zoo directly identifies Umca as Tom's father."
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "event:polar-bear:vaida-arrival",
+      "animal_id": "polar-bear:vaida",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "1987"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "The source says she arrived from Kazan aged 2.5 years and was then named Vaida.",
+      "from_institution_id": "institution:polar-bear:kazan-zoo",
+      "to_institution_id": "institution:polar-bear:tallinn-zoo"
+    },
+    {
+      "id": "event:polar-bear:franz-arrival",
+      "animal_id": "polar-bear:franz",
+      "type": "move",
+      "date": {
+        "precision": "approximate",
+        "value": "1988"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "Wild-caught cub brought from Graham Bell Island to Tallinn; exact arrival date is not published.",
+      "from_institution_id": "institution:polar-bear:graham-bell-island",
+      "to_institution_id": "institution:polar-bear:tallinn-zoo"
+    },
+    {
+      "id": "event:polar-bear:joosep-arrival",
+      "animal_id": "polar-bear:joosep",
+      "type": "move",
+      "date": {
+        "precision": "approximate",
+        "value": "1988"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "Wild-caught cub brought from Graham Bell Island to Tallinn; exact arrival date is not published.",
+      "from_institution_id": "institution:polar-bear:graham-bell-island",
+      "to_institution_id": "institution:polar-bear:tallinn-zoo"
+    },
+    {
+      "id": "event:polar-bear:jasper-birth",
+      "animal_id": "polar-bear:jasper",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "1995"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "The zoo publishes the birth year only.",
+      "related_animal_ids": [
+        "polar-bear:franz",
+        "polar-bear:vaida"
+      ]
+    },
+    {
+      "id": "event:polar-bear:marta-birth",
+      "animal_id": "polar-bear:marta",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "1996"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "The zoo publishes the birth year only.",
+      "related_animal_ids": [
+        "polar-bear:franz",
+        "polar-bear:vaida"
+      ]
+    },
+    {
+      "id": "event:polar-bear:mart-birth",
+      "animal_id": "polar-bear:mart",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "1998"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "The zoo publishes the birth year only.",
+      "related_animal_ids": [
+        "polar-bear:franz",
+        "polar-bear:vaida"
+      ]
+    },
+    {
+      "id": "event:polar-bear:friida-birth",
+      "animal_id": "polar-bear:friida",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "2002"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "The zoo publishes the birth year only.",
+      "related_animal_ids": [
+        "polar-bear:franz",
+        "polar-bear:vaida"
+      ]
+    },
+    {
+      "id": "event:polar-bear:jasper-transfer",
+      "animal_id": "polar-bear:jasper",
+      "type": "transfer",
+      "date": {
+        "precision": "unknown",
+        "notes": "The zoo does not publish a transfer date."
+      },
+      "institution_id": "institution:polar-bear:kaunas-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "Transferred from Tallinn Zoo to Kaunas Zoo; date not reported.",
+      "from_institution_id": "institution:polar-bear:tallinn-zoo",
+      "to_institution_id": "institution:polar-bear:kaunas-zoo"
+    },
+    {
+      "id": "event:polar-bear:marta-transfer",
+      "animal_id": "polar-bear:marta",
+      "type": "transfer",
+      "date": {
+        "precision": "unknown",
+        "notes": "The zoo does not publish a transfer date."
+      },
+      "institution_id": null,
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "Transferred from Tallinn Zoo to China; the zoo does not identify a receiving institution or date.",
+      "from_institution_id": "institution:polar-bear:tallinn-zoo"
+    },
+    {
+      "id": "event:polar-bear:mart-transfer",
+      "animal_id": "polar-bear:mart",
+      "type": "transfer",
+      "date": {
+        "precision": "unknown",
+        "notes": "The zoo does not publish a transfer date."
+      },
+      "institution_id": null,
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "Transferred from Tallinn Zoo to China; the zoo does not identify a receiving institution or date.",
+      "from_institution_id": "institution:polar-bear:tallinn-zoo"
+    },
+    {
+      "id": "event:polar-bear:joosep-death",
+      "animal_id": "polar-bear:joosep",
+      "type": "death",
+      "date": {
+        "precision": "approximate",
+        "value": "1991"
+      },
+      "institution_id": null,
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "The zoo reports the year of death only."
+    },
+    {
+      "id": "event:polar-bear:franz-death",
+      "animal_id": "polar-bear:franz",
+      "type": "death",
+      "date": {
+        "precision": "approximate",
+        "value": "2007"
+      },
+      "institution_id": null,
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "The zoo reports the year of death only."
+    },
+    {
+      "id": "event:polar-bear:nord-birth",
+      "animal_id": "polar-bear:nord",
+      "type": "birth",
+      "date": {
+        "precision": "unknown",
+        "notes": "The zoo identifies Schönbrunn Zoo as birthplace but gives no birth date."
+      },
+      "institution_id": "institution:polar-bear:schonbrunn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "Born at Schönbrunn Zoo; exact birth date is not reported."
+    },
+    {
+      "id": "event:polar-bear:nord-arrival",
+      "animal_id": "polar-bear:nord",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2009"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "Arrived in Tallinn in 2009 from Novosibirsk; exact date is not reported.",
+      "from_institution_id": "institution:polar-bear:novosibirsk-zoo",
+      "to_institution_id": "institution:polar-bear:tallinn-zoo"
+    },
+    {
+      "id": "event:polar-bear:nora-birth",
+      "animal_id": "polar-bear:nora",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "2013"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "The zoo reports Nora's birth year only.",
+      "related_animal_ids": [
+        "polar-bear:friida",
+        "polar-bear:nord"
+      ]
+    },
+    {
+      "id": "event:polar-bear:vaida-death",
+      "animal_id": "polar-bear:vaida",
+      "type": "death",
+      "date": {
+        "precision": "approximate",
+        "value": "2014-01"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "The zoo reports January 2014 but no exact day."
+    },
+    {
+      "id": "event:polar-bear:aron-birth",
+      "animal_id": "polar-bear:aron",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "2016"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ],
+      "notes": "The zoo reports Aron's birth year only.",
+      "related_animal_ids": [
+        "polar-bear:friida",
+        "polar-bear:nord"
+      ]
+    },
+    {
+      "id": "event:polar-bear:tonja-birth",
+      "animal_id": "polar-bear:tonja",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2009-11-16"
+      },
+      "institution_id": "institution:polar-bear:moscow-zoo",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "notes": "Corrected birth identity/date reported after genetic analysis; earlier records had incorrectly assigned 2009-11-14."
+    },
+    {
+      "id": "event:polar-bear:tonja-arrival",
+      "animal_id": "polar-bear:tonja",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2011-01"
+      },
+      "institution_id": "institution:polar-bear:tierpark-berlin",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "notes": "The zoo says Tonja has lived at Tierpark Berlin since January 2011; exact date not given.",
+      "from_institution_id": "institution:polar-bear:moscow-zoo",
+      "to_institution_id": "institution:polar-bear:tierpark-berlin"
+    },
+    {
+      "id": "event:polar-bear:wolodja-birth",
+      "animal_id": "polar-bear:wolodja",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2011-11-27"
+      },
+      "institution_id": "institution:polar-bear:moscow-zoo",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "notes": "Born in Moscow; the zoo gives the exact date."
+    },
+    {
+      "id": "event:polar-bear:wolodja-to-tierpark",
+      "animal_id": "polar-bear:wolodja",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2013-08"
+      },
+      "institution_id": "institution:polar-bear:tierpark-berlin",
+      "source_ids": [
+        "source:polar-bear:berlin-genetics"
+      ],
+      "notes": "The zoo chronology reports August 2013; exact day not given.",
+      "from_institution_id": "institution:polar-bear:moscow-zoo",
+      "to_institution_id": "institution:polar-bear:tierpark-berlin"
+    },
+    {
+      "id": "event:polar-bear:fritz-birth",
+      "animal_id": "polar-bear:fritz",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2016-11-03"
+      },
+      "institution_id": "institution:polar-bear:tierpark-berlin",
+      "source_ids": [
+        "source:polar-bear:berlin-fritz-birth",
+        "source:polar-bear:berlin-fritz-death"
+      ],
+      "notes": "Male cub born to Tonja and Wolodja.",
+      "related_animal_ids": [
+        "polar-bear:tonja",
+        "polar-bear:wolodja"
+      ]
+    },
+    {
+      "id": "event:polar-bear:wolodja-to-zoo-berlin",
+      "animal_id": "polar-bear:wolodja",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2017-02"
+      },
+      "institution_id": "institution:polar-bear:zoo-berlin",
+      "source_ids": [
+        "source:polar-bear:berlin-wolodja-moves"
+      ],
+      "notes": "Temporary relocation to Zoo Berlin; the announcement identifies February but not a day.",
+      "from_institution_id": "institution:polar-bear:tierpark-berlin",
+      "to_institution_id": "institution:polar-bear:zoo-berlin"
+    },
+    {
+      "id": "event:polar-bear:fritz-move-to-izw",
+      "animal_id": "polar-bear:fritz",
+      "type": "move",
+      "date": {
+        "precision": "exact",
+        "value": "2017-03-06"
+      },
+      "institution_id": "institution:polar-bear:leibniz-izw",
+      "source_ids": [
+        "source:polar-bear:berlin-fritz-death",
+        "source:polar-bear:berlin-wolodja-moves"
+      ],
+      "notes": "Moved from Tierpark Berlin to the neighboring Leibniz Institute for examination during his final illness.",
+      "from_institution_id": "institution:polar-bear:tierpark-berlin",
+      "to_institution_id": "institution:polar-bear:leibniz-izw"
+    },
+    {
+      "id": "event:polar-bear:fritz-death",
+      "animal_id": "polar-bear:fritz",
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "2017-03-06"
+      },
+      "institution_id": null,
+      "source_ids": [
+        "source:polar-bear:berlin-fritz-death",
+        "source:polar-bear:berlin-wolodja-moves"
+      ],
+      "notes": "Tierpark reports Fritz died on the evening of 2017-03-06 after treatment at its clinic and examination at the neighboring IZW; the exact location at death is not stated consistently, so it remains unknown. The 2021 chronology separately lists 2017-03-03; both dates are preserved as claims."
+    },
+    {
+      "id": "event:polar-bear:wolodja-back-to-tierpark",
+      "animal_id": "polar-bear:wolodja",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2017-04-22"
+      },
+      "institution_id": "institution:polar-bear:tierpark-berlin",
+      "source_ids": [
+        "source:polar-bear:berlin-wolodja-moves"
+      ],
+      "notes": "Returned to Tierpark Berlin from Zoo Berlin.",
+      "from_institution_id": "institution:polar-bear:zoo-berlin",
+      "to_institution_id": "institution:polar-bear:tierpark-berlin"
+    },
+    {
+      "id": "event:polar-bear:hertha-birth",
+      "animal_id": "polar-bear:hertha",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2018-12-01"
+      },
+      "institution_id": "institution:polar-bear:tierpark-berlin",
+      "source_ids": [
+        "source:polar-bear:berlin-hertha-birth",
+        "source:polar-bear:berlin-hertha-name",
+        "source:polar-bear:berlin-genetics"
+      ],
+      "notes": "Female cub later named Hertha; source announcement says Tonja gave birth and genetic release identifies Wolodja as father.",
+      "related_animal_ids": [
+        "polar-bear:tonja",
+        "polar-bear:wolodja"
+      ]
+    },
+    {
+      "id": "event:polar-bear:bora-birth",
+      "animal_id": "polar-bear:bora",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1986-11-20"
+      },
+      "institution_id": "institution:polar-bear:vienna-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ],
+      "notes": "Prague Zoo gives the exact birth date and Vienna birthplace."
+    },
+    {
+      "id": "event:polar-bear:bora-to-dvur",
+      "animal_id": "polar-bear:bora",
+      "type": "transfer",
+      "date": {
+        "precision": "unknown",
+        "notes": "Prague Zoo says Bora left for Dvůr Králové as a two-year-old, without a calendar date."
+      },
+      "institution_id": "institution:polar-bear:dvur-kralove-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ],
+      "notes": "Moved from Vienna Zoo to Dvůr Králové as a two-year-old; the source does not publish the calendar year or exact transfer date.",
+      "from_institution_id": "institution:polar-bear:vienna-zoo",
+      "to_institution_id": "institution:polar-bear:dvur-kralove-zoo"
+    },
+    {
+      "id": "event:polar-bear:bora-to-prague",
+      "animal_id": "polar-bear:bora",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1997-09-10"
+      },
+      "institution_id": "institution:polar-bear:prague-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ],
+      "notes": "Arrived in Prague on the date given by Prague Zoo.",
+      "from_institution_id": "institution:polar-bear:dvur-kralove-zoo",
+      "to_institution_id": "institution:polar-bear:prague-zoo"
+    },
+    {
+      "id": "event:polar-bear:pu-to-riga",
+      "animal_id": "polar-bear:pu",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2001-05"
+      },
+      "institution_id": "institution:polar-bear:riga-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ],
+      "notes": "The source says Pú left for Riga in May 2001.",
+      "from_institution_id": "institution:polar-bear:prague-zoo",
+      "to_institution_id": "institution:polar-bear:riga-zoo"
+    },
+    {
+      "id": "event:polar-bear:alik-death",
+      "animal_id": "polar-bear:alik",
+      "type": "death",
+      "date": {
+        "precision": "approximate",
+        "value": "2005"
+      },
+      "institution_id": "institution:polar-bear:prague-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ],
+      "notes": "Prague Zoo reports the year of death only."
+    },
+    {
+      "id": "event:polar-bear:berta-birth",
+      "animal_id": "polar-bear:berta",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2003-12-02"
+      },
+      "institution_id": "institution:polar-bear:prague-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ],
+      "notes": "Female cub first named Albert, later renamed Berta; source identifies Bora and Alík as her parents.",
+      "related_animal_ids": [
+        "polar-bear:bora",
+        "polar-bear:alik"
+      ]
+    },
+    {
+      "id": "event:polar-bear:tom-arrival",
+      "animal_id": "polar-bear:tom",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2009-02"
+      },
+      "institution_id": "institution:polar-bear:prague-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ],
+      "notes": "Prague Zoo says Tom arrived from Brno in February 2009.",
+      "from_institution_id": "institution:polar-bear:brno-zoo",
+      "to_institution_id": "institution:polar-bear:prague-zoo"
+    },
+    {
+      "id": "event:polar-bear:berta-death",
+      "animal_id": "polar-bear:berta",
+      "type": "death",
+      "date": {
+        "precision": "approximate",
+        "value": "2023-09"
+      },
+      "institution_id": "institution:polar-bear:prague-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-2024-update"
+      ],
+      "notes": "Prague Zoo's January 2024 update says Berta died the previous September."
+    },
+    {
+      "id": "event:polar-bear:tom-birth",
+      "animal_id": "polar-bear:tom",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2007-11-23"
+      },
+      "institution_id": "institution:polar-bear:brno-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-2024-update"
+      ],
+      "notes": "Prague Zoo gives the date and Brno Zoo as Tom's birthplace."
+    },
+    {
+      "id": "event:polar-bear:tom-transfer-to-almaty",
+      "animal_id": "polar-bear:tom",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2024-03-28"
+      },
+      "institution_id": "institution:polar-bear:almaty-zoo",
+      "from_institution_id": "institution:polar-bear:prague-zoo",
+      "to_institution_id": "institution:polar-bear:almaty-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-tom-transfer"
+      ],
+      "notes": "Prague Zoo says Tom departed for Almaty Zoo on this date."
+    },
+    {
+      "id": "event:polar-bear:tom-death",
+      "animal_id": "polar-bear:tom",
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "2024-05-04"
+      },
+      "institution_id": "institution:polar-bear:almaty-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-tom-death"
+      ],
+      "notes": "Prague Zoo reports Tom died in Almaty Zoo on this date."
+    }
+  ],
+  "institutions": [
+    {
+      "id": "institution:polar-bear:tallinn-zoo",
+      "names": [
+        {
+          "value": "Tallinn Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "EE",
+      "location": "Tallinn"
+    },
+    {
+      "id": "institution:polar-bear:kazan-zoo",
+      "names": [
+        {
+          "value": "Kazan Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "RU",
+      "location": "Kazan"
+    },
+    {
+      "id": "institution:polar-bear:graham-bell-island",
+      "names": [
+        {
+          "value": "Graham Bell Island",
+          "language": "en"
+        }
+      ],
+      "country_code": null,
+      "location": "Franz Josef Land"
+    },
+    {
+      "id": "institution:polar-bear:kaunas-zoo",
+      "names": [
+        {
+          "value": "Kaunas Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "LT",
+      "location": "Kaunas"
+    },
+    {
+      "id": "institution:polar-bear:schonbrunn-zoo",
+      "names": [
+        {
+          "value": "Schönbrunn Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "AT",
+      "location": "Vienna"
+    },
+    {
+      "id": "institution:polar-bear:novosibirsk-zoo",
+      "names": [
+        {
+          "value": "Novosibirsk Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "RU",
+      "location": "Novosibirsk"
+    },
+    {
+      "id": "institution:polar-bear:tierpark-berlin",
+      "names": [
+        {
+          "value": "Tierpark Berlin",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Berlin"
+    },
+    {
+      "id": "institution:polar-bear:zoo-berlin",
+      "names": [
+        {
+          "value": "Zoo Berlin",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Berlin"
+    },
+    {
+      "id": "institution:polar-bear:moscow-zoo",
+      "names": [
+        {
+          "value": "Moscow Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "RU",
+      "location": "Moscow"
+    },
+    {
+      "id": "institution:polar-bear:leibniz-izw",
+      "names": [
+        {
+          "value": "Leibniz Institute for Zoo and Wildlife Research",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Berlin"
+    },
+    {
+      "id": "institution:polar-bear:vienna-zoo",
+      "names": [
+        {
+          "value": "Vienna Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "AT",
+      "location": "Vienna"
+    },
+    {
+      "id": "institution:polar-bear:dvur-kralove-zoo",
+      "names": [
+        {
+          "value": "Dvůr Králové Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "CZ",
+      "location": "Dvůr Králové nad Labem"
+    },
+    {
+      "id": "institution:polar-bear:prague-zoo",
+      "names": [
+        {
+          "value": "Prague Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "CZ",
+      "location": "Prague"
+    },
+    {
+      "id": "institution:polar-bear:riga-zoo",
+      "names": [
+        {
+          "value": "Riga Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "LV",
+      "location": "Riga"
+    },
+    {
+      "id": "institution:polar-bear:brno-zoo",
+      "names": [
+        {
+          "value": "Brno Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "CZ",
+      "location": "Brno"
+    },
+    {
+      "id": "institution:polar-bear:almaty-zoo",
+      "names": [
+        {
+          "value": "Almaty Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "KZ",
+      "location": "Almaty"
+    }
+  ],
+  "media": [
+    {
+      "media_id": "media:polar-bear:franz",
+      "animal_id": "polar-bear:franz",
+      "source_page_url": "https://polaarium.tallinnzoo.ee/en/polar-bears-at-tallinn-zoo/",
+      "credit": null,
+      "rights_status": "unknown; link only",
+      "embedding_status": "link_only",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-07",
+      "notes": "Official page labels an image of Franz. The page link is retained; no image URL or bytes are copied.",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ]
+    },
+    {
+      "media_id": "media:polar-bear:nora",
+      "animal_id": "polar-bear:nora",
+      "source_page_url": "https://polaarium.tallinnzoo.ee/en/polar-bears-at-tallinn-zoo/",
+      "credit": null,
+      "rights_status": "unknown; link only",
+      "embedding_status": "link_only",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-07",
+      "notes": "Official page labels an image of Nora. The page link is retained; no image URL or bytes are copied.",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ]
+    },
+    {
+      "media_id": "media:polar-bear:aron",
+      "animal_id": "polar-bear:aron",
+      "source_page_url": "https://polaarium.tallinnzoo.ee/en/polar-bears-at-tallinn-zoo/",
+      "credit": null,
+      "rights_status": "unknown; link only",
+      "embedding_status": "link_only",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-07",
+      "notes": "Official page labels an image of Aron. The page link is retained; no image URL or bytes are copied.",
+      "source_ids": [
+        "source:polar-bear:tallinn-history"
+      ]
+    },
+    {
+      "media_id": "media:polar-bear:bora",
+      "animal_id": "polar-bear:bora",
+      "source_page_url": "https://www.zoopraha.cz/en/animals/209-meet-them/7608-bora-the-polar-bear",
+      "credit": "Jiří Trojanek",
+      "rights_status": "unknown; link only",
+      "embedding_status": "link_only",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-07",
+      "notes": "Official page labels a Bora and Tom image with photo credit. Link only; no image URL or bytes are copied.",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ]
+    },
+    {
+      "media_id": "media:polar-bear:tom",
+      "animal_id": "polar-bear:tom",
+      "source_page_url": "https://www.zoopraha.cz/en/animals/209-meet-them/7608-bora-the-polar-bear",
+      "credit": "Jiří Trojanek",
+      "rights_status": "unknown; link only",
+      "embedding_status": "link_only",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-07",
+      "notes": "Official page labels a Bora and Tom image with photo credit. Link only; no image URL or bytes are copied.",
+      "source_ids": [
+        "source:polar-bear:prague-bora-history"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "source:polar-bear:tallinn-history",
+      "title": "Polar Bears at Tallinn Zoo",
+      "publisher": "Tallinn Zoo",
+      "url": "https://polaarium.tallinnzoo.ee/en/polar-bears-at-tallinn-zoo/",
+      "publication_date": null,
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_history",
+      "notes": "Names, 1987 and 1988 arrivals, Tallinn family links and birth years, transfers, and reported deaths. The page gives years or months for several events but not exact days or transfer dates.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:berlin-genetics",
+      "title": "Eisbärin Tonja wurde als junge Bärin in Russland vertauscht",
+      "publisher": "Tierpark Berlin",
+      "url": "https://www.tierpark-berlin.de/de/aktuelles/news/artikel/eisbaerin-tonja-wurde-als-junge-baerin-in-russland-vertauscht",
+      "publication_date": "2021-05-18",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_genetics",
+      "notes": "German-language release reports genetic parentage: Tonja's parents are Simona and Vrangel, not the parents in her earlier records; Wolodja has the same parents; Hertha's parents are Tonja and Wolodja. It gives Tonja's corrected 2009 birth date, Wolodja's birth and Berlin moves, and a chronology that conflicts with the zoo's contemporary Fritz death report.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:berlin-fritz-birth",
+      "title": "The secret is out: It’s a boy!",
+      "publisher": "Tierpark Berlin",
+      "url": "https://www.tierpark-berlin.de/en/latest/news/article/the-secret-is-out-its-a-boy",
+      "publication_date": "2017-01-13",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Identifies Fritz as male, gives his birth on 2016-11-03, and names Tonja and Wolodja as his parents.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:berlin-fritz-death",
+      "title": "Tragic news from the Tierpark",
+      "publisher": "Tierpark Berlin",
+      "url": "https://www.tierpark-berlin.de/en/latest/news/article/tragic-news-from-the-tierpark",
+      "publication_date": "2017-03-07",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Contemporary report says Fritz died Monday evening after illness and identifies Tonja and Wolodja as his parents; paired with the zoo's Wolodja transfer report, Monday was 2017-03-06.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:berlin-wolodja-moves",
+      "title": "Male polar bear Wolodja moves back to the Tierpark",
+      "publisher": "Tierpark Berlin",
+      "url": "https://www.tierpark-berlin.de/en/latest/news/article/male-polar-bear-wolodja-moves-back-to-the-tierpark",
+      "publication_date": "2017-04-21",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Published 2017-04-21. Reports Fritz's death on the evening of 2017-03-06, Wolodja's temporary move to Zoo Berlin, and return to Tierpark Berlin on 2017-04-22.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:berlin-hertha-birth",
+      "title": "An advent cub for Tonja",
+      "publisher": "Tierpark Berlin",
+      "url": "https://www.tierpark-berlin.de/en/latest/news/article/an-advent-cub-for-tonja",
+      "publication_date": "2018-12-03",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports that Tonja gave birth on 2018-12-01 and that she mated with Wolodja.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:berlin-hertha-name",
+      "title": "The home team welcomes: Hertha",
+      "publisher": "Tierpark Berlin",
+      "url": "https://www.tierpark-berlin.de/en/latest/news/article/the-home-team-welcomes-hertha",
+      "publication_date": "2019-02-04",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Names Tonja's cub Hertha and identifies the cub as female.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:prague-bora-history",
+      "title": "Bora the Polar Bear",
+      "publisher": "Prague Zoo",
+      "url": "https://www.zoopraha.cz/en/animals/209-meet-them/7608-bora-the-polar-bear",
+      "publication_date": null,
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_profile",
+      "notes": "Individual history for Bora, Alík, Pú, Berta, and Tom: birth, parentage, historic zoo placements, Berta's earlier name Albert, Alík's death, and Tom's arrival.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:prague-2024-update",
+      "title": "Chystané změny u ledních medvědů",
+      "publisher": "Prague Zoo",
+      "url": "https://www.zoopraha.cz/aktualne/novinky-u-zvirat/14521-chystane-zmeny-u-lednich-medvedu",
+      "publication_date": "2024-01-12",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Czech-language update reports Berta died in September 2023; gives Tom's exact birth date and Brno birthplace, February 2009 arrival in Prague, and his time with Berta and Bora. It proposes a later Tom move; that planned move is not treated as an event here.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:prague-tom-transfer",
+      "title": "Tom odjíždí do zoo v Almaty",
+      "publisher": "Prague Zoo",
+      "url": "https://www.zoopraha.cz/aktualne/novinky-u-zvirat/14639-tom-odjizdi-do-zoo-v-almaty",
+      "publication_date": "2024-03-28",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Czech-language announcement says Tom departed Prague for Almaty Zoo on 2024-03-28 and identifies Umca as his father, born in Almaty.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:prague-tom-death",
+      "title": "V Almaty Zoo uhynul lední medvěd Tom",
+      "publisher": "Prague Zoo",
+      "url": "https://www.zoopraha.cz/aktualne/novinky-u-zvirat/14737-v-almaty-zoo-uhynul-ledni-medved-tom",
+      "publication_date": "2024-05-22",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Czech-language report states Tom died at Almaty Zoo on 2024-05-04.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    }
+  ]
+}

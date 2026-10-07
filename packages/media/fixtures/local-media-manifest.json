@@ -1,0 +1,14 @@
+{
+  "format": "animal-lineage-atlas-local-media-manifest-v1",
+  "items": [
+    {
+      "media_id": "media:fixture-swatch",
+      "relative_path": "local-media-swatch.svg",
+      "original_source_url": "https://example.org/source-record",
+      "credit": "Generic interface fixture",
+      "rights_status": "fixture_only",
+      "checksum": "sha256:c9176eb886dfacfcebabf6d38d49095b08d105d92bffc5b1262f1fe86e374654",
+      "archive_status": "test_fixture"
+    }
+  ]
+}
