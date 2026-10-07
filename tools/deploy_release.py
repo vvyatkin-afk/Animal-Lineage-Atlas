@@ -85,6 +85,9 @@ def deploy_release(root: Path, dist: Path, revision: str) -> Path:
         (staging / "release-manifest.json").write_text(
             json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )
+        # mkdtemp creates a private 0700 directory; the web server must be able
+        # to traverse the published release after the staging directory is renamed.
+        staging.chmod(0o755)
         staging.rename(release)
     except Exception:
         shutil.rmtree(staging, ignore_errors=True)
