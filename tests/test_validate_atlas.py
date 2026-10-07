@@ -173,6 +173,23 @@ class ValidateAtlasTests(unittest.TestCase):
         self.assertEqual(self.validator.validate_atlas(atlas), [])
         self.assertEqual(json.loads(json.dumps(atlas))["events"][0]["date"], original)
 
+    def test_unnamed_birth_outcome_can_link_to_known_parents(self):
+        atlas = minimal_atlas()
+        atlas["events"] = [
+            {
+                "id": "event:unnamed-outcome",
+                "animal_id": None,
+                "related_animal_ids": ["test:fiona"],
+                "outcome_count": 2,
+                "type": "birth",
+                "date": {"precision": "approximate", "value": "2020"},
+                "institution_id": None,
+                "source_ids": ["source:zoo"],
+                "notes": "Two offspring were reported; neither was individually identified.",
+            }
+        ]
+        self.assertEqual(self.validator.validate_atlas(atlas), [])
+
     def test_conflicting_claims_are_preserved(self):
         atlas = minimal_atlas()
         atlas["sources"].append(

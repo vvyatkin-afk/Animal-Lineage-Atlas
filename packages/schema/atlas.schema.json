@@ -146,7 +146,9 @@
       "additionalProperties": false,
       "required": ["id", "animal_id", "type", "date", "institution_id", "source_ids", "notes"],
       "properties": {
-        "id": {"$ref": "#/$defs/id"}, "animal_id": {"$ref": "#/$defs/id"},
+        "id": {"$ref": "#/$defs/id"}, "animal_id": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/id"}]},
+        "related_animal_ids": {"type": "array", "items": {"$ref": "#/$defs/id"}},
+        "outcome_count": {"type": "integer", "minimum": 1},
         "type": {"enum": ["birth", "death", "move", "transfer", "release", "observation"]},
         "date": {"$ref": "#/$defs/date_value"},
         "institution_id": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/id"}]},

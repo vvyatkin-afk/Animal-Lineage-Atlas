@@ -283,8 +283,23 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
 
     for index, event in enumerate(collections["events"]):
         path = f"$.events[{index}]"
-        if event.get("animal_id") not in animals:
-            _issue(issues, "dangling_animal", f"{path}.animal_id", f"Animal {event.get('animal_id')!r} does not exist.")
+        animal_id = event.get("animal_id")
+        if animal_id is None:
+            related = event.get("related_animal_ids")
+            if not isinstance(related, list) or not related:
+                _issue(issues, "missing_event_subject", f"{path}.related_animal_ids", "An event without an identified animal must link to at least one known related animal.")
+        elif animal_id not in animals:
+            _issue(issues, "dangling_animal", f"{path}.animal_id", f"Animal {animal_id!r} does not exist.")
+        related_ids = event.get("related_animal_ids", [])
+        if not isinstance(related_ids, list):
+            _issue(issues, "invalid_event_subjects", f"{path}.related_animal_ids", "Related animal IDs must be a list.")
+            related_ids = []
+        for offset, related_id in enumerate(related_ids):
+            if related_id not in animals:
+                _issue(issues, "dangling_animal", f"{path}.related_animal_ids[{offset}]", f"Animal {related_id!r} does not exist.")
+        outcome_count = event.get("outcome_count")
+        if outcome_count is not None and (not isinstance(outcome_count, int) or isinstance(outcome_count, bool) or outcome_count < 1):
+            _issue(issues, "invalid_outcome_count", f"{path}.outcome_count", "Outcome count must be a positive integer.")
         if event.get("type") not in EVENT_TYPES:
             _issue(issues, "invalid_event_type", f"{path}.type", "Event type is not supported.")
         _check_date_value(event.get("date"), f"{path}.date", issues)
