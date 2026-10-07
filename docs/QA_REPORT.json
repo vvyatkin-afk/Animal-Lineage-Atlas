@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
-  "measured_at_utc": "2026-10-07T20:22:02+00:00",
+  "measured_at_utc": "2026-10-07T21:04:51+00:00",
   "repository": "vvyatkin-afk/Animal-Lineage-Atlas",
-  "source_revision": "15b6f18875db1973110900240e7668e92dd55121",
-  "worktree_dirty": true,
+  "source_revision": "a5eb662b4844ffbefd709654c6abff4316ce0af7",
+  "source_worktree_dirty_excluding_report": false,
   "release_root": "dist",
   "runtime": {
     "python": "3.13.5",
@@ -13,58 +13,61 @@
     "applications": {
       "atlas": {
         "files_bytes": {
-          "catalog.json": 2542,
-          "index.html": 7387,
-          "main.js": 37109,
-          "styles.css": 11780
+          "catalog.json": 8358,
+          "index.html": 8156,
+          "main.js": 58383,
+          "styles.css": 11803
         },
-        "bundle_bytes": 48889,
-        "data_payload_bytes": 2542,
-        "total_bytes": 58818
+        "bundle_bytes": 70186,
+        "data_payload_bytes": 8358,
+        "total_bytes": 86700
       },
       "atlas.red-panda": {
         "files_bytes": {
-          "index.html": 5179,
-          "main.js": 71057,
-          "runtime.json": 269771,
-          "styles.css": 11466
+          "index.html": 5511,
+          "local-media-manifest.json": 69,
+          "main.js": 92860,
+          "runtime.json": 272047,
+          "styles.css": 11489
         },
-        "bundle_bytes": 82523,
-        "data_payload_bytes": 269771,
-        "total_bytes": 357473
+        "bundle_bytes": 104349,
+        "data_payload_bytes": 272047,
+        "total_bytes": 381976
       },
       "atlas.polar-bear": {
         "files_bytes": {
-          "index.html": 5181,
-          "main.js": 71057,
-          "runtime.json": 47573,
-          "styles.css": 11466
+          "index.html": 5513,
+          "local-media-manifest.json": 69,
+          "main.js": 92860,
+          "runtime.json": 52156,
+          "styles.css": 11489
         },
-        "bundle_bytes": 82523,
-        "data_payload_bytes": 47573,
-        "total_bytes": 135277
+        "bundle_bytes": 104349,
+        "data_payload_bytes": 52156,
+        "total_bytes": 162087
       },
       "atlas.hippopotamus": {
         "files_bytes": {
-          "index.html": 5185,
-          "main.js": 71057,
-          "runtime.json": 14920,
-          "styles.css": 11466
+          "index.html": 5517,
+          "local-media-manifest.json": 69,
+          "main.js": 92860,
+          "runtime.json": 18081,
+          "styles.css": 11489
         },
-        "bundle_bytes": 82523,
-        "data_payload_bytes": 14920,
-        "total_bytes": 102628
+        "bundle_bytes": 104349,
+        "data_payload_bytes": 18081,
+        "total_bytes": 128016
       }
     },
-    "total_bytes": 654196
+    "total_bytes": 758779
   },
   "engine_timings": {
     "red-panda": {
       "search": {
         "samples": 60,
-        "median_ms": 2.167,
-        "p95_ms": 9.343,
-        "mean_ms": 3.431,
+        "median_ms": 0.908,
+        "p95_ms": 2.599,
+        "mean_ms": 1.264,
         "query_cases": [
           {
             "query": "風太（フウタ）",
@@ -82,20 +85,20 @@
       },
       "genealogy_layout": {
         "samples": 30,
-        "median_ms": 0.193,
-        "p95_ms": 5.391,
-        "mean_ms": 0.867,
-        "representative_nodes": 48,
-        "representative_edges": 47,
+        "median_ms": 0.162,
+        "p95_ms": 1.109,
+        "mean_ms": 0.305,
+        "representative_nodes": 47,
+        "representative_edges": 46,
         "representative_truncated": false
       }
     },
     "polar-bear": {
       "search": {
         "samples": 60,
-        "median_ms": 0.12,
-        "p95_ms": 0.306,
-        "mean_ms": 0.187,
+        "median_ms": 0.119,
+        "p95_ms": 0.46,
+        "mean_ms": 0.196,
         "query_cases": [
           {
             "query": "Franz",
@@ -113,9 +116,9 @@
       },
       "genealogy_layout": {
         "samples": 30,
-        "median_ms": 0.055,
-        "p95_ms": 0.684,
-        "mean_ms": 0.119,
+        "median_ms": 0.129,
+        "p95_ms": 2.834,
+        "mean_ms": 0.441,
         "representative_nodes": 7,
         "representative_edges": 6,
         "representative_truncated": false
@@ -124,9 +127,9 @@
     "hippopotamus": {
       "search": {
         "samples": 60,
-        "median_ms": 0.033,
+        "median_ms": 0.038,
         "p95_ms": 0.069,
-        "mean_ms": 0.075,
+        "mean_ms": 0.041,
         "query_cases": [
           {
             "query": "Bibi",
@@ -144,9 +147,9 @@
       },
       "genealogy_layout": {
         "samples": 30,
-        "median_ms": 0.015,
-        "p95_ms": 0.254,
-        "mean_ms": 0.083,
+        "median_ms": 0.029,
+        "p95_ms": 0.274,
+        "mean_ms": 0.082,
         "representative_nodes": 3,
         "representative_edges": 2,
         "representative_truncated": false
@@ -162,17 +165,17 @@
     "external_image_policy": "External image requests are blocked; one permitted test image is deliberately failed to verify fallback.",
     "screenshots_directory": "/tmp/animal-lineage-atlas-qa/",
     "tests": {
-      "passed": 6,
+      "passed": 8,
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
-      "duration_ms": 12145.991
+      "duration_ms": 14954.992
     },
     "screenshots": {
-      "hippopotamus-mobile.png": 105486,
-      "hub-desktop.png": 446778,
-      "red-panda-desktop.png": 277061,
-      "red-panda-mobile.png": 89872
+      "hippopotamus-mobile.png": 107594,
+      "hub-desktop.png": 443065,
+      "red-panda-desktop.png": 276957,
+      "red-panda-mobile.png": 92036
     }
   }
 }
