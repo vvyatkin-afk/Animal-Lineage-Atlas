@@ -222,10 +222,10 @@
 - Docs state the exact repo SHA, URLs, record/relationship counts, source scope/gaps, no-photo audit, checks/CI, legacy health, disk, release target, and rollback steps.
 - Future offline format documents app build, data snapshot, local media manifest, original source URL, credit/rights, relative path, checksum, and archive status.
 
-- [ ] Write doc-contract tests for required files and exact four paths; verify release counts are computed from canonical datasets.
-- [ ] Add docs from verified implementation and research evidence; do not claim global completeness or unsupported translations.
-- [ ] Run docs tests, all validators, `git diff --check`, and review all required documentation paths.
-- [ ] Commit as `docs: document atlas scope, sources, and release`.
+- [x] Write doc-contract tests for required files and exact four paths; verify release counts are computed from canonical datasets.
+- [x] Add docs from verified implementation and research evidence; do not claim global completeness or unsupported translations.
+- [x] Run docs tests, all validators, `git diff --check`, and review all required documentation paths.
+- [x] Commit as `docs: document atlas scope, sources, and release`.
 
 ### Task 11: Independent release review and correction pass
 
