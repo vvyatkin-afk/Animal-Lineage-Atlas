@@ -21,7 +21,7 @@ This checklist records the required release path from `MASTER_EXECUTION_PROMPT.m
 - [x] Localize source categories and coverage scope/limitations in all three interface languages while retaining curated proper names and source titles.
 - [x] Add CI checks for lint/typecheck, tests, schema/data validation, local-animal-photo prohibition, all-app builds, and browser smoke coverage.
 - [x] Run independent code/data/browser review and fix findings; release and rollback documentation is present.
-- [x] Push reviewed release to GitHub `main`; production release manifest revision matched the exact `main` SHA at final verification.
+- [x] Merge reviewed application revision `c73b208386acee320cacfce4743b51b30fd03e84` to GitHub `main`; its production release manifest matched that exact `main` SHA at application release verification.
 - [x] Deploy four path applications with isolated release directories/symlinks, preserving `/red-panda/`; verify Nginx config and HTTP/direct-profile/mobile behavior.
 - [x] Record production smoke results, counts, source limits, photo audit, disk usage, and rollback location in machine-readable and human-readable release reports.
 
@@ -32,4 +32,4 @@ This checklist records the required release path from `MASTER_EXECUTION_PROMPT.m
 - All 19 Atlas asset/data URLs and `/red-panda/` returned HTTP 200. Production browser smoke verified all three direct profiles, EN/JA/RU interface text and coverage, and a 390×844 viewport without browser or local HTTP errors.
 - The legacy tree stayed at 497 files and 119,920,152 bytes with aggregate SHA-256 `d3515d040661efb2ab3e1b9149970d25102e6da7dc6164cfe0220f87e2f3042d` before and after deployment.
 - The deployed release passed the no-photo scan; `nginx -t` passed after deployment. The disk had 5.8 GB free (84% used of 38 GB).
-- The final documentation-only main revision was redeployed with byte-identical application directories. Its live `release-manifest.json` revision matched GitHub `main`; that manifest records the rollback targets.
+- The production checks above verify the `c73b208` application payload. Later release-record changes are documentation-only; release close compares the active manifest revision with GitHub `main` and keeps the prior targets recorded in that manifest for rollback.
