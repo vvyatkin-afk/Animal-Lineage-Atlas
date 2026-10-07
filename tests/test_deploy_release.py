@@ -1,5 +1,6 @@
 import json
 import os
+import stat
 import tempfile
 import unittest
 from pathlib import Path
@@ -35,6 +36,7 @@ class DeployReleaseTests(unittest.TestCase):
             release = deploy_release(root, dist, "a" * 40)
 
             self.assertEqual(release, root / "_animal-lineage-releases" / ("a" * 40))
+            self.assertEqual(stat.S_IMODE(release.stat().st_mode), 0o755)
             for name in EXPECTED_PATHS:
                 self.assertTrue((root / name).is_symlink())
                 self.assertEqual(os.readlink(root / name), f"_animal-lineage-releases/{'a' * 40}/{name}")
