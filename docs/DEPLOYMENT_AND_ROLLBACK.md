@@ -10,6 +10,8 @@ Production Nginx serves `/var/www/html`. A release is staged under:
 
 The release contains `atlas/`, `atlas.red-panda/`, `atlas.polar-bear/`, and `atlas.hippopotamus/`. Each public path is a symlink into the selected immutable release. Each child path includes an empty `local-media-manifest.json`; the public release has no local animal-image assets. The existing `/red-panda/` application is outside this layout and is never replaced.
 
+The published release root is mode `0755` so Nginx can traverse it. The deployer keeps its `mkdtemp` staging directory private while copying and validating files, then changes the completed directory to `0755` immediately before the atomic rename.
+
 ## Deployment procedure
 
 1. Confirm the source is the reviewed GitHub `main` commit and the CI run is green.

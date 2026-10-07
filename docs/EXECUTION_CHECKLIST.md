@@ -21,12 +21,15 @@ This checklist records the required release path from `MASTER_EXECUTION_PROMPT.m
 - [x] Localize source categories and coverage scope/limitations in all three interface languages while retaining curated proper names and source titles.
 - [x] Add CI checks for lint/typecheck, tests, schema/data validation, local-animal-photo prohibition, all-app builds, and browser smoke coverage.
 - [x] Run independent code/data/browser review and fix findings; release and rollback documentation is present.
-- [ ] Push reviewed release to GitHub `main` and verify the exact deployed SHA matches it.
-- [ ] Deploy four path applications with isolated release directories/symlinks, preserving `/red-panda/`; verify Nginx config and HTTP/direct-profile/mobile behavior.
-- [ ] Record production smoke results, counts, source limits, photo audit, disk usage, and rollback target in machine-readable and human-readable release reports.
+- [x] Push reviewed release to GitHub `main`; production release manifest revision matched the exact `main` SHA at final verification.
+- [x] Deploy four path applications with isolated release directories/symlinks, preserving `/red-panda/`; verify Nginx config and HTTP/direct-profile/mobile behavior.
+- [x] Record production smoke results, counts, source limits, photo audit, disk usage, and rollback location in machine-readable and human-readable release reports.
 
-## Current production preflight
+## Production verification (2026-10-07)
 
-- The production web root is `/var/www/html`, owned by `root:root`; the workspace account cannot write there. The authorized deployment helper needs elevated privileges to stage the immutable release and atomically switch the four Atlas links.
-- `/usr/sbin/nginx -t` succeeds when run with `sudo -n`; unprivileged validation cannot read the configured TLS certificate. No Nginx configuration change is part of this deployment.
-- Before release, `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/` return 404; legacy `/red-panda/` returns 200. Free disk is 5.9 GB (84% used) at the current check. The final deployed SHA, route smoke checks, and legacy checksum are recorded after deployment.
+- The web root is `/var/www/html` and owned by `root:root`; the scoped deploy and Nginx validation commands ran with `sudo -n`. Nginx configuration was not changed.
+- The application payload commit is `c73b208386acee320cacfce4743b51b30fd03e84`; its GitHub Actions main run passed.
+- All 19 Atlas asset/data URLs and `/red-panda/` returned HTTP 200. Production browser smoke verified all three direct profiles, EN/JA/RU interface text and coverage, and a 390×844 viewport without browser or local HTTP errors.
+- The legacy tree stayed at 497 files and 119,920,152 bytes with aggregate SHA-256 `d3515d040661efb2ab3e1b9149970d25102e6da7dc6164cfe0220f87e2f3042d` before and after deployment.
+- The deployed release passed the no-photo scan; `nginx -t` passed after deployment. The disk had 5.8 GB free (84% used of 38 GB).
+- The final documentation-only main revision was redeployed with byte-identical application directories. Its live `release-manifest.json` revision matched GitHub `main`; that manifest records the rollback targets.
