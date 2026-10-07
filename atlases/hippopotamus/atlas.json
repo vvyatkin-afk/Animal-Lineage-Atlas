@@ -1,0 +1,470 @@
+{
+  "release": {
+    "schema_version": "1.0.0",
+    "data_version": "2026.10.07",
+    "engine_version": "1.0.0",
+    "build_date": "2026-10-07",
+    "provenance": "Compiled from Cincinnati Zoo public announcements, care reports, and annual report. Counts: 5 animals, 4 parent relationships, 6 events; the hub also computes counts from this canonical file."
+  },
+  "coverage": {
+    "taxon": "Hippopotamus amphibius",
+    "scope": "Five individually named common hippopotamuses at Cincinnati Zoo: Bibi, Henry, Fiona, Tucker, and Fritz; two directly documented parent pairs.",
+    "limitations": [
+      "This v1 covers common hippopotamus only. Pygmy hippopotamus (Choeropsis liberiensis) is a distinct taxon and is not included because this research did not find an openly usable, individually sourced pedigree corpus for it.",
+      "The dataset is not a complete Cincinnati Zoo history or common-hippo studbook; it includes only the named family supported by the cited zoo pages.",
+      "All media references are official source-page links only. No image files or direct image URLs are copied, and unknown reuse permissions prevent embedding.",
+      "Cincinnati Zoo confirms Henry died in 2017; current living status of Bibi, Fiona, Tucker, and Fritz was not verified beyond the historical source pages available for this review, so those statuses remain unknown."
+    ],
+    "last_reviewed": "2026-10-07",
+    "source_categories": [
+      "official zoo announcements",
+      "official zoo care blog",
+      "official zoo roster",
+      "official zoo annual report"
+    ],
+    "accent": "#776047"
+  },
+  "animals": [
+    {
+      "id": "hippopotamus:bibi",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Bibi",
+        "language": "en",
+        "source_ids": [
+          "source:hippopotamus:cincinnati-fiona-birth",
+          "source:hippopotamus:cincinnati-fiona-name",
+          "source:hippopotamus:cincinnati-fritz",
+          "source:hippopotamus:cincinnati-henry-death",
+          "source:hippopotamus:cincinnati-tucker-arrival"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Source-backed identity reviewed. Current living status was not established by the historical pages in this corpus."
+      }
+    },
+    {
+      "id": "hippopotamus:henry",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Henry",
+        "language": "en",
+        "source_ids": [
+          "source:hippopotamus:cincinnati-fiona-name",
+          "source:hippopotamus:cincinnati-family-reunion",
+          "source:hippopotamus:cincinnati-henry-death"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Cincinnati Zoo reports Henry was euthanized on 2017-10-31."
+      }
+    },
+    {
+      "id": "hippopotamus:fiona",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Fiona",
+        "language": "en",
+        "source_ids": [
+          "source:hippopotamus:cincinnati-fiona-birth",
+          "source:hippopotamus:cincinnati-fiona-name",
+          "source:hippopotamus:cincinnati-family-reunion"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Source-backed identity reviewed. Current living status was not established by the historical pages in this corpus."
+      }
+    },
+    {
+      "id": "hippopotamus:tucker",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Tucker",
+        "language": "en",
+        "source_ids": [
+          "source:hippopotamus:cincinnati-fritz",
+          "source:hippopotamus:cincinnati-tucker-arrival"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Source-backed identity reviewed. Current living status was not established by the historical pages in this corpus."
+      }
+    },
+    {
+      "id": "hippopotamus:fritz",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Fritz",
+        "language": "en",
+        "source_ids": [
+          "source:hippopotamus:cincinnati-fritz",
+          "source:hippopotamus:cincinnati-2024-roster",
+          "source:hippopotamus:cincinnati-annual-report-2022-23"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Source-backed identity reviewed. Current living status was not established by the historical pages in this corpus."
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim:hippopotamus:fiona-fritz-siblings",
+      "subject": "hippopotamus:fiona",
+      "claim_type": "sibling",
+      "value": "hippopotamus:fritz",
+      "status": "confirmed",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-fritz",
+        "source:hippopotamus:cincinnati-annual-report-2022-23"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Cincinnati Zoo directly calls Fritz Fiona's little/big brother in its announcements and annual report."
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "relationship:hippopotamus:bibi-fiona",
+      "subject": "hippopotamus:bibi",
+      "object": "hippopotamus:fiona",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-fiona-name",
+        "source:hippopotamus:cincinnati-family-reunion"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Cincinnati Zoo directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:hippopotamus:henry-fiona",
+      "subject": "hippopotamus:henry",
+      "object": "hippopotamus:fiona",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-fiona-name",
+        "source:hippopotamus:cincinnati-family-reunion"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Cincinnati Zoo directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:hippopotamus:bibi-fritz",
+      "subject": "hippopotamus:bibi",
+      "object": "hippopotamus:fritz",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-fritz"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Cincinnati Zoo directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:hippopotamus:tucker-fritz",
+      "subject": "hippopotamus:tucker",
+      "object": "hippopotamus:fritz",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-fritz"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-07",
+        "notes": "Cincinnati Zoo directly identifies this parent and offspring."
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "event:hippopotamus:fiona-birth",
+      "animal_id": "hippopotamus:fiona",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2017-01-24"
+      },
+      "institution_id": "institution:hippopotamus:cincinnati-zoo",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-fiona-birth",
+        "source:hippopotamus:cincinnati-fiona-name"
+      ],
+      "notes": "Female calf born six weeks prematurely.",
+      "related_animal_ids": [
+        "hippopotamus:bibi",
+        "hippopotamus:henry"
+      ]
+    },
+    {
+      "id": "event:hippopotamus:fritz-birth",
+      "animal_id": "hippopotamus:fritz",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2022-08-03"
+      },
+      "institution_id": "institution:hippopotamus:cincinnati-zoo",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-fritz",
+        "source:hippopotamus:cincinnati-2024-roster"
+      ],
+      "notes": "Male calf born on the exact date given by Cincinnati Zoo; the 2024 roster independently confirms sex, date, and parent pair.",
+      "related_animal_ids": [
+        "hippopotamus:bibi",
+        "hippopotamus:tucker"
+      ]
+    },
+    {
+      "id": "event:hippopotamus:bibi-arrival",
+      "animal_id": "hippopotamus:bibi",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2016"
+      },
+      "institution_id": "institution:hippopotamus:cincinnati-zoo",
+      "from_institution_id": "institution:hippopotamus:st-louis-zoo",
+      "to_institution_id": "institution:hippopotamus:cincinnati-zoo",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-henry-death"
+      ],
+      "notes": "Cincinnati Zoo says Bibi came from St. Louis Zoo and arrived with the first Hippo Cove residents in summer 2016; exact transfer date is not given."
+    },
+    {
+      "id": "event:hippopotamus:henry-arrival",
+      "animal_id": "hippopotamus:henry",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2016"
+      },
+      "institution_id": "institution:hippopotamus:cincinnati-zoo",
+      "from_institution_id": "institution:hippopotamus:dickerson-park-zoo",
+      "to_institution_id": "institution:hippopotamus:cincinnati-zoo",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-henry-death"
+      ],
+      "notes": "Cincinnati Zoo says Henry came from Dickerson Park Zoo and arrived with the first Hippo Cove residents in summer 2016; exact transfer date is not given."
+    },
+    {
+      "id": "event:hippopotamus:henry-death",
+      "animal_id": "hippopotamus:henry",
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "2017-10-31"
+      },
+      "institution_id": "institution:hippopotamus:cincinnati-zoo",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-henry-death"
+      ],
+      "notes": "Cincinnati Zoo says Henry was humanely euthanized after an exam that morning."
+    },
+    {
+      "id": "event:hippopotamus:tucker-arrival",
+      "animal_id": "hippopotamus:tucker",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2021-09"
+      },
+      "institution_id": "institution:hippopotamus:cincinnati-zoo",
+      "to_institution_id": "institution:hippopotamus:cincinnati-zoo",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-tucker-arrival"
+      ],
+      "notes": "Cincinnati Zoo says Tucker came from San Francisco earlier in September 2021, but does not identify the prior facility."
+    }
+  ],
+  "institutions": [
+    {
+      "id": "institution:hippopotamus:cincinnati-zoo",
+      "names": [
+        {
+          "value": "Cincinnati Zoo & Botanical Garden",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Cincinnati, Ohio"
+    },
+    {
+      "id": "institution:hippopotamus:st-louis-zoo",
+      "names": [
+        {
+          "value": "St. Louis Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "St. Louis, Missouri"
+    },
+    {
+      "id": "institution:hippopotamus:dickerson-park-zoo",
+      "names": [
+        {
+          "value": "Dickerson Park Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Springfield, Missouri"
+    }
+  ],
+  "media": [
+    {
+      "media_id": "media:hippopotamus:fritz",
+      "animal_id": "hippopotamus:fritz",
+      "source_page_url": "https://cincinnatizoo.org/wp-content/uploads/2023/11/AnnualReport_2022-23.pdf",
+      "credit": "Kathy Newton",
+      "rights_status": "unknown; link only",
+      "embedding_status": "link_only",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-07",
+      "notes": "The official annual report labels the included photo as Fritz and credits the cover photo to Kathy Newton. Retain the report link only; no image URL or bytes are copied.",
+      "source_ids": [
+        "source:hippopotamus:cincinnati-annual-report-2022-23"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "source:hippopotamus:cincinnati-fiona-birth",
+      "title": "Hippo Baby Arrives Six Weeks Early",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/hippo-baby-arrives-six-weeks-early-cincinnati-zoo-staff-providing-critical-care-for-premature-calf/",
+      "publication_date": "2017-01-24",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports female calf born to Bibi on 2017-01-24.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:hippopotamus:cincinnati-fiona-name",
+      "title": "Cincinnati Zoo’s Hippo Baby has a Name",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/cincinnati-zoos-hippo-baby-has-a-name/",
+      "publication_date": "2017-02-01",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Names the calf Fiona; reports Bibi as mother and Henry as father.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:hippopotamus:cincinnati-family-reunion",
+      "title": "Hippo Blog #9: Bloat of 3, Finally!",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/hippo-blog-9-bloat-of-3-finally/",
+      "publication_date": "2017-07-18",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_care_blog",
+      "notes": "Reports the reunion of Fiona with both parents and identifies Henry as her father and Bibi as her mother.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:hippopotamus:cincinnati-fritz",
+      "title": "Fritz Explores Outside",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/fritz-explores-outside/",
+      "publication_date": "2022-08-16",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports male hippo Fritz was born 2022-08-03 to Bibi; identifies Fiona as his big sister and Tucker as his dad.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:hippopotamus:cincinnati-henry-death",
+      "title": "Cincinnati Zoo Mourns Loss of Henry the Hippo",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/cincinnati-zoo-mourns-loss-henry-hippo/",
+      "publication_date": "2017-10-31",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports Henry was humanely euthanized on 2017-10-31, identifies him as Fiona's father, describes his pairing with Bibi and their move to Cincinnati, and says Henry came from Dickerson Park Zoo while Bibi came from St. Louis Zoo.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:hippopotamus:cincinnati-tucker-arrival",
+      "title": "Hippo Introductions Happening Faster than Expected at the Cincinnati Zoo",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/hippo-introductions-happening-faster-than-expected-at-the-cincinnati-zoo/",
+      "publication_date": "2021-09-27",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_announcement",
+      "notes": "Identifies Tucker as male, reports he came to Cincinnati from San Francisco earlier in September 2021, and identifies Bibi as Fiona's mother.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:hippopotamus:cincinnati-2024-roster",
+      "title": "Meet the 2024 Zoo Babies!",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/meet-the-2024-zoo-babies/",
+      "publication_date": "2024-05-01",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_roster",
+      "notes": "Lists Fritz as a male hippo, birthday 2022-08-03, parents Bibi and Tucker, and gives a weight snapshot from February 2024. Used for sex and corroboration, not as evidence of status in 2026.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:hippopotamus:cincinnati-annual-report-2022-23",
+      "title": "Animal Excellence in Action: Cincinnati Zoo Annual Report 2022–23",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/wp-content/uploads/2023/11/AnnualReport_2022-23.pdf",
+      "publication_date": "2023",
+      "accessed_date": "2026-10-07",
+      "source_type": "official_zoo_annual_report",
+      "notes": "Describes Fritz as Fiona's little brother, reports Bibi as his mother and Tucker as his father, and includes a photo labeled as Fritz. The atlas retains a link-only reference; it does not copy the image.",
+      "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original report."
+    }
+  ]
+}

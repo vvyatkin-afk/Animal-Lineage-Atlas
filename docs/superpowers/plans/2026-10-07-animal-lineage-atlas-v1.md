@@ -124,12 +124,12 @@
 - Each file satisfies the canonical atlas schema and includes precise coverage, version/review dates, source records, and release counts.
 - Polar bear v1 includes supported Tallinn, Tierpark Berlin, and Prague individuals; hippo v1 is common hippopotamus at Cincinnati Zoo only.
 
-- [ ] Write tests `test_polar_bear_relationships_have_primary_evidence`, `test_tonja_wolodja_parents_remain_unknown`, `test_hippo_taxa_are_not_mixed`, `test_cincinnati_parentage_is_source_backed`, and `test_historical_locations_have_dates_or_unknown_precision`.
-- [ ] Run `python3 -m unittest tests.test_species_data -v`; confirm expected missing-data failures.
-- [ ] Add individually identified animals, biological links, approximate/exact events, dated institution transfers, aliases only where sources supply them, and source IDs.
-- [ ] Write reproducible research notes with direct URLs, supported claims, access dates, source-use limits, corpus scope, and known gaps.
-- [ ] Run species tests and all canonical validators; review each relationship directly against its cited source.
-- [ ] Commit as `feat: add sourced polar bear and hippo datasets`.
+- [x] Write tests `test_polar_bear_relationships_have_primary_evidence`, `test_tonja_wolodja_parentage_is_genetically_documented`, `test_hippo_taxa_are_not_mixed`, `test_cincinnati_parentage_is_source_backed`, and `test_historical_locations_have_dates_or_unknown_precision`.
+- [x] Run `python3 -m unittest tests.test_species_data -v`; confirm expected missing-data failures.
+- [x] Add individually identified animals, biological links, approximate/exact events, dated institution transfers, aliases only where sources supply them, and source IDs.
+- [x] Write reproducible research notes with direct URLs, supported claims, access dates, source-use limits, corpus scope, and known gaps.
+- [x] Run species tests and all canonical validators; review each relationship directly against its cited source.
+- [x] Commit as `feat: add sourced polar bear and hippo datasets`.
 
 ### Task 6: Shared atlas UI, profile pages, and responsive genealogy
 
