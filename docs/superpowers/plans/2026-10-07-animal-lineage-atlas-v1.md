@@ -102,7 +102,7 @@
 - Reference input: `/home/codex/projects/FFJ-Red-Panda-Atlas-card-ui-20261007/tree/data.json` (never modify)
 
 **Interfaces:**
-- Produces: `migrate_red_panda(input_path, output_path, report_path) -> MigrationReport`.
+- Produces: `migrate_red_panda(input_path, output_path, report_path, excluded_snapshot_path) -> MigrationReport`; the required fourth input supplies only excluded profile IDs and aggregate counts to the report.
 - Stable target IDs use `red-panda:<legacy-tree-id>`; each maps to `legacy-futa-tree` namespace. Unnamed outcomes become events, not animals.
 
 - [ ] Write `test_imports_all_named_source_nodes`, `test_local_photo_paths_are_dropped`, `test_sources_and_uncertainty_are_retained`, `test_unlinked_co_parent_is_not_fabricated`, and `test_report_documents_unlicensed_global_exclusion`.

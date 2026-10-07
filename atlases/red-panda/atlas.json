@@ -7192,7 +7192,7 @@
       "source_ids": [
         "source:red-panda:S07"
       ],
-      "notes": "風太とチィチィの最後の出産では2頭とも生存できず、死亡した1頭は母親に食べられたと記録されている。肉食哺乳類でみられる反捕食行動の一種と説明される。\n風太とチィチィの最後の出産では2頭とも生存できず、死亡した1頭は母親に食べられたと記録されている。肉食哺乳類でみられる反捕食行動の一種と説明される。",
+      "notes": "風太とチィチィの最後の出産では2頭とも生存できず、死亡した1頭は母親に食べられたと記録されている。肉食哺乳類でみられる反捕食行動の一種と説明される。",
       "outcome_count": 2
     },
     {
@@ -7210,7 +7210,7 @@
       "source_ids": [
         "source:red-panda:S08"
       ],
-      "notes": "瞬平の双子のきょうだいは出生後まもなく死亡した。\n瞬平の双子のきょうだいは出生後まもなく死亡した。",
+      "notes": "瞬平の双子のきょうだいは出生後まもなく死亡した。",
       "outcome_count": 1
     },
     {
@@ -7228,7 +7228,7 @@
       "source_ids": [
         "source:red-panda:S08"
       ],
-      "notes": "メイタの双子のきょうだいは生存できなかった。\nメイタの双子のきょうだいは生存できなかった。",
+      "notes": "メイタの双子のきょうだいは生存できなかった。",
       "outcome_count": 1
     },
     {
@@ -7246,7 +7246,7 @@
       "source_ids": [
         "source:red-panda:S08"
       ],
-      "notes": "ルカの双子のきょうだいは生存できなかった。\nルカの双子のきょうだいは生存できなかった。",
+      "notes": "ルカの双子のきょうだいは生存できなかった。",
       "outcome_count": 1
     },
     {
@@ -7264,7 +7264,7 @@
       "source_ids": [
         "source:red-panda:S08"
       ],
-      "notes": "イチゴの子1頭は成長できず、生存記録が残っていない。\nイチゴの子1頭は成長できず、生存記録が残っていない。",
+      "notes": "イチゴの子1頭は成長できず、生存記録が残っていない。",
       "outcome_count": 1
     },
     {
@@ -7282,7 +7282,7 @@
       "source_ids": [
         "source:red-panda:S08"
       ],
-      "notes": "イチゴでは死産の子1頭も記録されている。\nイチゴでは死産の子1頭も記録されている。",
+      "notes": "イチゴでは死産の子1頭も記録されている。",
       "outcome_count": 1
     },
     {
@@ -7300,7 +7300,7 @@
       "source_ids": [
         "source:red-panda:S08"
       ],
-      "notes": "ルールーの双子のきょうだいは生存できなかった。\nルールーの双子のきょうだいは生存できなかった。",
+      "notes": "ルールーの双子のきょうだいは生存できなかった。",
       "outcome_count": 1
     },
     {
@@ -7312,13 +7312,13 @@
       "type": "birth",
       "date": {
         "precision": "unknown",
-        "notes": "公開カードにはスミレが出産したことだけが記されているが、子の数と日付は公表されていない。\n公開カードにはスミレが出産したことだけが記されているが、子の数と日付は公表されていない。\nThe source reports a birth but gives neither a count nor a date."
+        "notes": "The source reports a birth but does not publish the date."
       },
       "institution_id": null,
       "source_ids": [
         "source:red-panda:S08"
       ],
-      "notes": "公開カードにはスミレが出産したことだけが記されているが、子の数と日付は公表されていない。\n公開カードにはスミレが出産したことだけが記されているが、子の数と日付は公表されていない。\nThe source reports a birth but gives neither a count nor a date."
+      "notes": "公開カードにはスミレが出産したことだけが記されているが、子の数と日付は公表されていない。\nThe source reports a birth but gives neither a count nor a date."
     }
   ],
   "institutions": [

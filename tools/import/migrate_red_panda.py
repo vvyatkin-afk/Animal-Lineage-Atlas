@@ -63,20 +63,15 @@ def _valid_http_url(value: Any) -> bool:
 
 
 def _merge_notes(*values: Any) -> str:
-    return "\n".join(value for item in values if (value := _text(item)))
+    distinct: list[str] = []
+    for item in values:
+        value = _text(item)
+        if value and value not in distinct:
+            distinct.append(value)
+    return "\n".join(distinct)
 
 
-def _load_global_exclusion(path: Path | None) -> dict[str, Any]:
-    if path is None:
-        return {
-            "source_repository": "wwoast/redpanda-lineage",
-            "declared_license": None,
-            "exclusion_reason": "GitHub repository metadata declares no license; records were not imported.",
-            "record_counts": {"profiles": 0, "zoos": 0, "family_edges": 0, "litter_edges": 0},
-            "profile_ids": [],
-            "id_list_complete": False,
-        }
-
+def _load_global_exclusion(path: Path) -> dict[str, Any]:
     data = json.loads(path.read_text(encoding="utf-8"))
     pandas = data.get("pandas", [])
     zoos = data.get("zoos", [])
@@ -143,12 +138,15 @@ def migrate_red_panda(
     input_path: Path | str,
     output_path: Path | str,
     report_path: Path | str,
-    excluded_snapshot_path: Path | str | None = None,
+    excluded_snapshot_path: Path | str,
 ) -> MigrationReport:
-    """Write canonical atlas, migration report, and sibling legacy ID map."""
+    """Write canonical atlas, complete exclusion report, and sibling legacy ID map."""
+    if excluded_snapshot_path is None:
+        raise ValueError("An excluded global snapshot is required to produce a complete migration report.")
     input_path = Path(input_path)
     output_path = Path(output_path)
     report_path = Path(report_path)
+    excluded_snapshot_path = Path(excluded_snapshot_path)
     source_data = _load_json(input_path)
     source_bytes = input_path.read_bytes()
     nodes = source_data.get("nodes", [])
@@ -445,7 +443,10 @@ def migrate_red_panda(
             "animal_id": None,
             "related_animal_ids": related,
             "type": "birth",
-            "date": _date_value(None if unquantified else record.get("date"), note),
+            "date": _date_value(
+                None if unquantified else record.get("date"),
+                "The source reports a birth but does not publish the date." if unquantified else note,
+            ),
             "institution_id": None,
             "source_ids": source_ids,
             "notes": note,
@@ -575,7 +576,7 @@ def migrate_red_panda(
         details = "\n".join(f"{issue.code} {issue.path}: {issue.message}" for issue in issues[:30])
         raise ValueError(f"Generated red-panda atlas failed validation ({len(issues)} issue(s)):\n{details}")
 
-    excluded = _load_global_exclusion(Path(excluded_snapshot_path) if excluded_snapshot_path else None)
+    excluded = _load_global_exclusion(excluded_snapshot_path)
     output_hash = hashlib.sha256(source_bytes).hexdigest()
     mapped_legacy_ids = sorted(node_id_map)
     relation_statuses = Counter(relation["status"] for relation in relationships)
@@ -650,7 +651,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("input", type=Path, help="curated Futa tree JSON (read-only)")
     parser.add_argument("output", type=Path, help="canonical atlas JSON output")
     parser.add_argument("report", type=Path, help="migration report JSON output")
-    parser.add_argument("--excluded-global-snapshot", type=Path, help="unlicensed snapshot input; only profile IDs and aggregate counts are retained")
+    parser.add_argument("--excluded-global-snapshot", type=Path, required=True, help="required unlicensed snapshot input; only profile IDs and aggregate counts are retained")
     args = parser.parse_args(argv)
     try:
         report = migrate_red_panda(args.input, args.output, args.report, args.excluded_global_snapshot)

@@ -103,6 +103,7 @@ def source_tree_fixture():
             {
                 "parent": "mother",
                 "note_ja": "A birth was reported; count and date were not published.",
+                "note": "A birth was reported; count and date were not published.",
                 "sources": ["S01"],
             }
         ],
@@ -117,7 +118,12 @@ class RedPandaMigrationTests(unittest.TestCase):
         self.input_path = self.directory / "tree.json"
         self.output_path = self.directory / "atlas.json"
         self.report_path = self.directory / "migration_report.json"
+        self.excluded_path = self.directory / "excluded.json"
         self.input_path.write_text(json.dumps(source_tree_fixture(), ensure_ascii=False), encoding="utf-8")
+        self.excluded_path.write_text(
+            json.dumps({"pandas": [], "zoos": [], "familyEdges": [], "litterEdges": []}),
+            encoding="utf-8",
+        )
 
     def tearDown(self):
         self.temp_dir.cleanup()
@@ -127,7 +133,7 @@ class RedPandaMigrationTests(unittest.TestCase):
             self.input_path,
             self.output_path,
             self.report_path,
-            excluded_snapshot_path=excluded_snapshot_path,
+            excluded_snapshot_path=excluded_snapshot_path or self.excluded_path,
         )
 
     def read_atlas(self):
@@ -160,7 +166,9 @@ class RedPandaMigrationTests(unittest.TestCase):
         self.assertEqual(relation["status"], "probable")
         self.assertTrue(any(claim["claim_type"] == "unresolved_co_parent_name" for claim in atlas["claims"]))
         self.assertTrue(any(event["animal_id"] is None and event.get("outcome_count") == 2 for event in atlas["events"]))
-        self.assertTrue(any(event["animal_id"] is None and "outcome_count" not in event for event in atlas["events"]))
+        unknown_birth = next(event for event in atlas["events"] if event["animal_id"] is None and "outcome_count" not in event)
+        self.assertEqual(unknown_birth["date"]["notes"], "The source reports a birth but does not publish the date.")
+        self.assertEqual(unknown_birth["notes"].count("A birth was reported; count and date were not published."), 1)
 
     def test_unlinked_co_parent_is_not_fabricated(self):
         self.migrate()
@@ -221,6 +229,10 @@ class RedPandaMigrationTests(unittest.TestCase):
         self.assertNotIn("must not be copied", json.dumps(report))
         self.assertNotIn("familyEdges", excluded)
         self.assertNotIn("litterEdges", excluded)
+
+    def test_complete_exclusion_input_is_required_for_report(self):
+        with self.assertRaisesRegex(ValueError, "excluded global snapshot is required"):
+            self.migrator.migrate_red_panda(self.input_path, self.output_path, self.report_path, None)
 
 
 if __name__ == "__main__":
