@@ -4,10 +4,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --import tsx --test"
+    "build": "python3 tools/build_atlases.py",
+    "check:no-photos": "python3 tools/check_no_animal_photos.py .",
+    "lint": "eslint tests/*.test.mjs tools/*.mjs esbuild.config.mjs",
+    "test": "node --import tsx --test",
+    "test:browser": "playwright test",
+    "test:python": "python3 -m unittest discover -v",
+    "typecheck": "tsc --noEmit",
+    "validate:data": "python3 tools/validate_atlas.py atlases/red-panda/atlas.json && python3 tools/validate_atlas.py atlases/polar-bear/atlas.json && python3 tools/validate_atlas.py atlases/hippopotamus/atlas.json"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.63.0",
     "esbuild": "^0.28.2",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }

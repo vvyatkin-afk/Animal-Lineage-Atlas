@@ -92,7 +92,7 @@ test('animal search metadata includes historical transfer facilities', async () 
 test('related profile navigation keeps focus and close dismisses the active profile', async () => {
   const app = await readFile(new URL('../apps/atlas/main.ts', import.meta.url), 'utf8');
   const profile = await readFile(new URL('../packages/ui/profile-dialog.ts', import.meta.url), 'utf8');
-  const closeHandler = app.match(/function closeProfile\(\) \{([\s\S]*?)\n  \}/)?.[1] ?? '';
+  const closeHandler = app.match(/function closeProfile\(\) \{([\s\S]*?)\n {2}\}/)?.[1] ?? '';
   assert.match(closeHandler, /setUrlProfile\(null, true\)/);
   assert.doesNotMatch(closeHandler, /history\.back\(\)/);
   assert.match(profile, /id="profile-title"[^>]*tabindex="-1"/i);

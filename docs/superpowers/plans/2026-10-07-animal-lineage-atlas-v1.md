@@ -186,13 +186,13 @@
 - `npm run build` emits `dist/atlas`, `dist/atlas.red-panda`, `dist/atlas.polar-bear`, and `dist/atlas.hippopotamus`.
 - CI runs `npm ci`, lint/typecheck, Node and Python tests, canonical-data validation, no-photo scan, all-app build, and Playwright smoke at desktop/mobile viewport sizes.
 
-- [ ] Add build-contract tests `test_all_paths_exist`, `test_runtime_payload_is_bounded`, and `test_build_is_independent_of_current_directory`; add no-photo tests `test_rejects_animal_photo_extensions` and `test_allows_generic_svg_fixture`.
-- [ ] Run the tests and confirm the expected missing build/checker failures.
-- [ ] Add dependency lock and reproducible TypeScript bundle build; copy only source, runtime indexes, interface assets, and docs to dist.
-- [ ] Implement repository/release photo scanning for local `.jpg`, `.jpeg`, `.png`, and `.webp` files; fail on any occurrence. Check atlas references for local photo paths or embedded data URLs.
-- [ ] Add GitHub Actions jobs for lint/typecheck, data and unit validation, no-photo, build-all, and Playwright smoke tests; do not retain build artifacts.
-- [ ] Run all local tests and `npm run build`; record HTML/JS/CSS and runtime payload sizes.
-- [ ] Commit as `ci: validate and build all atlas paths`.
+- [x] Add build-contract tests `test_all_paths_exist`, `test_runtime_payload_is_bounded`, and `test_build_is_independent_of_current_directory`; add no-photo tests `test_rejects_animal_photo_extensions` and `test_allows_generic_svg_fixture`.
+- [x] Run the tests and confirm the expected missing build/checker failures.
+- [x] Add dependency lock and reproducible TypeScript bundle build; copy only source, runtime indexes, interface assets, and docs to dist.
+- [x] Implement repository/release photo scanning for local `.jpg`, `.jpeg`, `.png`, and `.webp` files; fail on any occurrence. Check atlas references for local photo paths or embedded data URLs.
+- [x] Add GitHub Actions jobs for lint/typecheck, data and unit validation, no-photo, build-all, and Playwright smoke tests; do not retain build artifacts.
+- [x] Run all local tests and `npm run build`; record HTML/JS/CSS and runtime payload sizes.
+- [x] Commit as `ci: validate and build all atlas paths`.
 
 ### Task 9: Accessibility, browser review, and performance evidence
 
