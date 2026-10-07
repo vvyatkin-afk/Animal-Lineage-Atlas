@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f1e9">
+    <meta name="description" content="A public, source-linked atlas of animal families and life histories.">
+    <title>Animal Lineage Atlas · Families, places, and evidence</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to project content</a>
+    <header class="hub-header">
+      <a class="brand" href="/atlas/" aria-label="Animal Lineage Atlas home">
+        <span class="brand-mark" aria-hidden="true">A</span>
+        <span><strong>Animal Lineage Atlas</strong><small>Public records · careful evidence</small></span>
+      </a>
+      <nav class="top-nav" aria-label="Project sections">
+        <a href="#atlases">Atlases</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#media">Media policy</a>
+        <a href="#contribute">Corrections</a>
+      </nav>
+      <label class="language-control"><span data-i18n="languageLabel">Interface language</span>
+        <select id="language-select" aria-label="Interface language">
+          <option value="en">English</option><option value="ja">日本語</option><option value="ru">Русский</option>
+        </select>
+      </label>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" aria-labelledby="hub-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Animal Lineage Atlas · Public research edition</p>
+          <h1 id="hub-title" data-i18n="hubTitle">Families, places, and evidence</h1>
+          <p class="hero-subtitle" data-i18n="hubSubtitle">A public, source-linked atlas for exploring individual animal histories across generations.</p>
+          <a class="hero-link" href="#atlases"><span data-i18n="catalogTitle">Explore the atlases</span><span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-graphic" aria-hidden="true">
+          <svg viewBox="0 0 400 300" role="presentation">
+            <path d="M68 150 C130 150 137 71 204 71 S274 226 338 226" />
+            <path d="M68 150 C133 150 147 226 204 226 S273 71 338 71" />
+            <path d="M68 150 H338" />
+            <circle cx="68" cy="150" r="24" /><circle cx="204" cy="71" r="19" />
+            <circle cx="204" cy="226" r="19" /><circle cx="338" cy="71" r="14" />
+            <circle cx="338" cy="226" r="14" /><circle cx="204" cy="150" r="28" />
+          </svg>
+          <span class="graphic-caption">One name · many records · evidence linked</span>
+        </div>
+      </section>
+
+      <section id="atlases" class="catalog-section" aria-labelledby="catalog-heading">
+        <div class="section-heading">
+          <div><p class="eyebrow">Three source-bounded collections</p><h2 id="catalog-heading" data-i18n="catalogTitle">Explore the atlases</h2></div>
+          <p>Counts and review dates are read from the canonical datasets when this site is built.</p>
+        </div>
+        <div id="atlas-cards" class="atlas-cards" aria-live="polite"><p class="loading-state">Loading current atlas catalog…</p></div>
+      </section>
+
+      <section id="mission" class="mission-section info-section">
+        <div class="section-icon" aria-hidden="true">01</div>
+        <div><p class="eyebrow">Why this exists</p><h2 data-i18n="missionTitle">A careful record of animal families</h2><p data-i18n="missionText">Animal Lineage Atlas brings individually named animals, sourced family relationships, and documented life events into one readable place. Each atlas states exactly which public records it covers and where the evidence ends.</p></div>
+      </section>
+
+      <div class="info-grid">
+        <section id="scope" class="info-card">
+          <p class="eyebrow">Scope</p><h2 data-i18n="studbookTitle">The atlas and official studbooks</h2>
+          <p data-i18n="studbookText">Official studbooks remain the authoritative records maintained by their custodians. This atlas complements them with a source-bounded public view; it does not replace a studbook or claim global completeness. Restricted or unlicensed records are not copied into this project.</p>
+        </section>
+        <section id="evidence" class="info-card">
+          <p class="eyebrow">How to read a record</p><h2 data-i18n="evidenceTitle">Evidence and uncertainty</h2>
+          <p data-i18n="evidenceText">Parent links and other factual claims point to their evidence. Approximate dates stay approximate, unknown parents stay absent, and conflicting reports remain visible instead of being silently resolved.</p>
+        </section>
+        <section id="media" class="info-card media-card">
+          <p class="eyebrow">Public use</p><h2 data-i18n="publicMediaTitle">Public animal photographs</h2>
+          <p data-i18n="publicMediaText">The public site stores no copies of animal photographs. It embeds an external image only when recorded rights and terms permit it; otherwise the profile shows a neutral placeholder and a link to the original source page.</p>
+        </section>
+        <section id="offline" class="info-card offline-card">
+          <p class="eyebrow">Future private use</p><h2 data-i18n="offlineTitle">A future personal offline archive</h2>
+          <p data-i18n="offlineText">The shared media resolver is ready for a future private archive. An offline package can pair the app and data snapshot with a local media manifest while leaving the public atlas free of copied animal photos.</p>
+          <p class="manifest-note" data-i18n="offlineFields">Manifest fields: original source URL, credit and rights metadata, relative local path, checksum, and archive status.</p>
+        </section>
+      </div>
+
+      <section id="contribute" class="contribute-section">
+        <div><p class="eyebrow">Keep the record useful</p><h2 data-i18n="contributeTitle">Corrections and contributions</h2><p data-i18n="contributeText">Suggest a correction with the animal ID, the source URL, and the exact claim or event to review. New records should cite public primary evidence and preserve source date precision.</p></div>
+        <a class="outline-link" href="https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/issues" target="_blank" rel="noreferrer"><span data-i18n="contributeLinkLabel">Open the project correction tracker</span><span aria-hidden="true">↗</span></a>
+      </section>
+
+      <section class="version-section">
+        <div class="version-mark" aria-hidden="true">v</div>
+        <div><p class="eyebrow">One canonical file per atlas</p><h2 data-i18n="versionTitle">Data versions and review</h2><p data-i18n="versionText">Each atlas has one canonical data file. The hub computes record counts, relationship counts, source categories, data version, and review date from those files. Corrections keep the old evidence trail auditable.</p></div>
+      </section>
+    </main>
+    <footer class="hub-footer"><a class="brand" href="/atlas/"><span class="brand-mark" aria-hidden="true">A</span><strong>Animal Lineage Atlas</strong></a><p data-i18n="hubFooter">Public records are a starting point for research, not a complete census or a substitute for institutional records.</p><a href="/atlas.red-panda/">Legacy red-panda site</a></footer>
+  </body>
+</html>

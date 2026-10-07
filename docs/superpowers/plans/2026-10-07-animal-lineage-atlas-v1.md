@@ -166,12 +166,12 @@
 - Hub catalog is generated from the three canonical atlas files: counts, version, last review, source categories, and coverage warnings are computed, never hard-coded.
 - Each atlas provides a visible Coverage and Limitations view, with bilingual/multilingual interface copy.
 
-- [ ] Write `test_hub_counts_match_canonical_data`, `test_hub_explains_public_studbooks_and_scope`, `test_media_policy_and_offline_future_are_visible`, and `test_child_links_use_required_base_paths`.
-- [ ] Run `npm test -- tests/hub-contract.test.mjs`; confirm expected missing-file failures.
-- [ ] Implement the hub mission, evidence/uncertainty, source corrections, data versions, public-media policy, offline package concept, and atlas cards.
-- [ ] Add human-reviewed EN/JA/RU interface strings and source-name fallback behavior.
-- [ ] Run hub tests and generated catalog checks; confirm pass.
-- [ ] Commit as `feat: add multilingual atlas hub and coverage pages`.
+- [x] Write `test_hub_counts_match_canonical_data`, `test_hub_explains_public_studbooks_and_scope`, `test_media_policy_and_offline_future_are_visible`, and `test_child_links_use_required_base_paths`.
+- [x] Run `npm test -- tests/hub-contract.test.mjs`; confirm expected missing-file failures.
+- [x] Implement the hub mission, evidence/uncertainty, source corrections, data versions, public-media policy, offline package concept, and atlas cards.
+- [x] Add human-reviewed EN/JA/RU interface strings and source-name fallback behavior.
+- [x] Run hub tests and generated catalog checks; confirm pass.
+- [x] Commit as `feat: add multilingual atlas hub and coverage pages`.
 
 ### Task 8: Static build, no-photo checks, and GitHub Actions
 
