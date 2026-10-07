@@ -1,7 +1,8 @@
 import { buildGenealogy, type GraphAnimal, type GraphRelationship } from '../../packages/genealogy/layout.ts';
 import { createViewState } from '../../packages/genealogy/state.ts';
 import { getUiMessages, type UiMessages } from '../../packages/i18n/index.ts';
-import { searchAnimals, type AnimalSummary } from '../../packages/search/search.ts';
+import { buildAtlasSearchIndex } from '../../packages/search/atlas-index.ts';
+import { searchAnimals } from '../../packages/search/search.ts';
 import { getProfileIdFromSearch, buildProfileModel, renderProfileDialog, type AtlasDocument } from '../../packages/ui/profile-dialog.ts';
 import { renderGenealogy } from '../../packages/ui/genealogy-view.ts';
 import { renderSearchResults } from '../../packages/ui/search-controls.ts';
@@ -23,12 +24,6 @@ function localizedCountryName(code: string, locale: string): string {
   } catch {
     return code;
   }
-}
-
-function dateSortValue(date: AtlasDocument['events'][number]['date']): string {
-  if ('value' in date) return date.value ?? '';
-  if ('end' in date) return date.end ?? date.start ?? '';
-  return '';
 }
 
 async function boot() {
@@ -64,23 +59,7 @@ async function boot() {
   })();
   languageSelect.value = localeFromStorage;
 
-  const institutionById = new Map((atlas.institutions ?? []).map((institution) => [institution.id, institution]));
-  const locationByAnimal = new Map<string, string>();
-  const institutionsByAnimal = new Map<string, Set<string>>();
-  for (const event of [...atlas.events].sort((left, right) => dateSortValue(left.date).localeCompare(dateSortValue(right.date)))) {
-    const institutionId = event.to_institution_id ?? event.institution_id;
-    const institution = institutionId ? institutionById.get(institutionId) : undefined;
-    if (!institution) continue;
-    if (institution.country_code) locationByAnimal.set(event.animal_id, institution.country_code);
-    const names = institutionsByAnimal.get(event.animal_id) ?? new Set<string>();
-    for (const name of institution.names) names.add(name.value);
-    institutionsByAnimal.set(event.animal_id, names);
-  }
-  const searchIndex: AnimalSummary[] = atlas.animals.map((animal) => ({
-    ...animal,
-    country_code: locationByAnimal.get(animal.id) ?? null,
-    institution_names: [...(institutionsByAnimal.get(animal.id) ?? [])],
-  }));
+  const searchIndex = buildAtlasSearchIndex(atlas);
   const graphAnimals: GraphAnimal[] = searchIndex.map((animal) => ({
     id: animal.id,
     name: { canonical: animal.name.canonical },
@@ -102,8 +81,6 @@ async function boot() {
     focusId: initialFocusId,
     filters: { query: '', countryCode: '', taxon: '' },
   });
-  let profileOpenedInApp = false;
-
   function labels(): UiMessages {
     const locale = languageSelect.value || 'en';
     return getUiMessages(locale);
@@ -197,19 +174,11 @@ async function boot() {
     if (!atlas.animals.some((animal) => animal.id === animalId)) return;
     if (getProfileIdFromSearch(window.location.search) !== animalId) {
       setUrlProfile(animalId);
-      profileOpenedInApp = true;
     }
     syncDialog(animalId);
   }
 
   function closeProfile() {
-    if (profileOpenedInApp) {
-      profileOpenedInApp = false;
-      state.closeProfile();
-      if (dialog.open) dialog.close();
-      window.history.back();
-      return;
-    }
     setUrlProfile(null, true);
     state.closeProfile();
     if (dialog.open) dialog.close();
@@ -277,7 +246,6 @@ async function boot() {
   requiredElement('close-profile').addEventListener('click', closeProfile);
   dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeProfile(); });
   window.addEventListener('popstate', () => {
-    profileOpenedInApp = false;
     syncDialog(getProfileIdFromSearch(window.location.search));
   });
 

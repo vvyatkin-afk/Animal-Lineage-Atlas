@@ -4,6 +4,7 @@ import test from 'node:test';
 
 const loadProfile = () => import('../packages/ui/profile-dialog.ts').catch(() => null);
 const loadMessages = () => import('../packages/i18n/index.ts').catch(() => null);
+const loadAtlasIndex = () => import('../packages/search/atlas-index.ts').catch(() => null);
 const atlasUrl = new URL('../atlases/polar-bear/atlas.json', import.meta.url);
 
 test('profile query loads the expected animal', async () => {
@@ -45,6 +46,57 @@ test('image failure leaves profile details and the source link available', async
   assert.equal(model.animal.name.canonical, 'Test animal');
   assert.equal(model.media[0].presentation.kind, 'placeholder');
   assert.equal(model.media[0].presentation.sourceUrl, 'https://example.org/animal');
+});
+
+test('profile transfer events show both sourced institution endpoints', async () => {
+  const profile = await loadProfile();
+  assert.ok(profile, 'profile module should load');
+  const model = profile.buildProfileModel({
+    animals: [{ id: 'animal:moved', taxon: 'Test taxon', name: { canonical: 'Moved animal' } }],
+    relationships: [], claims: [], sources: [], media: [],
+    institutions: [
+      { id: 'institution:old', names: [{ value: 'Old Park' }] },
+      { id: 'institution:new', names: [{ value: 'New Park' }] },
+    ],
+    events: [{
+      id: 'event:moved', animal_id: 'animal:moved', type: 'transfer',
+      date: { precision: 'exact', value: '2020-01-02' },
+      from_institution_id: 'institution:old', to_institution_id: 'institution:new', source_ids: [],
+    }],
+  }, 'animal:moved');
+  assert.equal(model.events[0].fromInstitution.names[0].value, 'Old Park');
+  assert.equal(model.events[0].toInstitution.names[0].value, 'New Park');
+});
+
+test('animal search metadata includes historical transfer facilities', async () => {
+  const indexModule = await loadAtlasIndex();
+  assert.ok(indexModule, 'atlas search index helper should load');
+  const search = await import('../packages/search/search.ts');
+  const index = indexModule.buildAtlasSearchIndex({
+    animals: [{ id: 'animal:moved', taxon: 'Test taxon', name: { canonical: 'Moved animal' } }],
+    institutions: [
+      { id: 'institution:old', names: [{ value: 'Old Park' }], country_code: 'RU' },
+      { id: 'institution:new', names: [{ value: 'New Park' }], country_code: 'CN' },
+    ],
+    events: [{
+      id: 'event:moved', animal_id: 'animal:moved', type: 'transfer',
+      date: { precision: 'exact', value: '2020-01-02' },
+      from_institution_id: 'institution:old', to_institution_id: 'institution:new',
+    }],
+  });
+  assert.equal(search.searchAnimals(index, 'Old Park')[0].id, 'animal:moved');
+  assert.equal(search.searchAnimals(index, '', { countryCode: 'CN' })[0].id, 'animal:moved');
+  assert.equal(search.searchAnimals(index, '', { countryCode: 'RU' }).length, 0);
+});
+
+test('related profile navigation keeps focus and close dismisses the active profile', async () => {
+  const app = await readFile(new URL('../apps/atlas/main.ts', import.meta.url), 'utf8');
+  const profile = await readFile(new URL('../packages/ui/profile-dialog.ts', import.meta.url), 'utf8');
+  const closeHandler = app.match(/function closeProfile\(\) \{([\s\S]*?)\n  \}/)?.[1] ?? '';
+  assert.match(closeHandler, /setUrlProfile\(null, true\)/);
+  assert.doesNotMatch(closeHandler, /history\.back\(\)/);
+  assert.match(profile, /id="profile-title"[^>]*tabindex="-1"/i);
+  assert.match(profile, /profileTitle\??\.focus\(/);
 });
 
 test('interface controls expose keyboard-operable semantics', async () => {

@@ -15,7 +15,7 @@ type AtlasRelationship = {
 };
 type AtlasEvent = {
   id: string; animal_id: string; type: string; date: AtlasDate; institution_id?: string;
-  to_institution_id?: string; source_ids?: string[]; notes?: string;
+  from_institution_id?: string; to_institution_id?: string; source_ids?: string[]; notes?: string;
 };
 type AtlasClaim = {
   id: string; subject: string; claim_type: string; value?: unknown; status: string;
@@ -35,7 +35,8 @@ export type AtlasDocument = {
 type ProfileMessages = {
   appTitle: string; noMedia: string; mediaUnavailable: string; sourceLabel: string; sourcesLabel: string;
   eventsLabel: string; relationshipsLabel: string; claimsLabel: string; dateLabel: string;
-  sexLabel: string; statusLabel: string; institutionLabel: string; unknownValue: string;
+  sexLabel: string; statusLabel: string; institutionLabel: string; fromInstitutionLabel: string;
+  toInstitutionLabel: string; unknownValue: string;
   livingStatus: string; deceasedStatus: string; viewProfileLabel: string;
   motherLabel: string; fatherLabel: string; childLabel: string;
   fosterLabel: string; adoptiveLabel: string; socialLabel: string; maleLabel: string; femaleLabel: string;
@@ -90,7 +91,8 @@ export function buildProfileModel(
   const events = atlas.events.filter((event) => event.animal_id === animal.id).map((event) => ({
     event,
     dateLabel: formatAtlasDate(event.date, mediaOptions.locale ?? 'en'),
-    institution: institutionById.get(event.to_institution_id ?? event.institution_id ?? ''),
+    fromInstitution: institutionById.get(event.from_institution_id ?? ''),
+    toInstitution: institutionById.get(event.to_institution_id ?? event.institution_id ?? ''),
     sources: sourceList(atlas, event.source_ids),
   }));
   const claims = atlas.claims.filter((claim) => claim.subject === animal.id).map((claim) => ({
@@ -188,9 +190,16 @@ export function renderProfileDialog(
   }
   const { animal } = model;
   const relationshipSection = model.relationships.length ? `<section><h3>${escapeHtml(messages.relationshipsLabel)}</h3><ul>${model.relationships.map(({ relationship, counterpart, animalIsChild, sources }) => `<li><button class="text-button" type="button" data-related-animal="${escapeHtml(counterpart.id)}">${escapeHtml(relationshipText(relationship.type, animalIsChild, messages))}: ${escapeHtml(counterpart.name.canonical)}</button><span class="evidence-status">${escapeHtml(evidenceText(relationship.status, messages))}</span>${sourceLinks(sources, messages.sourceLabel)}</li>`).join('')}</ul></section>` : '';
-  const eventSection = model.events.length ? `<section><h3>${escapeHtml(messages.eventsLabel)}</h3><ul class="event-list">${model.events.map(({ event, dateLabel, institution, sources }) => `<li><strong>${escapeHtml(eventText(event.type, messages))}</strong><span>${escapeHtml(dateLabel)}</span>${institution ? `<span>${escapeHtml(messages.institutionLabel)}: ${escapeHtml(institution.names[0]?.value ?? institution.id)}${institution.location ? ` · ${escapeHtml(institution.location)}` : ''}</span>` : ''}${event.notes ? `<p>${escapeHtml(event.notes)}</p>` : ''}${sourceLinks(sources, messages.sourceLabel)}</li>`).join('')}</ul></section>` : '';
+  const eventSection = model.events.length ? `<section><h3>${escapeHtml(messages.eventsLabel)}</h3><ul class="event-list">${model.events.map(({ event, dateLabel, fromInstitution, toInstitution, sources }) => {
+    const transfer = event.type === 'move' || event.type === 'transfer';
+    const institutionLabel = (institution: NonNullable<typeof toInstitution>, label: string) => `<span>${escapeHtml(label)}: ${escapeHtml(institution.names[0]?.value ?? institution.id)}${institution.location ? ` · ${escapeHtml(institution.location)}` : ''}</span>`;
+    const locations = transfer
+      ? `${fromInstitution ? institutionLabel(fromInstitution, messages.fromInstitutionLabel) : ''}${toInstitution ? institutionLabel(toInstitution, messages.toInstitutionLabel) : ''}`
+      : toInstitution ? institutionLabel(toInstitution, messages.institutionLabel) : '';
+    return `<li><strong>${escapeHtml(eventText(event.type, messages))}</strong><span>${escapeHtml(dateLabel)}</span>${locations}${event.notes ? `<p>${escapeHtml(event.notes)}</p>` : ''}${sourceLinks(sources, messages.sourceLabel)}</li>`;
+  }).join('')}</ul></section>` : '';
   const claimSection = model.claims.length ? `<section><h3>${escapeHtml(messages.claimsLabel)}</h3><ul>${model.claims.map(({ claim, sources }) => `<li><strong>${escapeHtml(claim.claim_type.replaceAll('_', ' '))}</strong><span>${escapeHtml(evidenceText(claim.status, messages))}${valueText(claim.value) ? ` · ${escapeHtml(valueText(claim.value))}` : ''}</span>${claim.notes ? `<p>${escapeHtml(claim.notes)}</p>` : ''}${sourceLinks(sources, messages.sourceLabel)}</li>`).join('')}</ul></section>` : '';
-  content.innerHTML = `<div class="profile-heading">${mediaMarkup(model.media, animal.name.canonical, messages)}<div><p class="eyebrow">${escapeHtml(animal.taxon)}</p><h2 id="profile-title">${escapeHtml(animal.name.canonical)}</h2>${animal.aliases?.length ? `<p class="profile-aliases">${animal.aliases.map((alias) => escapeHtml(alias.value)).join(' · ')}</p>` : ''}<dl class="profile-facts"><div><dt>${escapeHtml(messages.sexLabel)}</dt><dd>${escapeHtml(sexText(animal.sex, messages))}</dd></div><div><dt>${escapeHtml(messages.statusLabel)}</dt><dd>${escapeHtml(statusText(animal.status, messages))}</dd></div><div><dt>ID</dt><dd><code>${escapeHtml(animal.id)}</code></dd></div></dl>${sourceLinks(model.nameSources, messages.sourceLabel)}</div></div>${relationshipSection}${eventSection}${claimSection}${model.nameSources.length ? `<section><h3>${escapeHtml(messages.sourcesLabel)}</h3>${sourceLinks(model.nameSources, messages.sourceLabel)}</section>` : ''}`;
+  content.innerHTML = `<div class="profile-heading">${mediaMarkup(model.media, animal.name.canonical, messages)}<div><p class="eyebrow">${escapeHtml(animal.taxon)}</p><h2 id="profile-title" data-profile-title tabindex="-1">${escapeHtml(animal.name.canonical)}</h2>${animal.aliases?.length ? `<p class="profile-aliases">${animal.aliases.map((alias) => escapeHtml(alias.value)).join(' · ')}</p>` : ''}<dl class="profile-facts"><div><dt>${escapeHtml(messages.sexLabel)}</dt><dd>${escapeHtml(sexText(animal.sex, messages))}</dd></div><div><dt>${escapeHtml(messages.statusLabel)}</dt><dd>${escapeHtml(statusText(animal.status, messages))}</dd></div><div><dt>ID</dt><dd><code>${escapeHtml(animal.id)}</code></dd></div></dl>${sourceLinks(model.nameSources, messages.sourceLabel)}</div></div>${relationshipSection}${eventSection}${claimSection}${model.nameSources.length ? `<section><h3>${escapeHtml(messages.sourcesLabel)}</h3>${sourceLinks(model.nameSources, messages.sourceLabel)}</section>` : ''}`;
   for (const button of content.querySelectorAll<HTMLButtonElement>('[data-related-animal]')) {
     button.addEventListener('click', () => {
       const id = button.dataset.relatedAnimal;
@@ -207,4 +216,6 @@ export function renderProfileDialog(
       image.replaceWith(fallback);
     }, { once: true });
   }
+  const profileTitle = content.querySelector<HTMLElement>('[data-profile-title]');
+  if (dialog.open) profileTitle?.focus({ preventScroll: true });
 }
