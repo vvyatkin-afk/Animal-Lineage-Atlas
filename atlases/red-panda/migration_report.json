@@ -440,6 +440,8 @@
   "warnings": [],
   "excluded_global_snapshot": {
     "source_repository": "wwoast/redpanda-lineage",
+    "snapshot_format": "red-panda-atlas-compact-v1",
+    "snapshot_sha256": "514524f6412bf60cfd1006dcfeed9ac98fbdabd9447275905dd2e929c6cee9f3",
     "declared_license": null,
     "exclusion_reason": "GitHub repository metadata declares no license; records were not imported.",
     "record_counts": {

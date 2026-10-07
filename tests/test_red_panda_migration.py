@@ -110,6 +110,22 @@ def source_tree_fixture():
     }
 
 
+def global_snapshot_fixture():
+    profiles = [
+        {"id": "global:one", "nameEn": "must not be copied"},
+        {"id": "global:two", "nameEn": "also excluded"},
+    ]
+    profiles.extend({"id": f"global:profile:{index:04d}", "nameEn": "excluded fixture profile"} for index in range(3, 1560))
+    return {
+        "format": "red-panda-atlas-compact-v1",
+        "meta": {"totals": {}},
+        "pandas": profiles,
+        "zoos": [{"id": f"zoo:{index:03d}", "nameEn": "excluded fixture zoo"} for index in range(320)],
+        "familyEdges": [{"parent": "global:one", "child": "global:two"} for _ in range(2386)],
+        "litterEdges": [["global:one", "global:two"] for _ in range(1049)],
+    }
+
+
 class RedPandaMigrationTests(unittest.TestCase):
     def setUp(self):
         self.migrator = load_migrator(self)
@@ -120,10 +136,7 @@ class RedPandaMigrationTests(unittest.TestCase):
         self.report_path = self.directory / "migration_report.json"
         self.excluded_path = self.directory / "excluded.json"
         self.input_path.write_text(json.dumps(source_tree_fixture(), ensure_ascii=False), encoding="utf-8")
-        self.excluded_path.write_text(
-            json.dumps({"pandas": [], "zoos": [], "familyEdges": [], "litterEdges": []}),
-            encoding="utf-8",
-        )
+        self.excluded_path.write_text(json.dumps(global_snapshot_fixture()), encoding="utf-8")
 
     def tearDown(self):
         self.temp_dir.cleanup()
@@ -203,28 +216,16 @@ class RedPandaMigrationTests(unittest.TestCase):
         self.assertEqual(sum(item["type"] in {"biological_mother", "biological_father"} for item in atlas["relationships"]), 1)
 
     def test_report_documents_unlicensed_global_exclusion(self):
-        excluded_path = self.directory / "global.json"
-        excluded_path.write_text(
-            json.dumps(
-                {
-                    "meta": {"totals": {"pandas": 2, "familyEdges": 1, "litterEdges": 0}},
-                    "pandas": [
-                        {"id": "global:one", "nameEn": "must not be copied"},
-                        {"id": "global:two", "nameEn": "also excluded"},
-                    ],
-                    "zoos": [{"id": "zoo:one", "nameEn": "excluded zoo"}],
-                    "familyEdges": [{"parent": "global:one", "child": "global:two"}],
-                    "litterEdges": [],
-                }
-            ),
-            encoding="utf-8",
-        )
-        self.migrate(excluded_path)
+        self.migrate()
         report = json.loads(self.report_path.read_text(encoding="utf-8"))
         excluded = report["excluded_global_snapshot"]
-        self.assertEqual(excluded["record_counts"]["profiles"], 2)
-        self.assertEqual(excluded["record_counts"]["family_edges"], 1)
-        self.assertEqual(excluded["profile_ids"], ["global:one", "global:two"])
+        self.assertEqual(excluded["record_counts"]["profiles"], 1559)
+        self.assertEqual(excluded["record_counts"]["zoos"], 320)
+        self.assertEqual(excluded["record_counts"]["family_edges"], 2386)
+        self.assertEqual(excluded["record_counts"]["litter_edges"], 1049)
+        self.assertEqual(len(excluded["profile_ids"]), 1559)
+        self.assertIn("global:one", excluded["profile_ids"])
+        self.assertIn("global:two", excluded["profile_ids"])
         self.assertEqual(excluded["declared_license"], None)
         self.assertNotIn("must not be copied", json.dumps(report))
         self.assertNotIn("familyEdges", excluded)
@@ -233,6 +234,48 @@ class RedPandaMigrationTests(unittest.TestCase):
     def test_complete_exclusion_input_is_required_for_report(self):
         with self.assertRaisesRegex(ValueError, "excluded global snapshot is required"):
             self.migrator.migrate_red_panda(self.input_path, self.output_path, self.report_path, None)
+
+    def test_malformed_global_snapshot_is_rejected_before_output(self):
+        malformed_path = self.directory / "malformed-global.json"
+        malformed_path.write_text("{}", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "must use the red-panda-atlas-compact-v1 format"):
+            self.migrator.migrate_red_panda(self.input_path, self.output_path, self.report_path, malformed_path)
+        malformed_path.write_text(json.dumps({"format": "red-panda-atlas-compact-v1", "meta": {"totals": {}}}), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "must contain list collections"):
+            self.migrator.migrate_red_panda(self.input_path, self.output_path, self.report_path, malformed_path)
+        self.assertFalse(self.output_path.exists())
+        self.assertFalse(self.report_path.exists())
+
+    def test_global_snapshot_records_require_ids_and_valid_shapes(self):
+        malformed_path = self.directory / "malformed-profile.json"
+        malformed_path.write_text(
+            json.dumps({
+                "format": "red-panda-atlas-compact-v1",
+                "meta": {"totals": {}},
+                "pandas": [{"nameEn": "must not be copied"}],
+                "zoos": [],
+                "familyEdges": [],
+                "litterEdges": [],
+            }),
+            encoding="utf-8",
+        )
+        with self.assertRaisesRegex(ValueError, "profile records need unique non-empty IDs"):
+            self.migrator.migrate_red_panda(self.input_path, self.output_path, self.report_path, malformed_path)
+        self.assertFalse(self.report_path.exists())
+
+    def test_global_snapshot_edges_must_reference_known_profiles(self):
+        malformed_path = self.directory / "malformed-edges.json"
+        snapshot = {
+            "format": "red-panda-atlas-compact-v1",
+            "meta": {"totals": {}},
+            "pandas": [{"id": "global:one"}, {"id": "global:two"}],
+            "zoos": [{"id": "zoo:one"}],
+            "familyEdges": [{"parent": "global:missing", "child": "global:one"}],
+            "litterEdges": [["global:one", "global:two"]],
+        }
+        malformed_path.write_text(json.dumps(snapshot), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "family edges need parent and child IDs"):
+            self.migrator.migrate_red_panda(self.input_path, self.output_path, self.report_path, malformed_path)
 
 
 if __name__ == "__main__":

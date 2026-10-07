@@ -27,6 +27,7 @@ CURATED_SOURCE_COMMIT = "fe97aff63d87948232462ea4b60873460de96948"
 PRODUCTION_SOURCE_COMMIT = "efb54a683f51728378bb513ab05cf7feea23ca62"
 PRODUCTION_TREE_SHA256 = "fae0383b8851fe8522c16692322576d456dcd49412b1aaa7fd51415806b6addd"
 TAXON = "Ailurus fulgens"
+REVIEWED_GLOBAL_COUNTS = {"profiles": 1559, "zoos": 320, "family_edges": 2386, "litter_edges": 1049}
 
 
 @dataclass(frozen=True)
@@ -73,25 +74,68 @@ def _merge_notes(*values: Any) -> str:
 
 def _load_global_exclusion(path: Path) -> dict[str, Any]:
     data = json.loads(path.read_text(encoding="utf-8"))
-    pandas = data.get("pandas", [])
-    zoos = data.get("zoos", [])
-    family_edges = data.get("familyEdges", [])
-    litter_edges = data.get("litterEdges", [])
+    if (
+        not isinstance(data, dict)
+        or data.get("format") != "red-panda-atlas-compact-v1"
+        or not isinstance(data.get("meta"), dict)
+        or not isinstance(data.get("meta", {}).get("totals"), dict)
+    ):
+        raise ValueError("Excluded global snapshot must use the red-panda-atlas-compact-v1 format and include metadata.")
+    raw_collections = {
+        "profiles": data.get("pandas"),
+        "zoos": data.get("zoos"),
+        "family_edges": data.get("familyEdges"),
+        "litter_edges": data.get("litterEdges"),
+    }
+    if any(not isinstance(records, list) for records in raw_collections.values()):
+        raise ValueError("Excluded global snapshot must contain list collections for profiles, zoos, family edges, and litter edges.")
+    pandas = raw_collections["profiles"]
+    zoos = raw_collections["zoos"]
+    family_edges = raw_collections["family_edges"]
+    litter_edges = raw_collections["litter_edges"]
+    profile_ids = [_text(record.get("id")) if isinstance(record, dict) else "" for record in pandas]
+    if any(not value for value in profile_ids) or len(profile_ids) != len(set(profile_ids)):
+        raise ValueError("Excluded global snapshot profile records need unique non-empty IDs.")
+    zoo_ids = [_text(record.get("id")) if isinstance(record, dict) else "" for record in zoos]
+    if any(not value for value in zoo_ids) or len(zoo_ids) != len(set(zoo_ids)):
+        raise ValueError("Excluded global snapshot zoo records need unique non-empty IDs.")
+    profile_id_set = set(profile_ids)
+    if any(
+        not isinstance(record, dict)
+        or not _text(record.get("parent"))
+        or not _text(record.get("child"))
+        or _text(record.get("parent")) not in profile_id_set
+        or _text(record.get("child")) not in profile_id_set
+        for record in family_edges
+    ):
+        raise ValueError("Excluded global snapshot family edges need parent and child IDs present in the profile collection.")
+    if any(
+        not isinstance(record, list)
+        or len(record) != 2
+        or not all(_text(value) for value in record)
+        or not all(_text(value) in profile_id_set for value in record)
+        for record in litter_edges
+    ):
+        raise ValueError("Excluded global snapshot litter edges must be two-ID lists referencing profiles.")
+    record_counts = {
+        "profiles": len(pandas),
+        "zoos": len(zoos),
+        "family_edges": len(family_edges),
+        "litter_edges": len(litter_edges),
+    }
+    if record_counts != REVIEWED_GLOBAL_COUNTS:
+        raise ValueError(f"Excluded global snapshot counts differ from the reviewed baseline: {record_counts}.")
     # Read only record IDs into the migration result. Names, fields, edges, and media
     # from this unlicensed snapshot are deliberately discarded.
-    profile_ids = sorted({_text(record.get("id")) for record in pandas if isinstance(record, dict) and _text(record.get("id"))})
     return {
         "source_repository": "wwoast/redpanda-lineage",
+        "snapshot_format": data["format"],
+        "snapshot_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
         "declared_license": None,
         "exclusion_reason": "GitHub repository metadata declares no license; records were not imported.",
-        "record_counts": {
-            "profiles": len(pandas),
-            "zoos": len(zoos),
-            "family_edges": len(family_edges),
-            "litter_edges": len(litter_edges),
-        },
-        "profile_ids": profile_ids,
-        "id_list_complete": len(profile_ids) == len(pandas),
+        "record_counts": record_counts,
+        "profile_ids": sorted(profile_ids),
+        "id_list_complete": True,
     }
 
 
@@ -147,6 +191,7 @@ def migrate_red_panda(
     output_path = Path(output_path)
     report_path = Path(report_path)
     excluded_snapshot_path = Path(excluded_snapshot_path)
+    excluded = _load_global_exclusion(excluded_snapshot_path)
     source_data = _load_json(input_path)
     source_bytes = input_path.read_bytes()
     nodes = source_data.get("nodes", [])
@@ -576,7 +621,6 @@ def migrate_red_panda(
         details = "\n".join(f"{issue.code} {issue.path}: {issue.message}" for issue in issues[:30])
         raise ValueError(f"Generated red-panda atlas failed validation ({len(issues)} issue(s)):\n{details}")
 
-    excluded = _load_global_exclusion(excluded_snapshot_path)
     output_hash = hashlib.sha256(source_bytes).hexdigest()
     mapped_legacy_ids = sorted(node_id_map)
     relation_statuses = Counter(relation["status"] for relation in relationships)
