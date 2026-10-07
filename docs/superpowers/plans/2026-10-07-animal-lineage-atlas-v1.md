@@ -146,12 +146,12 @@
 - Reads a generated runtime JSON adjacent to each app and a `data-atlas`/`data-base-path` config in HTML.
 - Produces accessible tree controls, searchable profiles, `<dialog>` details, source links, media placeholders, and query URL `?animal=<id>`.
 
-- [ ] Write `test_profile_query_loads_expected_animal`, `test_profile_shows_approximate_date`, `test_image_failure_keeps_profile_usable`, `test_controls_are_keyboard_operable`, `test_language_switch_renders_all_interface_locales`, and `test_graph_and_profile_share_no_photo_bytes`.
-- [ ] Run `npm test -- tests/ui-contract.test.mjs`; confirm missing app modules/markup fail as expected.
-- [ ] Implement desktop/mobile layout, SVG graph, keyboard zoom/pan/focus controls, EN/JA/RU interface strings, country/taxon filters, accessible placeholders, citations, and direct profile query parsing.
-- [ ] Preserve focus/filters/pan/zoom/selected group while profile opens/closes; use only names present in data.
-- [ ] Run UI contract tests and inspect built HTML/CSS/JS; confirm pass.
-- [ ] Commit as `feat: build shared atlas and profile interface`.
+- [x] Write `test_profile_query_loads_expected_animal`, `test_profile_shows_approximate_date`, `test_image_failure_keeps_profile_usable`, `test_controls_are_keyboard_operable`, `test_language_switch_renders_all_interface_locales`, and `test_graph_and_profile_share_no_photo_bytes`.
+- [x] Run `npm test -- tests/ui-contract.test.mjs`; confirm missing app modules/markup fail as expected.
+- [x] Implement desktop/mobile layout, SVG graph, keyboard zoom/pan/focus controls, EN/JA/RU interface strings, country/taxon filters, accessible placeholders, citations, and direct profile query parsing.
+- [x] Preserve focus/filters/pan/zoom/selected group while profile opens/closes; use only names present in data.
+- [x] Run UI contract tests and inspect built HTML/CSS/JS; confirm pass.
+- [x] Commit as `feat: build shared atlas and profile interface`.
 
 ### Task 7: Hub, coverage pages, and i18n
 

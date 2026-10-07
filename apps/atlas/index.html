@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f1e9">
+    <meta name="description" content="Explore source-linked animal family histories and the evidence behind them.">
+    <title>Animal Lineage Atlas</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./main.js"></script>
+  </head>
+  <body data-atlas="red-panda" data-base-path="/atlas.red-panda/">
+    <a class="skip-link" href="#main-content">Skip to atlas content</a>
+    <header class="site-header">
+      <a class="brand" href="/atlas/" aria-label="Animal Lineage Atlas home">
+        <span class="brand-mark" aria-hidden="true">A</span>
+        <span><strong data-i18n="appTitle">Animal Lineage Atlas</strong><small>Evidence first · source linked</small></span>
+      </a>
+      <label class="language-control">
+        <span data-i18n="languageLabel">Interface language</span>
+        <select id="language-select" aria-label="Interface language">
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="ru">Русский</option>
+        </select>
+      </label>
+    </header>
+
+    <main id="main-content" class="atlas-shell">
+      <section class="atlas-intro" aria-labelledby="atlas-title">
+        <div>
+          <p class="eyebrow" id="atlas-kind">Species atlas</p>
+          <h1 id="atlas-title">Animal lineage</h1>
+          <p id="atlas-scope" class="intro-copy">Source-linked public records, with gaps and uncertainty kept visible.</p>
+        </div>
+        <p class="record-count"><strong id="animal-count">—</strong><span data-i18n="currentDataLabel">Source-backed public records</span></p>
+      </section>
+
+      <div class="atlas-layout">
+        <aside class="search-panel" aria-label="Search and filter animals">
+          <form id="search-form" role="search">
+            <label for="search-input" data-i18n="searchLabel">Search animals</label>
+            <input id="search-input" type="search" autocomplete="off" placeholder="Name, alias, ID, or institution" data-i18n-placeholder="searchPlaceholder">
+            <label for="country-filter" data-i18n="countryLabel">Known location</label>
+            <select id="country-filter"><option value="" data-i18n="allCountries">All locations</option></select>
+            <label for="taxon-filter" data-i18n="taxonLabel">Species</label>
+            <select id="taxon-filter"><option value="" data-i18n="allTaxa">All species</option></select>
+          </form>
+          <div class="results-heading"><h2 data-i18n="resultsLabel">Matching animals</h2><span id="result-count" aria-live="polite"></span></div>
+          <div id="search-results" class="search-results"></div>
+        </aside>
+
+        <section class="tree-panel" aria-labelledby="tree-heading">
+          <div class="tree-heading-row">
+            <div><p class="eyebrow">Family history</p><h2 id="tree-heading" data-i18n="treeLabel">Family tree</h2></div>
+            <div class="graph-controls" role="group" aria-label="Genealogy view controls">
+              <button id="pan-left" type="button" aria-label="Pan left" title="Pan left">←</button>
+              <button id="pan-up" type="button" aria-label="Pan up" title="Pan up">↑</button>
+              <button id="pan-down" type="button" aria-label="Pan down" title="Pan down">↓</button>
+              <button id="pan-right" type="button" aria-label="Pan right" title="Pan right">→</button>
+              <button id="zoom-out" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+              <button id="zoom-in" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+            </div>
+          </div>
+          <p class="graph-help">Select a name to open its profile. Drag the tree or use arrow keys to move; + and − change zoom.</p>
+          <div id="genealogy-container" class="genealogy-container"></div>
+          <details id="coverage-details" class="coverage-details">
+            <summary data-i18n="coverageLabel">Coverage and limitations</summary>
+            <p id="coverage-scope"></p>
+            <ul id="coverage-limitations"></ul>
+            <p class="coverage-method">This atlas links each recorded family fact to its source. An unrecorded parent or date stays unknown; it is not filled with an invented animal or estimate.</p>
+          </details>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="profile-dialog" aria-labelledby="profile-title">
+      <div class="dialog-bar">
+        <span class="eyebrow">Animal profile</span>
+        <button id="close-profile" class="close-button" type="button" aria-label="Close profile" data-i18n-aria-label="closeProfileLabel">× <span data-i18n="closeProfileLabel">Close profile</span></button>
+      </div>
+      <div data-profile-content class="profile-content"></div>
+    </dialog>
+    <footer class="site-footer"><a href="/atlas/" data-i18n="homeLabel">All atlases</a><span>Names follow their cited source. Interface language does not change source records.</span></footer>
+  </body>
+</html>
