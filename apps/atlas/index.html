@@ -45,6 +45,8 @@
             <select id="country-filter"><option value="" data-i18n="allCountries">All locations</option></select>
             <label for="taxon-filter" data-i18n="taxonLabel">Species</label>
             <select id="taxon-filter"><option value="" data-i18n="allTaxa">All species</option></select>
+            <label for="population-filter" data-i18n="populationLabel">Population</label>
+            <select id="population-filter"><option value="" data-i18n="allPopulations">All populations</option></select>
           </form>
           <div class="results-heading"><h2 data-i18n="resultsLabel">Matching animals</h2><span id="result-count" aria-live="polite"></span></div>
           <div id="search-results" class="search-results"></div>
@@ -53,13 +55,14 @@
         <section class="tree-panel" aria-labelledby="tree-heading">
           <div class="tree-heading-row">
             <div><p class="eyebrow" data-i18n="familyHistoryLabel">Family history</p><h2 id="tree-heading" data-i18n="treeLabel">Family tree</h2></div>
-            <div class="graph-controls" role="group" aria-label="Family tree controls" data-i18n-aria-label="graphControlsLabel">
+            <div id="graph-controls" class="graph-controls" role="group" aria-label="Family tree controls" data-i18n-aria-label="graphControlsLabel">
               <button id="pan-left" type="button" aria-label="Pan left" title="Pan left">←</button>
               <button id="pan-up" type="button" aria-label="Pan up" title="Pan up">↑</button>
               <button id="pan-down" type="button" aria-label="Pan down" title="Pan down">↓</button>
               <button id="pan-right" type="button" aria-label="Pan right" title="Pan right">→</button>
               <button id="zoom-out" type="button" aria-label="Zoom out" title="Zoom out">−</button>
               <button id="zoom-in" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+              <button id="all-families" class="all-families-button" type="button" data-i18n="allFamiliesLabel" hidden>All families</button>
             </div>
           </div>
           <p class="graph-help" data-i18n="graphHelpText">Select a name to open its profile. Drag the tree or use arrow keys to move; + and − change zoom.</p>

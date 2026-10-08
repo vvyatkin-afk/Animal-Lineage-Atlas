@@ -9,6 +9,7 @@ import re
 import shutil
 import subprocess
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -24,6 +25,7 @@ CHILD_PATHS = {
     "hippopotamus": "/atlas.hippopotamus/",
 }
 OUTPUT_NAMES = ("atlas", "atlas.red-panda", "atlas.polar-bear", "atlas.hippopotamus")
+DETAIL_CHUNK_SIZE = 128
 
 
 def _remove_recreatable_target(path: Path) -> None:
@@ -35,10 +37,140 @@ def _remove_recreatable_target(path: Path) -> None:
         path.unlink()
 
 
-def _compact_json(source_path: Path, destination_path: Path) -> None:
-    document = json.loads(source_path.read_text(encoding="utf-8"))
-    destination_path.write_text(
-        json.dumps(document, ensure_ascii=False, separators=(",", ":")) + "\n",
+def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DETAIL_CHUNK_SIZE) -> None:
+    """Write a compact searchable/graph index plus lazily loaded profile chunks."""
+    if chunk_size < 1:
+        raise ValueError("Detail chunk size must be positive")
+    animals = document.get("animals", [])
+    institutions = {item["id"]: item for item in document.get("institutions", [])}
+    source_by_id = {item["id"]: item for item in document.get("sources", [])}
+    events_by_animal: dict[str, list[dict]] = defaultdict(list)
+    claims_by_animal: dict[str, list[dict]] = defaultdict(list)
+    media_by_animal: dict[str, list[dict]] = defaultdict(list)
+    relationships_by_animal: dict[str, dict[str, dict]] = defaultdict(dict)
+    for event in document.get("events", []):
+        events_by_animal[event["animal_id"]].append(event)
+    for claim in document.get("claims", []):
+        claims_by_animal[claim["subject"]].append(claim)
+    for item in document.get("media", []):
+        media_by_animal[item["animal_id"]].append(item)
+    for relationship in document.get("relationships", []):
+        for animal_id in {relationship.get("subject"), relationship.get("object")} - {None}:
+            relationships_by_animal[animal_id][relationship["id"]] = relationship
+    country_by_animal: dict[str, str] = {}
+    institution_names_by_animal: dict[str, set[str]] = {}
+
+    events = sorted(
+        document.get("events", []),
+        key=lambda event: event.get("date", {}).get("value")
+        or event.get("date", {}).get("end")
+        or event.get("date", {}).get("start")
+        or "",
+    )
+    for event in events:
+        animal_id = event["animal_id"]
+        institution_ids = [
+            event.get("from_institution_id"),
+            event.get("to_institution_id"),
+            event.get("institution_id"),
+        ]
+        for institution_id in filter(None, institution_ids):
+            institution = institutions.get(institution_id)
+            if institution:
+                names = institution_names_by_animal.setdefault(animal_id, set())
+                names.update(name["value"] for name in institution.get("names", []))
+        destination_id = event.get("to_institution_id") or event.get("institution_id")
+        destination = institutions.get(destination_id or "")
+        if destination and destination.get("country_code"):
+            country_by_animal[animal_id] = destination["country_code"]
+
+    chunks: list[dict[str, object]] = []
+    compact_animals: list[dict[str, object]] = []
+    for start in range(0, len(animals), chunk_size):
+        chunk_index = start // chunk_size
+        chunk_name = f"details/chunk-{chunk_index:04d}.json"
+        owner_animals = animals[start : start + chunk_size]
+        owner_ids = {animal["id"] for animal in owner_animals}
+        owner_id_order = [animal["id"] for animal in owner_animals]
+        owner_events = [record for animal_id in owner_id_order for record in events_by_animal.get(animal_id, [])]
+        owner_claims = [record for animal_id in owner_id_order for record in claims_by_animal.get(animal_id, [])]
+        owner_media = [record for animal_id in owner_id_order for record in media_by_animal.get(animal_id, [])]
+        owner_relationships_by_id = {
+            relationship_id: relationship
+            for animal_id in owner_id_order
+            for relationship_id, relationship in relationships_by_animal.get(animal_id, {}).items()
+        }
+
+        source_ids: set[str] = set()
+        institution_ids: set[str] = set()
+
+        def collect_sources(record: dict) -> None:
+            source_ids.update(record.get("source_ids", []))
+
+        for animal in owner_animals:
+            collect_sources(animal.get("name", {}))
+        for record in (*owner_events, *owner_claims, *owner_media, *owner_relationships_by_id.values()):
+            collect_sources(record)
+        for event in owner_events:
+            institution_ids.update(
+                value for value in (
+                    event.get("institution_id"), event.get("from_institution_id"), event.get("to_institution_id")
+                ) if value
+            )
+
+        chunks.append({
+            "format": "animal-lineage-atlas-detail-chunk-v1",
+            "animals": owner_animals,
+            "events": owner_events,
+            "claims": owner_claims,
+            "media": owner_media,
+            "sources": [source_by_id[source_id] for source_id in sorted(source_ids) if source_id in source_by_id],
+            "institutions": [institutions[institution_id] for institution_id in sorted(institution_ids) if institution_id in institutions],
+        })
+        for animal in owner_animals:
+            name = animal.get("name", {})
+            compact_animals.append({
+                "id": animal["id"],
+                "taxon": animal["taxon"],
+                "name": {
+                    "canonical": name.get("canonical", animal["id"]),
+                    **({"localized": name["localized"]} if name.get("localized") else {}),
+                },
+                **({"aliases": animal["aliases"]} if animal.get("aliases") else {}),
+                **({"external_ids": animal["external_ids"]} if animal.get("external_ids") else {}),
+                **({"population": animal["population"]} if animal.get("population") else {}),
+                "country_code": country_by_animal.get(animal["id"]),
+                "institution_names": sorted(institution_names_by_animal.get(animal["id"], set())),
+                "detail_chunk": chunk_name,
+            })
+
+    details_dir = output_dir / "details"
+    details_dir.mkdir()
+    for index, chunk in enumerate(chunks):
+        (details_dir / f"chunk-{index:04d}.json").write_text(
+            json.dumps(chunk, ensure_ascii=False, separators=(",", ":")) + "\n",
+            encoding="utf-8",
+        )
+
+    runtime_index = {
+        "format": "animal-lineage-atlas-runtime-index-v1",
+        "release": document.get("release", {}),
+        "coverage": document.get("coverage", {}),
+        "animals": compact_animals,
+        "relationships": [
+            {
+                "id": relationship["id"],
+                "subject": relationship["subject"],
+                "object": relationship["object"],
+                "type": relationship["type"],
+                "status": relationship["status"],
+                **({"source_ids": relationship["source_ids"]} if relationship.get("source_ids") else {}),
+            }
+            for relationship in document.get("relationships", [])
+        ],
+    }
+    (output_dir / "runtime.json").write_text(
+        json.dumps(runtime_index, ensure_ascii=False, separators=(",", ":")) + "\n",
         encoding="utf-8",
     )
 
@@ -92,7 +224,8 @@ def build_atlases(output_root: Path) -> list[Path]:
             stderr=subprocess.PIPE,
             text=True,
         )
-        _compact_json(REPO_ROOT / "atlases" / species / "atlas.json", output_dir / "runtime.json")
+        source_document = json.loads((REPO_ROOT / "atlases" / species / "atlas.json").read_text(encoding="utf-8"))
+        _write_runtime_index(source_document, output_dir)
         (output_dir / "local-media-manifest.json").write_text(
             json.dumps({"format": "animal-lineage-atlas-local-media-manifest-v1", "items": []}, separators=(",", ":")) + "\n",
             encoding="utf-8",
