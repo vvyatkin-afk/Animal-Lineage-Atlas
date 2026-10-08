@@ -75,6 +75,12 @@ class SpeciesDataTests(unittest.TestCase):
         }
         self.assertTrue(expected.issubset(pairs.keys()))
 
+    def test_polar_bear_records_keep_wild_and_zoo_populations_explicit(self):
+        atlas = load_atlas("polar-bear")
+        populations = {animal.get("population") for animal in atlas["animals"]}
+        self.assertEqual(populations, {"zoo_captive"})
+        self.assertTrue(all(source.get("tier") == "B" for source in atlas["sources"]))
+
     def test_polar_wild_research_import_stays_separate_and_has_no_placeholder_parents(self):
         atlas = load_atlas("polar-bear")
         report_path = ROOT / "atlases" / "polar-bear" / "import_report.json"

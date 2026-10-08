@@ -217,6 +217,11 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
         path = f"$.animals[{index}]"
         if not _is_nonempty_string(animal.get("taxon")):
             _issue(issues, "invalid_animal", f"{path}.taxon", "Animal taxon must be non-empty text.")
+        population = animal.get("population")
+        if population is not None and population not in {"wild", "zoo_captive", "other_managed", "unknown"}:
+            _issue(issues, "invalid_population", f"{path}.population", "Population must preserve wild, zoo captive, other managed, or unknown scope.")
+        if animal.get("taxon") == "Ursus maritimus" and population is None:
+            _issue(issues, "missing_population", f"{path}.population", "Polar bear records must state wild, zoo_captive, other_managed, or unknown population scope.")
         if animal.get("sex") not in {"female", "male", "intersex", "unknown"}:
             _issue(issues, "invalid_animal", f"{path}.sex", "Animal sex must preserve known or unknown status.")
         if animal.get("status") not in {"living", "deceased", "unknown"}:
