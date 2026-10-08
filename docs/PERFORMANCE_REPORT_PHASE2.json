@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
-  "measured_at_utc": "2026-10-08T03:28:10+00:00",
+  "measured_at_utc": "2026-10-08T04:00:51+00:00",
   "repository": "vvyatkin-afk/Animal-Lineage-Atlas",
-  "source_revision": "9b6b226eeac714d441a4cb2e6db8995189af3af8",
-  "source_worktree_dirty_excluding_report": true,
+  "source_revision": "18b7efcecbc3319b4607ea87bf106113b8d10ee2",
+  "source_worktree_dirty_excluding_report": false,
   "release_root": "dist",
   "runtime": {
     "python": "3.13.5",
@@ -40,36 +40,36 @@
       },
       "atlas.red-panda": {
         "files_bytes": {
-          "details/chunk-0000.json": 548965,
+          "details/chunk-0000.json": 550536,
           "details/chunk-0001.json": 562389,
           "details/chunk-0002.json": 791975,
           "details/chunk-0003.json": 694688,
           "details/chunk-0004.json": 862233,
-          "details/chunk-0005.json": 1274758,
-          "details/chunk-0006.json": 1036785,
-          "details/chunk-0007.json": 803756,
-          "details/chunk-0008.json": 643589,
-          "details/chunk-0009.json": 587672,
-          "details/chunk-0010.json": 668377,
-          "details/chunk-0011.json": 730815,
-          "details/chunk-0012.json": 131472,
+          "details/chunk-0005.json": 1292882,
+          "details/chunk-0006.json": 1022539,
+          "details/chunk-0007.json": 798350,
+          "details/chunk-0008.json": 641747,
+          "details/chunk-0009.json": 586977,
+          "details/chunk-0010.json": 690421,
+          "details/chunk-0011.json": 714756,
+          "details/chunk-0012.json": 126427,
           "index.html": 5882,
           "local-media-manifest.json": 69,
           "main.js": 117836,
-          "runtime.json": 1300178,
+          "runtime.json": 1299310,
           "styles.css": 13257
         },
         "bundle_bytes": 131093,
-        "data_payload_bytes": 1300178,
-        "initial_data_payload_bytes": 1300247,
+        "data_payload_bytes": 1299310,
+        "initial_data_payload_bytes": 1299379,
         "detail_payloads": {
           "chunk_count": 13,
-          "total_bytes": 9337474,
-          "largest_chunk_bytes": 1274758,
+          "total_bytes": 9335920,
+          "largest_chunk_bytes": 1292882,
           "median_chunk_bytes": 694688
         },
-        "complete_data_payload_bytes": 10637721,
-        "total_bytes": 10774696
+        "complete_data_payload_bytes": 10635299,
+        "total_bytes": 10772274
       },
       "atlas.polar-bear": {
         "files_bytes": {
@@ -114,20 +114,20 @@
         "total_bytes": 349294
       }
     },
-    "total_bytes": 11495593
+    "total_bytes": 11493171
   },
   "engine_timings": {
     "red-panda": {
-      "record_count": 1555,
-      "relationship_count": 2396,
+      "record_count": 1554,
+      "relationship_count": 2394,
       "component_count": 171,
-      "largest_component_size": 824,
-      "derived_index_heap_bytes": 2328376,
+      "largest_component_size": 823,
+      "derived_index_heap_bytes": 2243064,
       "search": {
         "samples": 120,
-        "median_ms": 2.053,
-        "p95_ms": 3.917,
-        "mean_ms": 2.329,
+        "median_ms": 2.798,
+        "p95_ms": 6.796,
+        "mean_ms": 3.134,
         "query_cases": [
           {
             "query": "アラタ",
@@ -139,15 +139,15 @@
           },
           {
             "query": "Ailurus fulgens",
-            "matches": 1555
+            "matches": 1554
           }
         ]
       },
       "genealogy_layout": {
         "samples": 30,
-        "median_ms": 0.041,
-        "p95_ms": 0.952,
-        "mean_ms": 0.198,
+        "median_ms": 0.034,
+        "p95_ms": 1.881,
+        "mean_ms": 0.302,
         "representative_nodes": 5,
         "representative_edges": 5,
         "representative_truncated": false
@@ -158,12 +158,12 @@
       "relationship_count": 58,
       "component_count": 19,
       "largest_component_size": 9,
-      "derived_index_heap_bytes": 33152,
+      "derived_index_heap_bytes": 116576,
       "search": {
         "samples": 120,
-        "median_ms": 0.015,
-        "p95_ms": 0.026,
-        "mean_ms": 0.017,
+        "median_ms": 0.016,
+        "p95_ms": 0.075,
+        "mean_ms": 0.057,
         "query_cases": [
           {
             "query": "Franz",
@@ -182,8 +182,8 @@
       "genealogy_layout": {
         "samples": 30,
         "median_ms": 0.018,
-        "p95_ms": 0.288,
-        "mean_ms": 0.072,
+        "p95_ms": 0.295,
+        "mean_ms": 0.076,
         "representative_nodes": 7,
         "representative_edges": 6,
         "representative_truncated": false
@@ -194,12 +194,12 @@
       "relationship_count": 78,
       "component_count": 24,
       "largest_component_size": 19,
-      "derived_index_heap_bytes": 130744,
+      "derived_index_heap_bytes": 143176,
       "search": {
         "samples": 120,
-        "median_ms": 0.029,
-        "p95_ms": 0.072,
-        "mean_ms": 0.057,
+        "median_ms": 0.02,
+        "p95_ms": 0.081,
+        "mean_ms": 0.028,
         "query_cases": [
           {
             "query": "Nala",
@@ -217,9 +217,9 @@
       },
       "genealogy_layout": {
         "samples": 30,
-        "median_ms": 0.029,
-        "p95_ms": 1.214,
-        "mean_ms": 0.155,
+        "median_ms": 0.015,
+        "p95_ms": 0.698,
+        "mean_ms": 0.231,
         "representative_nodes": 2,
         "representative_edges": 1,
         "representative_truncated": false
@@ -231,13 +231,13 @@
     "animal_count": 5000,
     "relationship_count": 4750,
     "component_count": 250,
-    "derived_index_heap_bytes": 6039248,
-    "search_index_build_ms": 173.111,
-    "graph_index_build_ms": 44.461,
+    "derived_index_heap_bytes": 5893904,
+    "search_index_build_ms": 196.312,
+    "graph_index_build_ms": 49.575,
     "search": {
       "samples": 150,
-      "median_ms": 8.042,
-      "p95_ms": 13.849,
+      "median_ms": 6.276,
+      "p95_ms": 13.313,
       "query_cases": [
         {
           "query": "synthetic:04999",
@@ -255,8 +255,8 @@
     },
     "focused_graph": {
       "samples": 60,
-      "median_ms": 0.06,
-      "p95_ms": 0.073,
+      "median_ms": 0.037,
+      "p95_ms": 0.048,
       "nodes": 7,
       "edges": 6,
       "truncated": false
@@ -275,47 +275,47 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
-      "duration_ms": 28178.557
+      "duration_ms": 23445.418999999998
     },
     "screenshots": {
       "hippopotamus-mobile.png": 374833,
-      "hub-desktop.png": 502653,
-      "red-panda-desktop.png": 289156,
-      "red-panda-mobile.png": 93561
+      "hub-desktop.png": 502324,
+      "red-panda-desktop.png": 289870,
+      "red-panda-mobile.png": 93580
     }
   },
   "browser_performance": {
     "browser": "153.0.8010.12",
     "method": "Playwright Chromium against the local static build; desktop 1440x1000 CSS px and mobile 390x844 CSS px. Timings use in-app synchronous search/DOM/render durations and direct profile open duration including the detail fetch. Browser heap is Chromium performance.memory when available.",
     "dataset": "red-panda",
-    "record_count": 1555,
-    "initial_index_payload_bytes": 1300247,
-    "runtime_index_bytes": 1300178,
+    "record_count": 1554,
+    "initial_index_payload_bytes": 1299379,
+    "runtime_index_bytes": 1299310,
     "initial_search_had_no_detail_request": true,
-    "opened_profile_detail_payload_bytes": 1036785,
+    "opened_profile_detail_payload_bytes": 1022539,
     "desktop": {
       "viewport_css_px": [
         1440,
         1000
       ],
-      "search_render_ms": 6.4,
-      "global_overview_render_ms": 26.6,
-      "focused_graph_render_ms": 9.4,
-      "focused_graph_nodes": 51,
-      "profile_open_ms": 110.4,
-      "used_heap_bytes": 11900000
+      "search_render_ms": 14.2,
+      "global_overview_render_ms": 16.7,
+      "focused_graph_render_ms": 6.5,
+      "focused_graph_nodes": 16,
+      "profile_open_ms": 135.4,
+      "used_heap_bytes": 11200000
     },
     "mobile": {
       "viewport_css_px": [
         390,
         844
       ],
-      "focused_graph_render_ms": 3.2,
-      "focused_graph_nodes": 24,
-      "profile_open_ms": 144.9,
+      "focused_graph_render_ms": 1.8,
+      "focused_graph_nodes": 8,
+      "profile_open_ms": 118.4,
       "viewport_width": 390,
       "document_width": 390,
-      "used_heap_bytes": 11900000
+      "used_heap_bytes": 11200000
     }
   }
 }
