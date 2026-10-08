@@ -89,6 +89,82 @@ def _institution_key(institution: dict[str, Any]) -> tuple[str, str]:
     return _normalized(str(name)), str(institution.get("country_code") or "").upper()
 
 
+def _combine_coverage(canonical: dict[str, Any], imports: list[dict[str, Any]]) -> dict[str, Any]:
+    by_taxon: dict[str, dict[str, Any]] = {}
+    for item in imports:
+        bundle = item.get("bundle", {})
+        coverage = bundle.get("coverage")
+        taxa = {animal.get("taxon") for animal in bundle.get("animals", [])}
+        if isinstance(coverage, dict):
+            by_taxon.setdefault(coverage.get("taxon"), coverage)
+        elif len(taxa) == 1:
+            taxon = next(iter(taxa))
+            by_taxon.setdefault(taxon, {})
+    by_taxon.setdefault("Hippopotamus amphibius", canonical.get("coverage", {}))
+    ordered_taxa = [taxon for taxon in ("Hippopotamus amphibius", "Choeropsis liberiensis") if taxon in by_taxon]
+    scopes: list[str] = []
+    source_categories: list[str] = []
+    translations: dict[str, dict[str, Any]] = {"ja": {"scope": "", "limitations": []}, "ru": {"scope": "", "limitations": []}}
+    for taxon in ordered_taxa:
+        coverage = by_taxon[taxon]
+        fallback_scope = "Selected source-backed records for " + taxon + "."
+        scopes.append(str(coverage.get("scope") or fallback_scope))
+        group_limits = coverage.get("limitations")
+        if not isinstance(group_limits, list) or not group_limits:
+            group_limits = ["This is a selected public-source subset, not a complete census or studbook."]
+        source_categories.extend(str(value) for value in coverage.get("source_categories", []) if isinstance(value, str))
+        localized = coverage.get("translations", {})
+        for locale, fallback in (("ja", f"{taxon}の公開資料に基づく選定データです。"), ("ru", f"Выборка по публичным источникам для {taxon}.")):
+            block = localized.get(locale, {}) if isinstance(localized, dict) else {}
+            current_scope = translations[locale]["scope"]
+            translated_scope = str(block.get("scope") or fallback)
+            translations[locale]["scope"] = "; ".join(part for part in (current_scope, translated_scope) if part)
+            translated_limits = block.get("limitations") if isinstance(block, dict) else None
+            if not isinstance(translated_limits, list) or len(translated_limits) != len(group_limits):
+                translated_limits = [fallback for _ in group_limits]
+            translations[locale]["limitations"].extend(str(value) for value in translated_limits)
+    # Deduplicate with a shared positional projection so every locale retains
+    # one limitation per canonical English limitation.
+    limitation_rows: list[tuple[str, str, str]] = []
+    for taxon in ordered_taxa:
+        coverage = by_taxon[taxon]
+        english = coverage.get("limitations") or ["This is a selected public-source subset, not a complete census or studbook."]
+        localized = coverage.get("translations", {})
+        ja = (localized.get("ja", {}).get("limitations", []) if isinstance(localized, dict) else [])
+        ru = (localized.get("ru", {}).get("limitations", []) if isinstance(localized, dict) else [])
+        for index, text in enumerate(english):
+            fallback_ja = f"{taxon}の公開資料に基づく選定データです。"
+            fallback_ru = f"Выборка по публичным источникам для {taxon}."
+            limitation_rows.append((
+                str(text),
+                str(ja[index]) if len(ja) == len(english) else fallback_ja,
+                str(ru[index]) if len(ru) == len(english) else fallback_ru,
+            ))
+    # Preserve duplicate English meanings only once and keep their translations aligned.
+    unique_rows: list[tuple[str, str, str]] = []
+    seen_english: set[str] = set()
+    for row in limitation_rows:
+        if row[0] not in seen_english:
+            unique_rows.append(row)
+            seen_english.add(row[0])
+    limitations = [row[0] for row in unique_rows]
+    translations = {
+        "ja": {"scope": translations["ja"]["scope"], "limitations": [row[1] for row in unique_rows]},
+        "ru": {"scope": translations["ru"]["scope"], "limitations": [row[2] for row in unique_rows]},
+    }
+    dates = [coverage.get("last_reviewed") for coverage in by_taxon.values() if coverage.get("last_reviewed")]
+    result = deepcopy(canonical.get("coverage", {}))
+    result.update({
+        "taxon": " and ".join(ordered_taxa),
+        "scope": " ".join(scopes),
+        "limitations": limitations,
+        "last_reviewed": max(dates) if dates else canonical.get("coverage", {}).get("last_reviewed"),
+        "source_categories": sorted(set(source_categories)),
+        "translations": translations,
+    })
+    return result
+
+
 def _append_conflict_claim(
     claims: list[dict[str, Any]], animal: dict[str, Any], field: str, alternate: Any,
     source_ids: list[str], import_id: str,
@@ -126,6 +202,7 @@ def merge_hippopotamus(
     report: dict[str, Any] = {
         "report_version": "1.0.0",
         "id_mappings": {},
+        "animal_identity_crosswalk": [],
         "claim_id_mappings": {},
         "relationship_id_mappings": {},
         "event_id_mappings": {},
@@ -134,6 +211,7 @@ def merge_hippopotamus(
         "exclusions": [],
         "imports": [],
         "counts": {},
+        "canonical_before_counts": {collection: len(canonical.get(collection, [])) for collection in COLLECTIONS},
     }
     for collection in COLLECTIONS:
         atlas.setdefault(collection, [])
@@ -199,6 +277,11 @@ def merge_hippopotamus(
                 atlas["animals"].append(incoming)
                 animal_index[new_id] = incoming
                 continue
+            report["animal_identity_crosswalk"].append({
+                "import_id": prefix,
+                "bundle_animal_id": old_id,
+                "canonical_animal_id": new_id,
+            })
             if existing.get("taxon") != incoming.get("taxon"):
                 raise ValueError(f"{prefix}: cross-taxon animal identity mapping for {old_id!r}")
             for field in ("sex", "status"):
@@ -266,6 +349,15 @@ def merge_hippopotamus(
                 report[mapping_name][record[id_field]] = record[id_field]
         _merge_by_id(atlas["media"], bundle.get("media", []), "media_id", "media")
 
+    atlas["coverage"] = _combine_coverage(canonical, imports)
+    release_dates = [atlas.get("release", {}).get("build_date", "")]
+    release_dates.extend(item.get("bundle", {}).get("release", {}).get("build_date", "") for item in imports)
+    release_date = max(value for value in release_dates if value)
+    atlas.setdefault("release", {}).update({
+        "data_version": release_date.replace("-", ".") + "-phase2",
+        "build_date": release_date,
+        "provenance": "Unified common and pygmy hippopotamus data from cited public institutional records; see HIPPOPOTAMUS_SOURCES.md and the reproducible import reports.",
+    })
     # Sorting every keyed collection makes serialization reproducible regardless of import order.
     for collection, id_field in (("animals", "id"), ("claims", "id"), ("relationships", "id"), ("events", "id"), ("institutions", "id"), ("media", "media_id"), ("sources", "id")):
         atlas[collection].sort(key=lambda record: record[id_field])
@@ -273,9 +365,14 @@ def merge_hippopotamus(
     for mapping_name in ("claim_id_mappings", "relationship_id_mappings", "event_id_mappings"):
         report[mapping_name] = dict(sorted(report[mapping_name].items()))
     report["institution_id_mappings"] = dict(sorted(report["institution_id_mappings"].items()))
+    report["animal_identity_crosswalk"].sort(key=lambda item: (item["import_id"], item["bundle_animal_id"]))
     report["conflicts"].sort(key=lambda item: (item["animal_id"], item["field"], str(item["alternate"])))
     report["imports"].sort(key=lambda item: item["import_id"])
     report["counts"] = {collection: len(atlas[collection]) for collection in COLLECTIONS}
+    report["counts_added"] = {
+        collection: report["counts"][collection] - report["canonical_before_counts"][collection]
+        for collection in COLLECTIONS
+    }
     report["taxa"] = dict(sorted({taxon: sum(1 for animal in atlas["animals"] if animal["taxon"] == taxon) for taxon in all_animal_taxa | {animal.get("taxon") for item in imports for animal in item["bundle"].get("animals", [])}}.items()))
     return atlas, report
 
@@ -306,6 +403,10 @@ def _sha256(path: Path) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--canonical", type=Path, required=True)
+    parser.add_argument(
+        "--canonical-revision",
+        help="optional immutable source revision for the canonical base",
+    )
     parser.add_argument("--common-bundle", type=Path, required=True)
     parser.add_argument("--common-report", type=Path, required=True)
     parser.add_argument("--pygmy-bundle", type=Path, required=True)
@@ -323,6 +424,11 @@ def main(argv: list[str] | None = None) -> int:
                 {"import_id": "pygmy-hippo", "bundle": _read_json(args.pygmy_bundle), "animal_id_map": _crosswalk(pygmy_report), "bundle_path": args.pygmy_bundle.as_posix(), "bundle_sha256": _sha256(args.pygmy_bundle)},
             ],
         )
+        report["canonical_base"] = {
+            "path": args.canonical.as_posix(),
+            "sha256": _sha256(args.canonical),
+            "revision": args.canonical_revision,
+        }
         args.out.parent.mkdir(parents=True, exist_ok=True)
         args.report_out.parent.mkdir(parents=True, exist_ok=True)
         args.out.write_text(json.dumps(atlas, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

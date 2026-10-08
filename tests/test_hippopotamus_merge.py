@@ -39,6 +39,19 @@ def animal(animal_id: str, name: str, taxon: str, source_ids: list[str], sex: st
     }
 
 
+def coverage(taxon: str) -> dict:
+    return {
+        "taxon": taxon,
+        "scope": f"Selected named {taxon} records.",
+        "limitations": [f"Subset for {taxon}; not a complete pedigree."],
+        "last_reviewed": "2026-10-08",
+        "translations": {
+            "ja": {"scope": f"{taxon}の選定データ。", "limitations": [f"{taxon}の全系譜ではありません。"]},
+            "ru": {"scope": f"Выборка {taxon}.", "limitations": [f"Это не полная родословная {taxon}."]},
+        },
+    }
+
+
 def canonical_atlas() -> dict:
     return {
         "release": {"schema_version": "1.0.0", "data_version": "v1", "engine_version": "1", "build_date": "2026-10-07", "provenance": "test"},
@@ -61,6 +74,7 @@ def canonical_atlas() -> dict:
 
 def common_bundle(name: str = "Bibi", sex: str = "female") -> dict:
     return {
+        "coverage": coverage(COMMON),
         "animals": [
             animal("import:bibi", name, COMMON, ["source:common"], sex),
             animal("import:calf", "Calf", COMMON, ["source:common"]),
@@ -91,6 +105,7 @@ def common_bundle(name: str = "Bibi", sex: str = "female") -> dict:
 
 def pygmy_bundle() -> dict:
     return {
+        "coverage": coverage(PYGMY),
         "animals": [
             animal("import:pygmy-bibi", "Bibi", PYGMY, ["source:pygmy"], "female"),
             animal("import:pygmy-calf", "Calf", PYGMY, ["source:pygmy"]),
@@ -123,6 +138,8 @@ class HippopotamusImportMergeTests(unittest.TestCase):
 
         self.assertEqual(len(atlas["animals"]), 4)
         self.assertEqual({item["taxon"] for item in atlas["animals"]}, {COMMON, PYGMY})
+        self.assertEqual(atlas["coverage"]["taxon"], f"{COMMON} and {PYGMY}")
+        self.assertEqual(len(atlas["coverage"]["limitations"]), len(atlas["coverage"]["translations"]["ja"]["limitations"]))
         self.assertCountEqual(next(item for item in atlas["animals"] if item["id"] == "hippopotamus:bibi")["name"]["source_ids"], ["source:common", "source:old"])
         self.assertIn("import:pygmy-bibi", {item["id"] for item in atlas["animals"]})
         self.assertEqual(report["id_mappings"]["import:bibi"], "hippopotamus:bibi")

@@ -7,7 +7,7 @@
   "counts": {
     "animals": 25,
     "relationships": 21,
-    "claims": 2,
+    "claims": 26,
     "events": 21,
     "institutions": 12,
     "sources": 24,
@@ -24,7 +24,8 @@
       "living": 0,
       "deceased": 0,
       "unknown": 25
-    }
+    },
+    "source_cited_claims": 26
   },
   "families": {
     "Edinburgh/London": {
@@ -300,10 +301,11 @@
     "all_animals_taxon_exact": true,
     "all_stable_ids_prefixed": true,
     "all_parent_edges_within_taxon": true,
-    "provenance_integrity": "passed: every animal name, relationship, claim, event, and institution mapping resolves to source IDs",
+    "provenance_integrity": "passed: every animal name, known sex, relationship, claim, event, and institution mapping resolves to source IDs",
     "stable_id_prefix": "passed: every record ID starts with hippopotamus-pygmy-",
     "taxonomy_integrity": "passed: every animal uses Choeropsis liberiensis",
-    "diff_check": "passed: git diff --check"
+    "diff_check": "passed: git diff --check",
+    "all_known_sex_values_have_source_cited_claims": true
   },
   "source_access_notes": [
     "Official Khao Kheow announcement and naming pages were reviewed from search-indexed content at their exact official URLs after direct browser fetches timed out; Thailand Zoological Park Organization official material independently corroborated Moo Deng parentage. No access controls were bypassed.",
@@ -398,5 +400,9 @@
         "hippopotamus-pygmy-source-edinburgh-amara-family"
       ]
     }
-  ]
+  ],
+  "source_tiers": {
+    "B": 24
+  },
+  "bundle_sha256": "091f2eac4c898922aa7a36acd194e46bc9c927b45ae8d307abba85a21e040ea4"
 }

@@ -204,7 +204,7 @@
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "publisher", "url", "publication_date", "accessed_date", "source_type", "notes", "data_use"],
+      "required": ["id", "title", "publisher", "url", "publication_date", "accessed_date", "source_type", "tier", "notes", "data_use"],
       "properties": {
         "id": {"$ref": "#/$defs/id"}, "title": {"type": "string", "minLength": 1},
         "publisher": {"type": "string", "minLength": 1}, "url": {"type": "string", "format": "uri"},

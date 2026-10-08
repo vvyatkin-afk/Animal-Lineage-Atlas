@@ -12,10 +12,14 @@ const requiredFiles = [
   'docs/MEDIA_AND_RIGHTS_POLICY.md',
   'docs/OFFLINE_ARCHIVE_FUTURE.md',
   'docs/RED_PANDA_MIGRATION.md',
+  'docs/RED_PANDA_UPSTREAM_SYNC.md',
   'docs/POLAR_BEAR_SOURCES.md',
+  'docs/POLAR_BEAR_WESTERN_HUDSON_BAY.md',
   'docs/HIPPOPOTAMUS_SOURCES.md',
+  'docs/DATA_PROVENANCE_TIERS.md',
   'docs/DEPLOYMENT_AND_ROLLBACK.md',
   'docs/RELEASE_V1.md',
+  'docs/RELEASE_V2_EXPANDED_DATASETS.md',
   'docs/QA_REPORT.json',
 ];
 const pathTargets = ['/atlas/', '/atlas.red-panda/', '/atlas.polar-bear/', '/atlas.hippopotamus/'];
@@ -37,7 +41,7 @@ test('README and release notes list the four exact production paths', async () =
 });
 
 test('release record and relationship counts match canonical datasets', async () => {
-  const release = await readFile(new URL('docs/RELEASE_V1.md', root), 'utf8');
+  const release = await readFile(new URL('docs/RELEASE_V2_EXPANDED_DATASETS.md', root), 'utf8');
   for (const species of ['red-panda', 'polar-bear', 'hippopotamus']) {
     const atlas = JSON.parse(await readFile(new URL(`atlases/${species}/atlas.json`, root), 'utf8'));
     assert.match(release, new RegExp(`${atlas.animals.length}\\s+animals`, 'i'), `${species} animal count`);
@@ -45,12 +49,12 @@ test('release record and relationship counts match canonical datasets', async ()
   }
 });
 
-test('offline policy names all local manifest fields and deployment rollback protects legacy path', async () => {
+test('offline policy and deployment notes cover manifests, rollback, and the Atlas routes', async () => {
   const offline = await readFile(new URL('docs/OFFLINE_ARCHIVE_FUTURE.md', root), 'utf8');
   for (const field of ['original source URL', 'credit', 'rights', 'relative path', 'checksum', 'archive status']) {
     assert.ok(offline.toLowerCase().includes(field.toLowerCase()), `offline policy should explain ${field}`);
   }
   const deployment = await readFile(new URL('docs/DEPLOYMENT_AND_ROLLBACK.md', root), 'utf8');
   assert.match(deployment, /rollback/i);
-  assert.match(deployment, /\/red-panda\//);
+  for (const path of pathTargets) assert.ok(deployment.includes(path), `deployment notes should cover ${path}`);
 });

@@ -276,6 +276,8 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
             _issue(issues, "dangling_animal", f"{path}.subject", f"Animal {subject!r} does not exist.")
         if obj not in animals:
             _issue(issues, "dangling_animal", f"{path}.object", f"Animal {obj!r} does not exist.")
+        if subject in animals and obj in animals and animals[subject].get("taxon") != animals[obj].get("taxon"):
+            _issue(issues, "cross_taxon_relationship", path, "Relationships must not cross taxonomic boundaries.")
         if subject == obj and subject in animals:
             _issue(issues, "self_ancestry", path, "An animal cannot have a relationship to itself.")
         if relation.get("type") not in RELATION_TYPES:

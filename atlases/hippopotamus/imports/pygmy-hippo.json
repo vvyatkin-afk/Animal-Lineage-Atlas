@@ -646,21 +646,6 @@
   ],
   "claims": [
     {
-      "id": "hippopotamus-pygmy-claim-natsume-momiji-sisters",
-      "subject": "hippopotamus-pygmy-natsume",
-      "claim_type": "sibling",
-      "value": "hippopotamus-pygmy-momiji",
-      "status": "confirmed",
-      "source_ids": [
-        "hippopotamus-pygmy-source-ueno-sisters"
-      ],
-      "review": {
-        "status": "reviewed",
-        "reviewed_on": "2026-10-08",
-        "notes": "Ueno Zoo explicitly describes Natsume and Momiji as sisters born to the same parents; those parents are not named."
-      }
-    },
-    {
       "id": "hippopotamus-pygmy-claim-iris-corwin-poppy-parent-pair",
       "subject": "hippopotamus-pygmy-poppy",
       "claim_type": "biological_parent_pair",
@@ -677,6 +662,381 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Metro Richmond Zoo names Iris and Corwin as Poppy’s parents. Iris is separately supported as mother; the source does not explicitly assign Corwin the father role, so no biological_father relationship was inferred."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-natsume-momiji-sisters",
+      "subject": "hippopotamus-pygmy-natsume",
+      "claim_type": "sibling",
+      "value": "hippopotamus-pygmy-momiji",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-sisters"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Ueno Zoo explicitly describes Natsume and Momiji as sisters born to the same parents; those parents are not named."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-amara",
+      "subject": "hippopotamus-pygmy-amara",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-piper-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-cleopatra",
+      "subject": "hippopotamus-pygmy-cleopatra",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-gloria",
+      "subject": "hippopotamus-pygmy-gloria",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-haggis-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-haggis",
+      "subject": "hippopotamus-pygmy-haggis",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-haggis-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-harvey",
+      "subject": "hippopotamus-pygmy-harvey",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-maple-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-hugo",
+      "subject": "hippopotamus-pygmy-hugo",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-john-ball-hugo"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-iris",
+      "subject": "hippopotamus-pygmy-iris",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-richmond-poppy-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-iroha",
+      "subject": "hippopotamus-pygmy-iroha",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-iroha-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-jahari",
+      "subject": "hippopotamus-pygmy-jahari",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-john-ball-hugo"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-jona",
+      "subject": "hippopotamus-pygmy-jona",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-khao-moodeng-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-kindia",
+      "subject": "hippopotamus-pygmy-kindia",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-maple-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-kobushi",
+      "subject": "hippopotamus-pygmy-kobushi",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-natsume-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-maple",
+      "subject": "hippopotamus-pygmy-maple",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-maple-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-momiji",
+      "subject": "hippopotamus-pygmy-momiji",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-momiji-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-moo-deng",
+      "subject": "hippopotamus-pygmy-moo-deng",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-khao-moodeng-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-motomoto",
+      "subject": "hippopotamus-pygmy-motomoto",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-motomoto-transfer"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-natsume",
+      "subject": "hippopotamus-pygmy-natsume",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-natsume-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-otto",
+      "subject": "hippopotamus-pygmy-otto",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-haggis-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-penelope",
+      "subject": "hippopotamus-pygmy-penelope",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-piper",
+      "subject": "hippopotamus-pygmy-piper",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-piper-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-pogo",
+      "subject": "hippopotamus-pygmy-pogo",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-poppy",
+      "subject": "hippopotamus-pygmy-poppy",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-richmond-poppy-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-psi",
+      "subject": "hippopotamus-pygmy-psi",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-sex-tony",
+      "subject": "hippopotamus-pygmy-tony",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-khao-thailand-zoo-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
       }
     }
   ],
@@ -1520,7 +1880,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_family_record",
       "notes": "States Amara (2021) was the previous calf of Otto and Gloria and moved to ZSL London Zoo in 2023.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-edinburgh-haggis-family",
@@ -1531,7 +1892,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_family_record",
       "notes": "Identifies Otto as father of the Edinburgh hippo family, Gloria as mother, and Haggis as their calf; says Haggis moved to another zoo but does not name the destination.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-edinburgh-haggis-birth",
@@ -1542,7 +1904,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_birth_announcement",
       "notes": "Names female calf Haggis, born 2024-10-30 to Otto and Gloria.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-edinburgh-piper-birth",
@@ -1553,7 +1916,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_birth_announcement",
       "notes": "Reports the 2026-07-31 calf was born to Otto and Gloria and says Gloria had daughters Amara (2021) and Haggis (2024).",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-edinburgh-piper-name",
@@ -1564,7 +1928,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_birth_and_naming_announcement",
       "notes": "Names the female calf Piper, gives birth date 2026-07-31, and identifies Otto and Gloria as parents.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-ueno-natsume-birth",
@@ -1575,7 +1940,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_birth_announcement",
       "notes": "Reports male calf born 2025-03-14 to mother Natsume and father Motomoto; gives Natsume birth date 2011-06-22 and Motomoto birth date 2013-07-09 at Buin Zoo, plus receipt from NIFREL on 2023-03-20.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-ueno-momiji-birth",
@@ -1586,7 +1952,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_birth_announcement",
       "notes": "Original announcement 2025-12-26, updated 2025-12-27; reports female calf born 2025-12-25 to mother Momiji and father Motomoto; gives Momiji birth date 2003-11-20 at Ueno Zoo and Motomoto birth details.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-ueno-sisters",
@@ -1597,7 +1964,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_care_blog",
       "notes": "Directly describes Natsume and Momiji as sisters born to the same parents; does not name their parents.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-ueno-iroha-name",
@@ -1608,7 +1976,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_naming_announcement",
       "notes": "Names the female calf born at Ueno Zoo on 2025-12-25 Iroha; the linked birth facts identify Momiji and Motomoto as parents.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-ueno-motomoto-transfer",
@@ -1619,7 +1988,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_transfer_announcement",
       "notes": "Updated 2026-05-26 to confirm arrival; identifies male Motomoto, birth at Buin Zoo on 2013-07-09, move from NIFREL to Ueno on 2023-03-20, and return move from Ueno to NIFREL on 2026-05-25.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-ueno-kobushi-name",
@@ -1630,7 +2000,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_exhibit_announcement",
       "notes": "Identifies the Ueno calf as Kobushi in the caption and describes the mother-and-calf exhibit. Ueno Zoo’s official About page also lists “Pygmy Hippopotamus Natsume gives birth to baby Kobushi.”",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-ueno-about-kobushi",
@@ -1641,7 +2012,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_history",
       "notes": "The official Ueno Zoo timeline names Kobushi as Natsume’s baby in the 2025 entry.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-toronto-penelope-birth",
@@ -1652,7 +2024,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_birth_announcement",
       "notes": "Reports Kindia gave birth to a female calf on 2018-08-10; identifies male Harvey as sire; also records male Pogo, born 1999-09-02 to sire Psi and dam Cleopatra, and Pogo’s departure for Tampa’s Lowry Park Zoo in November 2003.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-toronto-penelope-name",
@@ -1663,7 +2036,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_naming_announcement",
       "notes": "Names the female calf Penelope and confirms she was born to Kindia on 2018-08-10.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-toronto-maple-birth",
@@ -1674,7 +2048,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_birth_announcement",
       "notes": "Reports female calf born 2026-08-02 to mother Kindia after breeding with male Harvey; identifies Kindia’s daughter Penelope as her 2018 calf.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-toronto-maple-name",
@@ -1685,7 +2060,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_naming_announcement",
       "notes": "Names the female calf Maple; says she was born 2026-08-02 and identifies Kindia and Harvey as her parents.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-john-ball-hugo",
@@ -1696,7 +2072,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_birth_and_family_record",
       "notes": "Names male Hugo, born 2025-09-03 to Penelope and Jahari; states Penelope came from Toronto Zoo in 2023 and Jahari from Pittsburgh Zoo in early 2023.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-richmond-poppy-birth",
@@ -1707,7 +2084,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_birth_announcement",
       "notes": "Reports a female calf born 2024-12-09 to parents Iris and Corwin; calf unnamed in this initial announcement.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-richmond-poppy-name",
@@ -1718,7 +2096,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_naming_announcement",
       "notes": "Names the calf Poppy and identifies Iris as her mother.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-richmond-poppy-profile",
@@ -1729,7 +2108,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_animal_profile",
       "notes": "Current official animal page identifies Poppy, gives her 2024-12-09 birth date and names Iris and Corwin as her parents.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-khao-moodeng-birth",
@@ -1740,7 +2120,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_birth_announcement",
       "notes": "Thai official announcement states the zoo introduced a female calf on 2024-07-25 and identifies mother Jona and father Tony. It does not establish a birth date. The official page returned a direct-fetch timeout during this review; indexed text from the exact official URL was reviewed and parentage was cross-checked against the Thailand Zoological Park Organization report.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-khao-moodeng-name",
@@ -1751,7 +2132,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_naming_announcement",
       "notes": "Thai official announcement says the voted name is หมูเด้ง. The official page returned a direct-fetch timeout during this review; indexed text from the exact official URL was reviewed.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-khao-thailand-zoo-report",
@@ -1762,7 +2144,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_organization_report",
       "notes": "Official organization plan records Moo Deng as offspring of breeding male Tony and female Jona; used only to cross-check named parentage, not as a studbook extract.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-pygmy-source-khao-english-name",
@@ -1773,7 +2156,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official_zoo_document",
       "notes": "The zoo’s official document uses the romanization “Moo Deng”; used for the English localized name only. It is not used as individual pedigree data.",
-      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted.",
+      "tier": "B"
     }
   ]
 }

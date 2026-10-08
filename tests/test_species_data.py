@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import unittest
 from pathlib import Path
 
@@ -181,12 +182,49 @@ class SpeciesDataTests(unittest.TestCase):
 
     def test_hippo_taxa_are_not_mixed(self):
         atlas = load_atlas("hippopotamus")
-        self.assertEqual(atlas["coverage"]["taxon"], "Hippopotamus amphibius")
+        self.assertEqual(atlas["coverage"]["taxon"], "Hippopotamus amphibius and Choeropsis liberiensis")
         self.assertEqual(
             {animal["taxon"] for animal in atlas["animals"]},
-            {"Hippopotamus amphibius"},
+            {"Hippopotamus amphibius", "Choeropsis liberiensis"},
         )
         self.assertTrue(atlas["animals"])
+        taxa_by_id = {animal["id"]: animal["taxon"] for animal in atlas["animals"]}
+        self.assertTrue(all(taxa_by_id[edge["subject"]] == taxa_by_id[edge["object"]] for edge in atlas["relationships"]))
+
+    def test_pygmy_hippo_known_sex_values_have_field_specific_citations(self):
+        atlas = load_atlas("hippopotamus")
+        pygmy_ids = {
+            animal["id"]
+            for animal in atlas["animals"]
+            if animal["taxon"] == "Choeropsis liberiensis"
+        }
+        claims = [
+            claim
+            for claim in atlas["claims"]
+            if claim["claim_type"] == "sex" and claim["subject"] in pygmy_ids
+        ]
+        by_subject = {claim["subject"]: claim for claim in claims}
+        sources = sources_by_id(atlas)
+        for animal in atlas["animals"]:
+            if animal["id"] not in pygmy_ids or animal.get("sex") in (None, "unknown"):
+                continue
+            with self.subTest(animal=animal["id"]):
+                self.assertIn(animal["id"], by_subject)
+                claim = by_subject[animal["id"]]
+                self.assertEqual(claim["value"], animal["sex"])
+                self.assertTrue(claim["source_ids"])
+                self.assertTrue(all(source_id in sources for source_id in claim["source_ids"]))
+
+    def test_hippopotamus_merge_report_pins_both_import_bundles(self):
+        atlas = load_atlas("hippopotamus")
+        report_path = ROOT / "reports" / "hippopotamus-merged-import.json"
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        self.assertEqual(report["counts"], {key: len(atlas[key]) for key in ("animals", "claims", "relationships", "events", "institutions", "media", "sources")})
+        self.assertEqual(len(report["animal_identity_crosswalk"]), 5)
+        for item in report["imports"]:
+            bundle_path = ROOT / item["bundle_path"]
+            self.assertEqual(hashlib.sha256(bundle_path.read_bytes()).hexdigest(), item["bundle_sha256"])
+        self.assertEqual({source["tier"] for source in atlas["sources"]}, {"B"})
 
     def test_cincinnati_parentage_is_source_backed(self):
         atlas = load_atlas("hippopotamus")

@@ -4740,7 +4740,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Female calf born to Bibi on 2017-01-24.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-cin-fiona",
@@ -4751,7 +4752,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Names Fiona and identifies Bibi and Henry as parents.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-cin-fiona-blog",
@@ -4762,7 +4764,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo blog",
       "notes": "Further identifies Fiona’s parents.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-cin-fritz",
@@ -4773,7 +4776,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Fritz born 2022-08-03 to Bibi and Tucker; Fiona is his older sister.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-cin-henry",
@@ -4784,7 +4788,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Reports Henry’s death and origin at Dickerson Park Zoo.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-cin-tucker",
@@ -4795,7 +4800,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Identifies Tucker as male at Cincinnati; says he came from San Francisco but does not name prior facility.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-cin-2024",
@@ -4806,7 +4812,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo roster",
       "notes": "Confirms Fritz’s sex, birth date and parents.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-cin-report",
@@ -4817,7 +4824,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo annual report",
       "notes": "Confirms Fritz as Fiona’s younger brother.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-sd-devi",
@@ -4828,7 +4836,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo feature",
       "notes": "Identifies Devi as Funani’s daughter; no sire identified.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-sd-tony-born",
@@ -4839,7 +4848,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Reports newborn calf during September 2017; exact day absent.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-sd-tony-sex",
@@ -4850,7 +4860,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Identifies 2017 calf as male.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-sd-tony-name",
@@ -4861,7 +4872,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Names the male 2017 calf Tony.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-sd-family",
@@ -4872,7 +4884,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo feature",
       "notes": "Identifies Tony’s mother Funani and father Otis.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-sd-amahle",
@@ -4883,7 +4896,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Names female Amahle; identifies mother Funani.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-sd-moon",
@@ -4894,7 +4908,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo feature",
       "notes": "Gives Amahle’s birth date as 2020-02-08 and identifies Funani as mother.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-sd-current",
@@ -4905,7 +4920,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo feature",
       "notes": "Lists living Funani, Amahle, Guadalupe (Lupe), and identifies mother/daughter relation Funani–Amahle.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-wp-lupe",
@@ -4916,7 +4932,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Names female Guadalupe (Lupe), says born at Disney’s Animal Kingdom, planned move 2024-09-24.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-prague",
@@ -4927,7 +4944,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo biography",
       "notes": "Slávek male, born 1984-10-30 at Prague Zoo to Zaira and Zulu; Maruška born Ostrava.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-budapest",
@@ -4938,7 +4956,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo feature",
       "notes": "Named lineage; Tücsök, Momba/Nairobi, Süsü/Jusztina and named descendants.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-ostrava-report",
@@ -4949,7 +4968,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "public zoo annual report chapter",
       "notes": "Jan Pluháček’s public historical chapter; selected named identities, births, parents, transfers and deaths. No studbook numbers or unnamed rows copied; no reuse license asserted.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-ostrava-current",
@@ -4960,7 +4980,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo exhibit page",
       "notes": "Coverage context only; not used to name current animals or infer parentage.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-hsg",
@@ -4971,7 +4992,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "specialist group program page",
       "notes": "Describes keeper-request access for European and Japanese common-hippo studbooks; coverage boundary only.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-waza",
@@ -4982,7 +5004,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "zoo association program page",
       "notes": "Program coverage context only.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-kobe",
@@ -4993,7 +5016,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Namiko, third Demeo, their birth/origin/transfer, and unnamed calf born 2009-08-11.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-kobe-mag",
@@ -5004,7 +5028,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo magazine",
       "notes": "Identifies calf’s parents and Namiko as Chameko’s granddaughter.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-tobe-hm",
@@ -5015,7 +5040,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo profile",
       "notes": "Identifies Hagler, Mimi, daughter Momoko and her 2010 transfer.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-tobe-yui",
@@ -5026,7 +5052,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo profile",
       "notes": "Identifies Yui with mother Mimi.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-ueno-yui",
@@ -5037,7 +5064,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Female Yui born 2011-07-24 at Tobe; father Hagler; planned Ueno arrival.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-tobe-2018",
@@ -5048,7 +5076,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo news",
       "notes": "Unnamed male calf born Jan 18, died Jan 19; parents Hagler and Mimi.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-tobe-manpuku-born",
@@ -5059,7 +5088,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo news",
       "notes": "Calf born 2021-04-23 to Hagler and Mimi.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-tobe-manpuku-name",
@@ -5070,7 +5100,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo profile",
       "notes": "Names the 2021 calf Manpuku.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-tobe-newsletter",
@@ -5081,7 +5112,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo newsletter",
       "notes": "Identifies Manpuku as male and transferred to Tobu Zoo on 2023-03-13.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-tobe-pair",
@@ -5092,7 +5124,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo feature",
       "notes": "Confirms Hagler male and Mimi female.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-tokuyama",
@@ -5103,7 +5136,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo document",
       "notes": "Maru female born at Tokuyama to Moomin and Kabako; names older siblings Bero and Mimi at other zoos.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-zsl",
@@ -5114,7 +5148,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "zoo society history feature",
       "notes": "Adhela/Dil, London arrival/death, daughter Guy Fawkes with birth date.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-berlin-twins",
@@ -5125,7 +5160,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Nala had twin male common-hippo calves 2025-09-28; one died shortly after birth.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     },
     {
       "id": "hippopotamus-common-source-berlin-willi",
@@ -5136,7 +5172,8 @@
       "accessed_date": "2026-10-08",
       "source_type": "official zoo announcement",
       "notes": "Names surviving common-hippo calf Willi Wackelöhrchen and identifies mother Nala.",
-      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied."
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
     }
   ]
 }

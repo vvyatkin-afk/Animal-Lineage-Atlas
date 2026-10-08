@@ -70,6 +70,7 @@ def minimal_atlas():
                 "publication_date": None,
                 "accessed_date": "2026-10-07",
                 "source_type": "zoo_profile",
+                "tier": "B",
                 "notes": "Test fixture.",
                 "data_use": "Factual name citation; no media reuse implied.",
             }
@@ -210,6 +211,7 @@ class ValidateAtlasTests(unittest.TestCase):
                 "publication_date": None,
                 "accessed_date": "2026-10-07",
                 "source_type": "news",
+                "tier": "discovery_only",
                 "notes": "Test fixture.",
                 "data_use": "Factual name citation only.",
             }
