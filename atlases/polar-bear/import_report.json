@@ -1,0 +1,545 @@
+{
+  "report_version": "1.0.0",
+  "generated_at_utc": "2026-10-08T02:25:08Z",
+  "scope": "Polar-bear species data import and source audit for phase2/polar-bear. No UI/schema or other-species data are part of this report.",
+  "counts": {
+    "baseline_before_this_change": {
+      "animals": 22,
+      "relationships": 24,
+      "events": 38,
+      "claims": 4,
+      "institutions": 16,
+      "sources": 11,
+      "media_references": 5
+    },
+    "added_official_zoo_corpus": {
+      "animals": 42,
+      "relationships": 34,
+      "events": 46,
+      "sources": 17,
+      "individual_ids": [
+        "polar-bear:vienna-rostock",
+        "polar-bear:churchill-rostock",
+        "polar-bear:vilma-rostock",
+        "polar-bear:venus-rostock",
+        "polar-bear:valeska-rostock",
+        "polar-bear:arcta-rostock",
+        "polar-bear:blizzard-rostock",
+        "polar-bear:lars-rostock",
+        "polar-bear:fiete-rostock",
+        "polar-bear:eric-rostock",
+        "polar-bear:olinka-rostock",
+        "polar-bear:sizzel-rostock",
+        "polar-bear:noria-rostock",
+        "polar-bear:kaja-rostock",
+        "polar-bear:skadi-rostock",
+        "polar-bear:lili-rostock",
+        "polar-bear:lloyd-schonbrunn",
+        "polar-bear:akiak-rostock",
+        "polar-bear:aurora-toronto",
+        "polar-bear:inukshuk-toronto",
+        "polar-bear:nikita-toronto",
+        "polar-bear:hudson-toronto",
+        "polar-bear:humphrey-toronto",
+        "polar-bear:juno-toronto",
+        "polar-bear:aurora-columbus",
+        "polar-bear:anana-columbus",
+        "polar-bear:nanuq-columbus",
+        "polar-bear:lee-columbus",
+        "polar-bear:nora-columbus",
+        "polar-bear:amelia-gray-columbus",
+        "polar-bear:neva-columbus",
+        "polar-bear:nuniq-columbus",
+        "polar-bear:kulu-columbus",
+        "polar-bear:vera-nuremberg",
+        "polar-bear:felix-nuremberg",
+        "polar-bear:gregor-nuremberg",
+        "polar-bear:aleut-nuremberg",
+        "polar-bear:flocke-nuremberg",
+        "polar-bear:charlotte-nuremberg",
+        "polar-bear:nora-prague-1942",
+        "polar-bear:ilun-prague",
+        "polar-bear:severka-prague"
+      ],
+      "relationship_ids": [
+        "relationship:polar-bear:vienna-rostock-vilma-rostock-mother",
+        "relationship:polar-bear:churchill-rostock-vilma-rostock-father",
+        "relationship:polar-bear:vienna-rostock-venus-rostock-mother",
+        "relationship:polar-bear:vienna-rostock-valeska-rostock-mother",
+        "relationship:polar-bear:vilma-rostock-fiete-rostock-mother",
+        "relationship:polar-bear:eric-rostock-sizzel-rostock-father",
+        "relationship:polar-bear:olinka-rostock-sizzel-rostock-mother",
+        "relationship:polar-bear:sizzel-rostock-kaja-rostock-mother",
+        "relationship:polar-bear:sizzel-rostock-skadi-rostock-mother",
+        "relationship:polar-bear:valeska-rostock-lili-rostock-mother",
+        "relationship:polar-bear:lloyd-schonbrunn-lili-rostock-father",
+        "relationship:polar-bear:aurora-toronto-hudson-toronto-mother",
+        "relationship:polar-bear:inukshuk-toronto-hudson-toronto-father",
+        "relationship:polar-bear:aurora-toronto-humphrey-toronto-mother",
+        "relationship:polar-bear:inukshuk-toronto-humphrey-toronto-father",
+        "relationship:polar-bear:aurora-columbus-nora-columbus-mother",
+        "relationship:polar-bear:nanuq-columbus-nora-columbus-father",
+        "relationship:polar-bear:aurora-columbus-neva-columbus-mother",
+        "relationship:polar-bear:nanuq-columbus-neva-columbus-father",
+        "relationship:polar-bear:aurora-columbus-nuniq-columbus-mother",
+        "relationship:polar-bear:nanuq-columbus-nuniq-columbus-father",
+        "relationship:polar-bear:anana-columbus-amelia-gray-columbus-mother",
+        "relationship:polar-bear:nanuq-columbus-amelia-gray-columbus-father",
+        "relationship:polar-bear:aurora-columbus-kulu-columbus-mother",
+        "relationship:polar-bear:lee-columbus-kulu-columbus-father",
+        "relationship:polar-bear:vera-nuremberg-gregor-nuremberg-mother",
+        "relationship:polar-bear:felix-nuremberg-gregor-nuremberg-father",
+        "relationship:polar-bear:vera-nuremberg-aleut-nuremberg-mother",
+        "relationship:polar-bear:felix-nuremberg-aleut-nuremberg-father",
+        "relationship:polar-bear:vera-nuremberg-flocke-nuremberg-mother",
+        "relationship:polar-bear:felix-nuremberg-flocke-nuremberg-father",
+        "relationship:polar-bear:vera-nuremberg-charlotte-nuremberg-mother",
+        "relationship:polar-bear:felix-nuremberg-charlotte-nuremberg-father",
+        "relationship:polar-bear:nora-prague-1942-ilun-prague-mother"
+      ],
+      "institutions": 15
+    },
+    "final_atlas": {
+      "animals": 64,
+      "relationships": 58,
+      "events": 84,
+      "claims": 7,
+      "institutions": 31,
+      "sources": 28,
+      "media_references": 5
+    }
+  },
+  "populations": {
+    "zoo_captive": {
+      "atlas_animal_count": 64,
+      "atlas_relationship_count": 58,
+      "description": "Named records tied to zoo/captive-history sources. These are not asserted to be a complete studbook."
+    },
+    "wild_research": {
+      "imported_animal_count": 0,
+      "imported_relationship_count": 0,
+      "status": "documented_separately; no wild rows are in the canonical atlas"
+    }
+  },
+  "western_hudson_bay": {
+    "population": "wild_research",
+    "dataset": {
+      "title": "Data from: Heritability of body size in the polar bears of Western Hudson Bay",
+      "citation": "Malenfant, René M.; Davis, Corey S.; Richardson, Evan S.; Lunn, Nicholas J.; Coltman, David W. (2022). Data from: Heritability of body size in the polar bears of Western Hudson Bay [Dataset]. Dryad. https://doi.org/10.5061/dryad.23d8v",
+      "doi": "10.5061/dryad.23d8v",
+      "authors": [
+        "René M. Malenfant",
+        "Corey S. Davis",
+        "Evan S. Richardson",
+        "Nicholas J. Lunn",
+        "David W. Coltman"
+      ],
+      "publication_date": "2022-04-26",
+      "dataset_page_url": "https://datadryad.org/dataset/doi:10.5061/dryad.23d8v",
+      "dataset_page_accessed_date": "2026-10-08",
+      "dataset_page_access_timestamp_precision": "date only; exact page-open time was not retained",
+      "geography": "Western Hudson Bay, around Churchill, Manitoba, Canada",
+      "reported_animal_span": {
+        "start": "1966",
+        "end": "2011"
+      },
+      "reported_pedigree_individual_count": 4449,
+      "reported_file": {
+        "name": "pedigree.txt",
+        "dryad_file_id": "76088",
+        "version_id": "22062",
+        "size_bytes": 76735,
+        "direct_file_url": "https://datadryad.org/downloads/file_stream/76088",
+        "metadata_url": "https://datadryad.org/api/v2/versions/22062/files",
+        "provider_checksum": {
+          "algorithm": "MD5",
+          "value": "129d73c272b53774688721679762971a"
+        }
+      },
+      "reuse_terms": {
+        "dataset_page_url": "https://datadryad.org/dataset/doi:10.5061/dryad.23d8v",
+        "reuse_guide_url": "https://v3.datadryad.org/help/guides/reuse",
+        "terms_url": "https://datadryad.org/terms",
+        "terms_last_updated": "2025-05-20",
+        "dryad_stated_license": "CC0 1.0 Universal / CC0 Public Domain Dedication",
+        "evidence_summary": "Dryad’s dataset page and reuse guide state that published Dryad datasets use CC0; Dryad’s terms encourage reuse and describe contributor waiver of restrictions to the extent possible. This records Dryad’s stated terms, not an independent legal determination.",
+        "reuse_assessment": "The published stated terms permit reuse with attribution as scholarly courtesy."
+      },
+      "access_attempts": [
+        {
+          "url": "https://datadryad.org/downloads/file_stream/76088",
+          "accessed_at_utc": "2026-10-08T02:07:18Z",
+          "http_status": 403,
+          "result": "file bytes unavailable"
+        },
+        {
+          "url": "https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.23d8v/download",
+          "accessed_at_utc": "2026-10-08T02:07:26Z",
+          "http_status": 401,
+          "result": "documented public API download route denied anonymous access"
+        }
+      ]
+    },
+    "source_fact_vs_inference": {
+      "source_facts": [
+        "Dryad metadata states the dataset title, DOI, authors, 4,449-individual pedigree, 1966–2011 record span, Western Hudson Bay geography, and pedigree.txt file metadata.",
+        "Dryad reuse pages state CC0 terms.",
+        "The public direct file route returned HTTP 403 and documented anonymous API download route returned HTTP 401."
+      ],
+      "assessment": "Because the underlying file rows were unavailable, this work did not infer or synthesize any individual identities, IDs, sex, parentage, or geography beyond Dryad’s published dataset-level scope."
+    },
+    "import": {
+      "status": "not_imported_download_denied",
+      "animal_count": 0,
+      "relationship_count": 0,
+      "research_ids_imported": [],
+      "downloaded_file_sha256": null,
+      "provider_md5_available_without_file_download": "129d73c272b53774688721679762971a",
+      "unknown_parent_policy": "If a future authorized import becomes possible, retain each source research ID exactly and leave NA/unknown sire or dam entries absent; never create placeholder parent animals or shared unknown-parent IDs.",
+      "unknown_parents_remain_unmaterialized": true,
+      "reason": "The terms allow reuse, but the dataset bytes were not returned by either published download route. No credentials, sessions, cookies, mirror, or alternate route were used after the 403/401 responses."
+    }
+  },
+  "manitoba_thesis_discovery_only": {
+    "title": "Quantitative Genetics of Polar Bear (Ursus maritimus) Behaviours",
+    "author": "Leah Jane Kathan",
+    "year": 2024,
+    "url": "https://mspace.lib.umanitoba.ca/bitstreams/f120db8e-a2b5-4683-94c4-d549dff31070/download",
+    "accessed_date": "2026-10-08",
+    "repository_metadata_url": "https://mspace.lib.umanitoba.ca/server/api/core/bitstreams/f120db8e-a2b5-4683-94c4-d549dff31070",
+    "repository_metadata_bytes": 670764,
+    "repository_metadata_md5": "dcc262bd701c4c1555ee927c47994f0f",
+    "license_evidence": "The PDF states Copyright © 2024 by Leah Kathan; repository metadata did not identify an open reuse license for a data file.",
+    "pedigree_context": "The thesis describes an updated 4,634-individual Western Hudson Bay pedigree for births 1966–2019 in prose/methods, but the accessible PDF does not contain a row-level pedigree or a separately licensed data file.",
+    "use": "discovery_only_not_imported"
+  },
+  "official_zoo_expansion": {
+    "policy": "Only public official zoo pages, announcements, profiles, histories, and zoo publications are used. Restricted studbook tables were not accessed or scraped. Same-name bears remain separate unless a source establishes identity. Every added parent relationship carries direct source IDs.",
+    "added_animal_ids": [
+      "polar-bear:vienna-rostock",
+      "polar-bear:churchill-rostock",
+      "polar-bear:vilma-rostock",
+      "polar-bear:venus-rostock",
+      "polar-bear:valeska-rostock",
+      "polar-bear:arcta-rostock",
+      "polar-bear:blizzard-rostock",
+      "polar-bear:lars-rostock",
+      "polar-bear:fiete-rostock",
+      "polar-bear:eric-rostock",
+      "polar-bear:olinka-rostock",
+      "polar-bear:sizzel-rostock",
+      "polar-bear:noria-rostock",
+      "polar-bear:kaja-rostock",
+      "polar-bear:skadi-rostock",
+      "polar-bear:lili-rostock",
+      "polar-bear:lloyd-schonbrunn",
+      "polar-bear:akiak-rostock",
+      "polar-bear:aurora-toronto",
+      "polar-bear:inukshuk-toronto",
+      "polar-bear:nikita-toronto",
+      "polar-bear:hudson-toronto",
+      "polar-bear:humphrey-toronto",
+      "polar-bear:juno-toronto",
+      "polar-bear:aurora-columbus",
+      "polar-bear:anana-columbus",
+      "polar-bear:nanuq-columbus",
+      "polar-bear:lee-columbus",
+      "polar-bear:nora-columbus",
+      "polar-bear:amelia-gray-columbus",
+      "polar-bear:neva-columbus",
+      "polar-bear:nuniq-columbus",
+      "polar-bear:kulu-columbus",
+      "polar-bear:vera-nuremberg",
+      "polar-bear:felix-nuremberg",
+      "polar-bear:gregor-nuremberg",
+      "polar-bear:aleut-nuremberg",
+      "polar-bear:flocke-nuremberg",
+      "polar-bear:charlotte-nuremberg",
+      "polar-bear:nora-prague-1942",
+      "polar-bear:ilun-prague",
+      "polar-bear:severka-prague"
+    ],
+    "added_relationship_ids": [
+      "relationship:polar-bear:vienna-rostock-vilma-rostock-mother",
+      "relationship:polar-bear:churchill-rostock-vilma-rostock-father",
+      "relationship:polar-bear:vienna-rostock-venus-rostock-mother",
+      "relationship:polar-bear:vienna-rostock-valeska-rostock-mother",
+      "relationship:polar-bear:vilma-rostock-fiete-rostock-mother",
+      "relationship:polar-bear:eric-rostock-sizzel-rostock-father",
+      "relationship:polar-bear:olinka-rostock-sizzel-rostock-mother",
+      "relationship:polar-bear:sizzel-rostock-kaja-rostock-mother",
+      "relationship:polar-bear:sizzel-rostock-skadi-rostock-mother",
+      "relationship:polar-bear:valeska-rostock-lili-rostock-mother",
+      "relationship:polar-bear:lloyd-schonbrunn-lili-rostock-father",
+      "relationship:polar-bear:aurora-toronto-hudson-toronto-mother",
+      "relationship:polar-bear:inukshuk-toronto-hudson-toronto-father",
+      "relationship:polar-bear:aurora-toronto-humphrey-toronto-mother",
+      "relationship:polar-bear:inukshuk-toronto-humphrey-toronto-father",
+      "relationship:polar-bear:aurora-columbus-nora-columbus-mother",
+      "relationship:polar-bear:nanuq-columbus-nora-columbus-father",
+      "relationship:polar-bear:aurora-columbus-neva-columbus-mother",
+      "relationship:polar-bear:nanuq-columbus-neva-columbus-father",
+      "relationship:polar-bear:aurora-columbus-nuniq-columbus-mother",
+      "relationship:polar-bear:nanuq-columbus-nuniq-columbus-father",
+      "relationship:polar-bear:anana-columbus-amelia-gray-columbus-mother",
+      "relationship:polar-bear:nanuq-columbus-amelia-gray-columbus-father",
+      "relationship:polar-bear:aurora-columbus-kulu-columbus-mother",
+      "relationship:polar-bear:lee-columbus-kulu-columbus-father",
+      "relationship:polar-bear:vera-nuremberg-gregor-nuremberg-mother",
+      "relationship:polar-bear:felix-nuremberg-gregor-nuremberg-father",
+      "relationship:polar-bear:vera-nuremberg-aleut-nuremberg-mother",
+      "relationship:polar-bear:felix-nuremberg-aleut-nuremberg-father",
+      "relationship:polar-bear:vera-nuremberg-flocke-nuremberg-mother",
+      "relationship:polar-bear:felix-nuremberg-flocke-nuremberg-father",
+      "relationship:polar-bear:vera-nuremberg-charlotte-nuremberg-mother",
+      "relationship:polar-bear:felix-nuremberg-charlotte-nuremberg-father",
+      "relationship:polar-bear:nora-prague-1942-ilun-prague-mother"
+    ],
+    "sources": [
+      {
+        "source_id": "source:polar-bear:rostock-history",
+        "title": "Über 120 Jahre Rostocker Zoo",
+        "publisher": "Zoo Rostock",
+        "url": "https://www.zoo-rostock.de/freunde/historie.html",
+        "publication_date": null,
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:rostock-profile",
+        "title": "Eisbär im Zoo Rostock erleben",
+        "publisher": "Zoo Rostock",
+        "url": "https://www.zoo-rostock.de/tierpark/tierwelten/eisbaer.html",
+        "publication_date": null,
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:rostock-tierfalt-2022",
+        "title": "Tierfalt 2022",
+        "publisher": "Zoo Rostock",
+        "url": "https://www.zoo-rostock.de/files/zoo_rostock/presse/zoomagazin/Tierfalt_2022.pdf",
+        "publication_date": "2022",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:rostock-tierfalt-2023",
+        "title": "Tierfalt 2023",
+        "publisher": "Zoo Rostock",
+        "url": "https://www.zoo-rostock.de/files/zoo_rostock/presse/zoomagazin/tierfalt-2023.pdf",
+        "publication_date": "2023",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:rostock-bear-diary",
+        "title": "Eisbären-Tagebuch",
+        "publisher": "Zoo Rostock",
+        "url": "https://www.zoo-rostock.de/polarium/eisb%C3%A4ren-tagebuch.html",
+        "publication_date": null,
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:rostock-kaja-skadi-transfer",
+        "title": "Gemeinsam für den Schutz der Eisbären – ROSTOCK PORT besucht Patenbären im Zoo Rostock",
+        "publisher": "Zoo Rostock",
+        "url": "https://www.zoo-rostock.de/presse/details/gemeinsam-fuer-den-schutz-der-eisbaeren-rostock-port-besucht-patenbaeren-im-zoo-rostock.html",
+        "publication_date": "2025-04-11",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:toronto-hudson",
+        "title": "Polar Bear Cub Has A Name!",
+        "publisher": "Toronto Zoo",
+        "url": "https://www.torontozoo.com/pdfs/PolarBearCubNameAnnouncement.pdf",
+        "publication_date": "2012-03-31",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:toronto-humphrey",
+        "title": "Goodbye Toronto. Hello Winnipeg!",
+        "publisher": "Toronto Zoo",
+        "url": "https://www.torontozoo.com/press/!newsite-Releases.asp?pg=20150212",
+        "publication_date": "2015-02-12",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:toronto-juno",
+        "title": "Toronto Zoo Press Release, 2016-02-25",
+        "publisher": "Toronto Zoo",
+        "url": "https://www.torontozoo.com/press/!newsite-Releases.asp?pg=20160225",
+        "publication_date": "2016-02-25",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:columbus-lee-arrival",
+        "title": "Adult Male Polar Bear, Lee, Arrives at the Columbus Zoo and Aquarium",
+        "publisher": "Columbus Zoo and Aquarium",
+        "url": "https://www.columbuszoo.org/news/adult-male-polar-bear-lee-arrives-columbus-zoo-and-aquarium",
+        "publication_date": "2018-11-08",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:columbus-kulu",
+        "title": "Polar Bear Cub Born at the Columbus Zoo and Aquarium on Thanksgiving Day",
+        "publisher": "Columbus Zoo and Aquarium",
+        "url": "https://www.columbuszoo.org/news/polar-bear-cub-born-columbus-zoo-and-aquarium-thanksgiving-day",
+        "publication_date": "2019-11-29",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:columbus-lee-return",
+        "title": "Adult Male Polar Bear, Lee, Welcomed Back at the Columbus Zoo and Aquarium",
+        "publisher": "Columbus Zoo and Aquarium",
+        "url": "https://www.columbuszoo.org/news/adult-male-polar-bear-lee-welcomed-back-columbus-zoo-and-aquarium",
+        "publication_date": "2023-02-09",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:prague-1942",
+        "title": "1942 Polar bear",
+        "publisher": "Prague Zoo",
+        "url": "https://www.zoopraha.cz/en/animals/breeding-successes/14406-1942-polar-bear",
+        "publication_date": "2023-10-16",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:nuremberg-twins",
+        "title": "Kleine Eisbären auf der Freianlage",
+        "publisher": "Tiergarten Nürnberg",
+        "url": "https://tiergarten.nuernberg.de/entdecken/aktuell/detail/news/2011-03-23-kleine-eisbaeren-auf-der-freianlage",
+        "publication_date": "2011-03-23",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:nuremberg-charlotte",
+        "title": "Kleiner Eisbär Charlotte ist erstmals im Freien",
+        "publisher": "Tiergarten Nürnberg",
+        "url": "https://tiergarten.nuernberg.de/presse/detail/news/2015-03-12-kleiner-eisbaer-charlotte-ist-erstmals-im-freien",
+        "publication_date": "2015-03-12",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:nuremberg-twin-transfer",
+        "title": "Eisbärenzwillinge ziehen nach Warschau um",
+        "publisher": "Tiergarten Nürnberg",
+        "url": "https://tiergarten.nuernberg.de/entdecken/aktuell/detail/news/2013-04-17-eisbaerenzwillinge-ziehen-nach-warschau-um",
+        "publication_date": "2013-04-17",
+        "accessed_date": "2026-10-08"
+      },
+      {
+        "source_id": "source:polar-bear:prague-gregor-aleut",
+        "title": "Polar Bear Twins Have Arrived at Prague Zoo",
+        "publisher": "Prague Zoo",
+        "url": "https://www.zoopraha.cz/en/about-zoo/news/14734-polar-bear-twins-have-arrived-at-prague-zoo",
+        "publication_date": "2024-05-21",
+        "accessed_date": "2026-10-08"
+      }
+    ],
+    "no_photos_added": true
+  },
+  "limitations": [
+    "No research IDs, wild records, or Dryad parent links were imported because the source bytes were inaccessible through the published anonymous routes.",
+    "The Zoo Rostock expansion includes named records with unknown parents where public pages do not identify them, including Fiete, Kaja, Skadi, Noria, and Akiak; no parent links were inferred from proximity or presumed breeding pairs.",
+    "Some official historical pages provide dates only to a year or month, and the atlas preserves that precision. No current status is inferred from an old historical page.",
+    "The 2024 thesis is context only; copyright and absence of a separately licensed row-level data file prevent treating it as an import source."
+  ],
+  "alternative_hudson_bay_dataset": {
+    "population": "wild_research",
+    "doi": "10.5061/dryad.1719f",
+    "title": "Data from: Assessing polar bear (Ursus maritimus) population structure in the Hudson Bay region using SNPs",
+    "citation": "Viengkone, Michelle; Derocher, Andrew E.; Richardson, Evan S.; Malenfant, René M.; Miller, Joshua M.; Obbard, Martyn E.; Dyck, Markus G.; Lunn, Nick J.; Sahanatien, Vicki; Davis, Corey S. (2017). Data from: Assessing polar bear (Ursus maritimus) population structure in the Hudson Bay region using SNPs [Dataset]. Dryad. https://doi.org/10.5061/dryad.1719f",
+    "authors": [
+      "Michelle Viengkone",
+      "Andrew Edward Derocher",
+      "Evan Shaun Richardson",
+      "René Michael Malenfant",
+      "Joshua Moses Miller",
+      "Martyn E. Obbard",
+      "Markus G. Dyck",
+      "Nick J. Lunn",
+      "Vicki Sahanatien",
+      "Corey S. Davis"
+    ],
+    "published_date": "2017-10-03",
+    "dataset_page_url": "https://datadryad.org/dataset/doi:10.5061/dryad.1719f",
+    "accessed_date": "2026-10-08",
+    "access_timestamp_precision": "date only; the browser tool did not expose an exact time",
+    "geography_and_population_scope": "Hudson Bay region, including Western Hudson Bay, Southern Hudson Bay, Foxe Basin, and Davis Strait clusters; broader than and not equivalent to a Western Hudson Bay-only pedigree",
+    "reported_individual_count": 414,
+    "ped_file": {
+      "name": "ECE-2015-10-00703.ped",
+      "dryad_file_id": "71460",
+      "page_reported_size": "5.54 MB",
+      "downloaded_file_size_bytes": null,
+      "downloaded_file_sha256": null,
+      "provider_checksum": null,
+      "documented_columns": {
+        "subpopulation_or_family": 1,
+        "research_individual_id": 2,
+        "sire_or_paternal_id": 3,
+        "dam_or_maternal_id": 4,
+        "sex": 5,
+        "genotypes": "remaining columns"
+      },
+      "dryad_usage_note_reported_snp_count": 3341,
+      "article_abstract_reported_snp_count": 2603
+    },
+    "reuse_terms": {
+      "dataset_page_url": "https://datadryad.org/dataset/doi:10.5061/dryad.1719f",
+      "reuse_guide_url": "https://v3.datadryad.org/help/guides/reuse",
+      "terms_url": "https://datadryad.org/terms",
+      "terms_last_updated": "2025-05-20",
+      "dryad_stated_license": "CC0 1.0 Universal / CC0 Public Domain Dedication",
+      "evidence_summary": "The Dryad dataset page identifies CC0 reuse; Dryad’s reuse guide and current terms state published datasets are made available under CC0. This records Dryad’s stated terms, not an independent legal determination.",
+      "reuse_assessment": "The published stated terms permit reuse with attribution as scholarly courtesy."
+    },
+    "download_attempts": [
+      {
+        "url": "https://datadryad.org/downloads/file_stream/71460",
+        "file": "ECE-2015-10-00703.ped",
+        "accessed_date": "2026-10-08",
+        "access_timestamp_precision": "exact time not exposed by browser tool",
+        "http_status": 403,
+        "result": "public file bytes unavailable"
+      },
+      {
+        "url": "https://datadryad.org/downloads/file_stream/71459",
+        "file": "ECE-2015-10-00703.map",
+        "accessed_date": "2026-10-08",
+        "access_timestamp_precision": "exact time not exposed by browser tool",
+        "http_status": 403,
+        "result": "public file bytes unavailable"
+      },
+      {
+        "url": "https://datadryad.org/downloads/file_stream/71462",
+        "file": "README_for_ECE-2015-10-00703.docx",
+        "accessed_date": "2026-10-08",
+        "access_timestamp_precision": "exact time not exposed by browser tool",
+        "http_status": 403,
+        "result": "public file bytes unavailable"
+      }
+    ],
+    "article": {
+      "citation": "Viengkone et al. (2016). Assessing polar bear (Ursus maritimus) population structure in the Hudson Bay region using SNPs. Ecology and Evolution. https://doi.org/10.1002/ece3.2563",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5167041/",
+      "data_availability": "The article identifies the Dryad dataset DOI as the data source.",
+      "supplement": {
+        "page_listed_item": "Additional data file, 17.1 MB DOCX",
+        "license": "not established from the inspected page",
+        "contents": "not directly inspected",
+        "status": "discovery_only_not_imported",
+        "downloaded_file_sha256": null
+      }
+    },
+    "import_status": "discovery_only_download_denied",
+    "imported_individual_count": 0,
+    "imported_relationship_count": 0,
+    "research_ids_imported": [],
+    "unknown_parent_policy": "No rows were available to inspect. If a future import is made from an accessible authorized source, preserve exact research IDs and do not materialize missing sire or dam values as placeholder animals.",
+    "limitation": "The population spans multiple Hudson Bay region clusters and must not be labeled a Western Hudson Bay-only pedigree. Dataset page usage notes report 3,341 SNPs while the article abstract reports 2,603; this discrepancy remains unresolved because the data and README bytes were not accessible.",
+    "parent_columns": [
+      3,
+      4
+    ],
+    "reported_animal_span": null,
+    "span_limitation": "The landing-page metadata reviewed did not establish a row-level sampling or birth span; the inaccessible files could not be inspected."
+  }
+}
