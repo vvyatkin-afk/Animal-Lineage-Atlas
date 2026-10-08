@@ -12,7 +12,7 @@ COMMON = "Hippopotamus amphibius"
 PYGMY = "Choeropsis liberiensis"
 
 
-def source(source_id: str, source_type: str = "official_zoo_record") -> dict:
+def source(source_id: str, source_type: str = "official zoo record") -> dict:
     return {
         "id": source_id,
         "title": f"Record {source_id}",

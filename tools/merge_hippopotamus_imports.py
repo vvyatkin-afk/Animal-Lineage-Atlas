@@ -37,12 +37,12 @@ def _tier_for(source: dict[str, Any]) -> str:
     declared = source.get("tier")
     if declared in SOURCE_TIERS:
         return declared
-    source_type = str(source.get("source_type", "")).casefold()
+    source_type = re.sub(r"[\s-]+", "_", str(source.get("source_type", "")).casefold()).strip("_")
     if "discovery" in source_type:
         return "discovery_only"
     if source_type.startswith(("open_dataset", "open_studbook", "reusable_primary_dataset")):
         return "A"
-    if source_type.startswith(("official_zoo", "official_institution", "institution_record")):
+    if source_type.startswith(("official_zoo", "official_institution", "institution_record", "public_zoo", "zoo_association", "specialist_group", "conservation_org", "zoo_society")):
         return "B"
     if source_type.startswith(("peer_reviewed", "journal", "research_publication")):
         return "C"
@@ -131,6 +131,8 @@ def merge_hippopotamus(
         "event_id_mappings": {},
         "institution_id_mappings": {},
         "conflicts": [],
+        "exclusions": [],
+        "imports": [],
         "counts": {},
     }
     for collection in COLLECTIONS:
@@ -155,6 +157,15 @@ def merge_hippopotamus(
         bundle_taxa = {animal.get("taxon") for animal in incoming_animals}
         if not bundle_taxa.issubset(SUPPORTED_TAXA):
             raise ValueError(f"{prefix}: unsupported hippopotamus taxon")
+
+        report["imports"].append({
+            "import_id": prefix,
+            "bundle_path": item.get("bundle_path"),
+            "bundle_sha256": item.get("bundle_sha256"),
+            "taxa": sorted(taxon for taxon in bundle_taxa if taxon is not None),
+            "counts": {collection: len(bundle.get(collection, [])) for collection in COLLECTIONS},
+            "animal_id_map_entries": len(animal_id_map),
+        })
 
         for source in bundle.get("sources", []):
             source["tier"] = _tier_for(source)
@@ -238,12 +249,15 @@ def merge_hippopotamus(
         for collection, id_field, mapping_name, signature in (
             ("relationships", "id", "relationship_id_mappings", lambda r: (r.get("subject"), r.get("object"), r.get("type"))),
             ("claims", "id", "claim_id_mappings", lambda r: (r.get("subject"), r.get("claim_type"), json.dumps(r.get("value"), sort_keys=True, ensure_ascii=False))),
-            ("events", "id", "event_id_mappings", lambda r: (r.get("animal_id"), tuple(r.get("related_animal_ids", [])), r.get("type"), json.dumps(r.get("date"), sort_keys=True), r.get("institution_id"))),
+            ("events", "id", "event_id_mappings", lambda r: (r.get("animal_id"), tuple(r.get("related_animal_ids") or []), r.get("type"), json.dumps(r.get("date"), sort_keys=True), r.get("institution_id"), r.get("from_institution_id"), r.get("to_institution_id"), r.get("outcome_count"))),
         ):
             existing_by_signature = {signature(record): record for record in atlas[collection]}
             for record in bundle.get(collection, []):
                 same = existing_by_signature.get(signature(record))
                 if same is not None:
+                    if collection == "events" and record.get("notes") and record.get("notes") != same.get("notes"):
+                        notes = [note for note in (same.get("notes", ""), record.get("notes", "")) if note]
+                        same["notes"] = "\n".join(dict.fromkeys(notes))
                     _unique_extend(same.setdefault("source_ids", []), record.get("source_ids", []))
                     report[mapping_name][record[id_field]] = same[id_field]
                     continue
@@ -260,6 +274,7 @@ def merge_hippopotamus(
         report[mapping_name] = dict(sorted(report[mapping_name].items()))
     report["institution_id_mappings"] = dict(sorted(report["institution_id_mappings"].items()))
     report["conflicts"].sort(key=lambda item: (item["animal_id"], item["field"], str(item["alternate"])))
+    report["imports"].sort(key=lambda item: item["import_id"])
     report["counts"] = {collection: len(atlas[collection]) for collection in COLLECTIONS}
     report["taxa"] = dict(sorted({taxon: sum(1 for animal in atlas["animals"] if animal["taxon"] == taxon) for taxon in all_animal_taxa | {animal.get("taxon") for item in imports for animal in item["bundle"].get("animals", [])}}.items()))
     return atlas, report
@@ -280,6 +295,14 @@ def _crosswalk(report: dict[str, Any]) -> dict[str, str]:
     }
 
 
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--canonical", type=Path, required=True)
@@ -296,8 +319,8 @@ def main(argv: list[str] | None = None) -> int:
         atlas, report = merge_hippopotamus(
             _read_json(args.canonical),
             [
-                {"import_id": "common-hippo", "bundle": _read_json(args.common_bundle), "animal_id_map": _crosswalk(common_report)},
-                {"import_id": "pygmy-hippo", "bundle": _read_json(args.pygmy_bundle), "animal_id_map": _crosswalk(pygmy_report)},
+                {"import_id": "common-hippo", "bundle": _read_json(args.common_bundle), "animal_id_map": _crosswalk(common_report), "bundle_path": args.common_bundle.as_posix(), "bundle_sha256": _sha256(args.common_bundle)},
+                {"import_id": "pygmy-hippo", "bundle": _read_json(args.pygmy_bundle), "animal_id_map": _crosswalk(pygmy_report), "bundle_path": args.pygmy_bundle.as_posix(), "bundle_sha256": _sha256(args.pygmy_bundle)},
             ],
         )
         args.out.parent.mkdir(parents=True, exist_ok=True)
