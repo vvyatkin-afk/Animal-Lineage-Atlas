@@ -1,49 +1,66 @@
 {
   "release": {
     "schema_version": "1.0.0",
-    "data_version": "2026.10.07",
+    "data_version": "2026.10.08",
     "engine_version": "1.0.0",
-    "build_date": "2026-10-07",
-    "provenance": "Compiled from linked public zoo records. Counts: 22 animals, 24 relationships, 38 events; the hub also computes counts from this canonical file."
+    "build_date": "2026-10-08",
+    "provenance": "Compiled from directly cited public zoo records and histories. Counts are computed from this canonical file; Dryad Western Hudson Bay metadata is documented but its row file was not accessible through the published download route, so no wild research animals or edges are imported."
   },
   "coverage": {
     "taxon": "Ursus maritimus",
-    "scope": "A source-bounded public-history corpus: 10 bears named in Tallinn Zoo's history; Tonja, Wolodja, Fritz, Hertha, and their genetically documented parents Simona and Vrangel at Tierpark Berlin; five bears documented by Prague Zoo (Bora, Alík, Pú, Berta, Tom); and Tom's source-identified father Umca.",
+    "scope": "A source-bounded zoo/captive-history corpus: the existing Tallinn, Tierpark Berlin, and Prague records, expanded with officially documented Rostock, Toronto, Columbus, Nuremberg, and Prague Zoo histories. The separate wild Western Hudson Bay Dryad pedigree is reusable under Dryad’s stated CC0 terms, but was not imported because its public file endpoints denied access. A second, broader Hudson Bay-region Dryad dataset reports 414 research individuals and CC0 terms, but its published files also returned HTTP 403 and were not imported; it is not a Western Hudson Bay-only source.",
     "limitations": [
       "This is not a complete European or international polar-bear studbook.",
       "Tallinn Zoo gives only years for several births and deaths, and does not report dates for some transfers; those dates remain approximate or unknown.",
       "The Berlin 2021 German genetics release corrects Tonja's identity and identifies Simona and Vrangel as parents of both Tonja and Wolodja. It also lists Fritz's death as 3 March 2017, conflicting with Tierpark's contemporary report and later article identifying 6 March; the conflict is preserved in disputed claims.",
       "Only source-labeled official-page media links are retained; unknown rights and embedding permissions mean every reference is link-only, with no image files or direct image URLs.",
-      "The Prague Zoo Bora profile is historical and does not establish Bora's current status. Later official updates establish Berta's September 2023 death and Tom's March 2024 transfer to Almaty and May 2024 death; the dataset does not assert an unsupported Bora death date."
+      "The Prague Zoo Bora profile is historical and does not establish Bora's current status. Later official updates establish Berta's September 2023 death and Tom's March 2024 transfer to Almaty and May 2024 death; the dataset does not assert an unsupported Bora death date.",
+      "This file contains source-bounded zoo/captive-history records; it does not contain the distinct wild Western Hudson Bay research population. Dryad states CC0 reuse terms for its dataset, but the published file download returned HTTP 403 and the documented anonymous API download returned HTTP 401, so no pedigree rows, research IDs, or wild parent links were imported.",
+      "Zoo records are only linked when an official zoo source identifies the named animal or parent. Same-name individuals at different zoos, including Nora and Aurora, retain distinct IDs. Unreported parents remain absent; the dataset does not create shared unknown-parent nodes.",
+      "The official public pages consulted are individual histories, announcements, profiles, or zoo magazines. Restricted studbook tables were not scraped or imported. The corpus remains incomplete and source-bounded.",
+      "Dryad’s 2017 Hudson Bay-region dataset reports 414 research individuals and sire/dam columns, but its public file links returned HTTP 403. It spans several regional clusters rather than Western Hudson Bay alone; no research IDs or parent links from it are in this atlas."
     ],
-    "last_reviewed": "2026-10-07",
+    "last_reviewed": "2026-10-08",
     "source_categories": [
-      "official zoo histories",
-      "official zoo genetic announcement",
       "official zoo announcements",
+      "official zoo genetic announcement",
+      "official zoo histories",
+      "official zoo history",
       "official zoo profile",
-      "official zoo updates"
+      "official zoo profiles",
+      "official zoo publications",
+      "official zoo updates",
+      "official zoo web profile",
+      "open research dataset metadata checked; rows unavailable"
     ],
     "accent": "#315e50",
     "translations": {
       "ja": {
-        "scope": "出典で確認できる公開飼育史のコーパス：Tallinn Zooの歴史資料で名前が記載された10頭、Tierpark BerlinのTonja、Wolodja、Fritz、Hertha、および遺伝学的資料で親と確認されたSimonaとVrangel、Prague Zooが記録した5頭（Bora、Alík、Pú、Berta、Tom）、さらに出典で特定されたTomの父Umca。",
+        "scope": "出典で確認できる動物園飼育史のコーパス：Tallinn Zoo、Tierpark Berlin、Prague Zooの既存記録に、Zoo Rostock、Toronto Zoo、Columbus Zoo、Tiergarten Nürnbergの公式公開記録を追加しました。野生のWestern Hudson Bay集団は別の対象です。Dryadの再利用条件はCC0ですが、公開ダウンロードが拒否されたため、その個体データは未収録です。 別のより広いHudson Bay地域のDryadデータセットは414個体とCC0条件を示していますが、公開ファイルはHTTP 403となり未収録です。Western Hudson Bayだけの資料ではありません。",
         "limitations": [
           "これはヨーロッパまたは国際的なホッキョクグマの完全な血統台帳ではありません。",
           "Tallinn Zooは複数の出生と死亡について年のみを示し、一部の移送については日付を公表していません。そのため、該当する日付は概算または不明のままです。",
           "Berlinが2021年に公表したドイツ語の遺伝学資料は、Tonjaの個体識別を訂正し、SimonaとVrangelがTonjaとWolodjaの両方の親であると特定しています。また、Fritzの死亡日を2017年3月3日と記載していますが、Tierparkの当時の報告および後年の記事では3月6日とされています。この食い違いは、見解が分かれている記録として保持しています。",
           "出典の公式ページで明示されたメディアリンクのみを保持しています。権利および埋め込み許可が不明なため、すべてリンクのみとし、画像ファイルや画像への直接URLは含めていません。",
-          "Prague ZooのBoraのプロフィールは過去のもので、Boraの現在の状況を確定するものではありません。その後の公式更新により、Bertaが2023年9月に死亡したこと、Tomが2024年3月にAlmatyへ移送され、同年5月に死亡したことは確認されています。このデータセットでは、裏付けのないBoraの死亡日を断定していません。"
+          "Prague ZooのBoraのプロフィールは過去のもので、Boraの現在の状況を確定するものではありません。その後の公式更新により、Bertaが2023年9月に死亡したこと、Tomが2024年3月にAlmatyへ移送され、同年5月に死亡したことは確認されています。このデータセットでは、裏付けのないBoraの死亡日を断定していません。",
+          "野生のWestern Hudson Bay研究個体はこの飼育動物コーパスに混在させていません。DryadはCC0を示していますが、公開ファイル取得はHTTP 403、公式匿名API取得はHTTP 401となり、個体行・研究ID・親子関係を取り込んでいません。",
+          "公式の動物園資料が個体または親を特定する場合にのみ関係を追加しています。異なる動物園の同名個体（Nora、Auroraなど）は別IDで保持し、未報告の親は作成していません。",
+          "公式に公開された個体の履歴・発表・プロフィール・飼育園刊行物を使用しました。制限付きの血統台帳表は取得・使用していません。コーパスは限定的で、完全な台帳ではありません。",
+          "Dryadの2017年Hudson Bay地域データセットは414個体と父母列を記載していますが、公開ファイルリンクはHTTP 403でした。複数地域の集団を含み、Western Hudson Bayだけではありません。このアトラスに研究IDや親子関係は含めていません。"
         ]
       },
       "ru": {
-        "scope": "Корпус общедоступных сведений об истории, ограниченный указанными источниками: 10 медведей, названных в исторических материалах Tallinn Zoo; Tonja, Wolodja, Fritz, Hertha и их родители Simona и Vrangel, родство которых подтверждено генетическими данными, в Tierpark Berlin; пять медведей, сведения о которых приводит Prague Zoo (Bora, Alík, Pú, Berta, Tom); а также указанный в источнике отец Tom — Umca.",
+        "scope": "Корпус истории содержания в зоопарках, ограниченный открытыми источниками: прежние сведения Tallinn Zoo, Tierpark Berlin и Prague Zoo дополнены официальными материалами Zoo Rostock, Toronto Zoo, Columbus Zoo и Tiergarten Nürnberg. Дикая популяция Western Hudson Bay является отдельной областью данных; заявленные Dryad условия CC0 допускают повторное использование, но публичная загрузка была отклонена, поэтому записи этой популяции не включены. Другой, более широкий набор Dryad по региону Hudson Bay указывает 414 исследовательских особей и условия CC0, но опубликованные файлы отвечают HTTP 403 и не включены; источник не ограничен Western Hudson Bay.",
         "limitations": [
           "Это не полный европейский или международный племенной реестр белых медведей.",
           "Tallinn Zoo указывает только годы рождения и смерти нескольких медведей и не сообщает даты некоторых перемещений; такие даты остаются приблизительными или неизвестными.",
           "Опубликованный в 2021 году немецкоязычный генетический материал Berlin исправляет идентификацию Tonja и указывает Simona и Vrangel как родителей и Tonja, и Wolodja. В нём также датой смерти Fritz указано 3 марта 2017 года, тогда как в современном событию сообщении Tierpark и более поздней статье указано 6 марта. Это расхождение сохранено среди спорных сведений.",
           "Сохранены только ссылки на медиа, размещённые на официальных страницах источников и обозначенные там как материалы. Поскольку права и разрешение на встраивание неизвестны, приведены только ссылки — без файлов изображений и прямых URL изображений.",
-          "Профиль Bora на сайте Prague Zoo относится к прошлому и не устанавливает нынешний статус Bora. Последующие официальные обновления подтверждают смерть Berta в сентябре 2023 года, а также перемещение Tom в Almaty в марте 2024 года и его смерть в мае 2024 года. Датасет не утверждает неподтверждённую дату смерти Bora."
+          "Профиль Bora на сайте Prague Zoo относится к прошлому и не устанавливает нынешний статус Bora. Последующие официальные обновления подтверждают смерть Berta в сентябре 2023 года, а также перемещение Tom в Almaty в марте 2024 года и его смерть в мае 2024 года. Датасет не утверждает неподтверждённую дату смерти Bora.",
+          "Дикие исследовательские особи Western Hudson Bay не смешаны с корпусом зоопарков. Dryad указывает CC0, однако публичная загрузка файла ответила HTTP 403, а официальный анонимный API — HTTP 401; строки, исследовательские идентификаторы и родительские связи не импортированы.",
+          "Связи добавлены только если официальный источник зоопарка называет особь или родителя. Одноимённые животные из разных зоопарков (например, Nora и Aurora) имеют отдельные идентификаторы; неизвестные родители не создаются как общие записи.",
+          "Использованы публичные индивидуальные истории, объявления, профили и публикации зоопарков. Закрытые таблицы племенных книг не выгружались и не использовались. Корпус неполон и ограничен доступными источниками.",
+          "Набор Dryad 2017 года по региону Hudson Bay указывает 414 исследовательских особей и столбцы sire/dam, но публичные ссылки на файлы отвечают HTTP 403. Он охватывает несколько региональных групп, а не только Western Hudson Bay; исследовательские идентификаторы и связи родителей в атлас не включены."
         ]
       }
     }
@@ -537,6 +554,927 @@
         "reviewed_on": "2026-10-07",
         "notes": "Prague Zoo identifies Umca as Tom's father; no other individual history is included in this corpus."
       }
+    },
+    {
+      "id": "polar-bear:vienna-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Vienna",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-history",
+          "source:polar-bear:rostock-tierfalt-2023"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:churchill-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Churchill",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:vilma-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Vilma",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:venus-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Venus",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-history",
+          "source:polar-bear:rostock-tierfalt-2023"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:valeska-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Valeska",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-history",
+          "source:polar-bear:rostock-tierfalt-2023"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:arcta-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "deceased",
+      "name": {
+        "canonical": "Arcta",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:blizzard-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Blizzard",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:lars-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Lars",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:fiete-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "unknown",
+      "status": "unknown",
+      "name": {
+        "canonical": "Fiete",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-history"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:eric-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Eric",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-tierfalt-2022"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:olinka-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Olinka",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-tierfalt-2022"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:sizzel-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Sizzel",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-profile",
+          "source:polar-bear:rostock-tierfalt-2022",
+          "source:polar-bear:rostock-bear-diary",
+          "source:polar-bear:rostock-kaja-skadi-transfer"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:noria-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Noria",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-profile",
+          "source:polar-bear:rostock-tierfalt-2022",
+          "source:polar-bear:rostock-kaja-skadi-transfer"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:kaja-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Kaja",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-bear-diary",
+          "source:polar-bear:rostock-tierfalt-2022",
+          "source:polar-bear:rostock-kaja-skadi-transfer"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:skadi-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Skadi",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-bear-diary",
+          "source:polar-bear:rostock-tierfalt-2022",
+          "source:polar-bear:rostock-kaja-skadi-transfer"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:lili-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Lili",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-tierfalt-2023",
+          "source:polar-bear:rostock-kaja-skadi-transfer"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:lloyd-schonbrunn",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Lloyd",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-tierfalt-2023"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:akiak-rostock",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Akiak",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:rostock-tierfalt-2022",
+          "source:polar-bear:rostock-tierfalt-2023"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:aurora-toronto",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Aurora",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:toronto-hudson",
+          "source:polar-bear:toronto-humphrey"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:inukshuk-toronto",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Inukshuk",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:toronto-hudson",
+          "source:polar-bear:toronto-humphrey"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:nikita-toronto",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Nikita",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:toronto-hudson"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:hudson-toronto",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Hudson",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:toronto-hudson",
+          "source:polar-bear:toronto-humphrey"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:humphrey-toronto",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Humphrey",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:toronto-humphrey"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:juno-toronto",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Juno",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:toronto-juno"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:aurora-columbus",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Aurora",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:columbus-lee-arrival",
+          "source:polar-bear:columbus-kulu",
+          "source:polar-bear:columbus-lee-return"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:anana-columbus",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "deceased",
+      "name": {
+        "canonical": "Anana",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:columbus-lee-arrival",
+          "source:polar-bear:columbus-lee-return"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:nanuq-columbus",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Nanuq",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:columbus-lee-arrival",
+          "source:polar-bear:columbus-kulu"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:lee-columbus",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Lee",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:columbus-lee-arrival",
+          "source:polar-bear:columbus-kulu",
+          "source:polar-bear:columbus-lee-return"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:nora-columbus",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Nora",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:columbus-lee-arrival",
+          "source:polar-bear:columbus-kulu",
+          "source:polar-bear:columbus-lee-return"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:amelia-gray-columbus",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Amelia Gray",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:columbus-lee-arrival",
+          "source:polar-bear:columbus-kulu",
+          "source:polar-bear:columbus-lee-return"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:neva-columbus",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Neva",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:columbus-lee-arrival",
+          "source:polar-bear:columbus-kulu",
+          "source:polar-bear:columbus-lee-return"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:nuniq-columbus",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Nuniq",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:columbus-lee-arrival",
+          "source:polar-bear:columbus-kulu",
+          "source:polar-bear:columbus-lee-return"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:kulu-columbus",
+      "taxon": "Ursus maritimus",
+      "sex": "unknown",
+      "status": "unknown",
+      "name": {
+        "canonical": "Kulu",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:columbus-kulu",
+          "source:polar-bear:columbus-lee-return"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:vera-nuremberg",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Vera",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:nuremberg-twins",
+          "source:polar-bear:nuremberg-charlotte"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:felix-nuremberg",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Felix",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:nuremberg-twins",
+          "source:polar-bear:nuremberg-charlotte"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:gregor-nuremberg",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Gregor",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:nuremberg-twins",
+          "source:polar-bear:nuremberg-twin-transfer",
+          "source:polar-bear:prague-gregor-aleut"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:aleut-nuremberg",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Aleut",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:nuremberg-twins",
+          "source:polar-bear:nuremberg-twin-transfer",
+          "source:polar-bear:prague-gregor-aleut"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:flocke-nuremberg",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Flocke",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:nuremberg-twins",
+          "source:polar-bear:nuremberg-charlotte"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:charlotte-nuremberg",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Charlotte",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:nuremberg-charlotte"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
+    },
+    {
+      "id": "polar-bear:nora-prague-1942",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Nora",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:prague-1942"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "This is the Prague Zoo female who gave birth in 1942, not the unrelated Tallinn Zoo Nora."
+      }
+    },
+    {
+      "id": "polar-bear:ilun-prague",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Ilun",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:prague-1942"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Prague Zoo names the younger 1942 cub Ilun (also called Sněhulka / Snow White); exact later status is unknown."
+      }
+    },
+    {
+      "id": "polar-bear:severka-prague",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Severka",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:prague-1942"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
+      }
     }
   ],
   "claims": [
@@ -599,6 +1537,54 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-07",
         "notes": "Contemporary report says Fritz died Monday evening; the zoo's transfer article specifies that evening as 6 March."
+      }
+    },
+    {
+      "id": "claim:polar-bear:eric-birth-year",
+      "subject": "polar-bear:eric-rostock",
+      "claim_type": "reported_birth_year",
+      "value": "1993",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2022"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock says Eric was born in Berlin in 1993; no exact date or named institution is given."
+      }
+    },
+    {
+      "id": "claim:polar-bear:olinka-birth-year",
+      "subject": "polar-bear:olinka-rostock",
+      "claim_type": "reported_birth_year",
+      "value": "1992",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2022"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock says Olinka was born in Cologne in 1992; no exact date or named institution is given."
+      }
+    },
+    {
+      "id": "claim:polar-bear:akiak-grandparents",
+      "subject": "polar-bear:akiak-rostock",
+      "claim_type": "documented_grandparents",
+      "value": [
+        "polar-bear:vienna-rostock",
+        "polar-bear:churchill-rostock"
+      ],
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2022"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock calls Akiak a grandchild of Vienna and Churchill but does not identify his intermediate parent; this claim does not create direct parent edges."
       }
     }
   ],
@@ -965,6 +1951,536 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-07",
         "notes": "Prague Zoo directly identifies Umca as Tom's father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vienna-rostock-vilma-rostock-mother",
+      "subject": "polar-bear:vienna-rostock",
+      "object": "polar-bear:vilma-rostock",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock identifies Vilma as Vienna’s cub."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:churchill-rostock-vilma-rostock-father",
+      "subject": "polar-bear:churchill-rostock",
+      "object": "polar-bear:vilma-rostock",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock identifies Vilma as a cub of Churchill and Vienna."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vienna-rostock-venus-rostock-mother",
+      "subject": "polar-bear:vienna-rostock",
+      "object": "polar-bear:venus-rostock",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock says Vienna raised the 2004 twins; their names were later given as Venus and Valeska."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vienna-rostock-valeska-rostock-mother",
+      "subject": "polar-bear:vienna-rostock",
+      "object": "polar-bear:valeska-rostock",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock says Vienna raised the 2004 twins; their names were later given as Venus and Valeska."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vilma-rostock-fiete-rostock-mother",
+      "subject": "polar-bear:vilma-rostock",
+      "object": "polar-bear:fiete-rostock",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock identifies Vilma as Fiete’s mother; no father is stated."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:eric-rostock-sizzel-rostock-father",
+      "subject": "polar-bear:eric-rostock",
+      "object": "polar-bear:sizzel-rostock",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2022"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock’s 2022 magazine explicitly names Eric as Sizzel’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:olinka-rostock-sizzel-rostock-mother",
+      "subject": "polar-bear:olinka-rostock",
+      "object": "polar-bear:sizzel-rostock",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2022"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock’s 2022 magazine explicitly names Olinka as Sizzel’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:sizzel-rostock-kaja-rostock-mother",
+      "subject": "polar-bear:sizzel-rostock",
+      "object": "polar-bear:kaja-rostock",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-bear-diary"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock identifies Sizzel as Kaja’s mother; no father is stated."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:sizzel-rostock-skadi-rostock-mother",
+      "subject": "polar-bear:sizzel-rostock",
+      "object": "polar-bear:skadi-rostock",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-bear-diary"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock identifies Sizzel as Skadi’s mother; no father is stated."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:valeska-rostock-lili-rostock-mother",
+      "subject": "polar-bear:valeska-rostock",
+      "object": "polar-bear:lili-rostock",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2023"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock’s 2023 magazine explicitly names Valeska as Lili’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:lloyd-schonbrunn-lili-rostock-father",
+      "subject": "polar-bear:lloyd-schonbrunn",
+      "object": "polar-bear:lili-rostock",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2023"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo Rostock’s 2023 magazine explicitly names Lloyd as Lili’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:aurora-toronto-hudson-toronto-mother",
+      "subject": "polar-bear:aurora-toronto",
+      "object": "polar-bear:hudson-toronto",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:toronto-hudson"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Toronto Zoo explicitly identifies Aurora as the mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:inukshuk-toronto-hudson-toronto-father",
+      "subject": "polar-bear:inukshuk-toronto",
+      "object": "polar-bear:hudson-toronto",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:toronto-hudson"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Toronto Zoo explicitly identifies Inukshuk as the father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:aurora-toronto-humphrey-toronto-mother",
+      "subject": "polar-bear:aurora-toronto",
+      "object": "polar-bear:humphrey-toronto",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:toronto-humphrey"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Toronto Zoo explicitly identifies Aurora as the mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:inukshuk-toronto-humphrey-toronto-father",
+      "subject": "polar-bear:inukshuk-toronto",
+      "object": "polar-bear:humphrey-toronto",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:toronto-humphrey"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Toronto Zoo explicitly identifies Inukshuk as the father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:aurora-columbus-nora-columbus-mother",
+      "subject": "polar-bear:aurora-columbus",
+      "object": "polar-bear:nora-columbus",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Columbus Zoo identifies Aurora as the cub’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:nanuq-columbus-nora-columbus-father",
+      "subject": "polar-bear:nanuq-columbus",
+      "object": "polar-bear:nora-columbus",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Columbus Zoo identifies Nanuq as the cub’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:aurora-columbus-neva-columbus-mother",
+      "subject": "polar-bear:aurora-columbus",
+      "object": "polar-bear:neva-columbus",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Columbus Zoo identifies Aurora as the cub’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:nanuq-columbus-neva-columbus-father",
+      "subject": "polar-bear:nanuq-columbus",
+      "object": "polar-bear:neva-columbus",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Columbus Zoo identifies Nanuq as the cub’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:aurora-columbus-nuniq-columbus-mother",
+      "subject": "polar-bear:aurora-columbus",
+      "object": "polar-bear:nuniq-columbus",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Columbus Zoo identifies Aurora as the cub’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:nanuq-columbus-nuniq-columbus-father",
+      "subject": "polar-bear:nanuq-columbus",
+      "object": "polar-bear:nuniq-columbus",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Columbus Zoo identifies Nanuq as the cub’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:anana-columbus-amelia-gray-columbus-mother",
+      "subject": "polar-bear:anana-columbus",
+      "object": "polar-bear:amelia-gray-columbus",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Columbus Zoo identifies Anana as Amelia Gray’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:nanuq-columbus-amelia-gray-columbus-father",
+      "subject": "polar-bear:nanuq-columbus",
+      "object": "polar-bear:amelia-gray-columbus",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Columbus Zoo identifies Nanuq as Amelia Gray’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:aurora-columbus-kulu-columbus-mother",
+      "subject": "polar-bear:aurora-columbus",
+      "object": "polar-bear:kulu-columbus",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Columbus Zoo identifies Aurora as Kulu’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:lee-columbus-kulu-columbus-father",
+      "subject": "polar-bear:lee-columbus",
+      "object": "polar-bear:kulu-columbus",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Columbus Zoo identifies Lee as Kulu’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vera-nuremberg-gregor-nuremberg-mother",
+      "subject": "polar-bear:vera-nuremberg",
+      "object": "polar-bear:gregor-nuremberg",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twins"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Tiergarten Nürnberg identifies Vera as the cub’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:felix-nuremberg-gregor-nuremberg-father",
+      "subject": "polar-bear:felix-nuremberg",
+      "object": "polar-bear:gregor-nuremberg",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twins"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Tiergarten Nürnberg identifies Felix as the cub’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vera-nuremberg-aleut-nuremberg-mother",
+      "subject": "polar-bear:vera-nuremberg",
+      "object": "polar-bear:aleut-nuremberg",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twins"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Tiergarten Nürnberg identifies Vera as the cub’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:felix-nuremberg-aleut-nuremberg-father",
+      "subject": "polar-bear:felix-nuremberg",
+      "object": "polar-bear:aleut-nuremberg",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twins"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Tiergarten Nürnberg identifies Felix as the cub’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vera-nuremberg-flocke-nuremberg-mother",
+      "subject": "polar-bear:vera-nuremberg",
+      "object": "polar-bear:flocke-nuremberg",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twins",
+        "source:polar-bear:nuremberg-charlotte"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Tiergarten Nürnberg identifies Vera as the cub’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:felix-nuremberg-flocke-nuremberg-father",
+      "subject": "polar-bear:felix-nuremberg",
+      "object": "polar-bear:flocke-nuremberg",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twins",
+        "source:polar-bear:nuremberg-charlotte"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Tiergarten Nürnberg identifies Felix as the cub’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:vera-nuremberg-charlotte-nuremberg-mother",
+      "subject": "polar-bear:vera-nuremberg",
+      "object": "polar-bear:charlotte-nuremberg",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:nuremberg-charlotte"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Tiergarten Nürnberg identifies Vera as the cub’s mother."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:felix-nuremberg-charlotte-nuremberg-father",
+      "subject": "polar-bear:felix-nuremberg",
+      "object": "polar-bear:charlotte-nuremberg",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:nuremberg-charlotte"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Tiergarten Nürnberg identifies Felix as the cub’s father."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:nora-prague-1942-ilun-prague-mother",
+      "subject": "polar-bear:nora-prague-1942",
+      "object": "polar-bear:ilun-prague",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:prague-1942"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Prague Zoo identifies Ilun as the younger of Nora’s two female cubs; the older cub remained unnamed and died after four days."
       }
     }
   ],
@@ -1573,6 +3089,694 @@
         "source:polar-bear:prague-tom-death"
       ],
       "notes": "Prague Zoo reports Tom died in Almaty Zoo on this date."
+    },
+    {
+      "id": "event:polar-bear:vilma-birth",
+      "animal_id": "polar-bear:vilma-rostock",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2002-12-03"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock gives Vilma’s birth date and names Vienna and Churchill as parents."
+    },
+    {
+      "id": "event:polar-bear:vilma-return-nuremberg",
+      "animal_id": "polar-bear:vilma-rostock",
+      "type": "move",
+      "date": {
+        "precision": "exact",
+        "value": "2008-02-06"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock reports Vilma returned from Nuremberg to Rostock.",
+      "from_institution_id": "institution:polar-bear:nuremberg-zoo",
+      "to_institution_id": "institution:polar-bear:rostock-zoo"
+    },
+    {
+      "id": "event:polar-bear:vilma-to-wuppertal",
+      "animal_id": "polar-bear:vilma-rostock",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2010-12-09"
+      },
+      "institution_id": "institution:polar-bear:wuppertal-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock says Vilma left Rostock for breeding at Wuppertal Zoo.",
+      "from_institution_id": "institution:polar-bear:rostock-zoo",
+      "to_institution_id": "institution:polar-bear:wuppertal-zoo"
+    },
+    {
+      "id": "event:polar-bear:vilma-return-rostock",
+      "animal_id": "polar-bear:vilma-rostock",
+      "type": "move",
+      "date": {
+        "precision": "exact",
+        "value": "2013-10-24"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock reports Vilma returned to Rostock; the source does not explicitly name the immediately previous institution."
+    },
+    {
+      "id": "event:polar-bear:venus-birth",
+      "animal_id": "polar-bear:venus-rostock",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2004-12-09"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock reports the twins’ birth and later names Venus and Valeska."
+    },
+    {
+      "id": "event:polar-bear:valeska-birth",
+      "animal_id": "polar-bear:valeska-rostock",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2004-12-09"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock reports the twins’ birth and later names Venus and Valeska."
+    },
+    {
+      "id": "event:polar-bear:churchill-death",
+      "animal_id": "polar-bear:churchill-rostock",
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "2013-10-26"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock reports Churchill was euthanized for illness at age 33."
+    },
+    {
+      "id": "event:polar-bear:arcta-death",
+      "animal_id": "polar-bear:arcta-rostock",
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "2009-05-06"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock reports Arcta died aged 37."
+    },
+    {
+      "id": "event:polar-bear:blizzard-arrival",
+      "animal_id": "polar-bear:blizzard-rostock",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2010-12-08"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock says Blizzard arrived from Pistoia Zoo at age four.",
+      "from_institution_id": "institution:polar-bear:pistoia-zoo",
+      "to_institution_id": "institution:polar-bear:rostock-zoo"
+    },
+    {
+      "id": "event:polar-bear:blizzard-to-hagenbeck",
+      "animal_id": "polar-bear:blizzard-rostock",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2012-04-10"
+      },
+      "institution_id": "institution:polar-bear:hagenbeck-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock reports Blizzard moved to Tierpark Hagenbeck.",
+      "from_institution_id": "institution:polar-bear:rostock-zoo",
+      "to_institution_id": "institution:polar-bear:hagenbeck-zoo"
+    },
+    {
+      "id": "event:polar-bear:lars-arrival",
+      "animal_id": "polar-bear:lars-rostock",
+      "type": "move",
+      "date": {
+        "precision": "exact",
+        "value": "2012-05-22"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock reports Lars moved into the zoo; previous location is not stated."
+    },
+    {
+      "id": "event:polar-bear:fiete-birth",
+      "animal_id": "polar-bear:fiete-rostock",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2014-12-03"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-history"
+      ],
+      "notes": "Zoo Rostock reports Fiete’s birth and later identifies Vilma as his mother."
+    },
+    {
+      "id": "event:polar-bear:sizzel-birth",
+      "animal_id": "polar-bear:sizzel-rostock",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2014-12-02"
+      },
+      "institution_id": "institution:polar-bear:rotterdam-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-profile",
+        "source:polar-bear:rostock-tierfalt-2022"
+      ],
+      "notes": "Zoo Rostock gives Sizzel’s birth date and Rotterdam birthplace."
+    },
+    {
+      "id": "event:polar-bear:sizzel-arrival",
+      "animal_id": "polar-bear:sizzel-rostock",
+      "type": "move",
+      "date": {
+        "precision": "approximate",
+        "value": "2018-10"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2022"
+      ],
+      "notes": "Zoo Rostock says Sizzel had lived in the Polarium since October 2018; exact arrival day is not stated."
+    },
+    {
+      "id": "event:polar-bear:noria-birth",
+      "animal_id": "polar-bear:noria-rostock",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2015-11-21"
+      },
+      "institution_id": "institution:polar-bear:brno-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-profile",
+        "source:polar-bear:rostock-tierfalt-2022"
+      ],
+      "notes": "Zoo Rostock gives Noria’s birth date and Brno origin."
+    },
+    {
+      "id": "event:polar-bear:noria-arrival",
+      "animal_id": "polar-bear:noria-rostock",
+      "type": "move",
+      "date": {
+        "precision": "approximate",
+        "value": "2018"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2022"
+      ],
+      "notes": "Zoo Rostock says Noria arrived in 2018 shortly before the Polarium opening."
+    },
+    {
+      "id": "event:polar-bear:kaja-birth",
+      "animal_id": "polar-bear:kaja-rostock",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2021-11-14"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-bear-diary"
+      ],
+      "notes": "Zoo Rostock gives Kaja’s birth date and identifies Sizzel as her mother."
+    },
+    {
+      "id": "event:polar-bear:skadi-birth",
+      "animal_id": "polar-bear:skadi-rostock",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2021-11-14"
+      },
+      "institution_id": "institution:polar-bear:rostock-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-bear-diary"
+      ],
+      "notes": "Zoo Rostock gives Skadi’s birth date and identifies Sizzel as her mother."
+    },
+    {
+      "id": "event:polar-bear:kaja-to-tallinn",
+      "animal_id": "polar-bear:kaja-rostock",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2025"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-kaja-skadi-transfer"
+      ],
+      "notes": "Zoo Rostock says Kaja moved to Tallinn at the beginning of 2025; exact day is not stated.",
+      "from_institution_id": "institution:polar-bear:rostock-zoo",
+      "to_institution_id": "institution:polar-bear:tallinn-zoo"
+    },
+    {
+      "id": "event:polar-bear:skadi-to-tallinn",
+      "animal_id": "polar-bear:skadi-rostock",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2025"
+      },
+      "institution_id": "institution:polar-bear:tallinn-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-kaja-skadi-transfer"
+      ],
+      "notes": "Zoo Rostock says Skadi moved to Tallinn at the beginning of 2025; exact day is not stated.",
+      "from_institution_id": "institution:polar-bear:rostock-zoo",
+      "to_institution_id": "institution:polar-bear:tallinn-zoo"
+    },
+    {
+      "id": "event:polar-bear:lili-birth",
+      "animal_id": "polar-bear:lili-rostock",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2015-12-11"
+      },
+      "institution_id": "institution:polar-bear:bremerhaven-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2023"
+      ],
+      "notes": "Zoo Rostock gives Lili’s birth date and Zoo am Meer birthplace."
+    },
+    {
+      "id": "event:polar-bear:akiak-birth",
+      "animal_id": "polar-bear:akiak-rostock",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "2014"
+      },
+      "institution_id": "institution:polar-bear:rhenen-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2022"
+      ],
+      "notes": "Zoo Rostock gives Akiak’s birth year and Rhenen origin."
+    },
+    {
+      "id": "event:polar-bear:akiak-to-amneville",
+      "animal_id": "polar-bear:akiak-rostock",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2022-03"
+      },
+      "institution_id": "institution:polar-bear:amneville-zoo",
+      "source_ids": [
+        "source:polar-bear:rostock-tierfalt-2022",
+        "source:polar-bear:rostock-tierfalt-2023"
+      ],
+      "notes": "Zoo Rostock reports Akiak moved to Zoo d’Amnéville in March 2022.",
+      "from_institution_id": "institution:polar-bear:rostock-zoo",
+      "to_institution_id": "institution:polar-bear:amneville-zoo"
+    },
+    {
+      "id": "event:polar-bear:hudson-birth",
+      "animal_id": "polar-bear:hudson-toronto",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2011-10-11"
+      },
+      "institution_id": "institution:polar-bear:toronto-zoo",
+      "source_ids": [
+        "source:polar-bear:toronto-hudson"
+      ],
+      "notes": "Toronto Zoo gives Hudson’s birth date."
+    },
+    {
+      "id": "event:polar-bear:humphrey-birth",
+      "animal_id": "polar-bear:humphrey-toronto",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2013-11-09"
+      },
+      "institution_id": "institution:polar-bear:toronto-zoo",
+      "source_ids": [
+        "source:polar-bear:toronto-humphrey"
+      ],
+      "notes": "Toronto Zoo gives Humphrey’s birth date."
+    },
+    {
+      "id": "event:polar-bear:juno-birth",
+      "animal_id": "polar-bear:juno-toronto",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2015-11-11"
+      },
+      "institution_id": "institution:polar-bear:toronto-zoo",
+      "source_ids": [
+        "source:polar-bear:toronto-juno"
+      ],
+      "notes": "Toronto Zoo gives Juno’s birth date; the cited page does not name either parent."
+    },
+    {
+      "id": "event:polar-bear:lee-arrival-columbus",
+      "animal_id": "polar-bear:lee-columbus",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2018-11"
+      },
+      "institution_id": "institution:polar-bear:columbus-zoo",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival"
+      ],
+      "notes": "Columbus Zoo reports Lee arrived from Denver in November 2018.",
+      "from_institution_id": "institution:polar-bear:denver-zoo",
+      "to_institution_id": "institution:polar-bear:columbus-zoo"
+    },
+    {
+      "id": "event:polar-bear:lee-to-louisville",
+      "animal_id": "polar-bear:lee-columbus",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2020-08"
+      },
+      "institution_id": "institution:polar-bear:louisville-zoo",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "notes": "Columbus Zoo reports Lee moved to Louisville in August 2020.",
+      "from_institution_id": "institution:polar-bear:columbus-zoo",
+      "to_institution_id": "institution:polar-bear:louisville-zoo"
+    },
+    {
+      "id": "event:polar-bear:lee-return-columbus",
+      "animal_id": "polar-bear:lee-columbus",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2023-02-09"
+      },
+      "institution_id": "institution:polar-bear:columbus-zoo",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "notes": "Columbus Zoo reports Lee arrived back from Louisville on 2023-02-09.",
+      "from_institution_id": "institution:polar-bear:louisville-zoo",
+      "to_institution_id": "institution:polar-bear:columbus-zoo"
+    },
+    {
+      "id": "event:polar-bear:nanuq-death",
+      "animal_id": "polar-bear:nanuq-columbus",
+      "type": "death",
+      "date": {
+        "precision": "approximate",
+        "value": "2017"
+      },
+      "institution_id": "institution:polar-bear:columbus-zoo",
+      "source_ids": [
+        "source:polar-bear:columbus-kulu"
+      ],
+      "notes": "Columbus Zoo reports Nanuq died in 2017; no exact date is stated."
+    },
+    {
+      "id": "event:polar-bear:nora-columbus-birth",
+      "animal_id": "polar-bear:nora-columbus",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2015-11-06"
+      },
+      "institution_id": "institution:polar-bear:columbus-zoo",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "notes": "Columbus Zoo gives Nora’s birth date."
+    },
+    {
+      "id": "event:polar-bear:amelia-gray-birth",
+      "animal_id": "polar-bear:amelia-gray-columbus",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2016-11-08"
+      },
+      "institution_id": "institution:polar-bear:columbus-zoo",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "notes": "Columbus Zoo gives Amelia Gray’s birth date."
+    },
+    {
+      "id": "event:polar-bear:neva-birth",
+      "animal_id": "polar-bear:neva-columbus",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2016-11-14"
+      },
+      "institution_id": "institution:polar-bear:columbus-zoo",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "notes": "Columbus Zoo gives Neva’s birth date."
+    },
+    {
+      "id": "event:polar-bear:nuniq-birth",
+      "animal_id": "polar-bear:nuniq-columbus",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2016-11-14"
+      },
+      "institution_id": "institution:polar-bear:columbus-zoo",
+      "source_ids": [
+        "source:polar-bear:columbus-lee-arrival",
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "notes": "Columbus Zoo gives Nuniq’s birth date."
+    },
+    {
+      "id": "event:polar-bear:kulu-birth",
+      "animal_id": "polar-bear:kulu-columbus",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2019-11-28"
+      },
+      "institution_id": "institution:polar-bear:columbus-zoo",
+      "source_ids": [
+        "source:polar-bear:columbus-kulu",
+        "source:polar-bear:columbus-lee-return"
+      ],
+      "notes": "Columbus Zoo gives Kulu’s birth date."
+    },
+    {
+      "id": "event:polar-bear:vera-birth",
+      "animal_id": "polar-bear:vera-nuremberg",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2002-11-21"
+      },
+      "institution_id": "institution:polar-bear:moscow-zoo",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twins"
+      ],
+      "notes": "Tiergarten Nürnberg gives Vera’s birth date and Moscow origin."
+    },
+    {
+      "id": "event:polar-bear:felix-birth",
+      "animal_id": "polar-bear:felix-nuremberg",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2001-11-24"
+      },
+      "institution_id": "institution:polar-bear:vienna-zoo",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twins"
+      ],
+      "notes": "Tiergarten Nürnberg gives Felix’s birth date and Vienna origin."
+    },
+    {
+      "id": "event:polar-bear:gregor-birth",
+      "animal_id": "polar-bear:gregor-nuremberg",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2010-12-02"
+      },
+      "institution_id": "institution:polar-bear:nuremberg-zoo",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twins",
+        "source:polar-bear:prague-gregor-aleut"
+      ],
+      "notes": "Tiergarten Nürnberg and Prague Zoo give the twins’ birth date and Nuremberg birthplace."
+    },
+    {
+      "id": "event:polar-bear:gregor-to-warsaw",
+      "animal_id": "polar-bear:gregor-nuremberg",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2013-04-17"
+      },
+      "institution_id": "institution:polar-bear:warsaw-zoo",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twin-transfer",
+        "source:polar-bear:prague-gregor-aleut"
+      ],
+      "notes": "Tiergarten Nürnberg reports the twin’s departure for Warsaw.",
+      "from_institution_id": "institution:polar-bear:nuremberg-zoo",
+      "to_institution_id": "institution:polar-bear:warsaw-zoo"
+    },
+    {
+      "id": "event:polar-bear:gregor-to-prague",
+      "animal_id": "polar-bear:gregor-nuremberg",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2024-05"
+      },
+      "institution_id": "institution:polar-bear:prague-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-gregor-aleut"
+      ],
+      "notes": "Prague Zoo reports the twin arrived from Warsaw in May 2024; exact day not used.",
+      "from_institution_id": "institution:polar-bear:warsaw-zoo",
+      "to_institution_id": "institution:polar-bear:prague-zoo"
+    },
+    {
+      "id": "event:polar-bear:aleut-birth",
+      "animal_id": "polar-bear:aleut-nuremberg",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2010-12-02"
+      },
+      "institution_id": "institution:polar-bear:nuremberg-zoo",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twins",
+        "source:polar-bear:prague-gregor-aleut"
+      ],
+      "notes": "Tiergarten Nürnberg and Prague Zoo give the twins’ birth date and Nuremberg birthplace."
+    },
+    {
+      "id": "event:polar-bear:aleut-to-warsaw",
+      "animal_id": "polar-bear:aleut-nuremberg",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2013-04-17"
+      },
+      "institution_id": "institution:polar-bear:warsaw-zoo",
+      "source_ids": [
+        "source:polar-bear:nuremberg-twin-transfer",
+        "source:polar-bear:prague-gregor-aleut"
+      ],
+      "notes": "Tiergarten Nürnberg reports the twin’s departure for Warsaw.",
+      "from_institution_id": "institution:polar-bear:nuremberg-zoo",
+      "to_institution_id": "institution:polar-bear:warsaw-zoo"
+    },
+    {
+      "id": "event:polar-bear:aleut-to-prague",
+      "animal_id": "polar-bear:aleut-nuremberg",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2024-05"
+      },
+      "institution_id": "institution:polar-bear:prague-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-gregor-aleut"
+      ],
+      "notes": "Prague Zoo reports the twin arrived from Warsaw in May 2024; exact day not used.",
+      "from_institution_id": "institution:polar-bear:warsaw-zoo",
+      "to_institution_id": "institution:polar-bear:prague-zoo"
+    },
+    {
+      "id": "event:polar-bear:charlotte-birth",
+      "animal_id": "polar-bear:charlotte-nuremberg",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2014-11-21"
+      },
+      "institution_id": "institution:polar-bear:nuremberg-zoo",
+      "source_ids": [
+        "source:polar-bear:nuremberg-charlotte"
+      ],
+      "notes": "Tiergarten Nürnberg gives Charlotte’s birth date and birthplace."
+    },
+    {
+      "id": "event:polar-bear:ilun-birth",
+      "animal_id": "polar-bear:ilun-prague",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1942-12-20"
+      },
+      "institution_id": "institution:polar-bear:prague-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-1942"
+      ],
+      "notes": "Prague Zoo reports Ilun was the younger cub born to Nora on 1942-12-20."
+    },
+    {
+      "id": "event:polar-bear:severka-birth",
+      "animal_id": "polar-bear:severka-prague",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "1960"
+      },
+      "institution_id": "institution:polar-bear:prague-zoo",
+      "source_ids": [
+        "source:polar-bear:prague-1942"
+      ],
+      "notes": "Prague Zoo identifies female Severka with the 1960 first natural polar-bear breeding in Czechoslovakia; the source gives year only."
     }
   ],
   "institutions": [
@@ -1751,6 +3955,171 @@
       ],
       "country_code": "KZ",
       "location": "Almaty"
+    },
+    {
+      "id": "institution:polar-bear:rostock-zoo",
+      "names": [
+        {
+          "value": "Zoo Rostock",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Rostock"
+    },
+    {
+      "id": "institution:polar-bear:rotterdam-zoo",
+      "names": [
+        {
+          "value": "Zoo Rotterdam",
+          "language": "en"
+        }
+      ],
+      "country_code": "NL",
+      "location": "Rotterdam"
+    },
+    {
+      "id": "institution:polar-bear:bremerhaven-zoo",
+      "names": [
+        {
+          "value": "Zoo am Meer Bremerhaven",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Bremerhaven"
+    },
+    {
+      "id": "institution:polar-bear:rhenen-zoo",
+      "names": [
+        {
+          "value": "Ouwehands Dierenpark Rhenen",
+          "language": "en"
+        }
+      ],
+      "country_code": "NL",
+      "location": "Rhenen"
+    },
+    {
+      "id": "institution:polar-bear:amneville-zoo",
+      "names": [
+        {
+          "value": "Zoo d’Amnéville",
+          "language": "en"
+        }
+      ],
+      "country_code": "FR",
+      "location": "Amnéville"
+    },
+    {
+      "id": "institution:polar-bear:wuppertal-zoo",
+      "names": [
+        {
+          "value": "Wuppertal Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Wuppertal"
+    },
+    {
+      "id": "institution:polar-bear:pistoia-zoo",
+      "names": [
+        {
+          "value": "Pistoia Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "IT",
+      "location": "Pistoia"
+    },
+    {
+      "id": "institution:polar-bear:hagenbeck-zoo",
+      "names": [
+        {
+          "value": "Tierpark Hagenbeck",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Hamburg"
+    },
+    {
+      "id": "institution:polar-bear:toronto-zoo",
+      "names": [
+        {
+          "value": "Toronto Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "CA",
+      "location": "Toronto"
+    },
+    {
+      "id": "institution:polar-bear:assiniboine-zoo",
+      "names": [
+        {
+          "value": "Assiniboine Park Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "CA",
+      "location": "Winnipeg"
+    },
+    {
+      "id": "institution:polar-bear:columbus-zoo",
+      "names": [
+        {
+          "value": "Columbus Zoo and Aquarium",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Powell, Ohio"
+    },
+    {
+      "id": "institution:polar-bear:denver-zoo",
+      "names": [
+        {
+          "value": "Denver Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Denver"
+    },
+    {
+      "id": "institution:polar-bear:louisville-zoo",
+      "names": [
+        {
+          "value": "Louisville Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Louisville"
+    },
+    {
+      "id": "institution:polar-bear:nuremberg-zoo",
+      "names": [
+        {
+          "value": "Tiergarten Nürnberg",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Nuremberg"
+    },
+    {
+      "id": "institution:polar-bear:warsaw-zoo",
+      "names": [
+        {
+          "value": "Warsaw Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "PL",
+      "location": "Warsaw"
     }
   ],
   "media": [
@@ -1951,6 +4320,193 @@
       "source_type": "official_zoo_announcement",
       "notes": "Czech-language report states Tom died at Almaty Zoo on 2024-05-04.",
       "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:rostock-history",
+      "title": "Über 120 Jahre Rostocker Zoo",
+      "publisher": "Zoo Rostock",
+      "url": "https://www.zoo-rostock.de/freunde/historie.html",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_history",
+      "notes": "Historical chronology supports named Rostock bears and reported facts: Vilma as offspring of Vienna and Churchill; the 2004 twins Venus and Valeska; Arcta, Blizzard, Lars, Fiete, and several moves and deaths. The page gives no parent for Fiete and no father for the 2004 twins.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:rostock-profile",
+      "title": "Eisbär im Zoo Rostock erleben",
+      "publisher": "Zoo Rostock",
+      "url": "https://www.zoo-rostock.de/tierpark/tierwelten/eisbaer.html",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_profile",
+      "notes": "Current zoo profile gives Noria and Sizzel birth dates and origins, Sizzel’s twin brother Todz, and their Rostock history. No parentage is stated on this page.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:rostock-tierfalt-2022",
+      "title": "Tierfalt 2022",
+      "publisher": "Zoo Rostock",
+      "url": "https://www.zoo-rostock.de/files/zoo_rostock/presse/zoomagazin/Tierfalt_2022.pdf",
+      "publication_date": "2022",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_publication",
+      "notes": "Zoo-produced magazine identifies Sizzel’s parents Eric and Olinka and gives their birth years/places; gives Akiak’s 2014 Rhenen origin and move to Zoo d’Amnéville in March 2022; identifies Noria’s birth date/place. It says Akiak is a grandchild of Churchill and Vienna but does not identify the intermediate parent.",
+      "data_use": "Use factual metadata and attribution only. Do not republish magazine text or copy its images; link to the original PDF."
+    },
+    {
+      "id": "source:polar-bear:rostock-tierfalt-2023",
+      "title": "Tierfalt 2023",
+      "publisher": "Zoo Rostock",
+      "url": "https://www.zoo-rostock.de/files/zoo_rostock/presse/zoomagazin/tierfalt-2023.pdf",
+      "publication_date": "2023",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_publication",
+      "notes": "Zoo-produced magazine gives Lili’s birth date/place and identifies her parents as Valeska and Lloyd. It identifies Valeska and Venus as Rostock-born twins and describes Vienna and Churchill as Lili’s grandparents. It does not identify the intermediate parent for the grandparent connection.",
+      "data_use": "Use factual metadata and attribution only. Do not republish magazine text or copy its images; link to the original PDF."
+    },
+    {
+      "id": "source:polar-bear:rostock-bear-diary",
+      "title": "Eisbären-Tagebuch",
+      "publisher": "Zoo Rostock",
+      "url": "https://www.zoo-rostock.de/polarium/eisb%C3%A4ren-tagebuch.html",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Names the female twins Kaja and Skadi, born 2021-11-14, and identifies Sizzel as their mother. The page does not identify their father.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:rostock-kaja-skadi-transfer",
+      "title": "Gemeinsam für den Schutz der Eisbären – ROSTOCK PORT besucht Patenbären im Zoo Rostock",
+      "publisher": "Zoo Rostock",
+      "url": "https://www.zoo-rostock.de/presse/details/gemeinsam-fuer-den-schutz-der-eisbaeren-rostock-port-besucht-patenbaeren-im-zoo-rostock.html",
+      "publication_date": "2025-04-11",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports Kaja and Skadi moved from Rostock to Zoo Tallinn at the beginning of 2025; also names current Rostock females Sizzel, Noria, and Lili. The report does not give an exact transfer day.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:toronto-hudson",
+      "title": "Polar Bear Cub Has A Name!",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/pdfs/PolarBearCubNameAnnouncement.pdf",
+      "publication_date": "2012-03-31",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Names male cub Hudson, born 2011-10-11, and identifies adult Toronto bears Aurora, Inukshuk, and Nikita; the source states Aurora and Inukshuk are his parents and Nikita is Aurora’s sister.",
+      "data_use": "Use factual metadata and attribution only. Do not republish PDF text or copy its images; link to the original PDF."
+    },
+    {
+      "id": "source:polar-bear:toronto-humphrey",
+      "title": "Goodbye Toronto. Hello Winnipeg!",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/press/!newsite-Releases.asp?pg=20150212",
+      "publication_date": "2015-02-12",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Gives Humphrey’s 2013-11-09 birth date, identifies Aurora and Inukshuk as parents, and says Hudson is his older brother.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:toronto-juno",
+      "title": "Toronto Zoo Press Release, 2016-02-25",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/press/!newsite-Releases.asp?pg=20160225",
+      "publication_date": "2016-02-25",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Names the female cub Juno and gives her birth date as 2015-11-11. This page does not identify her parents, so no parent links are entered.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:columbus-lee-arrival",
+      "title": "Adult Male Polar Bear, Lee, Arrives at the Columbus Zoo and Aquarium",
+      "publisher": "Columbus Zoo and Aquarium",
+      "url": "https://www.columbuszoo.org/news/adult-male-polar-bear-lee-arrives-columbus-zoo-and-aquarium",
+      "publication_date": "2018-11-08",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Identifies Lee as a male from Denver, names twin sisters Aurora and Anana, and documents Nora, Amelia Gray, Neva, and Nuniq with birth dates, sexes where stated, and parents Aurora/Anana and Nanuq. Columbus Aurora is a separate identity from Toronto Aurora.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:columbus-kulu",
+      "title": "Polar Bear Cub Born at the Columbus Zoo and Aquarium on Thanksgiving Day",
+      "publisher": "Columbus Zoo and Aquarium",
+      "url": "https://www.columbuszoo.org/news/polar-bear-cub-born-columbus-zoo-and-aquarium-thanksgiving-day",
+      "publication_date": "2019-11-29",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Gives Kulu’s birth date 2019-11-28 and identifies Aurora and Lee as parents. Also reports Nanuq died in 2017, without an exact day.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:columbus-lee-return",
+      "title": "Adult Male Polar Bear, Lee, Welcomed Back at the Columbus Zoo and Aquarium",
+      "publisher": "Columbus Zoo and Aquarium",
+      "url": "https://www.columbuszoo.org/news/adult-male-polar-bear-lee-welcomed-back-columbus-zoo-and-aquarium",
+      "publication_date": "2023-02-09",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports Lee’s return to Columbus from Louisville on 2023-02-09, his 2020 move to Louisville, and his parentage of Kulu with Aurora. It also recaps Columbus cub parentage and reports Anana’s 2022 death.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:prague-1942",
+      "title": "1942 Polar bear",
+      "publisher": "Prague Zoo",
+      "url": "https://www.zoopraha.cz/en/animals/breeding-successes/14406-1942-polar-bear",
+      "publication_date": "2023-10-16",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_history",
+      "notes": "Reports Nora gave birth to two female cubs on 1942-12-20; the younger was named Ilun, while the older died unnamed. It also names female Severka in connection with the 1960 first natural breeding in Czechoslovakia. This Nora is separate from bears with the same name at other zoos.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:nuremberg-twins",
+      "title": "Kleine Eisbären auf der Freianlage",
+      "publisher": "Tiergarten Nürnberg",
+      "url": "https://tiergarten.nuernberg.de/entdecken/aktuell/detail/news/2011-03-23-kleine-eisbaeren-auf-der-freianlage",
+      "publication_date": "2011-03-23",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Identifies female Vera as the mother of twins Aleut and Gregor, born 2010-12-02; identifies male Felix as their father and states Flocke is their sibling. Gives Vera and Felix birth dates and origins.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:nuremberg-charlotte",
+      "title": "Kleiner Eisbär Charlotte ist erstmals im Freien",
+      "publisher": "Tiergarten Nürnberg",
+      "url": "https://tiergarten.nuernberg.de/presse/detail/news/2015-03-12-kleiner-eisbaer-charlotte-ist-erstmals-im-freien",
+      "publication_date": "2015-03-12",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Identifies Charlotte as female, born 2014-11-21; names Vera and Felix as her parents and Flocke as a sibling.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:nuremberg-twin-transfer",
+      "title": "Eisbärenzwillinge ziehen nach Warschau um",
+      "publisher": "Tiergarten Nürnberg",
+      "url": "https://tiergarten.nuernberg.de/entdecken/aktuell/detail/news/2013-04-17-eisbaerenzwillinge-ziehen-nach-warschau-um",
+      "publication_date": "2013-04-17",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports twins Gregor and Aleut left Nuremberg for Warsaw on 2013-04-17.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
+    },
+    {
+      "id": "source:polar-bear:prague-gregor-aleut",
+      "title": "Polar Bear Twins Have Arrived at Prague Zoo",
+      "publisher": "Prague Zoo",
+      "url": "https://www.zoopraha.cz/en/about-zoo/news/14734-polar-bear-twins-have-arrived-at-prague-zoo",
+      "publication_date": "2024-05-21",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports Gregor and Aleut arrived from Warsaw in May 2024, and confirms they were born in Nuremberg on 2010-12-02. Its caption names Felix and Vera as parents; the source-linked Nuremberg report is used for parent edges.",
+      "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page."
     }
   ]
 }

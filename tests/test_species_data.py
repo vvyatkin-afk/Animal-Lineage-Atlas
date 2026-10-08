@@ -44,15 +44,23 @@ class SpeciesDataTests(unittest.TestCase):
         sources = sources_by_id(atlas)
         self.assertTrue(atlas["relationships"])
         for edge in atlas["relationships"]:
+            self.assertTrue(edge["source_ids"], edge["id"])
+            self.assertTrue(
+                all(source_id in sources for source_id in edge["source_ids"]),
+                f"{edge['id']} cites a missing source",
+            )
             cited = [sources[source_id] for source_id in edge["source_ids"]]
             self.assertTrue(cited, edge["id"])
             self.assertTrue(
                 any(
-                    source["source_type"].startswith("official_zoo")
+                    (
+                        source["source_type"].startswith("official_zoo")
+                        or source["source_type"] == "open_research_dataset"
+                    )
                     and source["url"].startswith("https://")
                     for source in cited
                 ),
-                f"{edge['id']} lacks direct official zoo evidence",
+                f"{edge['id']} lacks direct official zoo or open-dataset evidence",
             )
 
         pairs = relationships_by_pair(atlas)
@@ -66,6 +74,84 @@ class SpeciesDataTests(unittest.TestCase):
             ("polar-bear:umca", "polar-bear:tom", "biological_father"),
         }
         self.assertTrue(expected.issubset(pairs.keys()))
+
+    def test_polar_wild_research_import_stays_separate_and_has_no_placeholder_parents(self):
+        atlas = load_atlas("polar-bear")
+        report_path = ROOT / "atlases" / "polar-bear" / "import_report.json"
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        wild = report["western_hudson_bay"]
+
+        self.assertEqual(wild["population"], "wild_research")
+        self.assertEqual(wild["import"]["status"], "not_imported_download_denied")
+        self.assertEqual(wild["import"]["animal_count"], 0)
+        self.assertEqual(wild["import"]["relationship_count"], 0)
+        self.assertEqual(wild["import"]["research_ids_imported"], [])
+        self.assertTrue(wild["import"]["unknown_parents_remain_unmaterialized"])
+        self.assertEqual(
+            report["populations"]["wild_research"]["imported_animal_count"], 0
+        )
+        alternate = report["alternative_hudson_bay_dataset"]
+        self.assertEqual(alternate["doi"], "10.5061/dryad.1719f")
+        self.assertEqual(alternate["reported_individual_count"], 414)
+        self.assertEqual(alternate["parent_columns"], [3, 4])
+        self.assertEqual(alternate["import_status"], "discovery_only_download_denied")
+        self.assertEqual(alternate["imported_individual_count"], 0)
+        self.assertEqual(alternate["imported_relationship_count"], 0)
+        self.assertEqual(alternate["research_ids_imported"], [])
+        self.assertEqual(
+            report["populations"]["zoo_captive"]["atlas_animal_count"],
+            len(atlas["animals"]),
+        )
+        self.assertIn("zoo/captive", atlas["coverage"]["scope"].lower())
+        self.assertFalse(
+            any(
+                external_id["namespace"].startswith("dryad:")
+                for animal in atlas["animals"]
+                for external_id in animal["external_ids"]
+            ),
+            "Wild Dryad research IDs must not be mixed into the zoo corpus.",
+        )
+
+    def test_new_polar_zoo_identities_keep_namesakes_separate_and_unknown_parents_absent(self):
+        atlas = load_atlas("polar-bear")
+        animal_ids = {animal["id"] for animal in atlas["animals"]}
+        pairs = relationships_by_pair(atlas)
+
+        self.assertTrue(
+            {
+                "polar-bear:nora",
+                "polar-bear:nora-columbus",
+                "polar-bear:nora-prague-1942",
+            }.issubset(animal_ids)
+        )
+        self.assertIn("polar-bear:aurora-toronto", animal_ids)
+        self.assertIn("polar-bear:aurora-columbus", animal_ids)
+        self.assertIn(
+            (
+                "polar-bear:vera-nuremberg",
+                "polar-bear:gregor-nuremberg",
+                "biological_mother",
+            ),
+            pairs,
+        )
+        self.assertIn(
+            (
+                "polar-bear:felix-nuremberg",
+                "polar-bear:aleut-nuremberg",
+                "biological_father",
+            ),
+            pairs,
+        )
+
+        for parent_type in ("biological_mother", "biological_father"):
+            self.assertFalse(
+                any(
+                    edge["object"] == "polar-bear:juno-toronto"
+                    and edge["type"] == parent_type
+                    for edge in atlas["relationships"]
+                ),
+                "Toronto Zoo's Juno record does not identify her parents.",
+            )
 
     def test_tonja_wolodja_parentage_is_genetically_documented(self):
         atlas = load_atlas("polar-bear")
