@@ -322,6 +322,7 @@ class CuratedFutaCrosswalkEvidenceTests(unittest.TestCase):
 class UpstreamSyncSnapshotTests(unittest.TestCase):
     def test_sync_document_records_snapshot_ids_and_media_policy(self):
         snapshot = json.loads((ROOT / "atlases/red-panda/upstream_snapshot.json").read_text())
+        report = json.loads((ROOT / "atlases/red-panda/upstream_sync_report.json").read_text())
         doc = (ROOT / "docs/RED_PANDA_UPSTREAM_SYNC.md").read_text()
 
         for expected in (
@@ -335,6 +336,8 @@ class UpstreamSyncSnapshotTests(unittest.TestCase):
             "single canonical `animals` array",
             "5,839 imported upstream media records",
             "78 inherited curated media records",
+            f"{report['counts']['near_match_review_candidates_not_merged']} name-and-birth near-match candidates",
+            f"{report['counts']['near_match_incomplete_required_fields_profiles_not_merged']} have at least one unavailable or unresolved required field",
             "No image bytes",
             "local `path` values",
         ):
