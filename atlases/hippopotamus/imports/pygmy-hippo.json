@@ -716,12 +716,12 @@
       "value": "female",
       "status": "confirmed",
       "source_ids": [
-        "hippopotamus-pygmy-source-edinburgh-haggis-birth"
+        "hippopotamus-pygmy-source-edinburgh-haggis-family"
       ],
       "review": {
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
-        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+        "notes": "The cited official zoo page directly states the sex and identifies the named animal; paired pages connect a calf sex announcement to its later name."
       }
     },
     {
@@ -851,12 +851,13 @@
       "value": "male",
       "status": "confirmed",
       "source_ids": [
-        "hippopotamus-pygmy-source-ueno-natsume-birth"
+        "hippopotamus-pygmy-source-ueno-natsume-birth",
+        "hippopotamus-pygmy-source-ueno-about-kobushi"
       ],
       "review": {
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
-        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+        "notes": "The cited official zoo page directly states the sex and identifies the named animal; paired pages connect a calf sex announcement to its later name."
       }
     },
     {
@@ -896,12 +897,12 @@
       "value": "female",
       "status": "confirmed",
       "source_ids": [
-        "hippopotamus-pygmy-source-khao-moodeng-birth"
+        "hippopotamus-pygmy-source-khao-moodeng-name"
       ],
       "review": {
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
-        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+        "notes": "The cited official zoo page directly states the sex and identifies the named animal; paired pages connect a calf sex announcement to its later name."
       }
     },
     {
@@ -941,12 +942,12 @@
       "value": "male",
       "status": "confirmed",
       "source_ids": [
-        "hippopotamus-pygmy-source-edinburgh-haggis-birth"
+        "hippopotamus-pygmy-source-edinburgh-haggis-family"
       ],
       "review": {
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
-        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+        "notes": "The cited official zoo page directly states the sex and identifies the named animal; paired pages connect a calf sex announcement to its later name."
       }
     },
     {
@@ -956,12 +957,12 @@
       "value": "female",
       "status": "confirmed",
       "source_ids": [
-        "hippopotamus-pygmy-source-toronto-penelope-birth"
+        "hippopotamus-pygmy-source-toronto-penelope-name"
       ],
       "review": {
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
-        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+        "notes": "The cited official zoo page directly states the sex and identifies the named animal; paired pages connect a calf sex announcement to its later name."
       }
     },
     {
@@ -1001,12 +1002,13 @@
       "value": "female",
       "status": "confirmed",
       "source_ids": [
-        "hippopotamus-pygmy-source-richmond-poppy-birth"
+        "hippopotamus-pygmy-source-richmond-poppy-birth",
+        "hippopotamus-pygmy-source-richmond-poppy-name"
       ],
       "review": {
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
-        "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
+        "notes": "The cited official zoo page directly states the sex and identifies the named animal; paired pages connect a calf sex announcement to its later name."
       }
     },
     {

@@ -416,7 +416,7 @@
     {
       "import_id": "pygmy-hippo",
       "bundle_path": "atlases/hippopotamus/imports/pygmy-hippo.json",
-      "bundle_sha256": "091f2eac4c898922aa7a36acd194e46bc9c927b45ae8d307abba85a21e040ea4",
+      "bundle_sha256": "cb504aca1cef6b6a8edb9ea1faa6898983d459b874894668b092dbb3ef56e489",
       "taxa": [
         "Choeropsis liberiensis"
       ],
