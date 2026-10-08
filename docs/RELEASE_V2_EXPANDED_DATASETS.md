@@ -1,8 +1,8 @@
 # Expanded dataset release (Phase 2)
 
-## Release candidate
+## Release
 
-This record follows the Phase 2 data expansion. The release commit and GitHub Actions run will be added after the reviewed branch merges; deployment manifest, production checks, and final disk usage will be recorded after the scoped production release.
+Phase 2 was merged through [PR #4](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/4) as merge commit `ad24b3bb51c08242c731189040d15241d56ab3b4`. The post-merge [GitHub Actions run](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/37725623575) passed on that exact `main` revision. The release was deployed from that commit on 2026-10-08; the deploy manifest was created at 04:04:47 UTC.
 
 Repository: [vvyatkin-afk/Animal-Lineage-Atlas](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas). The release deploys only `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/` using the atomic release helper documented in [Deployment and rollback](DEPLOYMENT_AND_ROLLBACK.md).
 
@@ -26,13 +26,13 @@ No animal-photo bytes, copied thumbnails, local image paths, or embedded photos 
 
 ## Verification record
 
-- Local CI-equivalent checks: lint, typecheck, all 45 Node tests, all Python tests, data validation, schema validation, canonical-atlas no-photo scan, built-release no-photo scan, and all 4 static builds passed. The current integration branch is also covered by the full GitHub Actions run before merge.
-- GitHub Actions on the reviewed main commit: pending.
+- Local checks passed: lint, typecheck, all 45 Node tests, all 79 Python tests, data validation, schema validation, canonical-atlas and built-release no-photo scans, and all four static builds.
+- The PR branch check and post-merge GitHub Actions run both passed. The post-merge run tested `ad24b3bb51c08242c731189040d15241d56ab3b4` and ran lint, typecheck, Node and Python tests, data/schema validation, both photo scans, build, and browser tests.
 - Final-corpus performance and desktop/mobile browser measurements: recorded in [the Phase 2 performance report](PERFORMANCE_REPORT_PHASE2.md) and its machine-readable [JSON results](PERFORMANCE_REPORT_PHASE2.json). The full local Playwright suite passed 10/10 tests at 1440×1000 and 390×844.
-- Built-release no-photo scan: passed for all four paths; canonical `atlases/` also passes the no-photo scan.
-- Production verification for the four Atlas paths and representative direct profiles: pending.
-- Production manifest revision matched to GitHub `main`: pending.
-- The scoped production check covers only `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/`.
-- Disk usage at final deployment: pending.
+- The deployed release no-photo scan passed. Production Nginx configuration validation passed; no Nginx configuration was changed.
+- Production verification at 2026-10-08 04:08 UTC covered only `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/`. All four pages returned HTTP 200; their main scripts and the hub catalog and three child runtime indexes returned HTTP 200.
+- Direct production profiles for Kelú, Franz, and Fiona returned HTTP 200 and rendered their genealogy views. Kelú's S24 link was visible. The browser reported no page errors or Atlas asset errors. The hub showed all three cards and the 1,554 red-panda count; Japanese and Russian locale switches passed. At 390×844, document width remained 390 px.
+- Active manifest: `/var/www/html/_animal-lineage-releases/ad24b3bb51c08242c731189040d15241d56ab3b4/release-manifest.json`. Its revision matched GitHub `main` at verification time. The manifest records all four prior targets under `_animal-lineage-releases/8bafae5ee12da07912cbc2e95811aafe8fb5b320/`; each target was present and verified for rollback.
+- The filesystem had 5.5 GB free of 38 GB (85% used) after deployment. No cleanup was needed.
 
-The prior release and current rollback manifest are retained. After deployment, this section will record the exact GitHub main SHA, successful CI run, manifest path and prior four Atlas symlink targets, HTTP/browser results, no-photo scan, performance measurements, and free disk space. To roll back, run the `rollback_release.py` command against the deployed manifest as described in [Deployment and rollback](DEPLOYMENT_AND_ROLLBACK.md).
+Production browser screenshots were saved under `/tmp/animal-lineage-atlas-qa/production-*.png`. To roll back, run the `rollback_release.py` command against the deployed manifest as described in [Deployment and rollback](DEPLOYMENT_AND_ROLLBACK.md). This release record is a documentation-only follow-up to the deployed app revision.

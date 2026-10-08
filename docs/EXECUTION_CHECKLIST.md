@@ -52,8 +52,8 @@ Phase 2 applies only to this new repository and these production paths: `/atlas/
 - [x] Integrated the Phase 2 data branches and made source categories, localized coverage, population facets, and search IDs work across the expanded corpora.
 - [x] Local lint, typecheck, Node tests, Python tests, all three data/schema validations, and canonical/build no-photo scans passed. Final counts and the complete CI run are recorded in `RELEASE_V2_EXPANDED_DATASETS.md`.
 - [x] The full local browser suite passed 10/10 tests; performance measurements are in `PERFORMANCE_REPORT_PHASE2.md` and `.json`.
-- [ ] Review the Phase 2 pull request and confirm GitHub Actions is green on the merge commit.
-- [ ] Deploy only the four `/atlas*` paths with the documented atomic release helper.
-- [ ] Verify the active manifest revision against GitHub `main`, all four Atlas pages/assets and direct profiles, browser behavior, no-photo scan, rollback manifest, and final disk usage.
+- [x] PR #4 passed GitHub Actions before merge and merged as `ad24b3bb51c08242c731189040d15241d56ab3b4`; post-merge GitHub Actions run 37725623575 passed on that exact `main` revision.
+- [x] Deployed that exact revision to only `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/` with the documented atomic release helper. `nginx -t` passed; Nginx configuration was not changed.
+- [x] Verified the active manifest against GitHub `main` at deployment verification time, all four pages and required assets, Kelú/Franz/Fiona direct profiles, Japanese/Russian locale switching, 390×844 mobile width, zero browser/Atlas asset errors, production no-photo scan, all four recorded prior targets, and 5.5 GB available disk space.
 
 The final Phase 2 machine-readable QA report is `docs/QA_REPORT.json`; the v1 report is preserved at `docs/QA_REPORT_V1.json`.
