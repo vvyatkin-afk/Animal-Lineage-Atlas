@@ -805,25 +805,60 @@
       "taxon": "Ailurus fulgens"
     },
     {
-      "aliases": [],
+      "aliases": [
+        {
+          "language": "en",
+          "source_ids": [
+            "source:red-panda:wwoast-lineage-export"
+          ],
+          "value": "Kelu"
+        },
+        {
+          "language": "en",
+          "source_ids": [
+            "source:red-panda:wwoast-lineage-export"
+          ],
+          "value": "Kel"
+        },
+        {
+          "language": "ja",
+          "source_ids": [
+            "source:red-panda:wwoast-lineage-export"
+          ],
+          "value": "ケル"
+        }
+      ],
       "external_ids": [
         {
           "namespace": "legacy-futa-tree",
           "value": "kelu"
+        },
+        {
+          "namespace": "wwoast-redpanda-lineage",
+          "value": "200"
         }
       ],
       "id": "red-panda:kelu",
       "name": {
         "canonical": "Kelú",
-        "language": "ja",
-        "localized": [],
+        "language": "es",
+        "localized": [
+          {
+            "language": "ja",
+            "source_ids": [
+              "source:red-panda:wwoast-lineage-export"
+            ],
+            "value": "ケルー"
+          }
+        ],
         "source_ids": [
-          "source:red-panda:S24"
+          "source:red-panda:S24",
+          "source:red-panda:wwoast-lineage-export"
         ]
       },
       "review": {
-        "notes": "The name and death are supported by official zoo source S24; S25 supports the first Chile-born cub and birth date. Parents are unconfirmed, and no parent claim or edge is retained.",
-        "reviewed_on": "2026-10-07",
+        "notes": "The name, exact birth date and Parquemet birthplace, and death are supported by official zoo source S24. Upstream profile 200 is explicitly crosswalked using those identity fields; its two parent edges remain unconfirmed and are excluded from canonical parentage.",
+        "reviewed_on": "2026-10-08",
         "status": "needs_review"
       },
       "sex": "male",
@@ -25006,69 +25041,6 @@
         "status": "needs_review"
       },
       "sex": "female",
-      "status": "deceased",
-      "taxon": "Ailurus fulgens"
-    },
-    {
-      "aliases": [
-        {
-          "language": "en",
-          "source_ids": [
-            "source:red-panda:wwoast-lineage-export"
-          ],
-          "value": "Kelu"
-        },
-        {
-          "language": "en",
-          "source_ids": [
-            "source:red-panda:wwoast-lineage-export"
-          ],
-          "value": "Kel"
-        },
-        {
-          "language": "ja",
-          "source_ids": [
-            "source:red-panda:wwoast-lineage-export"
-          ],
-          "value": "ケル"
-        }
-      ],
-      "external_ids": [
-        {
-          "namespace": "wwoast-redpanda-lineage",
-          "value": "200"
-        }
-      ],
-      "id": "red-panda:upstream-200",
-      "name": {
-        "canonical": "Kelú",
-        "language": "en",
-        "localized": [
-          {
-            "language": "es",
-            "source_ids": [
-              "source:red-panda:wwoast-lineage-export"
-            ],
-            "value": "Kelú"
-          },
-          {
-            "language": "ja",
-            "source_ids": [
-              "source:red-panda:wwoast-lineage-export"
-            ],
-            "value": "ケルー"
-          }
-        ],
-        "source_ids": [
-          "source:red-panda:wwoast-lineage-export"
-        ]
-      },
-      "review": {
-        "notes": "Upstream profile normalized from the public export; facts have not been independently verified.",
-        "reviewed_on": "2026-10-08",
-        "status": "needs_review"
-      },
-      "sex": "male",
       "status": "deceased",
       "taxon": "Ailurus fulgens"
     },
@@ -62404,21 +62376,6 @@
     },
     {
       "claim_type": "upstream_species",
-      "id": "claim:red-panda:upstream:0657554a21b5226dfdf7",
-      "review": {
-        "notes": "Imported from the upstream export; curator review is required.",
-        "reviewed_on": "2026-10-08",
-        "status": "needs_review"
-      },
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "status": "probable",
-      "subject": "red-panda:upstream-200",
-      "value": "2"
-    },
-    {
-      "claim_type": "upstream_species",
       "id": "claim:red-panda:upstream:0659c671ca772fdbe1f5",
       "review": {
         "notes": "Imported from the upstream export; curator review is required.",
@@ -62671,6 +62628,21 @@
       "status": "probable",
       "subject": "red-panda:upstream-470",
       "value": "Male"
+    },
+    {
+      "claim_type": "upstream_birthday",
+      "id": "claim:red-panda:upstream:0759c1e7c46a81173e43",
+      "review": {
+        "notes": "Imported from the upstream export; curator review is required.",
+        "reviewed_on": "2026-10-08",
+        "status": "needs_review"
+      },
+      "source_ids": [
+        "source:red-panda:wwoast-lineage-export"
+      ],
+      "status": "probable",
+      "subject": "red-panda:kelu",
+      "value": "2015/12/25"
     },
     {
       "claim_type": "upstream_birthday",
@@ -64576,21 +64548,6 @@
       "status": "probable",
       "subject": "red-panda:upstream-152",
       "value": "2019/1/3"
-    },
-    {
-      "claim_type": "upstream_gender",
-      "id": "claim:red-panda:upstream:0deb66fd5c0ebc42d31c",
-      "review": {
-        "notes": "Imported from the upstream export; curator review is required.",
-        "reviewed_on": "2026-10-08",
-        "status": "needs_review"
-      },
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "status": "probable",
-      "subject": "red-panda:upstream-200",
-      "value": "Male"
     },
     {
       "claim_type": "upstream_birthday",
@@ -73831,6 +73788,21 @@
       "status": "probable",
       "subject": "red-panda:upstream-1246",
       "value": "2010/6/26"
+    },
+    {
+      "claim_type": "upstream_gender",
+      "id": "claim:red-panda:upstream:2e810de6f0164b08e958",
+      "review": {
+        "notes": "Imported from the upstream export; curator review is required.",
+        "reviewed_on": "2026-10-08",
+        "status": "needs_review"
+      },
+      "source_ids": [
+        "source:red-panda:wwoast-lineage-export"
+      ],
+      "status": "probable",
+      "subject": "red-panda:kelu",
+      "value": "Male"
     },
     {
       "claim_type": "upstream_gender",
@@ -83251,21 +83223,6 @@
       "status": "probable",
       "subject": "red-panda:upstream-322",
       "value": "2007/6/14"
-    },
-    {
-      "claim_type": "upstream_birthday",
-      "id": "claim:red-panda:upstream:4d502d81165e3eb088e2",
-      "review": {
-        "notes": "Imported from the upstream export; curator review is required.",
-        "reviewed_on": "2026-10-08",
-        "status": "needs_review"
-      },
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "status": "probable",
-      "subject": "red-panda:upstream-200",
-      "value": "2015/12/25"
     },
     {
       "claim_type": "upstream_gender",
@@ -108693,21 +108650,6 @@
       "value": "1"
     },
     {
-      "claim_type": "upstream_death",
-      "id": "claim:red-panda:upstream:a45d43f5486a9bac449f",
-      "review": {
-        "notes": "Imported from the upstream export; curator review is required.",
-        "reviewed_on": "2026-10-08",
-        "status": "needs_review"
-      },
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "status": "probable",
-      "subject": "red-panda:upstream-200",
-      "value": "2023/8/15"
-    },
-    {
       "claim_type": "upstream_species",
       "id": "claim:red-panda:upstream:a45d71b94bff7f9e1288",
       "review": {
@@ -115083,6 +115025,21 @@
       "value": "2"
     },
     {
+      "claim_type": "upstream_death",
+      "id": "claim:red-panda:upstream:ba0b2edfae1725940059",
+      "review": {
+        "notes": "Imported from the upstream export; curator review is required.",
+        "reviewed_on": "2026-10-08",
+        "status": "needs_review"
+      },
+      "source_ids": [
+        "source:red-panda:wwoast-lineage-export"
+      ],
+      "status": "probable",
+      "subject": "red-panda:kelu",
+      "value": "2023/8/15"
+    },
+    {
       "claim_type": "upstream_gender",
       "id": "claim:red-panda:upstream:ba11c7ae61def4f75d69",
       "review": {
@@ -115921,6 +115878,21 @@
       "status": "probable",
       "subject": "red-panda:upstream-1281",
       "value": "1"
+    },
+    {
+      "claim_type": "upstream_species",
+      "id": "claim:red-panda:upstream:bc73f37d357a1e3c8ac1",
+      "review": {
+        "notes": "Imported from the upstream export; curator review is required.",
+        "reviewed_on": "2026-10-08",
+        "status": "needs_review"
+      },
+      "source_ids": [
+        "source:red-panda:wwoast-lineage-export"
+      ],
+      "status": "probable",
+      "subject": "red-panda:kelu",
+      "value": "2"
     },
     {
       "claim_type": "upstream_birthday",
@@ -146142,13 +146114,13 @@
   "coverage": {
     "last_reviewed": "2026-10-08",
     "limitations": [
-      "This is a curated family layer, not a complete red-panda studbook.",
       "Unresolved co-parent names remain claims and are not converted into animal records.",
       "Names are retained in Japanese where the cited source provides no verified transliteration.",
       "The upstream repository reports no declared reuse license; photo-page and direct-URL metadata remain link-only with rights and embedding unknown.",
-      "Upstream records require review; unknown offspring and litter-member markers are reported, not animals, and curated facts remain preferred in conflicts."
+      "Upstream records require review; unknown offspring and litter-member markers are reported, not animals, and curated facts remain preferred in conflicts.",
+      "The merged collection is not a complete or official studbook; 71 near-match profiles remain unmerged pending identity review, and ambiguous candidates, if found, are also kept separate."
     ],
-    "scope": "The 83-record curated Futa-family layer merged with named panda profiles from the pinned global wwoast/redpanda-lineage export; the source graph and non-individual markers are reported in the sync report.",
+    "scope": "The pinned global wwoast/redpanda-lineage export contributes 1475 named profiles. It is merged with 83 curated Futa-family records using 4 reviewed identity overlaps, yielding 1554 canonical animals. This combines global community profiles with a curated family layer; it is not a complete or official studbook.",
     "source_categories": [
       "community_dataset"
     ],
@@ -146156,23 +146128,23 @@
     "translations": {
       "ja": {
         "limitations": [
-          "これは編纂された家系データ層であり、レッサーパンダの完全な血統登録簿ではありません。",
           "未解決の共同親の名前は主張として扱い、動物の記録には変換しません。",
           "引用元に検証済みの音訳がない場合、名前は日本語表記のまま保持しています。",
           "上流リポジトリに再利用ライセンスの明示はありません。写真ページと画像URLはリンクのみのメタデータとして保持し、権利と埋め込み許可は不明です。",
-          "上流記録は確認が必要です。不明な子や同腹個体の目印は動物記録にせず、矛盾がある場合は出典付きの編纂済み情報を優先します。"
+          "上流記録は確認が必要です。不明な子や同腹個体の目印は動物記録にせず、矛盾がある場合は出典付きの編纂済み情報を優先します。",
+          "統合データは完全または公式な血統登録簿ではありません。本人確認待ちの近似候補71件は未統合のままで、曖昧な候補がある場合も自動で統合せず別記録に保持します。"
         ],
-        "scope": "引用されたFuta家系の83件と、固定したwwoast/redpanda-lineageのレッサーパンダ個体プロフィールを統合しています。"
+        "scope": "固定したwwoast/redpanda-lineageの世界規模エクスポートから名前のある個体プロフィール1475件を取り込み、Futa家の編纂済み記録83件と本人確認済みの重複4件を統合し、標準個体記録1554件にまとめています。世界規模のコミュニティ記録と編纂済み家系層であり、完全または公式な血統登録簿ではありません。"
       },
       "ru": {
         "limitations": [
-          "Это составленный слой данных о семейных связях, а не полная племенная книга малых панд.",
           "Имена неустановленных вторых родителей остаются утверждениями и не преобразуются в записи об отдельных животных.",
           "Если в цитируемом источнике нет подтверждённой транслитерации, имена сохраняются в японском написании.",
           "В репозитории источника нет явной лицензии на повторное использование; страницы фотографий и прямые URL сохранены только как ссылки, права и встраивание неизвестны.",
-          "Записи источника требуют проверки; маркеры неизвестных потомков и членов помёта не становятся животными, а при конфликте предпочтение отдаётся кураторским данным с источниками."
+          "Записи источника требуют проверки; маркеры неизвестных потомков и членов помёта не становятся животными, а при конфликте предпочтение отдаётся кураторским данным с источниками.",
+          "Объединённый набор не является полной или официальной племенной книгой; 71 близких совпадений остаются раздельными до проверки личности, а неоднозначные кандидаты, если они появятся, также не объединяются автоматически."
         ],
-        "scope": "Объединены 83 записи по семейству Futa с профилями особей из зафиксированного экспорта wwoast/redpanda-lineage."
+        "scope": "В закреплённый глобальный экспорт wwoast/redpanda-lineage входят 1475 именных профилей. Они объединены с 83 кураторскими записями семейства Futa и 4 подтверждёнными совпадениями личности, всего получается 1554 канонических записей животных. Это глобальный набор сообщества с кураторским семейным слоем, а не полная или официальная племенная книга."
       }
     }
   },
@@ -147052,10 +147024,10 @@
       },
       "id": "event:red-panda:kelu:1",
       "institution_id": "place:311a839503c54580",
-      "notes": "Minvu records the unnamed first Chile-born red panda cub born on this date; the later official Zoo announcement identifies Kelú. The official records do not name the parents.",
+      "notes": "The official Zoo account's public Instagram oEmbed caption identifies Kelú as born on this date at Zoológico de Parquemet.",
       "source_ids": [
         "source:red-panda:S24",
-        "source:red-panda:S25"
+        "source:red-panda:wwoast-lineage-export"
       ],
       "type": "birth"
     },
@@ -147067,7 +147039,7 @@
       },
       "id": "event:red-panda:kelu:2",
       "institution_id": "place:311a839503c54580",
-      "notes": "The official Zoo account announced Kelú’s death in August 2023. The direct social post is unavailable to automated retrieval, so no exact death date or cause is asserted here.",
+      "notes": "The official Zoo account's post identifies Kelú's death in August 2023. The public caption is available through Instagram's oEmbed endpoint; the canonical event retains month precision and does not assert a cause of death.",
       "source_ids": [
         "source:red-panda:S24"
       ],
@@ -154406,20 +154378,6 @@
       "type": "birth"
     },
     {
-      "animal_id": "red-panda:upstream-198",
-      "date": {
-        "precision": "exact",
-        "value": "2015-05-01"
-      },
-      "id": "event:red-panda:upstream:1bc6da8663f2ac8b9888",
-      "institution_id": "place:red-panda:upstream-56",
-      "notes": "Location-history entry from upstream profile 198.",
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "type": "transfer"
-    },
-    {
       "animal_id": "red-panda:upstream-79",
       "date": {
         "precision": "exact",
@@ -159068,6 +159026,20 @@
       "type": "death"
     },
     {
+      "animal_id": "red-panda:kelu",
+      "date": {
+        "precision": "exact",
+        "value": "2023-08-15"
+      },
+      "id": "event:red-panda:upstream:334b6cd93b76bf6372f9",
+      "institution_id": null,
+      "notes": "Death date from upstream profile 200; source precision retained.",
+      "source_ids": [
+        "source:red-panda:wwoast-lineage-export"
+      ],
+      "type": "death"
+    },
+    {
       "animal_id": "red-panda:upstream-738",
       "date": {
         "precision": "exact",
@@ -161138,20 +161110,6 @@
         "source:red-panda:wwoast-lineage-export"
       ],
       "type": "death"
-    },
-    {
-      "animal_id": "red-panda:upstream-200",
-      "date": {
-        "precision": "exact",
-        "value": "2015-12-25"
-      },
-      "id": "event:red-panda:upstream:3e6d9e0ffdcc2b3034bb",
-      "institution_id": "place:red-panda:upstream-56",
-      "notes": "Birth date from upstream profile 200; source precision retained.",
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "type": "birth"
     },
     {
       "animal_id": "red-panda:upstream-317",
@@ -165362,20 +165320,6 @@
       "id": "event:red-panda:upstream:53f8af0ab6776e712111",
       "institution_id": "place:red-panda:upstream-92",
       "notes": "Location-history entry from upstream profile 797.",
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "type": "transfer"
-    },
-    {
-      "animal_id": "red-panda:upstream-80",
-      "date": {
-        "precision": "exact",
-        "value": "2022-06-12"
-      },
-      "id": "event:red-panda:upstream:540a8da58b837a1d5370",
-      "institution_id": "place:red-panda:upstream-56",
-      "notes": "Location-history entry from upstream profile 80.",
       "source_ids": [
         "source:red-panda:wwoast-lineage-export"
       ],
@@ -175056,20 +175000,6 @@
       "type": "death"
     },
     {
-      "animal_id": "red-panda:upstream-199",
-      "date": {
-        "precision": "exact",
-        "value": "2015-05-01"
-      },
-      "id": "event:red-panda:upstream:830832b19a85d17f6dac",
-      "institution_id": "place:red-panda:upstream-56",
-      "notes": "Location-history entry from upstream profile 199.",
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "type": "transfer"
-    },
-    {
       "animal_id": "red-panda:upstream-72",
       "date": {
         "precision": "exact",
@@ -176898,6 +176828,20 @@
       "id": "event:red-panda:upstream:8c54381fec91858013d3",
       "institution_id": "place:red-panda:upstream-148",
       "notes": "Location-history entry from upstream profile 581.",
+      "source_ids": [
+        "source:red-panda:wwoast-lineage-export"
+      ],
+      "type": "transfer"
+    },
+    {
+      "animal_id": "red-panda:upstream-80",
+      "date": {
+        "precision": "exact",
+        "value": "2022-06-12"
+      },
+      "id": "event:red-panda:upstream:8c57b3ecd6f1e22d6f50",
+      "institution_id": "place:311a839503c54580",
+      "notes": "Location-history entry from upstream profile 80.",
       "source_ids": [
         "source:red-panda:wwoast-lineage-export"
       ],
@@ -181188,6 +181132,20 @@
       "type": "birth"
     },
     {
+      "animal_id": "red-panda:upstream-199",
+      "date": {
+        "precision": "exact",
+        "value": "2015-05-01"
+      },
+      "id": "event:red-panda:upstream:a2b7abc294af662ba30a",
+      "institution_id": "place:311a839503c54580",
+      "notes": "Location-history entry from upstream profile 199.",
+      "source_ids": [
+        "source:red-panda:wwoast-lineage-export"
+      ],
+      "type": "transfer"
+    },
+    {
       "animal_id": "red-panda:upstream-498",
       "date": {
         "precision": "exact",
@@ -183132,6 +183090,20 @@
         "source:red-panda:wwoast-lineage-export"
       ],
       "type": "birth"
+    },
+    {
+      "animal_id": "red-panda:upstream-198",
+      "date": {
+        "precision": "exact",
+        "value": "2015-05-01"
+      },
+      "id": "event:red-panda:upstream:ac2adef559f6785cdbb8",
+      "institution_id": "place:311a839503c54580",
+      "notes": "Location-history entry from upstream profile 198.",
+      "source_ids": [
+        "source:red-panda:wwoast-lineage-export"
+      ],
+      "type": "transfer"
     },
     {
       "animal_id": "red-panda:upstream-662",
@@ -195874,20 +195846,6 @@
       "type": "birth"
     },
     {
-      "animal_id": "red-panda:upstream-200",
-      "date": {
-        "precision": "exact",
-        "value": "2023-08-15"
-      },
-      "id": "event:red-panda:upstream:ee3b62c8c480494ba09f",
-      "institution_id": null,
-      "notes": "Death date from upstream profile 200; source precision retained.",
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "type": "death"
-    },
-    {
       "animal_id": "red-panda:upstream-914",
       "date": {
         "precision": "exact",
@@ -199534,7 +199492,7 @@
       "location": null,
       "names": [
         {
-          "language": "ja",
+          "language": "es",
           "value": "Zoológico Nacional de Chile"
         }
       ]
@@ -203178,21 +203136,6 @@
         {
           "language": "zh",
           "value": "臺北市立動物園"
-        }
-      ]
-    },
-    {
-      "country_code": null,
-      "id": "place:red-panda:upstream-56",
-      "location": "Santiago, Chile",
-      "names": [
-        {
-          "language": "en",
-          "value": "Chilean National Zoo"
-        },
-        {
-          "language": "es",
-          "value": "Zoológico Nacional de Chile"
         }
       ]
     },
@@ -308697,21 +308640,6 @@
       "type": "biological_mother"
     },
     {
-      "id": "relationship:red-panda:upstream:3f93871ea24b49862670",
-      "object": "red-panda:upstream-200",
-      "review": {
-        "notes": "Parent direction inverted from the upstream child-to-parent edge; parent sex determines the relationship type.",
-        "reviewed_on": "2026-10-08",
-        "status": "needs_review"
-      },
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "status": "probable",
-      "subject": "red-panda:upstream-199",
-      "type": "biological_father"
-    },
-    {
       "id": "relationship:red-panda:upstream:3fa5a767416ae04694a3",
       "object": "red-panda:upstream-927",
       "review": {
@@ -331797,21 +331725,6 @@
       "type": "biological_father"
     },
     {
-      "id": "relationship:red-panda:upstream:ea0587783fa6ef8490e2",
-      "object": "red-panda:upstream-200",
-      "review": {
-        "notes": "Parent direction inverted from the upstream child-to-parent edge; parent sex determines the relationship type.",
-        "reviewed_on": "2026-10-08",
-        "status": "needs_review"
-      },
-      "source_ids": [
-        "source:red-panda:wwoast-lineage-export"
-      ],
-      "status": "probable",
-      "subject": "red-panda:upstream-198",
-      "type": "biological_mother"
-    },
-    {
       "id": "relationship:red-panda:upstream:ea082b0490f4754d5f14",
       "object": "red-panda:upstream-132",
       "review": {
@@ -335012,7 +334925,7 @@
       "accessed_date": "2026-10-08",
       "data_use": "Citation for factual claims only; no media reuse is implied.",
       "id": "source:red-panda:S12",
-      "notes": "T13 reports Kelú’s 2015 birth and 2023 death and quotes a Zoo statement, but is discovery-only. Official sources S24 and S25 now support the canonical name, birth, and death. The T13 article does not name parents, and no parent claim or edge is retained.",
+      "notes": "T13 reports Kelú’s 2015 birth and 2023 death and quotes a Zoo statement, but is discovery-only. The official S24 Zoo account independently identifies Kelú's name, birth date, birthplace, and death announcement. S25 describes an unnamed cub born on the same date but does not itself identify Kelú. The T13 article does not name parents, and no parent claim or edge is retained.",
       "publication_date": "2023-08-15",
       "publisher": "T13 (Canal 13)",
       "source_type": "news_report",
@@ -335156,7 +335069,7 @@
       "accessed_date": "2026-10-08",
       "data_use": "Citation for factual claims only; no media reuse is implied.",
       "id": "source:red-panda:S24",
-      "notes": "Official Zoo account post announcing the death of Kelú. The direct post permalink is linked as the Zoológico Nacional de Chile embed in a contemporaneous report; Instagram rate-limited direct retrieval during this audit. The public embed and report quote identify the official account and post. No parents are named.",
+      "notes": "Official Zoológico Nacional de Chile account (@zoonacionalchile) post announcing Kelú's death. The public Instagram oEmbed endpoint returned the post caption under this account; it identifies Kelú as born on 2015-12-25 at Zoológico de Parquemet. The caption also reports later cardiac treatment and death but names no parents.",
       "publication_date": "2023-08-15",
       "publisher": "Zoológico Nacional de Chile (Parquemet)",
       "source_type": "official_social_post",

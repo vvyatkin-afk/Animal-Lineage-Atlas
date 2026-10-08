@@ -3,7 +3,7 @@
 ## Source and paths
 
 - Repository: [vvyatkin-afk/Animal-Lineage-Atlas](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas)
-- Source implementation revision at QA: recorded in [`docs/QA_REPORT.json`](QA_REPORT.json).
+- Source implementation revision at QA: recorded in the archived [`docs/QA_REPORT_V1.json`](QA_REPORT_V1.json). The current `docs/QA_REPORT.json` records the Phase 2 release.
 - Production root: `/var/www/html`
 - Public routes:
   - Hub: [http://204.168.161.237/atlas/](http://204.168.161.237/atlas/)
@@ -28,7 +28,7 @@ The static release contains 758,779 bytes across the four paths before transport
 
 Local validation passed clean dependency installation, lint, strict typecheck, 40 Node tests, 41 Python tests, JSON Schema and cross-reference validation for all three canonical datasets, repository and built-release no-photo scans, all four builds, and 8/8 Playwright tests. GitHub Actions passed the same checks on main at [c73b208](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/commit/c73b208386acee320cacfce4743b51b30fd03e84) ([run 37687966676](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/37687966676)). Browser checks used Chromium at 1440×1000 and 390×844, blocked third-party image requests, tested a failed remote image fallback, and inspected screenshots at `/tmp/animal-lineage-atlas-qa/`. The screenshots contain placeholders only.
 
-`docs/QA_REPORT.json` stores exact asset sizes, search and layout timings, browser totals, screenshot sizes, and production verification for application revision `c73b208`. The final live release manifest records the exact deployed revision and prior symlink targets; release close compares its revision with GitHub `main`.
+`docs/QA_REPORT_V1.json` stores exact asset sizes, search and layout timings, browser totals, screenshot sizes, and production verification for application revision `c73b208`. The final live release manifest records the exact deployed revision and prior symlink targets; release close compares its revision with GitHub `main`.
 
 ## Media and source limits
 

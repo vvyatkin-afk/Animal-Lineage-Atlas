@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
-  "measured_at_utc": "2026-10-08T02:42:47+00:00",
+  "measured_at_utc": "2026-10-08T03:28:10+00:00",
   "repository": "vvyatkin-afk/Animal-Lineage-Atlas",
-  "source_revision": "e12d4f1b4a257c509ca1ff6d6d9679d788594819",
-  "source_worktree_dirty_excluding_report": false,
+  "source_revision": "9b6b226eeac714d441a4cb2e6db8995189af3af8",
+  "source_worktree_dirty_excluding_report": true,
   "release_root": "dist",
   "runtime": {
     "python": "3.13.5",
@@ -21,137 +21,149 @@
     "applications": {
       "atlas": {
         "files_bytes": {
-          "catalog.json": 8358,
+          "catalog.json": 13494,
           "index.html": 8156,
-          "main.js": 63793,
+          "main.js": 71011,
           "styles.css": 11803
         },
-        "bundle_bytes": 75596,
-        "data_payload_bytes": 8358,
-        "initial_data_payload_bytes": 8358,
+        "bundle_bytes": 82814,
+        "data_payload_bytes": 13494,
+        "initial_data_payload_bytes": 13494,
         "detail_payloads": {
           "chunk_count": 0,
           "total_bytes": 0,
           "largest_chunk_bytes": 0,
           "median_chunk_bytes": 0
         },
-        "complete_data_payload_bytes": 8358,
-        "total_bytes": 92110
+        "complete_data_payload_bytes": 13494,
+        "total_bytes": 104464
       },
       "atlas.red-panda": {
         "files_bytes": {
-          "details/chunk-0000.json": 226343,
+          "details/chunk-0000.json": 548965,
+          "details/chunk-0001.json": 562389,
+          "details/chunk-0002.json": 791975,
+          "details/chunk-0003.json": 694688,
+          "details/chunk-0004.json": 862233,
+          "details/chunk-0005.json": 1274758,
+          "details/chunk-0006.json": 1036785,
+          "details/chunk-0007.json": 803756,
+          "details/chunk-0008.json": 643589,
+          "details/chunk-0009.json": 587672,
+          "details/chunk-0010.json": 668377,
+          "details/chunk-0011.json": 730815,
+          "details/chunk-0012.json": 131472,
           "index.html": 5882,
           "local-media-manifest.json": 69,
-          "main.js": 111613,
-          "runtime.json": 45319,
+          "main.js": 117836,
+          "runtime.json": 1300178,
           "styles.css": 13257
         },
-        "bundle_bytes": 124870,
-        "data_payload_bytes": 45319,
-        "initial_data_payload_bytes": 45388,
+        "bundle_bytes": 131093,
+        "data_payload_bytes": 1300178,
+        "initial_data_payload_bytes": 1300247,
         "detail_payloads": {
-          "chunk_count": 1,
-          "total_bytes": 226343,
-          "largest_chunk_bytes": 226343,
-          "median_chunk_bytes": 226343
+          "chunk_count": 13,
+          "total_bytes": 9337474,
+          "largest_chunk_bytes": 1274758,
+          "median_chunk_bytes": 694688
         },
-        "complete_data_payload_bytes": 271731,
-        "total_bytes": 402483
+        "complete_data_payload_bytes": 10637721,
+        "total_bytes": 10774696
       },
       "atlas.polar-bear": {
         "files_bytes": {
-          "details/chunk-0000.json": 37505,
+          "details/chunk-0000.json": 89932,
           "index.html": 5884,
           "local-media-manifest.json": 69,
-          "main.js": 111613,
-          "runtime.json": 15858,
+          "main.js": 117836,
+          "runtime.json": 40161,
           "styles.css": 13257
         },
-        "bundle_bytes": 124870,
-        "data_payload_bytes": 15858,
-        "initial_data_payload_bytes": 15927,
+        "bundle_bytes": 131093,
+        "data_payload_bytes": 40161,
+        "initial_data_payload_bytes": 40230,
         "detail_payloads": {
           "chunk_count": 1,
-          "total_bytes": 37505,
-          "largest_chunk_bytes": 37505,
-          "median_chunk_bytes": 37505
+          "total_bytes": 89932,
+          "largest_chunk_bytes": 89932,
+          "median_chunk_bytes": 89932
         },
-        "complete_data_payload_bytes": 53432,
-        "total_bytes": 184186
+        "complete_data_payload_bytes": 130162,
+        "total_bytes": 267139
       },
       "atlas.hippopotamus": {
         "files_bytes": {
-          "details/chunk-0000.json": 12028,
+          "details/chunk-0000.json": 161878,
           "index.html": 5888,
           "local-media-manifest.json": 69,
-          "main.js": 111613,
-          "runtime.json": 6726,
+          "main.js": 117836,
+          "runtime.json": 50366,
           "styles.css": 13257
         },
-        "bundle_bytes": 124870,
-        "data_payload_bytes": 6726,
-        "initial_data_payload_bytes": 6795,
+        "bundle_bytes": 131093,
+        "data_payload_bytes": 50366,
+        "initial_data_payload_bytes": 50435,
         "detail_payloads": {
           "chunk_count": 1,
-          "total_bytes": 12028,
-          "largest_chunk_bytes": 12028,
-          "median_chunk_bytes": 12028
+          "total_bytes": 161878,
+          "largest_chunk_bytes": 161878,
+          "median_chunk_bytes": 161878
         },
-        "complete_data_payload_bytes": 18823,
-        "total_bytes": 149581
+        "complete_data_payload_bytes": 212313,
+        "total_bytes": 349294
       }
     },
-    "total_bytes": 828360
+    "total_bytes": 11495593
   },
   "engine_timings": {
     "red-panda": {
-      "record_count": 83,
-      "relationship_count": 93,
-      "component_count": 3,
-      "largest_component_size": 57,
-      "derived_index_heap_bytes": 40384,
+      "record_count": 1555,
+      "relationship_count": 2396,
+      "component_count": 171,
+      "largest_component_size": 824,
+      "derived_index_heap_bytes": 2328376,
       "search": {
         "samples": 120,
-        "median_ms": 0.033,
-        "p95_ms": 0.119,
-        "mean_ms": 0.052,
+        "median_ms": 2.053,
+        "p95_ms": 3.917,
+        "mean_ms": 2.329,
         "query_cases": [
           {
-            "query": "風太（フウタ）",
-            "matches": 1
+            "query": "アラタ",
+            "matches": 2
           },
           {
-            "query": "red-panda:futa",
+            "query": "red-panda:arata",
             "matches": 1
           },
           {
             "query": "Ailurus fulgens",
-            "matches": 83
+            "matches": 1555
           }
         ]
       },
       "genealogy_layout": {
         "samples": 30,
-        "median_ms": 0.038,
-        "p95_ms": 0.522,
-        "mean_ms": 0.235,
-        "representative_nodes": 47,
-        "representative_edges": 46,
+        "median_ms": 0.041,
+        "p95_ms": 0.952,
+        "mean_ms": 0.198,
+        "representative_nodes": 5,
+        "representative_edges": 5,
         "representative_truncated": false
       }
     },
     "polar-bear": {
-      "record_count": 22,
-      "relationship_count": 24,
-      "component_count": 5,
+      "record_count": 64,
+      "relationship_count": 58,
+      "component_count": 19,
       "largest_component_size": 9,
-      "derived_index_heap_bytes": 77568,
+      "derived_index_heap_bytes": 33152,
       "search": {
         "samples": 120,
-        "median_ms": 0.023,
-        "p95_ms": 0.035,
-        "mean_ms": 0.024,
+        "median_ms": 0.015,
+        "p95_ms": 0.026,
+        "mean_ms": 0.017,
         "query_cases": [
           {
             "query": "Franz",
@@ -163,53 +175,53 @@
           },
           {
             "query": "Ursus maritimus",
-            "matches": 22
+            "matches": 64
           }
         ]
       },
       "genealogy_layout": {
         "samples": 30,
-        "median_ms": 0.064,
-        "p95_ms": 0.811,
-        "mean_ms": 0.19,
+        "median_ms": 0.018,
+        "p95_ms": 0.288,
+        "mean_ms": 0.072,
         "representative_nodes": 7,
         "representative_edges": 6,
         "representative_truncated": false
       }
     },
     "hippopotamus": {
-      "record_count": 5,
-      "relationship_count": 4,
-      "component_count": 1,
-      "largest_component_size": 5,
-      "derived_index_heap_bytes": 14664,
+      "record_count": 85,
+      "relationship_count": 78,
+      "component_count": 24,
+      "largest_component_size": 19,
+      "derived_index_heap_bytes": 130744,
       "search": {
         "samples": 120,
-        "median_ms": 0.004,
-        "p95_ms": 0.019,
-        "mean_ms": 0.009,
+        "median_ms": 0.029,
+        "p95_ms": 0.072,
+        "mean_ms": 0.057,
         "query_cases": [
           {
-            "query": "Bibi",
+            "query": "Nala",
             "matches": 1
           },
           {
-            "query": "hippopotamus:bibi",
+            "query": "hippopotamus-common-animal-berlin-nala",
             "matches": 1
           },
           {
-            "query": "Hippopotamus amphibius",
-            "matches": 5
+            "query": "Hippopotamus amphibius and Choeropsis liberiensis",
+            "matches": 0
           }
         ]
       },
       "genealogy_layout": {
         "samples": 30,
-        "median_ms": 0.013,
-        "p95_ms": 0.38,
-        "mean_ms": 0.089,
-        "representative_nodes": 3,
-        "representative_edges": 2,
+        "median_ms": 0.029,
+        "p95_ms": 1.214,
+        "mean_ms": 0.155,
+        "representative_nodes": 2,
+        "representative_edges": 1,
         "representative_truncated": false
       }
     }
@@ -219,13 +231,13 @@
     "animal_count": 5000,
     "relationship_count": 4750,
     "component_count": 250,
-    "derived_index_heap_bytes": 6251360,
-    "search_index_build_ms": 202.156,
-    "graph_index_build_ms": 54.369,
+    "derived_index_heap_bytes": 6039248,
+    "search_index_build_ms": 173.111,
+    "graph_index_build_ms": 44.461,
     "search": {
       "samples": 150,
-      "median_ms": 2.686,
-      "p95_ms": 8.465,
+      "median_ms": 8.042,
+      "p95_ms": 13.849,
       "query_cases": [
         {
           "query": "synthetic:04999",
@@ -243,8 +255,8 @@
     },
     "focused_graph": {
       "samples": 60,
-      "median_ms": 0.025,
-      "p95_ms": 0.039,
+      "median_ms": 0.06,
+      "p95_ms": 0.073,
       "nodes": 7,
       "edges": 6,
       "truncated": false
@@ -263,47 +275,47 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
-      "duration_ms": 22640.088
+      "duration_ms": 28178.557
     },
     "screenshots": {
-      "hippopotamus-mobile.png": 119313,
-      "hub-desktop.png": 443065,
-      "red-panda-desktop.png": 282002,
-      "red-panda-mobile.png": 90291
+      "hippopotamus-mobile.png": 374833,
+      "hub-desktop.png": 502653,
+      "red-panda-desktop.png": 289156,
+      "red-panda-mobile.png": 93561
     }
   },
   "browser_performance": {
     "browser": "153.0.8010.12",
     "method": "Playwright Chromium against the local static build; desktop 1440x1000 CSS px and mobile 390x844 CSS px. Timings use in-app synchronous search/DOM/render durations and direct profile open duration including the detail fetch. Browser heap is Chromium performance.memory when available.",
     "dataset": "red-panda",
-    "record_count": 83,
-    "initial_index_payload_bytes": 45388,
-    "runtime_index_bytes": 45319,
+    "record_count": 1555,
+    "initial_index_payload_bytes": 1300247,
+    "runtime_index_bytes": 1300178,
     "initial_search_had_no_detail_request": true,
-    "opened_profile_detail_payload_bytes": 226343,
+    "opened_profile_detail_payload_bytes": 1036785,
     "desktop": {
       "viewport_css_px": [
         1440,
         1000
       ],
-      "search_render_ms": 0.9,
-      "global_overview_render_ms": 4.4,
-      "focused_graph_render_ms": 18.9,
-      "focused_graph_nodes": 4,
-      "profile_open_ms": 121.5,
-      "used_heap_bytes": 10000000
+      "search_render_ms": 6.4,
+      "global_overview_render_ms": 26.6,
+      "focused_graph_render_ms": 9.4,
+      "focused_graph_nodes": 51,
+      "profile_open_ms": 110.4,
+      "used_heap_bytes": 11900000
     },
     "mobile": {
       "viewport_css_px": [
         390,
         844
       ],
-      "focused_graph_render_ms": 0.7,
-      "focused_graph_nodes": 3,
-      "profile_open_ms": 85.4,
+      "focused_graph_render_ms": 3.2,
+      "focused_graph_nodes": 24,
+      "profile_open_ms": 144.9,
       "viewport_width": 390,
       "document_width": 390,
-      "used_heap_bytes": 10000000
+      "used_heap_bytes": 11900000
     }
   }
 }

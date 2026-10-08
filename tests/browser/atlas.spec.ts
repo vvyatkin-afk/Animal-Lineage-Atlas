@@ -58,7 +58,7 @@ test('default view covers all components and defers full details until profile o
   expect(detailRequests).toEqual([]);
 
   await page.getByLabel('Search animals').fill('Futa');
-  await page.getByRole('button', { name: /Open profile: 風太（フウタ）/ }).click();
+  await page.getByRole('button', { name: 'Open profile: Futa' }).click();
   await expect(page.locator('#profile-title')).toHaveText('風太（フウタ）');
   await expect(page.locator('svg[data-genealogy]')).toBeVisible();
   expect(detailRequests.length).toBe(1);
@@ -72,18 +72,18 @@ test('hub renders all atlas cards, changes locale, and works at desktop size', a
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/atlas/');
   await expect(page.locator('[data-atlas-id]')).toHaveCount(3);
-  await expect(page.locator('[data-atlas-id="red-panda"] .atlas-counts')).toContainText('83');
-  await expect(page.locator('[data-atlas-id="polar-bear"] .atlas-counts')).toContainText('22');
-  await expect(page.locator('[data-atlas-id="hippopotamus"] .atlas-counts')).toContainText('5');
+  await expect(page.locator('[data-atlas-id="red-panda"] .atlas-counts')).toContainText('1554');
+  await expect(page.locator('[data-atlas-id="polar-bear"] .atlas-counts')).toContainText('64');
+  await expect(page.locator('[data-atlas-id="hippopotamus"] .atlas-counts')).toContainText('85');
   await page.screenshot({ path: `${screenshotDir}/hub-desktop.png`, fullPage: true });
   await page.getByLabel('Interface language').selectOption('ja');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
   await expect(page.locator('.top-nav')).toContainText('アトラス');
-  await expect(page.locator('[data-atlas-id="red-panda"] .card-scope')).toContainText('引用されたFuta家系');
-  await expect(page.locator('[data-atlas-id="red-panda"] .source-categories')).toContainText('動物園公式');
+  await expect(page.locator('[data-atlas-id="red-panda"] .card-scope')).toContainText('固定したwwoast/redpanda-lineage');
+  await expect(page.locator('[data-atlas-id="red-panda"] .source-categories')).toContainText('コミュニティ作成データセット');
   await page.locator('#language-select').selectOption('ru');
-  await expect(page.locator('[data-atlas-id="red-panda"] .card-scope')).toContainText('Слой данных по семейству Futa');
-  await expect(page.locator('[data-atlas-id="red-panda"] .source-categories')).toContainText('Официаль');
+  await expect(page.locator('[data-atlas-id="red-panda"] .card-scope')).toContainText('В закреплённый глобальный экспорт');
+  await expect(page.locator('[data-atlas-id="red-panda"] .source-categories')).toContainText('Датасет сообщества');
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.locator('.language-control > span')).toBeVisible();
   const hubLanguageFontSize = await page.locator('#language-select').evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize));
@@ -95,9 +95,10 @@ test('each child path opens a direct profile and shows its family tree', async (
   const errors = observeErrors(page);
   await blockRemoteImages(page);
   const profiles = [
-    { path: '/atlas.red-panda/', id: 'red-panda:futa', name: '風太（フウタ）', atlas: 'red-panda' },
-    { path: '/atlas.polar-bear/', id: 'polar-bear:franz', name: 'Franz', atlas: 'polar-bear' },
-    { path: '/atlas.hippopotamus/', id: 'hippopotamus:fiona', name: 'Fiona', atlas: 'hippopotamus' },
+    { path: '/atlas.red-panda/', id: 'red-panda:futa', name: '風太（フウタ）', atlas: 'red-panda', expectedDetail: null },
+    { path: '/atlas.red-panda/', id: 'red-panda:kelu', name: 'Kelú', atlas: 'red-panda', expectedDetail: 'Zoológico de Parquemet' },
+    { path: '/atlas.polar-bear/', id: 'polar-bear:franz', name: 'Franz', atlas: 'polar-bear', expectedDetail: null },
+    { path: '/atlas.hippopotamus/', id: 'hippopotamus:fiona', name: 'Fiona', atlas: 'hippopotamus', expectedDetail: null },
   ];
   for (const profile of profiles) {
     await page.goto(`${profile.path}?animal=${encodeURIComponent(profile.id)}`);
@@ -106,6 +107,10 @@ test('each child path opens a direct profile and shows its family tree', async (
     await expect(page.locator('#profile-title')).toHaveText(profile.name);
     await expect(page.locator('svg[data-genealogy]')).toBeVisible();
     await expect(page.locator('.media-placeholder').first()).toBeVisible();
+    if (profile.expectedDetail) {
+      await expect(page.locator('#profile-dialog')).toContainText(profile.expectedDetail);
+      await expect(page.locator(`#profile-dialog a[href="https://www.instagram.com/p/Cv7skWKuggY/"]`).first()).toBeVisible();
+    }
     expect(await page.locator('#profile-dialog a[href^="https://"]').count()).toBeGreaterThan(0);
   }
   await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:futa')}`);
@@ -157,11 +162,11 @@ test('historical facilities are searchable and transfer details retain both endp
 test('child coverage scope and limitations follow Japanese and Russian locale choices', async ({ page }) => {
   await page.goto('/atlas.hippopotamus/');
   await page.getByLabel('Interface language').selectOption('ja');
-  await expect(page.locator('#coverage-scope')).toContainText('Cincinnati Zooで個体名が記録された5頭');
-  await expect(page.locator('#coverage-limitations')).toContainText('コビトカバ');
+  await expect(page.locator('#coverage-scope')).toContainText('Cincinnati、San Diego');
+  await expect(page.locator('#coverage-scope')).toContainText('コビトカバの公開記録');
   await page.locator('#language-select').selectOption('ru');
-  await expect(page.locator('#coverage-scope')).toContainText('Пять поимённо указанных обыкновенных бегемотов');
-  await expect(page.locator('#coverage-limitations')).toContainText('Карликовый бегемот');
+  await expect(page.locator('#coverage-scope')).toContainText('Именованные обыкновенные бегемоты');
+  await expect(page.locator('#coverage-scope')).toContainText('Именованные карликовые бегемоты');
 });
 
 test('optional local manifest renders a local media asset in the profile UI', async ({ page }) => {

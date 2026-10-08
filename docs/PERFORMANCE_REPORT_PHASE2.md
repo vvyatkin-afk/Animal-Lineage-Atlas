@@ -2,35 +2,66 @@
 
 ## Measurement scope
 
-The static build derives a compact search and graph index plus profile detail chunks from each canonical `atlases/<species>/atlas.json`. The canonical file remains the only source of truth. Runtime pages fetch the index at startup and fetch one detail chunk only when a profile opens. Detail chunks contain at most 128 animals. The global overview summarizes every connected component, including isolated animals; search reaches every record and opens a bounded focused neighborhood. Search summaries include population, so wild and zoo/captive records remain filterable.
+The local release was built from the expanded canonical atlases. Runtime indexes support search, population filters, and global component summaries; profile details load from bounded chunks only when a profile opens. No animal photo bytes are part of the release. The machine-readable report contains per-file payloads, warmed search/layout timings, a synthetic scale run, and Chromium measurements.
 
-The checked-in JSON report contains exact per-file payload sizes, per-atlas search/layout samples, a synthetic scale run, and browser measurements. Reproduce it from the repository root with:
+Measurement command:
 
 ```sh
-npm run build
-npm run test:browser
 npm run measure:release -- dist --out docs/PERFORMANCE_REPORT_PHASE2.json
 ```
 
-## Current worktree result
+The current measurements were recorded on 2026-10-08 from the final integrated worktree before its release commit. The JSON identifies its source revision and notes that the worktree was dirty at measurement time. The tracked application changes at that point are the source used for this build; deployment evidence is recorded separately in `QA_REPORT.json` and `RELEASE_V2_EXPANDED_DATASETS.md`.
 
-These source-backed numbers were measured against the small Phase 1 canonical snapshots in this performance worktree: 83 red pandas, 22 polar bears, and 5 common hippos. They are an implementation baseline, not measurements of the later expanded research datasets. Re-run the same commands after the data branches are integrated to record the final source-backed counts and timings.
+## Release payloads
 
-The initial runtime index plus media manifest measured 45,388 bytes for red panda, 15,927 bytes for polar bear, and 6,795 bytes for hippopotamus. The full profile details were split into one chunk per atlas at these snapshot sizes; the red-panda chunk was 226,343 bytes, polar-bear 37,505 bytes, and hippopotamus 12,028 bytes. The browser run made no detail request before a profile opened.
+Raw file bytes, without gzip or Brotli. Initial payload includes the runtime index and media manifest; profile details are fetched lazily.
 
-The engine benchmark uses 120 search samples and 30 focused-graph samples per canonical atlas. For red panda, search p50/p95 was 0.033/0.119 ms and focused layout p50/p95 was 0.038/0.522 ms. Polar bear was 0.023/0.035 ms and 0.064/0.811 ms. Hippopotamus was 0.004/0.019 ms and 0.013/0.380 ms. The layout samples include the index-backed focus walk and output graph construction; they do not include browser rendering.
+| Release | Initial payload | Detail chunks / bytes | Complete data payload | Total release |
+|---|---:|---:|---:|---:|
+| Hub | 13,494 B | 0 / 0 B | 13,494 B | 104,464 B |
+| Red panda | 1,300,247 B | 13 / 9,337,474 B | 10,637,721 B | 10,774,696 B |
+| Polar bear | 40,230 B | 1 / 89,932 B | 130,162 B | 267,139 B |
+| Hippopotamus | 50,435 B | 1 / 161,878 B | 212,313 B | 349,294 B |
 
-A separate deterministic 5,000-animal fixture contains 4,750 parent edges arranged in 250 disconnected linear components of up to 20 animals. It is synthetic and is kept separate from source-backed counts. Search-index creation took 202.156 ms, graph-index creation took 54.369 ms, search p50/p95 was 2.686/8.465 ms, and focused graph creation p50/p95 was 0.025/0.039 ms for a seven-node neighborhood. The approximate derived-index heap delta was 6,251,360 bytes in Node.js.
+All four releases total 11,495,593 B. The red-panda detail chunks range from 131,472 B to 1,274,758 B; their median is 694,688 B. Search on first load made no detail request.
 
-Playwright Chromium 153 measured the red-panda app at 1,440×1,000 and 390×844 CSS pixels. On desktop the initial global overview rendered in 4.4 ms, search plus result DOM rendering took 0.9 ms, the focused SVG neighborhood rendered in 18.9 ms, and profile open took 121.5 ms including its local detail fetch. On the emulated mobile viewport, the focused SVG neighborhood rendered in 0.7 ms and profile open took 85.4 ms; document width remained 390 pixels. The representative focused graphs had 4 desktop and 3 mobile nodes in this sample.
+## Source-backed search and graph timings
+
+Node benchmark used 120 warmed search samples and 30 focused graph samples per atlas after index construction.
+
+| Atlas | Animals / relationships | Components (largest) | Derived index heap | Search median / p95 | Layout median / p95 |
+|---|---:|---:|---:|---:|---:|
+| Red panda | 1,555 / 2,396 | 171 (824) | 2,328,376 B | 2.053 / 3.917 ms | 0.041 / 0.952 ms |
+| Polar bear | 64 / 58 | 19 (9) | 33,152 B | 0.015 / 0.026 ms | 0.018 / 0.288 ms |
+| Hippopotamus | 85 / 78 | 24 (19) | 130,744 B | 0.029 / 0.072 ms | 0.029 / 1.214 ms |
+
+Representative focused graphs contained 5 nodes / 5 edges for red panda, 7 / 6 for polar bear, and 2 / 1 for hippopotamus. None were truncated.
+
+## Synthetic scale fixture
+
+The deterministic synthetic pedigree has 5,000 animals, 4,750 relationships, and 250 disconnected components. Its derived-index heap was 6,039,248 B. Search-index and graph-index construction took 173.111 ms and 44.461 ms. Across 150 searches, median / p95 was 8.042 / 13.849 ms. Across 60 focused-graph samples, median / p95 was 0.060 / 0.073 ms for a seven-node, six-edge neighborhood; it was not truncated.
+
+## Browser performance
+
+Playwright Chromium 153.0.8010.12 ran at 1440×1000 desktop and 390×844 mobile viewport sizes. The measured profile atlas was the 1,555-record red-panda release.
+
+| Measure | Desktop | Mobile |
+|---|---:|---:|
+| Search and result render | 6.4 ms | Not reported |
+| Global overview render | 26.6 ms | Not reported |
+| Focused graph render | 9.4 ms, 51 nodes | 3.2 ms, 24 nodes |
+| Profile open, including detail fetch | 110.4 ms | 144.9 ms |
+| Chromium reported heap | 11,900,000 B | 11,900,000 B |
+
+The initial search made no detail request; the opened profile fetched a 1,036,785 B detail chunk. At the mobile viewport, the document width was 390 px. The full local browser suite passed 10 / 10 tests.
 
 ## Method and limits
 
-- Payload sizes are uncompressed file bytes. “Initial data” means `runtime.json` plus the optional local media manifest; detail-chunk bytes are reported separately.
-- Search p50/p95 values come from warmed in-process queries. The scale fixture includes a one-record ID query, a 1,000-result substring query, and a 5,000-result taxon query.
-- Browser search timing covers the synchronous search and result-list DOM update. Graph timing covers synchronous graph-model construction and SVG DOM attachment, excluding the following paint/composite frame. Profile-open timing includes the detail fetch and profile rendering.
-- Browser memory is reported only when Chromium exposes `performance.memory`; this environment returned 10,000,000 bytes on both viewports, which appears quantized. Node heap deltas are approximate and can vary with garbage collection; they are not whole-device memory measurements.
-- The synthetic pedigree is a uniform linear forest. It checks thousands of rows and disconnected components, but it does not model every high-degree or unusually dense family shape.
-- Browser measurements use a local static server, block external image requests, and emulate a mobile viewport on the test host. They do not include real cellular latency, a physical phone GPU, or compressed transfer sizes.
+- Payload values are uncompressed file sizes and do not include network overhead.
+- Search timings use warmed in-process queries. Index heap is an approximate Node.js heap delta after garbage collection.
+- Focused-graph timings cover synchronous graph construction and SVG attachment, excluding the following paint/composite frame.
+- Browser memory is reported only when Chromium exposes `performance.memory`; it is not a whole-device memory estimate.
+- Browser tests use a local static server, block external images, and emulate mobile dimensions on the test host. They do not model a physical phone, mobile GPU, cellular latency, or network throttling.
+- The synthetic fixture is a linear forest; it does not model every high-degree or unusually dense family graph.
 
-The detailed machine-readable output is [PERFORMANCE_REPORT_PHASE2.json](PERFORMANCE_REPORT_PHASE2.json).
+The detailed machine-readable measurements are in [PERFORMANCE_REPORT_PHASE2.json](PERFORMANCE_REPORT_PHASE2.json).

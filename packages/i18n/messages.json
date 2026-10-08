@@ -151,7 +151,21 @@
     "sourceCategoryOfficialZooUpdates": "Official Zoo Updates",
     "sourceCategoryOfficialZooCareBlog": "Official Zoo Care Blog",
     "sourceCategoryOfficialZooRoster": "Official Zoo Roster",
-    "sourceCategoryOfficialZooAnnualReport": "Official Zoo Annual Report"
+    "sourceCategoryOfficialZooAnnualReport": "Official Zoo Annual Report",
+    "sourceCategoryCommunityDataset": "Community Dataset",
+    "sourceCategoryOfficialZooHistory": "Official Zoo History",
+    "sourceCategoryOfficialZooProfiles": "Official Zoo Profiles",
+    "sourceCategoryOfficialZooPublications": "Official Zoo Publications",
+    "sourceCategoryOfficialZooWebProfile": "Official Zoo Web Profile",
+    "sourceCategoryOfficialZooAnimalProfiles": "Official Zoo Animal Profiles",
+    "sourceCategoryOfficialZooAnnouncementsBiographies": "Official Zoo Announcements and Biographies",
+    "sourceCategoryOfficialZooReportsHistories": "Official Zoo Annual Reports and Historical Chapters",
+    "sourceCategoryOfficialZooBirthAnnouncements": "Official Zoo Birth Announcements",
+    "sourceCategoryOfficialZooCareReports": "Official Zoo Care Reports",
+    "sourceCategoryOfficialZooFamilyHistories": "Official Zoo Family Records and Histories",
+    "sourceCategoryOfficialZooNewsletters": "Official Zoo Newsletters and Magazines",
+    "sourceCategoryOfficialZooTransferAnnouncements": "Official Zoo Transfer Announcements",
+    "sourceCategorySpecialistZooPublications": "Specialist Group and Zoo Association Publications"
   },
   "ja": {
     "appTitle": "動物系譜アトラス",
@@ -305,7 +319,21 @@
     "sourceCategoryOfficialZooUpdates": "動物園公式更新情報",
     "sourceCategoryOfficialZooCareBlog": "動物園公式飼育ブログ",
     "sourceCategoryOfficialZooRoster": "動物園公式個体一覧",
-    "sourceCategoryOfficialZooAnnualReport": "動物園公式年次報告書"
+    "sourceCategoryOfficialZooAnnualReport": "動物園公式年次報告書",
+    "sourceCategoryCommunityDataset": "コミュニティ作成データセット",
+    "sourceCategoryOfficialZooHistory": "動物園公式の沿革",
+    "sourceCategoryOfficialZooProfiles": "動物園公式プロフィール",
+    "sourceCategoryOfficialZooPublications": "動物園公式刊行物",
+    "sourceCategoryOfficialZooWebProfile": "動物園公式ウェブプロフィール",
+    "sourceCategoryOfficialZooAnimalProfiles": "動物園公式の動物プロフィール",
+    "sourceCategoryOfficialZooAnnouncementsBiographies": "動物園公式発表・個体紹介",
+    "sourceCategoryOfficialZooReportsHistories": "動物園公式年次報告書・歴史章",
+    "sourceCategoryOfficialZooBirthAnnouncements": "動物園公式出生発表",
+    "sourceCategoryOfficialZooCareReports": "動物園公式飼育報告",
+    "sourceCategoryOfficialZooFamilyHistories": "動物園公式の家族記録・沿革",
+    "sourceCategoryOfficialZooNewsletters": "動物園公式ニュースレター・雑誌",
+    "sourceCategoryOfficialZooTransferAnnouncements": "動物園公式移送発表",
+    "sourceCategorySpecialistZooPublications": "専門家グループ・動物園協会の刊行物"
   },
   "ru": {
     "appTitle": "Атлас родословных животных",
@@ -459,6 +487,20 @@
     "sourceCategoryOfficialZooUpdates": "Официальные обновления зоопарка",
     "sourceCategoryOfficialZooCareBlog": "Официальный блог зоопарка об уходе за животными",
     "sourceCategoryOfficialZooRoster": "Официальный список животных зоопарка",
-    "sourceCategoryOfficialZooAnnualReport": "Официальный годовой отчёт зоопарка"
+    "sourceCategoryOfficialZooAnnualReport": "Официальный годовой отчёт зоопарка",
+    "sourceCategoryCommunityDataset": "Датасет сообщества",
+    "sourceCategoryOfficialZooHistory": "История зоопарка",
+    "sourceCategoryOfficialZooProfiles": "Официальные профили зоопарков",
+    "sourceCategoryOfficialZooPublications": "Публикации зоопарков",
+    "sourceCategoryOfficialZooWebProfile": "Официальный веб-профиль зоопарка",
+    "sourceCategoryOfficialZooAnimalProfiles": "Официальные профили животных зоопарка",
+    "sourceCategoryOfficialZooAnnouncementsBiographies": "Официальные сообщения и биографии зоопарков",
+    "sourceCategoryOfficialZooReportsHistories": "Годовые отчёты зоопарков и исторические разделы",
+    "sourceCategoryOfficialZooBirthAnnouncements": "Объявления о рождении в зоопарках",
+    "sourceCategoryOfficialZooCareReports": "Отчёты зоопарков об уходе",
+    "sourceCategoryOfficialZooFamilyHistories": "Семейные сведения и истории зоопарков",
+    "sourceCategoryOfficialZooNewsletters": "Информационные бюллетени и журналы зоопарков",
+    "sourceCategoryOfficialZooTransferAnnouncements": "Сообщения зоопарков о перемещении животных",
+    "sourceCategorySpecialistZooPublications": "Публикации экспертных групп и ассоциаций зоопарков"
   }
 }

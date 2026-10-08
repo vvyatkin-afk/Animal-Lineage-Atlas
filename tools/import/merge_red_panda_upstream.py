@@ -36,6 +36,25 @@ REVIEWED_EXTERNAL_ID_CROSSWALKS = {
         "source_ids": ["source:red-panda:S02", "source:red-panda:S08"],
         "rationale": "S02 identifies Fu-Fu as Futa's father; the upstream Japanese alias 風風 and birth profile agree with the curated Fu-Fu record.",
     },
+    "200": {
+        "curated_animal_id": "red-panda:kelu",
+        "source_ids": ["source:red-panda:S24"],
+        "rationale": "S24's official Zoológico Nacional de Chile account caption names Kelú, gives his exact 2015-12-25 birth date and Parquemet birthplace, and identifies him as the first and only Chile-born red panda. The upstream name, date, and birthplace agree. Parentage is reviewed separately and is not inferred from this identity crosswalk.",
+    },
+}
+REVIEWED_INSTITUTION_CROSSWALKS = {
+    "-56": {
+        "curated_institution_id": "place:311a839503c54580",
+        "source_ids": ["source:red-panda:S24"],
+        "rationale": "The upstream zoo vertex names Chilean National Zoo / Zoológico Nacional de Chile; official S24 identifies the same Zoo account as Parquemet, and the curated birth record uses this institution ID.",
+    },
+}
+REVIEWED_UPSTREAM_PARENTAGE_EXCLUSIONS = {
+    "200": {
+        "curated_animal_id": "red-panda:kelu",
+        "source_ids": ["source:red-panda:S12", "source:red-panda:S24"],
+        "rationale": "S24 confirms Kelú's identity but names no parents; the prior Kouta/Lily parent assertion was discovery-only. The upstream family edges remain in this mapping but are excluded from canonical parentage pending direct source evidence.",
+    },
 }
 VALID_SOURCE_TIERS = {"A", "B", "C", "D", "discovery_only"}
 OFFICIAL_SOURCE_HOSTS = {
@@ -108,9 +127,9 @@ CURATED_UNRESOLVED_SOURCE_REVIEW = [
         "record_type": "claim",
         "subject_id": "red-panda:kelu",
         "prior_assertion": "Kouta and Lili were Kelú's parents.",
-        "source_ids": ["source:red-panda:S12"],
+        "source_ids": ["source:red-panda:S12", "source:red-panda:S24", SOURCE_ID],
         "resolution": "removed_from_canonical; parentage remains unconfirmed",
-        "reason": "S12 is discovery_only and does not name the parents; the official sources S24/S25 do not name parents either.",
+        "reason": "S12 is discovery_only; S24 establishes Kelú's identity but names no parents, and the upstream dataset's parent edges are excluded from canonical data pending direct evidence.",
     },
     {
         "record_id": "event:red-panda:unnamed:u2011a#unverified-sire-and-cause-detail",
@@ -374,6 +393,21 @@ def _institution_merge(curated, zoos, snapshot):
     source_id = SOURCE_ID
     for zoo in sorted(zoos, key=lambda z: str(z.get("_id"))):
         upstream_id = str(zoo.get("_id"))
+        reviewed_crosswalk = REVIEWED_INSTITUTION_CROSSWALKS.get(upstream_id)
+        if reviewed_crosswalk:
+            final_id = reviewed_crosswalk["curated_institution_id"]
+            if final_id not in ids:
+                raise ValueError(f"Reviewed institution crosswalk {upstream_id} targets unknown curated institution {final_id}")
+            zoo_to_final[upstream_id] = final_id
+            mappings.append({
+                "upstream_id": upstream_id,
+                "final_institution_id": final_id,
+                "status": "reviewed_external_id_crosswalk",
+                "ambiguous_candidates": [],
+                "source_ids": reviewed_crosswalk["source_ids"],
+                "rationale": reviewed_crosswalk["rationale"],
+            })
+            continue
         name_pairs = _lang_values(zoo, "name")
         name_pair = next((x for x in name_pairs if x[0] == "en"), name_pairs[0] if name_pairs else ("en", f"Unknown zoo {upstream_id}"))
         normalized = _normalized(name_pair[1])
@@ -671,7 +705,8 @@ def merge_red_panda(upstream, curated, snapshot):
         possible = {candidate_id for name_norm in name_norms for candidate_id in name_index.get(name_norm, [])}
         result = []
         for candidate_id in sorted(possible):
-            if _curated_birth_date(atlas, candidate_id) != birth_key:
+            curated_birth_key = _curated_birth_date(atlas, candidate_id)
+            if curated_birth_key != birth_key:
                 continue
             matching_fields = ["normalized_name", "birth_date"]
             mismatched_fields = []
@@ -888,25 +923,126 @@ def merge_red_panda(upstream, curated, snapshot):
             zoo_id_aliases[zoo_id[1:]] = final_id
         else:
             zoo_id_aliases["-" + zoo_id] = final_id
+    source_vertex_types = {str(vertex.get("_id")): vertex.get("type", "unknown") for vertex in vertices}
+    edges_by_label = defaultdict(list)
+    for edge in upstream.get("edges", []):
+        edges_by_label[str(edge.get("_label", "unknown"))].append(edge)
+
+    # Zoo edges describe the profile's current facility, without an effective
+    # date. Retain an edge-level mapping for audit and identity matching, but
+    # explicitly exclude it from the dated canonical event timeline.
+    zoo_edge_map = []
+    zoo_edges_by_animal = defaultdict(list)
+    for index, edge in enumerate(edges_by_label.get("zoo", []), 1):
+        animal_raw, zoo_raw = str(edge.get("_out")), str(edge.get("_in"))
+        zoo_edges_by_animal[animal_raw].append(edge)
+        zoo_edge_map.append({
+            "source_edge_id": f"zoo:{index:04d}",
+            "source_edge": copy.deepcopy(edge),
+            "upstream_animal_id": animal_raw,
+            "source_zoo_id": zoo_raw,
+        })
+    for item in zoo_edge_map:
+        animal_raw = item["upstream_animal_id"]
+        zoo_raw = item["source_zoo_id"]
+        if animal_raw == "none":
+            item.update(status="excluded_unknown_animal_marker", reason="The source endpoint is an unknown marker, not an individual animal.")
+        elif animal_raw not in id_to_final:
+            item.update(status="excluded_unmapped_animal", reason="The source animal endpoint did not map to a canonical animal.")
+        elif zoo_raw == "none":
+            item.update(status="excluded_unknown_institution_marker", final_animal_id=id_to_final[animal_raw], reason="The source institution endpoint is unknown.")
+        elif zoo_raw not in zoo_id_aliases:
+            item.update(status="excluded_unmapped_institution", final_animal_id=id_to_final[animal_raw], reason="The source institution endpoint did not map to a canonical institution.")
+        elif len(zoo_edges_by_animal[animal_raw]) != 1:
+            item.update(
+                status="excluded_ambiguous_current_zoo_assignment",
+                final_animal_id=id_to_final[animal_raw],
+                final_institution_id=zoo_id_aliases[zoo_raw],
+                reason="Multiple current-zoo edges exist for this animal, so no single facility assignment is selected.",
+            )
+        else:
+            item.update(
+                status="mapped_current_holding_not_event",
+                final_animal_id=id_to_final[animal_raw],
+                final_institution_id=zoo_id_aliases[zoo_raw],
+                used_for_identity_resolution=True,
+                reason="The current-holding edge maps to this animal and institution and is used for identity resolution; it has no effective date, so it is not converted into a dated event.",
+            )
+
     events = copy.deepcopy(atlas.get("events", []))
     event_ids = {item["id"] for item in events}
+
+    # Each birthplace edge is mapped to the birth event when the source profile
+    # supplies a date and both endpoints resolve. Wild markers and undated
+    # birthplace edges remain visible as explicit exclusions.
+    birthplace_edge_map = []
+    birthplace_edges_by_animal = defaultdict(list)
+    for index, edge in enumerate(edges_by_label.get("birthplace", []), 1):
+        animal_raw, place_raw = str(edge.get("_out")), str(edge.get("_in"))
+        birthplace_edges_by_animal[animal_raw].append(edge)
+        birthplace_edge_map.append({
+            "source_edge_id": f"birthplace:{index:04d}",
+            "source_edge": copy.deepcopy(edge),
+            "upstream_animal_id": animal_raw,
+            "source_place_id": place_raw,
+        })
+    birthplace_map_by_animal = defaultdict(list)
+    for item in birthplace_edge_map:
+        animal_raw = item["upstream_animal_id"]
+        place_raw = item["source_place_id"]
+        final_animal_id = id_to_final.get(animal_raw)
+        if final_animal_id:
+            item["final_animal_id"] = final_animal_id
+        if animal_raw == "none":
+            item.update(status="excluded_unknown_animal_marker", reason="The source endpoint is an unknown marker, not an individual animal.")
+        elif not final_animal_id:
+            item.update(status="excluded_unmapped_animal", reason="The source animal endpoint did not map to a canonical animal.")
+        elif len(birthplace_edges_by_animal[animal_raw]) != 1:
+            if source_vertex_types.get(place_raw) == "wild":
+                item["source_population_marker_id"] = place_raw
+            item.update(status="excluded_ambiguous_birthplace", reason="Multiple birthplace edges exist for this animal, so no single birthplace is selected.")
+        else:
+            panda = panda_by_id.get(animal_raw, {})
+            birth = _date(panda.get("birthday"))
+            if source_vertex_types.get(place_raw) == "wild":
+                if not birth:
+                    item.update(status="excluded_population_marker_no_birth_date", source_population_marker_id=place_raw, reason="The generic wild-population marker cannot resolve to an institution, and the source profile has no usable birth date for a birth event.")
+                else:
+                    existing_birth = next((event for event in events if event.get("animal_id") == final_animal_id and event.get("type") == "birth" and event.get("date") == birth and event.get("institution_id") is None), None)
+                    event_id = existing_birth["id"] if existing_birth else _event_id(final_animal_id, "birth", animal_raw, birth)
+                    item.update(status="mapped_to_birth_event_without_institution", source_population_marker_id=place_raw, event_id=event_id, reason="The dated birth event is retained, but the generic wild-population marker is not converted into an institution.")
+            elif place_raw == "none":
+                item.update(status="excluded_unknown_institution_marker", reason="The source birthplace endpoint is unknown.")
+            elif place_raw not in zoo_id_aliases:
+                item.update(status="excluded_unmapped_institution", reason="The source birthplace endpoint did not map to a canonical institution.")
+            elif not birth:
+                item.update(status="excluded_no_birth_date", final_institution_id=zoo_id_aliases[place_raw], reason="The source profile has no usable birth date, so this birthplace cannot be attached to a dated birth event.")
+            else:
+                institution_id = zoo_id_aliases[place_raw]
+                existing_birth = next((event for event in events if event.get("animal_id") == final_animal_id and event.get("type") == "birth" and event.get("date") == birth and event.get("institution_id") == institution_id), None)
+                event_id = existing_birth["id"] if existing_birth else _event_id(final_animal_id, "birth", animal_raw, birth)
+                item.update(status="mapped_to_birth_event", final_institution_id=institution_id, event_id=event_id)
+        birthplace_map_by_animal[animal_raw].append(item)
+
     event_mappings = []
-    birthplace_edges = defaultdict(set)
-    for edge in upstream.get("edges", []):
-        if edge.get("_label") == "birthplace":
-            birthplace_edges[str(edge.get("_out"))].add(str(edge.get("_in")))
     for panda in sorted(pandas, key=lambda v: str(v.get("_id"))):
         upstream_id = str(panda.get("_id"))
         final_id = id_to_final[upstream_id]
         birth = _date(panda.get("birthday"))
         death = _date(panda.get("death"))
-        birth_place = next((zoo_id_aliases.get(value) for value in sorted(birthplace_edges.get(upstream_id, [])) if zoo_id_aliases.get(value)), None)
+        birth_place = next((item["final_institution_id"] for item in birthplace_map_by_animal.get(upstream_id, []) if item["status"] == "mapped_to_birth_event"), None)
         for kind, date_value, institution_id in (("birth", birth, birth_place), ("death", death, None)):
             if not date_value:
                 continue
-            eid = _event_id(final_id, kind, upstream_id, date_value)
-            event_mappings.append({"upstream_id": upstream_id, "event_type": kind, "event_id": eid, "status": "imported"})
-            if eid not in event_ids:
+            existing_event = next((event for event in events if event.get("animal_id") == final_id and event.get("type") == kind and event.get("date") == date_value and event.get("institution_id") == institution_id), None)
+            if existing_event:
+                eid = existing_event["id"]
+                if SOURCE_ID not in existing_event.setdefault("source_ids", []):
+                    existing_event["source_ids"].append(SOURCE_ID)
+                event_mappings.append({"upstream_id": upstream_id, "event_type": kind, "event_id": eid, "status": "mapped_to_existing_canonical_event"})
+            else:
+                eid = _event_id(final_id, kind, upstream_id, date_value)
+                event_mappings.append({"upstream_id": upstream_id, "event_type": kind, "event_id": eid, "status": "imported"})
                 events.append({"id": eid, "animal_id": final_id, "type": kind, "date": date_value, "institution_id": institution_id, "source_ids": [SOURCE_ID], "notes": f"{kind.title()} date from upstream profile {upstream_id}; source precision retained."})
                 event_ids.add(eid)
         locations = panda.get("locations", [])
@@ -955,6 +1091,17 @@ def merge_red_panda(upstream, curated, snapshot):
             item.update(status="excluded_unmapped_endpoint", child_upstream_id=child_raw, parent_upstream_id=parent_raw)
         else:
             child_id, parent_id = id_to_final[child_raw], id_to_final[parent_raw]
+            reviewed_parentage_exclusion = REVIEWED_UPSTREAM_PARENTAGE_EXCLUSIONS.get(child_raw)
+            if reviewed_parentage_exclusion and child_id == reviewed_parentage_exclusion["curated_animal_id"]:
+                item.update(
+                    status="excluded_reviewed_unconfirmed_parentage",
+                    child_animal_id=child_id,
+                    parent_animal_id=parent_id,
+                    source_ids=reviewed_parentage_exclusion["source_ids"],
+                    reason=reviewed_parentage_exclusion["rationale"],
+                )
+                family_map.append(item)
+                continue
             parent = panda_by_id.get(parent_raw, {})
             sex = str(parent.get("gender", "unknown")).lower()
             rel_type = "biological_mother" if sex == "female" else "biological_father" if sex == "male" else None
@@ -1020,6 +1167,41 @@ def merge_red_panda(upstream, curated, snapshot):
                 item.update(status="imported_litter_claim", claim_id=cid)
         litter_map.append(item)
     atlas["claims"] = claims
+
+    edge_id_mappings = {
+        "family": family_map,
+        "litter": litter_map,
+        "zoo": zoo_edge_map,
+        "birthplace": birthplace_edge_map,
+    }
+    for label, source_edges in sorted(edges_by_label.items()):
+        if label not in edge_id_mappings:
+            edge_id_mappings[label] = [
+                {
+                    "source_edge_id": f"{label}:{index:04d}",
+                    "source_edge": copy.deepcopy(edge),
+                    "status": "excluded_unhandled_edge_label",
+                    "reason": "This edge label is not modeled by the importer; the source edge is retained in the audit mapping.",
+                }
+                for index, edge in enumerate(source_edges, 1)
+            ]
+    edge_accounting_by_label = {}
+    for label in sorted(edges_by_label):
+        rows = edge_id_mappings[label]
+        source_count = len(edges_by_label[label])
+        mapped_count = sum(not row["status"].startswith("excluded") for row in rows)
+        excluded_count = sum(row["status"].startswith("excluded") for row in rows)
+        edge_accounting_by_label[label] = {
+            "source": source_count,
+            "mapped": mapped_count,
+            "excluded": excluded_count,
+            "accounted": len(rows),
+        }
+    edge_accounting = {
+        "source_edges": len(upstream.get("edges", [])),
+        "accounted_edges": sum(item["accounted"] for item in edge_accounting_by_label.values()),
+        "by_label": edge_accounting_by_label,
+    }
 
     # Keep only attributable HTTP(S) URL metadata for photos associated with a
     # panda. Local paths and opaque source schemes are never serialized.
@@ -1165,11 +1347,21 @@ def merge_red_panda(upstream, curated, snapshot):
     atlas["release"]["provenance"] = "Curated Futa-family records merged with every named individual in the pinned wwoast/redpanda-lineage export; see RED_PANDA_UPSTREAM_SYNC.md and upstream_sync_report.json."
     atlas.setdefault("coverage", {})["last_reviewed"] = accessed_day
     coverage = atlas["coverage"]
-    coverage["scope"] = "The 83-record curated Futa-family layer merged with named panda profiles from the pinned global wwoast/redpanda-lineage export; the source graph and non-individual markers are reported in the sync report."
+    curated_animal_count = len(curated.get("animals", []))
+    merged_count = sum(item["status"] == "matched" for item in mappings)
+    near_match_count = len(near_match_mappings) + len(incomplete_near_match_mappings) + len(required_field_mismatch_mappings)
+    canonical_animal_count = len(atlas["animals"])
+    coverage["scope"] = (
+        f"The pinned global wwoast/redpanda-lineage export contributes {len(pandas)} named profiles. "
+        f"It is merged with {curated_animal_count} curated Futa-family records using {merged_count} reviewed identity overlaps, "
+        f"yielding {canonical_animal_count} canonical animals. This combines global community profiles with a curated family layer; "
+        "it is not a complete or official studbook."
+    )
     coverage["source_categories"] = sorted(set(coverage.get("source_categories", [])) | {"community_dataset"})
     limitations = [
         item for item in coverage.get("limitations", [])
-        if "global profile snapshot" not in item.lower()
+        if "curated family layer" not in item.lower()
+        and "global profile snapshot" not in item.lower()
         and "independent global" not in item.lower()
         and "direct image url" not in item.lower()
         and "animal photos" not in item.lower()
@@ -1178,13 +1370,31 @@ def merge_red_panda(upstream, curated, snapshot):
     limitations.extend([
         "The upstream repository reports no declared reuse license; photo-page and direct-URL metadata remain link-only with rights and embedding unknown.",
         "Upstream records require review; unknown offspring and litter-member markers are reported, not animals, and curated facts remain preferred in conflicts.",
+        f"The merged collection is not a complete or official studbook; {near_match_count} near-match profiles remain unmerged pending identity review, and ambiguous candidates, if found, are also kept separate.",
     ])
     coverage["limitations"] = list(dict.fromkeys(limitations))
-    for lang, scope in (("ja", "引用されたFuta家系の83件と、固定したwwoast/redpanda-lineageのレッサーパンダ個体プロフィールを統合しています。"), ("ru", "Объединены 83 записи по семейству Futa с профилями особей из зафиксированного экспорта wwoast/redpanda-lineage.")):
+    translated_scopes = {
+        "ja": (
+            f"固定したwwoast/redpanda-lineageの世界規模エクスポートから名前のある個体プロフィール{len(pandas)}件を取り込み、"
+            f"Futa家の編纂済み記録{curated_animal_count}件と本人確認済みの重複{merged_count}件を統合し、"
+            f"標準個体記録{canonical_animal_count}件にまとめています。世界規模のコミュニティ記録と編纂済み家系層であり、完全または公式な血統登録簿ではありません。"
+        ),
+        "ru": (
+            f"В закреплённый глобальный экспорт wwoast/redpanda-lineage входят {len(pandas)} именных профилей. "
+            f"Они объединены с {curated_animal_count} кураторскими записями семейства Futa и {merged_count} подтверждёнными совпадениями личности, "
+            f"всего получается {canonical_animal_count} канонических записей животных. Это глобальный набор сообщества с кураторским семейным слоем, а не полная или официальная племенная книга."
+        ),
+    }
+    for lang, scope in translated_scopes.items():
         trans = coverage.setdefault("translations", {}).setdefault(lang, {"limitations": []})
         trans["scope"] = scope
         stale_tokens = ("スナップショット", "除外", "写真") if lang == "ja" else ("снимок", "исключ", "фотограф")
-        translated_limitations = [value for value in trans.get("limitations", []) if not any(token in value.lower() for token in stale_tokens)]
+        obsolete_layer_tokens = ("家系データ層", "семейн")
+        translated_limitations = [
+            value for value in trans.get("limitations", [])
+            if not any(token in value.lower() for token in stale_tokens)
+            and not any(token in value.lower() for token in obsolete_layer_tokens)
+        ]
         translated_media_license = (
             "上流リポジトリに再利用ライセンスの明示はありません。写真ページと画像URLはリンクのみのメタデータとして保持し、権利と埋め込み許可は不明です。"
             if lang == "ja"
@@ -1195,9 +1405,15 @@ def merge_red_panda(upstream, curated, snapshot):
             if lang == "ja"
             else "Записи источника требуют проверки; маркеры неизвестных потомков и членов помёта не становятся животными, а при конфликте предпочтение отдаётся кураторским данным с источниками."
         )
+        translated_coverage = (
+            f"統合データは完全または公式な血統登録簿ではありません。本人確認待ちの近似候補{near_match_count}件は未統合のままで、曖昧な候補がある場合も自動で統合せず別記録に保持します。"
+            if lang == "ja"
+            else f"Объединённый набор не является полной или официальной племенной книгой; {near_match_count} близких совпадений остаются раздельными до проверки личности, а неоднозначные кандидаты, если они появятся, также не объединяются автоматически."
+        )
         trans["limitations"] = list(dict.fromkeys(translated_limitations + [
             translated_media_license,
             translated_review,
+            translated_coverage,
         ]))
 
     # Input accounting includes every vertex and edge. No placeholder vertices
@@ -1220,6 +1436,11 @@ def merge_red_panda(upstream, curated, snapshot):
         }
         for upstream_id, evidence in sorted(REVIEWED_EXTERNAL_ID_CROSSWALKS.items())
         if upstream_id in mapping_by_id
+    ]
+    reviewed_institution_crosswalks = [
+        copy.deepcopy(item)
+        for item in zoo_mappings
+        if item["status"] == "reviewed_external_id_crosswalk"
     ]
     zoo_mapping_by_id = {str(item["upstream_id"]): item for item in zoo_mappings}
     source_vertex_mappings = []
@@ -1285,8 +1506,12 @@ def merge_red_panda(upstream, curated, snapshot):
             "link_vertices": url_stats["source_link_vertices"],
             "other_vertices_by_type": dict(sorted(unknown_types.items())),
             "none_sentinel_vertices": unknown_types.get("none", 0),
+            "edges": len(upstream.get("edges", [])),
+            "edges_by_label": {label: len(items) for label, items in sorted(edges_by_label.items())},
             "family_edges": len(family_source_edges),
             "litter_edges": len(litter_source_edges),
+            "zoo_edges": len(zoo_edge_map),
+            "birthplace_edges": len(birthplace_edge_map),
             "photo_refs_total": raw_photo_refs,
             "photo_refs_by_vertex_type": url_stats["photo_refs_by_vertex_type"],
             "http_photo_source_occurrences": url_stats["photo_source_http_occurrences"],
@@ -1312,6 +1537,7 @@ def merge_red_panda(upstream, curated, snapshot):
             "near_match_required_field_mismatch_profiles_not_merged": len(required_field_mismatch_mappings),
             "near_match_review_candidates_not_merged": len(near_match_mappings) + len(incomplete_near_match_mappings) + len(required_field_mismatch_mappings),
             "reviewed_external_id_crosswalks": len(reviewed_crosswalks),
+            "reviewed_institution_crosswalks": len(reviewed_institution_crosswalks),
             "unique_upstream_animals_added": len(pandas) - merged_count,
             "canonical_animals_out": len(atlas["animals"]),
             "curated_institutions_in": len(curated.get("institutions", [])),
@@ -1341,7 +1567,8 @@ def merge_red_panda(upstream, curated, snapshot):
             "records_with_photos_field_dropped": url_stats["records_with_photos_field"],
             "non_http_photo_direct_url_refs_dropped": url_stats["non_http_photo_direct_url_occurrences"],
             "canonical_media_out": len(atlas["media"]),
-            "canonical_events_added": len(event_mappings),
+            "canonical_events_added": sum(item["status"] == "imported" for item in event_mappings),
+            "canonical_events_mapped": len(event_mappings),
             "canonical_source_tier_audit_records": len(canonical_source_tier_audit),
             "unresolved_curated_source_review_items": len(unresolved_source_review),
         },
@@ -1358,8 +1585,10 @@ def merge_red_panda(upstream, curated, snapshot):
             for animal in sorted(curated.get("animals", []), key=lambda item: item["id"])
         ],
         "institution_id_mappings": zoo_mappings,
+        "reviewed_institution_crosswalks": reviewed_institution_crosswalks,
         "event_mappings": event_mappings,
-        "edge_id_mappings": {"family": family_map, "litter": litter_map},
+        "edge_id_mappings": edge_id_mappings,
+        "edge_accounting": edge_accounting,
         "provenance_conflicts": conflicts,
         "ambiguities": [
             {"upstream_id": upstream_id, "candidates": sorted(candidates), "outcome": "not merged; unique upstream animal created"}

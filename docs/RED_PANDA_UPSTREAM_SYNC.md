@@ -49,19 +49,22 @@ Matching is deterministic and conservative:
 
 1. Match an upstream profile ID to an exact curated external ID in the `wwoast-redpanda-lineage` namespace.
 2. Otherwise require an exact normalized name, birth date, current zoo, and the same fully mapped set of known parents.
-3. If more than one curated record meets the key, do not merge. If name, birth date, and zoo match but known-parent sets differ, record a near match and do not merge.
+3. If more than one curated record meets the key, do not merge. If name, birth date, and zoo match but known-parent sets differ, record a near match and do not merge. A separately reviewed external-ID crosswalk may resolve an identity when direct primary evidence confirms the individual; each source relationship still receives its own evidence review.
 
-Three reviewed external-ID crosswalks match upstream records to curated identities:
+Four reviewed external-ID crosswalks match upstream records to curated identities:
 
 | Upstream ID | Curated animal ID | Evidence used for review |
 | --- | --- | --- |
 | `34` | `red-panda:futa` | S02 (B) identifies Futa's parents Nara and Fu-Fu; S22 (B) confirms Futa's Nihondaira birth and 2004-03-30 arrival in Chiba. |
 | `49` | `red-panda:nara` | S02 (B) identifies Nara as Futa's mother; S08 (D) supports the matching Japanese name/profile. |
 | `50` | `red-panda:fufu` | S02 (B) identifies Fu-Fu as Futa's father; S08 (D) supports the matching Japanese alias/profile. |
+| `200` | `red-panda:kelu` | S24 (B), the official Zoológico Nacional de Chile account post, names Kelú and gives his exact 2015-12-25 birth date and Parquemet birthplace; the upstream name, date, and mapped zoo agree. S24's public Instagram oEmbed caption was verified. The two upstream parent edges are separately excluded because no cited primary source establishes Kelú's parents. |
 
-The curated source-linked facts remain preferred, while upstream evidence and disagreements are retained in the report. No additional profile matched using the secondary composite key. The 1,472 other upstream profiles are added to the 83 curated identities, for 1,555 canonical animals.
+The upstream zoo vertex `-56` (`Chilean National Zoo` / `Zoológico Nacional de Chile`) is separately crosswalked to curated institution `place:311a839503c54580`, supported by the official Parquemet identity in S24. Kelú's upstream birthplace edge then maps to the existing cited birth event, avoiding a duplicate event or institution.
 
-The report lists 72 name-and-birth near-match candidates that were not auto-merged: 71 have at least one unavailable or unresolved required field, and one has a required-field mismatch. Upstream Kelú (`200`) is explicitly among them. Official sources S24 and S25 support the curated Kelú name and birth, and S24 supports the August 2023 death announcement; S12 is a T13 discovery-only report and is not used as final factual evidence. Upstream `200` has the matching normalized name and birth date, but the curated profile has no current-zoo value and its known-parent set does not match upstream IDs `198` and `199`. The missing current-zoo value and different known-parent sets are reported; the records remain separate. The upstream source record itself remains mapped to `red-panda:upstream-200`.
+The curated source-linked facts remain preferred, while upstream evidence and disagreements are retained in the report. No other profile matched using the secondary composite key. The 1,471 other upstream profiles are added to the 83 curated identities, for 1,554 canonical animals.
+
+The report lists 71 other near-match candidates that were not auto-merged: 70 have at least one unavailable or unresolved required field, and one has a required-field mismatch. S24, the official Zoológico Nacional de Chile account post, supports Kelú's name, birth on 2015-12-25 at Zoológico de Parquemet, and August 2023 death announcement. The account and post caption were verified using Instagram's public oEmbed endpoint. S25 records an unnamed cub born on the same date but does not itself identify Kelú. T13's article is discovery-only and is not used as final factual evidence. The two upstream family edges for ID `200` point to IDs `198` and `199`, but are retained only in the audit mapping; they do not establish parentage in canonical data.
 
 ### Source-ID resolution review
 
@@ -70,12 +73,12 @@ The report lists 72 name-and-birth near-match candidates that were not auto-merg
 | S07 / `discovery_only` | ChiiChii's 2015 death date and cause | The death event was removed and status is `unknown`. S07's 2011 litter sire and maternal-behavior details are not retained. |
 | S07 / `discovery_only`; S23 / `B` | ChiiChii's 2011 litter | The event now records two births and both cubs' deaths in May 2011, supported by Chiba Zoo's [Vol. 81 diary](https://www.city.chiba.jp/zoo/guide/documents/vol81.pdf); it does not identify the sire or cause/behavior. |
 | S09 / `discovery_only` | Yuka Tobe birth, transfer, and death events | All three events were removed; status is `unknown`. |
-| S12 / `discovery_only` | Kouta transfer/death and Kelú parentage | Kouta's move and death events were removed; the Kelú parent claim and edge were removed. S12 remains discovery-only and is not used for canonical facts. |
-| S24 / `B`; S25 / `B` | Kelú name, birth, and death | The official [Zoo post](https://www.instagram.com/p/Cv7skWKuggY/) supports the name and August 2023 death announcement; the [Chile government release](https://www.gob.cl/noticias/minvu-presenta-al-primer-panda-rojo-nacido-en-chile-y-anuncia-concurso-para-buscarle-nombre/) supports the unnamed cub's 2015-12-25 birth. Neither source names parents. |
+| S12 / `discovery_only`; S24 / `B`; export / `D` | Kouta transfer/death and Kelú parentage | Kouta's move and death events were removed. The Kelú parent claim and both upstream parent edges remain unasserted because S24 confirms identity but names no parents; the export edges remain available in the audit mapping. |
+| S24 / `B`; S25 / `B` | Kelú's name, birth, and death; the 2015 government announcement | The official [Zoo post](https://www.instagram.com/p/Cv7skWKuggY/) supports Kelú's name, birth date/place, and August 2023 death announcement; its caption was returned by Instagram's public oEmbed endpoint. The [Chile government release](https://www.gob.cl/noticias/minvu-presenta-al-primer-panda-rojo-nacido-en-chile-y-anuncia-concurso-para-buscarle-nombre/) describes an unnamed cub born on the same date but does not link that cub to Kelú. Neither source names parents. |
 
 The full machine-readable review has eight item-level entries in `unresolved_curated_source_review`, including the unasserted 2011 litter sire/cause detail. Every factual canonical animal name, claim, relationship, and event has a corresponding row in `canonical_source_tier_audit` and at least one A/B/C/D source; discovery-only citations never stand alone as the final support.
 
-Every source panda ID maps to one final animal ID. The report has a mapping or explicit exclusion for each of the 2,256 source vertices, all 83 curated animal IDs, all 320 zoo-to-institution IDs, the three reviewed identity crosswalks, and every family and litter edge. Media vertices map to retained per-animal media metadata where possible; unmatched media, wild markers, link vertices, and the `none` sentinel have explicit exclusions and never become animals.
+Every source panda ID maps to one final animal ID. The report has a mapping or explicit exclusion for each of the 2,256 source vertices, all 83 curated animal IDs, all 320 zoo-to-institution IDs, the four reviewed identity crosswalks, and all 7,331 source edges across the family, litter, zoo, and birthplace labels. Media vertices map to retained per-animal media metadata where possible; unmatched media, wild markers, link vertices, and the `none` sentinel have explicit exclusions and never become animals.
 
 ## Family and litter graph handling
 
@@ -83,11 +86,13 @@ The source graph stores family edges with the child at `_in` and the parent at `
 
 - 3,037 source family edges.
 - 732 unknown-offspring markers at `_in=none` and zero unknown-parent markers at `_out=none`.
-- 2,305 panda-to-panda edges, including one self-edge; the self-edge is excluded as a conflict, leaving 2,304 valid parent links.
+- 2,305 panda-to-panda edges, including one self-edge; the self-edge and two unconfirmed Kelú parent edges are excluded, leaving 2,302 canonical parent links.
 - 1,411 source litter edges, including 362 unknown-litter-member markers and 1,049 valid animal-to-animal edges.
 - 525 unique litter-pair claims after reciprocal/duplicate source edges are collapsed.
 
 Unknown markers never become parent or litter-member animal nodes. Litter associations remain claims rather than social relationships. The raw edge, source edge ID, mapped IDs, import status, and any exclusion reason remain in `edge_id_mappings`.
+
+Zoo edges identify the profile's current facility but contain no effective date. All 1,470 zoo edges map to the source animal and institution in the report; these associations are used as an identity-resolution feature and are not converted into dated events. For birthplace edges, 1,375 zoo endpoints map to dated birth events with an institution, and three wild-marker endpoints map to dated birth events without converting the marker into an institution. Twelve zoo endpoints and 23 wild markers have no usable profile birth date and are explicitly excluded from event mapping. Every edge remains auditable, including its raw source edge, mapped IDs, status, and any exclusion reason.
 
 ## Media and stripped fields
 

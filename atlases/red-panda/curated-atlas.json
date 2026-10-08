@@ -863,7 +863,7 @@
       "status": "deceased",
       "name": {
         "canonical": "Kelú",
-        "language": "ja",
+        "language": "es",
         "source_ids": [
           "source:red-panda:S24"
         ],
@@ -874,12 +874,16 @@
         {
           "namespace": "legacy-futa-tree",
           "value": "kelu"
+        },
+        {
+          "namespace": "wwoast-redpanda-lineage",
+          "value": "200"
         }
       ],
       "review": {
         "status": "needs_review",
-        "reviewed_on": "2026-10-07",
-        "notes": "The name and death are supported by official zoo source S24; S25 supports the first Chile-born cub and birth date. Parents are unconfirmed, and no parent claim or edge is retained."
+        "reviewed_on": "2026-10-08",
+        "notes": "The name, exact birth date and Parquemet birthplace, and death are supported by official zoo source S24. Upstream profile 200 is explicitly crosswalked using those identity fields; its two parent edges remain unconfirmed and are excluded from canonical parentage."
       }
     },
     {
@@ -5601,10 +5605,9 @@
       },
       "institution_id": "place:311a839503c54580",
       "source_ids": [
-        "source:red-panda:S24",
-        "source:red-panda:S25"
+        "source:red-panda:S24"
       ],
-      "notes": "Minvu records the unnamed first Chile-born red panda cub born on this date; the later official Zoo announcement identifies Kelú. The official records do not name the parents."
+      "notes": "The official Zoo account's public Instagram oEmbed caption identifies Kelú as born on this date at Zoológico de Parquemet."
     },
     {
       "id": "event:red-panda:kelu:2",
@@ -5618,7 +5621,7 @@
       "source_ids": [
         "source:red-panda:S24"
       ],
-      "notes": "The official Zoo account announced Kelú’s death in August 2023. The direct social post is unavailable to automated retrieval, so no exact death date or cause is asserted here."
+      "notes": "The official Zoo account's post identifies Kelú's death in August 2023. The public caption is available through Instagram's oEmbed endpoint; the canonical event retains month precision and does not assert a cause of death."
     },
     {
       "id": "event:red-panda:kenta_gunma:1",
@@ -7315,8 +7318,8 @@
       "id": "place:311a839503c54580",
       "names": [
         {
-          "value": "Zoológico Nacional de Chile",
-          "language": "ja"
+        "value": "Zoológico Nacional de Chile",
+        "language": "es"
         }
       ],
       "country_code": null,
@@ -9005,7 +9008,7 @@
       "publication_date": "2023-08-15",
       "accessed_date": "2026-10-08",
       "source_type": "news_report",
-      "notes": "T13 reports Kelú’s 2015 birth and 2023 death and quotes a Zoo statement, but is discovery-only. Official sources S24 and S25 now support the canonical name, birth, and death. The T13 article does not name parents, and no parent claim or edge is retained.",
+      "notes": "T13 reports Kelú’s 2015 birth and 2023 death and quotes a Zoo statement, but is discovery-only. The official S24 Zoo account independently identifies Kelú's name, birth date, birthplace, and death announcement. S25 describes an unnamed cub born on the same date but does not itself identify Kelú. The T13 article does not name parents, and no parent claim or edge is retained.",
       "data_use": "Citation for factual claims only; no media reuse is implied.",
       "tier": "discovery_only"
     },
@@ -9149,7 +9152,7 @@
       "publication_date": "2023-08-15",
       "accessed_date": "2026-10-08",
       "source_type": "official_social_post",
-      "notes": "Official Zoo account post announcing the death of Kelú. The direct post permalink is linked as the Zoológico Nacional de Chile embed in a contemporaneous report; Instagram rate-limited direct retrieval during this audit. The public embed and report quote identify the official account and post. No parents are named.",
+      "notes": "Official Zoológico Nacional de Chile account (@zoonacionalchile) post announcing Kelú's death. The public Instagram oEmbed endpoint returned the post caption under this account; it identifies Kelú as born on 2015-12-25 at Zoológico de Parquemet. The caption also reports later cardiac treatment and death but names no parents.",
       "data_use": "Citation for factual claims only; no media reuse is implied.",
       "tier": "B"
     },

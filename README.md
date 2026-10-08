@@ -15,11 +15,11 @@ Each path is a separately built static application. The deployment switch and ro
 
 | Atlas | Named animals | Relationships | Events | Sources | Coverage |
 |---|---:|---:|---:|---:|---|
-| Red panda | 83 | 93 | 173 | 95 | Cited Futa family layer |
-| Polar bear | 22 | 24 | 38 | 11 | Public records from Tallinn, Berlin, and Prague |
-| Common hippopotamus | 5 | 4 | 6 | 8 | A Cincinnati Zoo family |
+| Red panda | 1,554 | 2,394 | 3,792 | 1,521 | Pinned public community export plus the curated Futa-family layer |
+| Polar bear | 64 | 58 | 84 | 28 | Named zoo/captive records from public institutional sources |
+| Hippopotamus (common + pygmy) | 85 | 78 | 85 | 69 | Source-linked public zoo records across two separate taxa |
 
-These totals describe the checked-in canonical JSON files. The project does not claim a complete studbook for any species.
+These totals describe the checked-in canonical JSON files. The project does not claim a complete studbook for any species. The polar-bear Western Hudson Bay pedigree is documented but not imported because Dryad's published file link returned HTTP 403; see the [access review](docs/POLAR_BEAR_WESTERN_HUDSON_BAY.md).
 
 ## Build and checks
 

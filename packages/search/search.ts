@@ -47,7 +47,7 @@ function searchableValues(animal: AnimalSummary): string[] {
     animal.name?.canonical ?? '',
     ...(animal.name?.localized ?? []).map((name) => name.value),
     ...(animal.aliases ?? []).map((alias) => alias.value),
-    ...(animal.external_ids ?? []).flatMap((item) => [item.namespace, item.value, `${item.namespace}:${item.value}`]),
+    ...(animal.external_ids ?? []).map((item) => item.value),
     ...(animal.institution_names ?? []),
   ];
 }
@@ -71,6 +71,9 @@ export function searchAnimals<T extends AnimalSummary>(
     if (taxon && normalizeSearchKey(animal.taxon) !== taxon) return false;
     if (population && normalizeSearchKey(animal.population ?? '') !== population) return false;
     if (!normalizedQuery) return true;
-    return (animal.search_key ?? createAnimalSearchKey(animal)).includes(normalizedQuery);
+    const matchesExternalId = animal.external_ids?.some((item) =>
+      normalizeSearchKey(`${item.namespace}:${item.value}`) === normalizedQuery,
+    ) ?? false;
+    return matchesExternalId || (animal.search_key ?? createAnimalSearchKey(animal)).includes(normalizedQuery);
   });
 }

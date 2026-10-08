@@ -49,6 +49,26 @@ test('searches names aliases IDs and institutions', async () => {
   assert.deepEqual(search.searchAnimals(animals, 'N-13').map((animal) => animal.id), ['polar-bear:nora']);
 });
 
+test('external ID namespaces do not create broad matches for shared namespace text', async () => {
+  const search = await loadSearch();
+  assert.ok(search, 'search package should load');
+  const family = [
+    {
+      id: 'red-panda:child-one', taxon: 'Ailurus fulgens',
+      name: { canonical: 'Child One' }, aliases: [],
+      external_ids: [{ namespace: 'legacy-futa-tree', value: 'child-one' }],
+    },
+    {
+      id: 'red-panda:futa', taxon: 'Ailurus fulgens',
+      name: { canonical: 'Futa' }, aliases: [],
+      external_ids: [{ namespace: 'legacy-futa-tree', value: 'futa' }],
+    },
+  ];
+
+  assert.deepEqual(search.searchAnimals(family, 'futa').map((animal) => animal.id), ['red-panda:futa']);
+  assert.deepEqual(search.searchAnimals(family, 'legacy-futa-tree:child-one').map((animal) => animal.id), ['red-panda:child-one']);
+});
+
 test('applies country and taxon facets without changing stored values', async () => {
   const search = await loadSearch();
   assert.ok(search, 'search package should load');

@@ -4,7 +4,7 @@ Research and review date: **2026-10-08**. The source records below were reviewed
 
 ## Scope and counts
 
-The bundle contains **25 named animals**, **21 sourced biological parent edges**, **2 sourced claims**, **21 sourced events**, **12 referenced institutions**, **24 included official zoo sources**, and no media records. It documents the named public records found in this research; it is not a complete captive population inventory or studbook.
+The bundle contains **25 named animals**, **21 sourced biological parent edges**, **26 sourced claims** (including one field-specific claim for each of the 24 known sex values), **21 sourced events**, **12 referenced institutions**, **24 included official zoo sources**, and no media records. It documents the named public records found in this research; it is not a complete captive population inventory or studbook.
 
 A three-generation line connects Toronto Zoo and John Ball Zoo: Kindia is the mother of Penelope, and Penelope is the mother of Hugo. Separate families at Edinburgh Zoo, Ueno Zoo, Metro Richmond Zoo, and Khao Kheow Open Zoo are included where official sources explicitly state parentage. Motomoto’s birth and transfers connect Buin Zoo, NIFREL, and Ueno Zoo.
 

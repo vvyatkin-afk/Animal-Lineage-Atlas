@@ -191,22 +191,50 @@ class CuratedFutaCrosswalkEvidenceTests(unittest.TestCase):
         self.assertEqual(canonical_sources["source:red-panda:wwoast-lineage-export"]["tier"], "D")
         self.assertTrue(any(source.get("tier") == "discovery_only" for source in atlas["sources"] if source.get("source_type") == "media_source_link"))
         reviewed_crosswalks = {item["upstream_id"]: item for item in report["reviewed_external_id_crosswalks"]}
-        self.assertEqual(set(reviewed_crosswalks), {"34", "49", "50"})
+        self.assertEqual(set(reviewed_crosswalks), {"34", "49", "50", "200"})
         self.assertEqual(reviewed_crosswalks["34"]["source_ids"], ["source:red-panda:S02", "source:red-panda:S22"])
+        self.assertEqual(reviewed_crosswalks["200"]["curated_animal_id"], "red-panda:kelu")
+        self.assertEqual(reviewed_crosswalks["200"]["source_ids"], ["source:red-panda:S24"])
+        kelu = next(row for row in curated["animals"] if row["id"] == "red-panda:kelu")
+        self.assertEqual(kelu["name"]["language"], "es")
+        self.assertEqual(kelu["review"]["reviewed_on"], "2026-10-08")
+        self.assertIn(
+            {"namespace": "wwoast-redpanda-lineage", "value": "200"},
+            animals["red-panda:kelu"]["external_ids"],
+        )
+        kelu_birth = next(event for event in atlas["events"] if event["animal_id"] == "red-panda:kelu" and event["type"] == "birth")
+        self.assertEqual(kelu_birth["date"], {"precision": "exact", "value": "2015-12-25"})
+        self.assertEqual(kelu_birth["source_ids"], ["source:red-panda:S24", "source:red-panda:wwoast-lineage-export"])
 
-    def test_kelu_candidate_missing_current_zoo_is_explicitly_reviewed(self):
+    def test_kelu_identity_crosswalk_excludes_unverified_parentage(self):
         report = json.loads((ROOT / "atlases/red-panda/upstream_sync_report.json").read_text())
         mapping = next(item for item in report["animal_id_mappings"] if item["upstream_id"] == "200")
-        self.assertEqual(mapping["status"], "near_match_incomplete_required_fields")
-        self.assertEqual(mapping["final_animal_id"], "red-panda:upstream-200")
-        candidate = next(item for item in mapping["near_match_candidates"] if item["animal_id"] == "red-panda:kelu")
-        self.assertIn("normalized_name", candidate["matching_fields"])
-        self.assertIn("birth_date", candidate["matching_fields"])
-        self.assertIn("current_zoo_missing_curated", candidate["mismatched_fields"])
-        self.assertEqual(candidate["curated_known_parent_animal_ids"], [])
-        self.assertEqual(candidate["upstream_known_parent_animal_ids"], ["red-panda:upstream-198", "red-panda:upstream-199"])
-        self.assertIn("current zoo is absent from the curated profile", candidate["reason"])
-        self.assertTrue(any(item["upstream_id"] == "200" for item in report["near_match_incomplete_required_fields"]))
+        self.assertEqual(mapping["status"], "matched")
+        self.assertEqual(mapping["match_method"], "explicit_external_id")
+        self.assertEqual(mapping["final_animal_id"], "red-panda:kelu")
+        self.assertEqual(mapping["crosswalk_evidence"]["source_ids"], ["source:red-panda:S24"])
+        institution_mapping = next(row for row in report["institution_id_mappings"] if row["upstream_id"] == "-56")
+        self.assertEqual(institution_mapping["status"], "reviewed_external_id_crosswalk")
+        self.assertEqual(institution_mapping["final_institution_id"], "place:311a839503c54580")
+        atlas = json.loads((ROOT / "atlases/red-panda/atlas.json").read_text())
+        parquemet = next(row for row in atlas["institutions"] if row["id"] == "place:311a839503c54580")
+        self.assertEqual(parquemet["names"][0]["language"], "es")
+        birthplace = next(row for row in report["edge_id_mappings"]["birthplace"] if row["source_edge"]["_out"] == "200")
+        self.assertEqual(birthplace["status"], "mapped_to_birth_event")
+        self.assertEqual(birthplace["event_id"], "event:red-panda:kelu:1")
+        birth_mapping = next(row for row in report["event_mappings"] if row["upstream_id"] == "200" and row["event_type"] == "birth")
+        self.assertEqual(birth_mapping["status"], "mapped_to_existing_canonical_event")
+        parentage_edges = [row for row in report["edge_id_mappings"]["family"] if row["source_edge"]["_in"] == "200"]
+        self.assertEqual(len(parentage_edges), 2)
+        self.assertTrue(all(row["status"] == "excluded_reviewed_unconfirmed_parentage" for row in parentage_edges))
+        self.assertTrue(all(row["child_animal_id"] == "red-panda:kelu" for row in parentage_edges))
+        review = next(item for item in report["unresolved_curated_source_review"] if item["record_id"] == "claim:red-panda:kelu:co-parent")
+        self.assertIn("source:red-panda:S24", review["source_ids"])
+        self.assertIn("source:red-panda:wwoast-lineage-export", review["source_ids"])
+        atlas = json.loads((ROOT / "atlases/red-panda/atlas.json").read_text())
+        self.assertFalse(any(item.get("object") == "red-panda:kelu" for item in atlas["relationships"]))
+        kelu_births = [event for event in atlas["events"] if event["animal_id"] == "red-panda:kelu" and event["type"] == "birth"]
+        self.assertEqual(len(kelu_births), 1)
         sources = {source["id"]: source for source in json.loads((ROOT / "atlases/red-panda/curated-atlas.json").read_text())["sources"]}
         self.assertEqual(sources["source:red-panda:S12"]["publisher"], "T13 (Canal 13)")
         self.assertEqual(sources["source:red-panda:S12"]["tier"], "discovery_only")
@@ -247,8 +275,8 @@ class CuratedFutaCrosswalkEvidenceTests(unittest.TestCase):
         self.assertTrue(all(item["source_page_url"].startswith("https://redpanda-zukan.jp/") for item in rights_media))
         self.assertFalse(any(item.get("object") == "red-panda:kelu" for item in curated["relationships"]))
         kelu_birth = next(item for item in curated["events"] if item["animal_id"] == "red-panda:kelu" and item["type"] == "birth")
-        self.assertNotIn("コウタ", kelu_birth["notes"])
-        self.assertNotIn("リリ", kelu_birth["notes"])
+        self.assertEqual(kelu_birth["source_ids"], ["source:red-panda:S24"])
+        self.assertNotIn("parents", kelu_birth["notes"].lower())
 
     def test_discovery_only_legacy_events_are_removed_or_reduced_and_reported(self):
         curated = json.loads((ROOT / "atlases/red-panda/curated-atlas.json").read_text())
@@ -288,7 +316,7 @@ class CuratedFutaCrosswalkEvidenceTests(unittest.TestCase):
         self.assertEqual(kelu["name"]["source_ids"], ["source:red-panda:S24"])
         kelu_birth = next(item for item in curated["events"] if item["id"] == "event:red-panda:kelu:1")
         kelu_death = next(item for item in curated["events"] if item["id"] == "event:red-panda:kelu:2")
-        self.assertEqual(kelu_birth["source_ids"], ["source:red-panda:S24", "source:red-panda:S25"])
+        self.assertEqual(kelu_birth["source_ids"], ["source:red-panda:S24"])
         self.assertEqual(kelu_death["date"], {"precision": "approximate", "value": "2023-08"})
         self.assertEqual(kelu_death["source_ids"], ["source:red-panda:S24"])
         self.assertEqual(kelu["status"], "deceased")
@@ -314,8 +342,8 @@ class CuratedFutaCrosswalkEvidenceTests(unittest.TestCase):
         self.assertTrue(resolutions)
         self.assertTrue(all(item["accepted_source_ids"] for item in resolutions))
         tier_rows = {item["record_id"]: item for item in resolutions}
-        self.assertEqual(tier_rows["red-panda:kelu:name"]["accepted_source_ids"], ["source:red-panda:S24"])
-        self.assertEqual(tier_rows["event:red-panda:kelu:1"]["accepted_source_ids"], ["source:red-panda:S24", "source:red-panda:S25"])
+        self.assertEqual(tier_rows["red-panda:kelu:name"]["accepted_source_ids"], ["source:red-panda:S24", "source:red-panda:wwoast-lineage-export"])
+        self.assertEqual(tier_rows["event:red-panda:kelu:1"]["accepted_source_ids"], ["source:red-panda:S24", "source:red-panda:wwoast-lineage-export"])
         self.assertEqual(tier_rows["event:red-panda:unnamed:u2011a"]["accepted_source_ids"], ["source:red-panda:S23"])
 
 
@@ -336,7 +364,7 @@ class UpstreamSyncSnapshotTests(unittest.TestCase):
             "single canonical `animals` array",
             "5,839 imported upstream media records",
             "78 inherited curated media records",
-            f"{report['counts']['near_match_review_candidates_not_merged']} name-and-birth near-match candidates",
+            f"{report['counts']['near_match_review_candidates_not_merged']} other near-match candidates",
             f"{report['counts']['near_match_incomplete_required_fields_profiles_not_merged']} have at least one unavailable or unresolved required field",
             "No image bytes",
             "local `path` values",
@@ -508,6 +536,60 @@ class RedPandaUpstreamMergeTests(unittest.TestCase):
         self.assertEqual(vertices["media.example"]["target_animal_ids"], ["red-panda:curated-matched"])
         self.assertTrue(vertices["media.example"]["target_media_ids"])
 
+    def test_every_source_edge_has_a_mapping_or_explicit_exclusion(self):
+        upstream = copy.deepcopy(self.upstream)
+        next(item for item in upstream["vertices"] if item.get("_id") == "u4")["birthday"] = "none"
+        upstream["vertices"].append({"_id": "wild1", "type": "wild"})
+        upstream["edges"].append({"_in": "-z1", "_label": "birthplace", "_out": "u4"})
+        upstream["edges"].append({"_in": "wild1", "_label": "birthplace", "_out": "p1"})
+        atlas, report = self.merger.merge_red_panda(upstream, self.curated, SNAPSHOT)
+
+        for label in ("family", "litter", "zoo", "birthplace"):
+            rows = report["edge_id_mappings"][label]
+            expected_edges = [edge for edge in upstream["edges"] if edge["_label"] == label]
+            self.assertEqual([row["source_edge"] for row in rows], expected_edges)
+            self.assertEqual(
+                [row["source_edge_id"] for row in rows],
+                [f"{label}:{index:04d}" for index in range(1, len(expected_edges) + 1)],
+            )
+            self.assertTrue(all(row.get("status") for row in rows))
+
+        zoo_rows = report["edge_id_mappings"]["zoo"]
+        self.assertEqual(len(zoo_rows), 3)
+        self.assertTrue(all(row["status"] == "mapped_current_holding_not_event" for row in zoo_rows))
+        self.assertTrue(all(row["used_for_identity_resolution"] for row in zoo_rows))
+        self.assertTrue(all(row["final_animal_id"] and row["final_institution_id"] for row in zoo_rows))
+
+        birthplace_rows = report["edge_id_mappings"]["birthplace"]
+        self.assertEqual(
+            [row["status"] for row in birthplace_rows],
+            ["mapped_to_birth_event", "mapped_to_birth_event", "excluded_no_birth_date", "mapped_to_birth_event_without_institution"],
+        )
+        birth_events = {event["id"] for event in atlas["events"] if event["type"] == "birth"}
+        self.assertTrue(all(row["event_id"] in birth_events for row in birthplace_rows[:2]))
+        self.assertEqual(birthplace_rows[0]["event_id"], "event:red-panda:curated-matched:birth")
+        self.assertEqual(
+            next(row for row in report["event_mappings"] if row["upstream_id"] == "u1" and row["event_type"] == "birth")["status"],
+            "mapped_to_existing_canonical_event",
+        )
+        matched_births = [event for event in atlas["events"] if event["animal_id"] == "red-panda:curated-matched" and event["type"] == "birth"]
+        self.assertEqual(len(matched_births), 1)
+        self.assertIn("source:red-panda:wwoast-lineage-export", matched_births[0]["source_ids"])
+        self.assertEqual(birthplace_rows[2]["final_animal_id"], "red-panda:upstream-u4")
+        self.assertEqual(birthplace_rows[3]["source_population_marker_id"], "wild1")
+        self.assertIn(birthplace_rows[3]["event_id"], birth_events)
+        self.assertEqual(report["source_counts"]["edges"], len(upstream["edges"]))
+        self.assertEqual(report["edge_accounting"]["source_edges"], len(upstream["edges"]))
+
+    def test_production_report_accounts_for_each_edge_label(self):
+        report = json.loads((ROOT / "atlases/red-panda/upstream_sync_report.json").read_text())
+        for label in ("family", "litter", "zoo", "birthplace"):
+            rows = report["edge_id_mappings"][label]
+            counts = report["edge_accounting"]["by_label"][label]
+            self.assertEqual(len(rows), counts["source"])
+            self.assertEqual(counts["source"], counts["mapped"] + counts["excluded"])
+            self.assertTrue(all(row.get("status") for row in rows))
+
     def test_ambiguous_composite_candidates_are_not_merged(self):
         atlas, report = self.merge()
         mapping = next(item for item in report["animal_id_mappings"] if item["upstream_id"] == "u3")
@@ -598,6 +680,30 @@ class RedPandaUpstreamMergeTests(unittest.TestCase):
             [record["id"] for record in first[0]["animals"]],
             sorted(record["id"] for record in first[0]["animals"]),
         )
+
+    def test_coverage_describes_both_layers_and_does_not_claim_complete_studbook(self):
+        atlas, _ = self.merge()
+        coverage = atlas["coverage"]
+        scope = coverage["scope"]
+        self.assertIn("4 named profiles", scope)
+        self.assertIn("4 curated Futa-family records", scope)
+        self.assertIn("2 reviewed identity overlaps", scope)
+        self.assertIn("6 canonical animals", scope)
+        self.assertIn("not a complete or official studbook", scope)
+        self.assertTrue(any("0 near-match profiles remain unmerged" in item for item in coverage["limitations"]))
+        ja_scope = coverage["translations"]["ja"]["scope"]
+        self.assertIn("プロフィール4件", ja_scope)
+        self.assertIn("記録4件", ja_scope)
+        self.assertIn("重複2件", ja_scope)
+        self.assertIn("記録6件", ja_scope)
+        ru_scope = coverage["translations"]["ru"]["scope"]
+        self.assertIn("4 именных профилей", ru_scope)
+        self.assertIn("4 кураторскими записями", ru_scope)
+        self.assertIn("2 подтверждёнными совпадениями", ru_scope)
+        self.assertIn("6 канонических записей", ru_scope)
+        for language in ("ja", "ru"):
+            self.assertTrue(coverage["translations"][language]["limitations"])
+            self.assertEqual(len(coverage["translations"][language]["limitations"]), len(coverage["limitations"]))
 
     def test_malformed_photo_url_is_counted_and_dropped_without_aborting_merge(self):
         unique = next(item for item in self.upstream["vertices"] if item.get("_id") == "u4")
