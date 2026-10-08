@@ -352,6 +352,8 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
         publication_date = source.get("publication_date")
         if publication_date is not None and not _valid_date_text(publication_date):
             _issue(issues, "invalid_source_date", f"{path}.publication_date", "Publication date must preserve a valid full or partial date.")
+        if source.get("tier") not in {"A", "B", "C", "D", "discovery_only"}:
+            _issue(issues, "invalid_provenance_tier", f"{path}.tier", "Every source must have a supported provenance tier: A, B, C, D, or discovery_only.")
 
     return sorted(issues, key=lambda issue: (issue.path, issue.code, issue.message))
 
