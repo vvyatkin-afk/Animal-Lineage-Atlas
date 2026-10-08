@@ -2,12 +2,15 @@
 
 Each canonical `atlases/<species>/atlas.json` file contains release metadata, coverage, and records for animals, relationships, events, claims, institutions or places, media references, and sources. `packages/schema/atlas.schema.json` describes record shapes; `tools/validate_atlas.py` adds cross-record checks.
 
+Each source has a required evidence tier: A for open primary datasets with stated reuse terms, B for official institutional records and publications, C for peer-reviewed research, D for public community-curated data, or `discovery_only` for secondary material used only to locate primary evidence. Tiers describe the source class and never replace record-level citations.
+
 ## Identity and names
 
 - Every animal has a stable species-prefixed ID such as `red-panda:futa`.
 - `name.canonical` retains the name used by its cited record. Aliases and localized names are separate fields and are added only when a source supports them.
 - External IDs include a namespace so IDs from different source systems do not collide.
 - Unknown animals and unknown parents are not materialized as records.
+- `population` distinguishes `wild`, `zoo_captive`, `other_managed`, and `unknown` where the source and atlas scope support it. The polar-bear records identify zoo populations explicitly; access-denied wild research rows remain outside that atlas.
 
 ## Family and claims
 
