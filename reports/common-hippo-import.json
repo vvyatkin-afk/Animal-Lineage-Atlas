@@ -2,7 +2,7 @@
   "report_version": "1.0.0",
   "generated_on": "2026-10-08",
   "bundle_path": "atlases/hippopotamus/imports/common-hippo.json",
-  "bundle_sha256": "19c3df0608415798ea1c3c122303305020e99a747525709848c18430d1ec37dd",
+  "bundle_sha256": "1c166a4e2da920a74ac704ee213d1fd04698f30e118ffc769f0f0eb2ebb6b89c",
   "taxon": "Hippopotamus amphibius",
   "counts": {
     "animals": 60,
@@ -25,6 +25,9 @@
       "unknown": 42,
       "deceased": 9,
       "living": 9
+    },
+    "animal_population": {
+      "zoo_captive": 60
     }
   },
   "canonical_overlap": {
@@ -75,7 +78,8 @@
     "all_record_ids_use_required_prefix": true,
     "unnamed_calf_animal_nodes_created": 0,
     "animal_media_records": 0,
-    "parentage_policy": "Only direct source statements create parentage edges; no parentage inferred from cohabitation."
+    "parentage_policy": "Only direct source statements create parentage edges; no parentage inferred from cohabitation.",
+    "all_animals_population_labeled": true
   },
   "source_access": {
     "access_date": "2026-10-08",

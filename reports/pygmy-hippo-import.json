@@ -25,7 +25,10 @@
       "deceased": 0,
       "unknown": 25
     },
-    "source_cited_claims": 26
+    "source_cited_claims": 26,
+    "population_counts": {
+      "zoo_captive": 25
+    }
   },
   "families": {
     "Edinburgh/London": {
@@ -305,7 +308,8 @@
     "stable_id_prefix": "passed: every record ID starts with hippopotamus-pygmy-",
     "taxonomy_integrity": "passed: every animal uses Choeropsis liberiensis",
     "diff_check": "passed: git diff --check",
-    "all_known_sex_values_have_source_cited_claims": true
+    "all_known_sex_values_have_source_cited_claims": true,
+    "all_animals_population_labeled": true
   },
   "source_access_notes": [
     "Official Khao Kheow announcement and naming pages were reviewed from search-indexed content at their exact official URLs after direct browser fetches timed out; Thailand Zoological Park Organization official material independently corroborated Moo Deng parentage. No access controls were bypassed.",
@@ -404,5 +408,5 @@
   "source_tiers": {
     "B": 24
   },
-  "bundle_sha256": "cb504aca1cef6b6a8edb9ea1faa6898983d459b874894668b092dbb3ef56e489"
+  "bundle_sha256": "0345907cb9c1a7e087efed2515699737480a7712ff622ad725b5b244b71b8edf"
 }

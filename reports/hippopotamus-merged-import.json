@@ -398,7 +398,7 @@
     {
       "import_id": "common-hippo",
       "bundle_path": "atlases/hippopotamus/imports/common-hippo.json",
-      "bundle_sha256": "19c3df0608415798ea1c3c122303305020e99a747525709848c18430d1ec37dd",
+      "bundle_sha256": "1c166a4e2da920a74ac704ee213d1fd04698f30e118ffc769f0f0eb2ebb6b89c",
       "taxa": [
         "Hippopotamus amphibius"
       ],
@@ -416,7 +416,7 @@
     {
       "import_id": "pygmy-hippo",
       "bundle_path": "atlases/hippopotamus/imports/pygmy-hippo.json",
-      "bundle_sha256": "cb504aca1cef6b6a8edb9ea1faa6898983d459b874894668b092dbb3ef56e489",
+      "bundle_sha256": "0345907cb9c1a7e087efed2515699737480a7712ff622ad725b5b244b71b8edf",
       "taxa": [
         "Choeropsis liberiensis"
       ],
@@ -449,6 +449,9 @@
     "institutions": 3,
     "media": 1,
     "sources": 8
+  },
+  "populations": {
+    "zoo_captive": 85
   },
   "counts_added": {
     "animals": 80,

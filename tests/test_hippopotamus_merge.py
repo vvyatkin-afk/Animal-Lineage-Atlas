@@ -26,12 +26,13 @@ def source(source_id: str, source_type: str = "official zoo record") -> dict:
     }
 
 
-def animal(animal_id: str, name: str, taxon: str, source_ids: list[str], sex: str = "unknown") -> dict:
+def animal(animal_id: str, name: str, taxon: str, source_ids: list[str], sex: str = "unknown", population: str = "zoo_captive") -> dict:
     return {
         "id": animal_id,
         "taxon": taxon,
         "sex": sex,
         "status": "unknown",
+        "population": population,
         "name": {"canonical": name, "language": "en", "source_ids": source_ids, "localized": []},
         "aliases": [],
         "external_ids": [],
@@ -62,7 +63,7 @@ def canonical_atlas() -> dict:
             "last_reviewed": "2026-10-07",
             "translations": {"ja": {"scope": "カバ", "limitations": ["試験データ"]}, "ru": {"scope": "Бегемоты", "limitations": ["Тестовые данные"]}},
         },
-        "animals": [animal("hippopotamus:bibi", "Bibi", COMMON, ["source:old"], "female")],
+        "animals": [animal("hippopotamus:bibi", "Bibi", COMMON, ["source:old"], "female", "zoo_captive")],
         "claims": [],
         "relationships": [],
         "events": [],
@@ -143,7 +144,9 @@ class HippopotamusImportMergeTests(unittest.TestCase):
         self.assertCountEqual(next(item for item in atlas["animals"] if item["id"] == "hippopotamus:bibi")["name"]["source_ids"], ["source:common", "source:old"])
         self.assertIn("import:pygmy-bibi", {item["id"] for item in atlas["animals"]})
         self.assertEqual(report["id_mappings"]["import:bibi"], "hippopotamus:bibi")
+        self.assertEqual(next(item for item in atlas["animals"] if item["id"] == "hippopotamus:bibi")["population"], "zoo_captive")
         self.assertEqual(report["counts"]["animals"], 4)
+        self.assertEqual(report["populations"], {"zoo_captive": 4})
 
     def test_same_name_does_not_merge_without_an_explicit_identity_crosswalk(self):
         atlas, _ = merge_hippopotamus(
@@ -179,6 +182,7 @@ class HippopotamusImportMergeTests(unittest.TestCase):
     def test_conflicting_import_facts_are_preserved_as_reviewable_claims(self):
         bundle = common_bundle(name="Bibi the Second", sex="male")
         bundle["animals"] = [bundle["animals"][0]]
+        bundle["animals"][0]["population"] = "wild"
         bundle["relationships"] = []
         bundle["events"] = []
         atlas, report = merge_hippopotamus(
@@ -188,8 +192,8 @@ class HippopotamusImportMergeTests(unittest.TestCase):
         bibi = next(item for item in atlas["animals"] if item["id"] == "hippopotamus:bibi")
         self.assertEqual(bibi["sex"], "female")
         conflict_claims = [claim for claim in atlas["claims"] if claim["subject"] == "hippopotamus:bibi"]
-        self.assertEqual({claim["claim_type"] for claim in conflict_claims}, {"import_alternate_sex", "import_alternate_name"})
-        self.assertEqual(len(report["conflicts"]), 2)
+        self.assertEqual({claim["claim_type"] for claim in conflict_claims}, {"import_alternate_sex", "import_alternate_name", "import_alternate_population"})
+        self.assertEqual(len(report["conflicts"]), 3)
 
     def test_merge_is_deterministic_and_reports_source_tiers(self):
         imports = [

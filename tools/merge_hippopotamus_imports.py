@@ -284,7 +284,7 @@ def merge_hippopotamus(
             })
             if existing.get("taxon") != incoming.get("taxon"):
                 raise ValueError(f"{prefix}: cross-taxon animal identity mapping for {old_id!r}")
-            for field in ("sex", "status"):
+            for field in ("sex", "status", "population"):
                 current_value = existing.get(field)
                 import_value = incoming.get(field)
                 if current_value not in (None, "unknown") and import_value not in (None, "unknown", current_value):
@@ -369,6 +369,10 @@ def merge_hippopotamus(
     report["conflicts"].sort(key=lambda item: (item["animal_id"], item["field"], str(item["alternate"])))
     report["imports"].sort(key=lambda item: item["import_id"])
     report["counts"] = {collection: len(atlas[collection]) for collection in COLLECTIONS}
+    report["populations"] = dict(sorted({
+        population: sum(1 for animal in atlas["animals"] if animal.get("population", "unknown") == population)
+        for population in {animal.get("population", "unknown") for animal in atlas["animals"]}
+    }.items()))
     report["counts_added"] = {
         collection: report["counts"][collection] - report["canonical_before_counts"][collection]
         for collection in COLLECTIONS

@@ -14,6 +14,8 @@ The merged atlas also contains 111 claims, 85 events, 69 source records, and one
 
 The common-hippo bundle contains 60 named individuals. Its report maps five exact Cincinnati Zoo identities to the existing curated records, leaving 55 additional common-hippo individuals. The pygmy-hippo bundle adds 25 named individuals. The reproducible merge command and complete per-record crosswalks are in [`reports/hippopotamus-merged-import.json`](../reports/hippopotamus-merged-import.json); bundle hashes and research decisions are in the [common-hippo report](../reports/common-hippo-import.json) and [pygmy-hippo report](../reports/pygmy-hippo-import.json).
 
+All 85 records are identified as `zoo_captive` because the imported facts describe zoo managed animals and histories. This is a population facet label; it does not imply that every animal is currently living. No wild hippopotamus records were added from population totals or unsupported sources.
+
 ## Source review
 
 Every canonical factual record links to one or more source IDs. The 69 source records are tier B: official zoo, zoological-society, conservation-group, or zoo-association pages and publications. Sixty-six are cited by canonical animal, claim, relationship, event, or media records; three contextual records document studbook access and institutional scope in the research notes. No open bulk pedigree dataset was imported; therefore there are no tier A rows in this release. The tier definitions and their limits are documented in [`DATA_PROVENANCE_TIERS.md`](DATA_PROVENANCE_TIERS.md).

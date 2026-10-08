@@ -188,6 +188,7 @@ class SpeciesDataTests(unittest.TestCase):
             {"Hippopotamus amphibius", "Choeropsis liberiensis"},
         )
         self.assertTrue(atlas["animals"])
+        self.assertEqual({animal.get("population") for animal in atlas["animals"]}, {"zoo_captive"})
         taxa_by_id = {animal["id"]: animal["taxon"] for animal in atlas["animals"]}
         self.assertTrue(all(taxa_by_id[edge["subject"]] == taxa_by_id[edge["object"]] for edge in atlas["relationships"]))
 

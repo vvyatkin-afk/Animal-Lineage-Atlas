@@ -72,7 +72,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Edinburgh Zoo says Gloria gave birth to daughter Amara in 2021; its family trivia identifies Amara as Otto and Gloria’s previous calf. The exact day and month are not reported. Source IDs: hippopotamus-pygmy-source-edinburgh-amara-family, hippopotamus-pygmy-source-edinburgh-piper-birth. Current status unknown."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-otto",
@@ -95,7 +96,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Edinburgh Zoo identifies Otto as the father of Amara, Haggis, and Piper. Source IDs: hippopotamus-pygmy-source-edinburgh-amara-family, hippopotamus-pygmy-source-edinburgh-haggis-birth, hippopotamus-pygmy-source-edinburgh-piper-name. Current status unknown."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-gloria",
@@ -118,7 +120,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Edinburgh Zoo identifies Gloria as the mother of Amara, Haggis, and Piper. Source IDs: hippopotamus-pygmy-source-edinburgh-amara-family, hippopotamus-pygmy-source-edinburgh-haggis-birth, hippopotamus-pygmy-source-edinburgh-piper-name. Current status unknown."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-haggis",
@@ -141,7 +144,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-edinburgh-haggis-birth, hippopotamus-pygmy-source-edinburgh-haggis-family, hippopotamus-pygmy-source-edinburgh-piper-birth. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-piper",
@@ -163,7 +167,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-edinburgh-piper-name, hippopotamus-pygmy-source-edinburgh-piper-birth. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-motomoto",
@@ -186,7 +191,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-ueno-natsume-birth, hippopotamus-pygmy-source-ueno-momiji-birth, hippopotamus-pygmy-source-ueno-motomoto-transfer. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-natsume",
@@ -210,7 +216,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-ueno-natsume-birth, hippopotamus-pygmy-source-ueno-sisters, hippopotamus-pygmy-source-ueno-kobushi-name, hippopotamus-pygmy-source-ueno-about-kobushi. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-momiji",
@@ -233,7 +240,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-ueno-momiji-birth, hippopotamus-pygmy-source-ueno-sisters, hippopotamus-pygmy-source-ueno-iroha-name. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-kobushi",
@@ -256,7 +264,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-ueno-natsume-birth, hippopotamus-pygmy-source-ueno-kobushi-name, hippopotamus-pygmy-source-ueno-about-kobushi. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-iroha",
@@ -278,7 +287,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-ueno-momiji-birth, hippopotamus-pygmy-source-ueno-iroha-name. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-kindia",
@@ -303,7 +313,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth, hippopotamus-pygmy-source-toronto-penelope-name, hippopotamus-pygmy-source-toronto-maple-birth, hippopotamus-pygmy-source-toronto-maple-name, hippopotamus-pygmy-source-john-ball-hugo. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-harvey",
@@ -326,7 +337,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth, hippopotamus-pygmy-source-toronto-maple-birth, hippopotamus-pygmy-source-toronto-maple-name. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-penelope",
@@ -349,7 +361,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth, hippopotamus-pygmy-source-toronto-penelope-name, hippopotamus-pygmy-source-john-ball-hugo. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-psi",
@@ -370,7 +383,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-cleopatra",
@@ -391,7 +405,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-pogo",
@@ -412,7 +427,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-jahari",
@@ -433,7 +449,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-john-ball-hugo. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-hugo",
@@ -454,7 +471,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-john-ball-hugo. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-iris",
@@ -477,7 +495,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-richmond-poppy-birth, hippopotamus-pygmy-source-richmond-poppy-name, hippopotamus-pygmy-source-richmond-poppy-profile. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-corwin",
@@ -499,7 +518,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Metro Richmond Zoo directly names Iris and Corwin as Poppy’s parents. This source does not explicitly state Corwin’s sex or assign parent-role wording, so sex is unknown and no sire-role claim is created. Source IDs: hippopotamus-pygmy-source-richmond-poppy-birth, hippopotamus-pygmy-source-richmond-poppy-profile. Current status unknown."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-poppy",
@@ -522,7 +542,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-richmond-poppy-birth, hippopotamus-pygmy-source-richmond-poppy-name, hippopotamus-pygmy-source-richmond-poppy-profile. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-maple",
@@ -544,7 +565,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-maple-birth, hippopotamus-pygmy-source-toronto-maple-name. Current living status is left unknown because this source-bounded import does not establish it at review time."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-moo-deng",
@@ -577,7 +599,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Khao Kheow Open Zoo’s Thai announcement identifies a female calf and gives the source spelling หมูเด้ง; the Thailand Zoological Park Organization report directly names Tony and Jona as parents. The official zoo document uses the English romanization Moo Deng. The zoo announcement date of introduction is not treated as a birth date. Source IDs: hippopotamus-pygmy-source-khao-moodeng-birth, hippopotamus-pygmy-source-khao-moodeng-name, hippopotamus-pygmy-source-khao-thailand-zoo-report, hippopotamus-pygmy-source-khao-english-name. Current status unknown."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-jona",
@@ -609,7 +632,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Khao Kheow Open Zoo names Jona as the mother of the female calf; its Thai spelling on the birth announcement is retained as canonical. Source IDs: hippopotamus-pygmy-source-khao-moodeng-birth, hippopotamus-pygmy-source-khao-thailand-zoo-report. Current status unknown."
-      }
+      },
+      "population": "zoo_captive"
     },
     {
       "id": "hippopotamus-pygmy-tony",
@@ -641,7 +665,8 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Khao Kheow Open Zoo names Tony as the father of the female calf; its Thai spelling on the birth announcement is retained as canonical. Source IDs: hippopotamus-pygmy-source-khao-moodeng-birth, hippopotamus-pygmy-source-khao-thailand-zoo-report. Current status unknown."
-      }
+      },
+      "population": "zoo_captive"
     }
   ],
   "claims": [
