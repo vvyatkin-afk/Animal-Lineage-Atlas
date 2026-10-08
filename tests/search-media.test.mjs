@@ -76,7 +76,7 @@ test('remote media requires explicit rights and embedding permission', async () 
   const restricted = media.resolvePublicMedia({
     ...reference,
     rights_status: 'unknown',
-    embedding_status: 'unknown',
+    embedding_status: 'link_only',
   });
   assert.equal(restricted.kind, 'placeholder');
   assert.equal(restricted.src, undefined);
