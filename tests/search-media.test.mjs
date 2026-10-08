@@ -57,6 +57,26 @@ test('applies country and taxon facets without changing stored values', async ()
   assert.equal(animals[0].name.canonical, '風太');
 });
 
+test('indexes population and normalized search text once for fast focused queries', async () => {
+  const indexModule = await import('../packages/search/atlas-index.ts');
+  const search = await loadSearch();
+  assert.ok(search, 'search package should load');
+  const index = indexModule.buildAtlasSearchIndex({
+    animals: [
+      { ...animals[0], population: 'wild' },
+      { ...animals[1], population: 'zoo_captive' },
+    ],
+    institutions: [],
+    events: [],
+  });
+
+  assert.equal(index[0].population, 'wild');
+  assert.match(index[0].search_key, /futa/);
+  assert.match(index[0].search_key, /千葉市動物公園/);
+  assert.deepEqual(search.searchAnimals(index, 'futa', { population: 'wild' }).map((animal) => animal.id), ['red-panda:futa']);
+  assert.deepEqual(search.searchAnimals(index, '', { population: 'zoo_captive' }).map((animal) => animal.id), ['polar-bear:nora']);
+});
+
 test('remote media requires explicit rights and embedding permission', async () => {
   const media = await loadMedia();
   assert.ok(media, 'media resolver package should load');

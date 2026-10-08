@@ -36,6 +36,37 @@ async function blockRemoteImages(page: Page) {
   });
 }
 
+async function interceptRedPandaDetails(page: Page, change: (chunk: Record<string, unknown>) => void) {
+  await page.route('**/atlas.red-panda/details/*.json', async (route) => {
+    const response = await route.fetch();
+    const chunk = await response.json() as Record<string, unknown>;
+    change(chunk);
+    await route.fulfill({ response, body: JSON.stringify(chunk) });
+  });
+}
+
+test('default view covers all components and defers full details until profile open', async ({ page }) => {
+  const detailRequests: string[] = [];
+  page.on('request', (request) => {
+    if (new URL(request.url()).pathname.includes('/details/')) detailRequests.push(request.url());
+  });
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/atlas.red-panda/');
+  await expect(page.locator('[data-global-overview="true"]')).toBeVisible();
+  const count = await page.locator('#animal-count').textContent();
+  await expect(page.locator('.global-index-summary')).toContainText(count ?? '0');
+  expect(detailRequests).toEqual([]);
+
+  await page.getByLabel('Search animals').fill('Futa');
+  await page.getByRole('button', { name: /Open profile: 風太（フウタ）/ }).click();
+  await expect(page.locator('#profile-title')).toHaveText('風太（フウタ）');
+  await expect(page.locator('svg[data-genealogy]')).toBeVisible();
+  expect(detailRequests.length).toBe(1);
+  await page.getByRole('button', { name: 'Close profile' }).click();
+  await page.getByRole('button', { name: 'All families' }).click();
+  await expect(page.locator('[data-global-overview="true"]')).toBeVisible();
+});
+
 test('hub renders all atlas cards, changes locale, and works at desktop size', async ({ page }) => {
   const errors = observeErrors(page);
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -135,10 +166,9 @@ test('child coverage scope and limitations follow Japanese and Russian locale ch
 
 test('optional local manifest renders a local media asset in the profile UI', async ({ page }) => {
   const errors = observeErrors(page);
-  await page.route('**/atlas.red-panda/runtime.json', async (route) => {
-    const response = await route.fetch();
-    const atlas = await response.json() as { media: Array<Record<string, unknown>> };
-    atlas.media.push({
+  await interceptRedPandaDetails(page, (chunk) => {
+    const media = chunk.media as Array<Record<string, unknown>>;
+    media.push({
       media_id: 'media:offline-ui-test',
       animal_id: 'red-panda:futa',
       source_page_url: 'https://example.org/source-record',
@@ -146,7 +176,6 @@ test('optional local manifest renders a local media asset in the profile UI', as
       embedding_status: 'link_only',
       credit: null,
     });
-    await route.fulfill({ response, body: JSON.stringify(atlas) });
   });
   await page.route('**/atlas.red-panda/local-media-manifest.json', (route) => route.fulfill({
     contentType: 'application/json',
@@ -175,10 +204,9 @@ test('optional local manifest renders a local media asset in the profile UI', as
 test('failed remote image falls back while search and genealogy remain usable', async ({ page }) => {
   const errors = observeErrors(page);
   await blockRemoteImages(page);
-  await page.route('**/atlas.red-panda/runtime.json', async (route) => {
-    const response = await route.fetch();
-    const atlas = await response.json() as { media: Array<Record<string, unknown>> };
-    atlas.media.push({
+  await interceptRedPandaDetails(page, (chunk) => {
+    const media = chunk.media as Array<Record<string, unknown>>;
+    media.push({
       media_id: 'media:browser-failure',
       animal_id: 'red-panda:futa',
       source_page_url: 'https://example.org/animal-record',
@@ -187,7 +215,6 @@ test('failed remote image falls back while search and genealogy remain usable', 
       embedding_status: 'allowed',
       identity_confidence: 'confirmed',
     });
-    await route.fulfill({ response, body: JSON.stringify(atlas) });
   });
   await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:futa')}`);
   await expect(page.locator('#profile-dialog .media-placeholder')).toHaveCount(2);
