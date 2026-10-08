@@ -150,11 +150,14 @@ test('all interface locales render the same required label keys', async () => {
   }
 });
 
-test('profile and graph source contain no embedded or local animal photos', async () => {
+test('upstream direct photo URLs remain link-only metadata and cannot be embedded', async () => {
   const app = await readFile(new URL('../apps/atlas/main.ts', import.meta.url), 'utf8');
   const graph = await readFile(new URL('../packages/ui/genealogy-view.ts', import.meta.url), 'utf8');
-  const atlas = JSON.parse(await readFile(atlasUrl, 'utf8'));
+  const atlas = JSON.parse(await readFile(new URL('../atlases/red-panda/atlas.json', import.meta.url), 'utf8'));
   const source = `${app}\n${graph}`;
   assert.doesNotMatch(source, /data:image\/(?:jpeg|png|webp)/i);
-  assert.equal(atlas.media.some((item) => item.direct_remote_url && /\.(?:jpe?g|png|webp)(?:[?#]|$)/i.test(item.direct_remote_url)), false);
+  const directMetadata = atlas.media.filter((item) => item.direct_remote_url);
+  assert.ok(directMetadata.length > 0);
+  assert.equal(directMetadata.every((item) => item.embedding_status === 'link_only' && item.rights_status === 'unknown'), true);
+  assert.equal(directMetadata.some((item) => item.embedding_status === 'allowed'), false);
 });

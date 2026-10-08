@@ -89,6 +89,46 @@ class ValidateAtlasTests(unittest.TestCase):
     def test_accepts_minimal_atlas(self):
         self.assertEqual(self.validator.validate_atlas(minimal_atlas()), [])
 
+    def test_accepts_direct_remote_url_as_non_embedded_link_only_metadata(self):
+        atlas = minimal_atlas()
+        atlas["media"].append(
+            {
+                "media_id": "media:test:link-only",
+                "animal_id": "test:fiona",
+                "source_page_url": "https://example.org/fiona-photo-source",
+                "direct_remote_url": "https://cdn.example.org/fiona.jpg",
+                "credit": None,
+                "rights_status": "unknown",
+                "embedding_status": "link_only",
+                "offline_archive_eligible": False,
+                "identity_confidence": "probable",
+                "checked_date": "2026-10-07",
+                "notes": "URL metadata only; not embedded or fetched.",
+                "source_ids": ["source:zoo"],
+            }
+        )
+        self.assertEqual(self.validator.validate_atlas(atlas), [])
+
+    def test_rejects_embedding_when_media_rights_are_unknown(self):
+        atlas = minimal_atlas()
+        atlas["media"].append(
+            {
+                "media_id": "media:test:unknown-rights",
+                "animal_id": "test:fiona",
+                "source_page_url": "https://example.org/fiona-photo-source",
+                "direct_remote_url": "https://cdn.example.org/fiona.jpg",
+                "credit": None,
+                "rights_status": "unknown",
+                "embedding_status": "allowed",
+                "offline_archive_eligible": False,
+                "identity_confidence": "probable",
+                "checked_date": "2026-10-07",
+                "notes": "Fixture only.",
+                "source_ids": ["source:zoo"],
+            }
+        )
+        self.assertIn("unlicensed_embedding", issue_codes(self.validator.validate_atlas(atlas)))
+
     def test_rejects_incomplete_coverage_translation(self):
         atlas = minimal_atlas()
         atlas["coverage"]["translations"]["ja"]["limitations"] = []

@@ -19,6 +19,7 @@ REVIEW_STATUSES = {"reviewed", "needs_review", "unreviewed"}
 RELATION_TYPES = {"biological_mother", "biological_father", "foster", "adoptive", "social"}
 ANCESTRY_TYPES = {"biological_mother", "biological_father"}
 EVENT_TYPES = {"birth", "death", "move", "transfer", "release", "observation"}
+EMBEDDABLE_RIGHTS = {"cc0", "public_domain", "permission_granted", "license_allows_embedding"}
 PARTIAL_DATE_RE = re.compile(r"^\d{4}(?:-\d{2}(?:-\d{2})?)?$")
 FULL_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
@@ -339,8 +340,10 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
             _issue(issues, "dangling_animal", f"{path}.animal_id", f"Animal {media.get('animal_id')!r} does not exist.")
         if not _check_uri(media.get("source_page_url")):
             _issue(issues, "invalid_media_source", f"{path}.source_page_url", "Media source must be an HTTP(S) source page URL.")
-        if media.get("direct_remote_url") is not None and media.get("embedding_status") != "allowed":
-            _issue(issues, "restricted_embedding", f"{path}.direct_remote_url", "Direct image URLs require explicit allowed embedding status.")
+        if media.get("direct_remote_url") is not None and not _check_uri(media.get("direct_remote_url")):
+            _issue(issues, "invalid_direct_media_url", f"{path}.direct_remote_url", "Direct media metadata must be an HTTP(S) URL.")
+        if media.get("embedding_status") == "allowed" and str(media.get("rights_status", "")).lower() not in EMBEDDABLE_RIGHTS:
+            _issue(issues, "unlicensed_embedding", f"{path}.embedding_status", "Embedding is allowed only when the recorded rights status explicitly permits it.")
         if media.get("embedding_status") not in {"allowed", "link_only", "denied", "unknown"}:
             _issue(issues, "invalid_embedding_status", f"{path}.embedding_status", "Embedding status is not supported.")
         if not _valid_date_text(media.get("checked_date"), full_only=True):
