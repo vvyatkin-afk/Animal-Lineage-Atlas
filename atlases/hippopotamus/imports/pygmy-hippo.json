@@ -1,0 +1,1779 @@
+{
+  "release": {
+    "schema_version": "1.0.0",
+    "data_version": "2026.10.08",
+    "engine_version": "1.0.0",
+    "build_date": "2026-10-08",
+    "provenance": "Append-only research import of individually named pygmy hippopotamuses from official zoo records. IDs are prefixed hippopotamus-pygmy-. The import does not reproduce restricted studbook rows or animal photographs."
+  },
+  "coverage": {
+    "taxon": "Choeropsis liberiensis",
+    "scope": "Named pygmy hippopotamuses with source-backed parentage from official zoo records in the United Kingdom, Japan, Canada, the United States, and Thailand. Includes a three-generation Toronto Zoo–John Ball Zoo family thread and additional families across institutions.",
+    "limitations": [
+      "This is a public-source subset, not a complete zoo population or studbook. The IUCN SSC Hippo Specialist Group’s public 2021 total (1,677 historical animals; 452 living in 146 institutions) is context only and was not used as permission to copy individual studbook entries.",
+      "Every animal, parent edge, claim, and event in this import is linked to official institutional source IDs. No name, sex, or parentage is inferred from co-housing or fame.",
+      "Exact dates are used only when the cited source states them. Year-only and month-only dates retain that precision. Current living status is unknown for every individual because this import does not verify current status at the review date.",
+      "Khao Kheow Open Zoo’s official Thai page reports the 2024-07-25 introduction of its female calf, not a birth date; no birth date is assigned to Moo Deng. Its official page direct-fetch timed out during review, so indexed text from the exact zoo URL was checked against a Thailand Zoological Park Organization source for parentage.",
+      "Edinburgh Zoo says Haggis moved to another zoo but does not identify the destination. That move is not assigned to an institution.",
+      "No animal-photo bytes or media records are included."
+    ],
+    "last_reviewed": "2026-10-08",
+    "source_categories": [
+      "official zoo birth announcements",
+      "official zoo animal profiles",
+      "official zoo family records and histories",
+      "official zoo transfer announcements",
+      "official zoo care reports"
+    ],
+    "accent": "#796B58",
+    "translations": {
+      "ja": {
+        "scope": "英国、日本、カナダ、米国、タイの動物園が公表した、個体名と親子関係を確認できるコビトカバの公開記録です。3世代にまたがるトロント動物園・ジョンボール動物園の家系と、複数施設の家族を含みます。",
+        "limitations": [
+          "公開資料に基づく一部記録であり、完全な飼育個体群や血統台帳ではありません。2021年の公開集計数は背景情報としてのみ扱い、血統台帳の個別記録は取り込んでいません。",
+          "名前、性別、親子関係を推測していません。正確な日付は出典が明記した場合に限り、現在の生存状況は未確認としています。",
+          "Khao Kheow Open Zooの公式タイ語ページは、2024年7月25日の子どもの紹介を報告していますが、誕生日は記載していません。",
+          "Edinburgh ZooはHaggisが別の動物園へ移動したと報告していますが、移動先は明記していません。",
+          "動物の写真データやメディア記録は含みません。",
+          "すべての親子関係、主張、出来事には出典IDを付けています。"
+        ]
+      },
+      "ru": {
+        "scope": "Именованные карликовые бегемоты и подтверждённое родство из официальных записей зоопарков Великобритании, Японии, Канады, США и Таиланда. Включена семейная линия из трёх поколений между зоопарками Торонто и Джона Болла, а также семьи из других учреждений.",
+        "limitations": [
+          "Это выборка открытых записей, а не полный зоопарковый реестр или племенная книга. Публичная сводка за 2021 год используется только как контекст; индивидуальные записи племенной книги не импортировались.",
+          "Имена, пол и родство не выводились предположительно. Точные даты приведены только там, где они указаны в источнике; текущий статус не проверен.",
+          "Официальная тайская страница Khao Kheow сообщает о представлении детёныша 25 июля 2024 года, но не указывает дату рождения Moo Deng.",
+          "Edinburgh Zoo сообщает, что Haggis переехала в другой зоопарк, но не называет его.",
+          "Фотографии животных и медиазаписи не включены.",
+          "Для всех отношений, утверждений и событий указаны идентификаторы источников."
+        ]
+      }
+    }
+  },
+  "animals": [
+    {
+      "id": "hippopotamus-pygmy-amara",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Amara",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-edinburgh-amara-family",
+          "hippopotamus-pygmy-source-edinburgh-piper-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Edinburgh Zoo says Gloria gave birth to daughter Amara in 2021; its family trivia identifies Amara as Otto and Gloria’s previous calf. The exact day and month are not reported. Source IDs: hippopotamus-pygmy-source-edinburgh-amara-family, hippopotamus-pygmy-source-edinburgh-piper-birth. Current status unknown."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-otto",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Otto",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-edinburgh-amara-family",
+          "hippopotamus-pygmy-source-edinburgh-haggis-birth",
+          "hippopotamus-pygmy-source-edinburgh-piper-name"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Edinburgh Zoo identifies Otto as the father of Amara, Haggis, and Piper. Source IDs: hippopotamus-pygmy-source-edinburgh-amara-family, hippopotamus-pygmy-source-edinburgh-haggis-birth, hippopotamus-pygmy-source-edinburgh-piper-name. Current status unknown."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-gloria",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Gloria",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-edinburgh-amara-family",
+          "hippopotamus-pygmy-source-edinburgh-haggis-birth",
+          "hippopotamus-pygmy-source-edinburgh-piper-name"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Edinburgh Zoo identifies Gloria as the mother of Amara, Haggis, and Piper. Source IDs: hippopotamus-pygmy-source-edinburgh-amara-family, hippopotamus-pygmy-source-edinburgh-haggis-birth, hippopotamus-pygmy-source-edinburgh-piper-name. Current status unknown."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-haggis",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Haggis",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-edinburgh-haggis-birth",
+          "hippopotamus-pygmy-source-edinburgh-haggis-family",
+          "hippopotamus-pygmy-source-edinburgh-piper-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-edinburgh-haggis-birth, hippopotamus-pygmy-source-edinburgh-haggis-family, hippopotamus-pygmy-source-edinburgh-piper-birth. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-piper",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Piper",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-edinburgh-piper-name",
+          "hippopotamus-pygmy-source-edinburgh-piper-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-edinburgh-piper-name, hippopotamus-pygmy-source-edinburgh-piper-birth. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-motomoto",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Motomoto",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-ueno-natsume-birth",
+          "hippopotamus-pygmy-source-ueno-momiji-birth",
+          "hippopotamus-pygmy-source-ueno-motomoto-transfer"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-ueno-natsume-birth, hippopotamus-pygmy-source-ueno-momiji-birth, hippopotamus-pygmy-source-ueno-motomoto-transfer. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-natsume",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Natsume",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-ueno-natsume-birth",
+          "hippopotamus-pygmy-source-ueno-sisters",
+          "hippopotamus-pygmy-source-ueno-kobushi-name",
+          "hippopotamus-pygmy-source-ueno-about-kobushi"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-ueno-natsume-birth, hippopotamus-pygmy-source-ueno-sisters, hippopotamus-pygmy-source-ueno-kobushi-name, hippopotamus-pygmy-source-ueno-about-kobushi. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-momiji",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Momiji",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-ueno-momiji-birth",
+          "hippopotamus-pygmy-source-ueno-sisters",
+          "hippopotamus-pygmy-source-ueno-iroha-name"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-ueno-momiji-birth, hippopotamus-pygmy-source-ueno-sisters, hippopotamus-pygmy-source-ueno-iroha-name. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-kobushi",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Kobushi",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-ueno-natsume-birth",
+          "hippopotamus-pygmy-source-ueno-kobushi-name",
+          "hippopotamus-pygmy-source-ueno-about-kobushi"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-ueno-natsume-birth, hippopotamus-pygmy-source-ueno-kobushi-name, hippopotamus-pygmy-source-ueno-about-kobushi. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-iroha",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Iroha",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-ueno-momiji-birth",
+          "hippopotamus-pygmy-source-ueno-iroha-name"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-ueno-momiji-birth, hippopotamus-pygmy-source-ueno-iroha-name. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-kindia",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Kindia",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-toronto-penelope-birth",
+          "hippopotamus-pygmy-source-toronto-penelope-name",
+          "hippopotamus-pygmy-source-toronto-maple-birth",
+          "hippopotamus-pygmy-source-toronto-maple-name",
+          "hippopotamus-pygmy-source-john-ball-hugo"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth, hippopotamus-pygmy-source-toronto-penelope-name, hippopotamus-pygmy-source-toronto-maple-birth, hippopotamus-pygmy-source-toronto-maple-name, hippopotamus-pygmy-source-john-ball-hugo. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-harvey",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Harvey",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-toronto-penelope-birth",
+          "hippopotamus-pygmy-source-toronto-maple-birth",
+          "hippopotamus-pygmy-source-toronto-maple-name"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth, hippopotamus-pygmy-source-toronto-maple-birth, hippopotamus-pygmy-source-toronto-maple-name. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-penelope",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Penelope",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-toronto-penelope-birth",
+          "hippopotamus-pygmy-source-toronto-penelope-name",
+          "hippopotamus-pygmy-source-john-ball-hugo"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth, hippopotamus-pygmy-source-toronto-penelope-name, hippopotamus-pygmy-source-john-ball-hugo. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-psi",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Psi",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-toronto-penelope-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-cleopatra",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Cleopatra",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-toronto-penelope-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-pogo",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Pogo",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-toronto-penelope-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-penelope-birth. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-jahari",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Jahari",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-john-ball-hugo"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-john-ball-hugo. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-hugo",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Hugo",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-john-ball-hugo"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-john-ball-hugo. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-iris",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Iris",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-richmond-poppy-birth",
+          "hippopotamus-pygmy-source-richmond-poppy-name",
+          "hippopotamus-pygmy-source-richmond-poppy-profile"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-richmond-poppy-birth, hippopotamus-pygmy-source-richmond-poppy-name, hippopotamus-pygmy-source-richmond-poppy-profile. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-corwin",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "unknown",
+      "status": "unknown",
+      "name": {
+        "canonical": "Corwin",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-richmond-poppy-birth",
+          "hippopotamus-pygmy-source-richmond-poppy-profile"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Metro Richmond Zoo directly names Iris and Corwin as Poppy’s parents. This source does not explicitly state Corwin’s sex or assign parent-role wording, so sex is unknown and no sire-role claim is created. Source IDs: hippopotamus-pygmy-source-richmond-poppy-birth, hippopotamus-pygmy-source-richmond-poppy-profile. Current status unknown."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-poppy",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Poppy",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-richmond-poppy-birth",
+          "hippopotamus-pygmy-source-richmond-poppy-name",
+          "hippopotamus-pygmy-source-richmond-poppy-profile"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-richmond-poppy-birth, hippopotamus-pygmy-source-richmond-poppy-name, hippopotamus-pygmy-source-richmond-poppy-profile. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-maple",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Maple",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-toronto-maple-birth",
+          "hippopotamus-pygmy-source-toronto-maple-name"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and sex evidence: hippopotamus-pygmy-source-toronto-maple-birth, hippopotamus-pygmy-source-toronto-maple-name. Current living status is left unknown because this source-bounded import does not establish it at review time."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-moo-deng",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Moo Deng",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-khao-moodeng-birth",
+          "hippopotamus-pygmy-source-khao-moodeng-name",
+          "hippopotamus-pygmy-source-khao-thailand-zoo-report",
+          "hippopotamus-pygmy-source-khao-english-name"
+        ],
+        "localized": [
+          {
+            "value": "หมูเด้ง",
+            "language": "th",
+            "source_ids": [
+              "hippopotamus-pygmy-source-khao-moodeng-name",
+              "hippopotamus-pygmy-source-khao-moodeng-birth"
+            ]
+          }
+        ]
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Khao Kheow Open Zoo’s Thai announcement identifies a female calf and gives the source spelling หมูเด้ง; the Thailand Zoological Park Organization report directly names Tony and Jona as parents. The official zoo document uses the English romanization Moo Deng. The zoo announcement date of introduction is not treated as a birth date. Source IDs: hippopotamus-pygmy-source-khao-moodeng-birth, hippopotamus-pygmy-source-khao-moodeng-name, hippopotamus-pygmy-source-khao-thailand-zoo-report, hippopotamus-pygmy-source-khao-english-name. Current status unknown."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-jona",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "โจน่า",
+        "language": "th",
+        "source_ids": [
+          "hippopotamus-pygmy-source-khao-moodeng-birth",
+          "hippopotamus-pygmy-source-khao-moodeng-name",
+          "hippopotamus-pygmy-source-khao-thailand-zoo-report"
+        ],
+        "localized": [
+          {
+            "value": "Jona",
+            "language": "en",
+            "source_ids": [
+              "hippopotamus-pygmy-source-khao-moodeng-birth",
+              "hippopotamus-pygmy-source-khao-thailand-zoo-report"
+            ]
+          }
+        ]
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Khao Kheow Open Zoo names Jona as the mother of the female calf; its Thai spelling on the birth announcement is retained as canonical. Source IDs: hippopotamus-pygmy-source-khao-moodeng-birth, hippopotamus-pygmy-source-khao-thailand-zoo-report. Current status unknown."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-tony",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "โทนี่",
+        "language": "th",
+        "source_ids": [
+          "hippopotamus-pygmy-source-khao-moodeng-birth",
+          "hippopotamus-pygmy-source-khao-moodeng-name",
+          "hippopotamus-pygmy-source-khao-thailand-zoo-report"
+        ],
+        "localized": [
+          {
+            "value": "Tony",
+            "language": "en",
+            "source_ids": [
+              "hippopotamus-pygmy-source-khao-moodeng-birth",
+              "hippopotamus-pygmy-source-khao-thailand-zoo-report"
+            ]
+          }
+        ]
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Khao Kheow Open Zoo names Tony as the father of the female calf; its Thai spelling on the birth announcement is retained as canonical. Source IDs: hippopotamus-pygmy-source-khao-moodeng-birth, hippopotamus-pygmy-source-khao-thailand-zoo-report. Current status unknown."
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "hippopotamus-pygmy-claim-natsume-momiji-sisters",
+      "subject": "hippopotamus-pygmy-natsume",
+      "claim_type": "sibling",
+      "value": "hippopotamus-pygmy-momiji",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-sisters"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Ueno Zoo explicitly describes Natsume and Momiji as sisters born to the same parents; those parents are not named."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-claim-iris-corwin-poppy-parent-pair",
+      "subject": "hippopotamus-pygmy-poppy",
+      "claim_type": "biological_parent_pair",
+      "value": [
+        "hippopotamus-pygmy-iris",
+        "hippopotamus-pygmy-corwin"
+      ],
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-richmond-poppy-birth",
+        "hippopotamus-pygmy-source-richmond-poppy-profile"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Metro Richmond Zoo names Iris and Corwin as Poppy’s parents. Iris is separately supported as mother; the source does not explicitly assign Corwin the father role, so no biological_father relationship was inferred."
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "hippopotamus-pygmy-relationship-gloria-amara",
+      "subject": "hippopotamus-pygmy-gloria",
+      "object": "hippopotamus-pygmy-amara",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-amara-family",
+        "hippopotamus-pygmy-source-edinburgh-piper-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-otto-amara",
+      "subject": "hippopotamus-pygmy-otto",
+      "object": "hippopotamus-pygmy-amara",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-amara-family"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-gloria-haggis",
+      "subject": "hippopotamus-pygmy-gloria",
+      "object": "hippopotamus-pygmy-haggis",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-haggis-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-otto-haggis",
+      "subject": "hippopotamus-pygmy-otto",
+      "object": "hippopotamus-pygmy-haggis",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-haggis-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-gloria-piper",
+      "subject": "hippopotamus-pygmy-gloria",
+      "object": "hippopotamus-pygmy-piper",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-piper-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-otto-piper",
+      "subject": "hippopotamus-pygmy-otto",
+      "object": "hippopotamus-pygmy-piper",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-piper-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-natsume-kobushi",
+      "subject": "hippopotamus-pygmy-natsume",
+      "object": "hippopotamus-pygmy-kobushi",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-natsume-birth",
+        "hippopotamus-pygmy-source-ueno-kobushi-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-motomoto-kobushi",
+      "subject": "hippopotamus-pygmy-motomoto",
+      "object": "hippopotamus-pygmy-kobushi",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-natsume-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-momiji-iroha",
+      "subject": "hippopotamus-pygmy-momiji",
+      "object": "hippopotamus-pygmy-iroha",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-momiji-birth",
+        "hippopotamus-pygmy-source-ueno-iroha-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-motomoto-iroha",
+      "subject": "hippopotamus-pygmy-motomoto",
+      "object": "hippopotamus-pygmy-iroha",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-momiji-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-kindia-penelope",
+      "subject": "hippopotamus-pygmy-kindia",
+      "object": "hippopotamus-pygmy-penelope",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth",
+        "hippopotamus-pygmy-source-toronto-penelope-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-harvey-penelope",
+      "subject": "hippopotamus-pygmy-harvey",
+      "object": "hippopotamus-pygmy-penelope",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-cleopatra-pogo",
+      "subject": "hippopotamus-pygmy-cleopatra",
+      "object": "hippopotamus-pygmy-pogo",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-psi-pogo",
+      "subject": "hippopotamus-pygmy-psi",
+      "object": "hippopotamus-pygmy-pogo",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-penelope-hugo",
+      "subject": "hippopotamus-pygmy-penelope",
+      "object": "hippopotamus-pygmy-hugo",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-john-ball-hugo"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-jahari-hugo",
+      "subject": "hippopotamus-pygmy-jahari",
+      "object": "hippopotamus-pygmy-hugo",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-john-ball-hugo"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-kindia-maple",
+      "subject": "hippopotamus-pygmy-kindia",
+      "object": "hippopotamus-pygmy-maple",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-maple-birth",
+        "hippopotamus-pygmy-source-toronto-maple-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-harvey-maple",
+      "subject": "hippopotamus-pygmy-harvey",
+      "object": "hippopotamus-pygmy-maple",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-maple-birth",
+        "hippopotamus-pygmy-source-toronto-maple-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-iris-poppy",
+      "subject": "hippopotamus-pygmy-iris",
+      "object": "hippopotamus-pygmy-poppy",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-richmond-poppy-birth",
+        "hippopotamus-pygmy-source-richmond-poppy-profile"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-jona-moo-deng",
+      "subject": "hippopotamus-pygmy-jona",
+      "object": "hippopotamus-pygmy-moo-deng",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-khao-moodeng-birth",
+        "hippopotamus-pygmy-source-khao-thailand-zoo-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-tony-moo-deng",
+      "subject": "hippopotamus-pygmy-tony",
+      "object": "hippopotamus-pygmy-moo-deng",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-khao-moodeng-birth",
+        "hippopotamus-pygmy-source-khao-thailand-zoo-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly reported parent and offspring; source IDs are attached."
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "hippopotamus-pygmy-event-amara-birth",
+      "animal_id": "hippopotamus-pygmy-amara",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "2021"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-edinburgh-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-amara-family",
+        "hippopotamus-pygmy-source-edinburgh-piper-birth"
+      ],
+      "notes": "The official source gives the year 2021 only; no month or day is supplied.",
+      "related_animal_ids": []
+    },
+    {
+      "id": "hippopotamus-pygmy-event-haggis-birth",
+      "animal_id": "hippopotamus-pygmy-haggis",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2024-10-30"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-edinburgh-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-haggis-birth"
+      ],
+      "notes": "",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-otto",
+        "hippopotamus-pygmy-gloria"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-piper-birth",
+      "animal_id": "hippopotamus-pygmy-piper",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2026-07-31"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-edinburgh-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-piper-birth",
+        "hippopotamus-pygmy-source-edinburgh-piper-name"
+      ],
+      "notes": "",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-otto",
+        "hippopotamus-pygmy-gloria"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-amara-move-to-london",
+      "animal_id": "hippopotamus-pygmy-amara",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2023"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-zsl-london-zoo",
+      "from_institution_id": "hippopotamus-pygmy-institution-edinburgh-zoo",
+      "to_institution_id": "hippopotamus-pygmy-institution-zsl-london-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-amara-family"
+      ],
+      "notes": "The official Edinburgh source says Amara moved to ZSL London Zoo in 2023; no month or day is given."
+    },
+    {
+      "id": "hippopotamus-pygmy-event-motomoto-birth",
+      "animal_id": "hippopotamus-pygmy-motomoto",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2013-07-09"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-buin-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-natsume-birth",
+        "hippopotamus-pygmy-source-ueno-motomoto-transfer"
+      ],
+      "notes": "",
+      "related_animal_ids": []
+    },
+    {
+      "id": "hippopotamus-pygmy-event-natsume-birth",
+      "animal_id": "hippopotamus-pygmy-natsume",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2011-06-22"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-ueno-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-natsume-birth"
+      ],
+      "notes": "",
+      "related_animal_ids": []
+    },
+    {
+      "id": "hippopotamus-pygmy-event-momiji-birth",
+      "animal_id": "hippopotamus-pygmy-momiji",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2003-11-20"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-ueno-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-momiji-birth"
+      ],
+      "notes": "",
+      "related_animal_ids": []
+    },
+    {
+      "id": "hippopotamus-pygmy-event-kobushi-birth",
+      "animal_id": "hippopotamus-pygmy-kobushi",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2025-03-14"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-ueno-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-natsume-birth",
+        "hippopotamus-pygmy-source-ueno-kobushi-name",
+        "hippopotamus-pygmy-source-ueno-about-kobushi"
+      ],
+      "notes": "",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-natsume",
+        "hippopotamus-pygmy-motomoto"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-iroha-birth",
+      "animal_id": "hippopotamus-pygmy-iroha",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2025-12-25"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-ueno-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-momiji-birth",
+        "hippopotamus-pygmy-source-ueno-iroha-name"
+      ],
+      "notes": "",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-momiji",
+        "hippopotamus-pygmy-motomoto"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-motomoto-transfer-to-ueno",
+      "animal_id": "hippopotamus-pygmy-motomoto",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2023-03-20"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-ueno-zoo",
+      "from_institution_id": "hippopotamus-pygmy-institution-nifrel",
+      "to_institution_id": "hippopotamus-pygmy-institution-ueno-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-natsume-birth",
+        "hippopotamus-pygmy-source-ueno-motomoto-transfer"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "hippopotamus-pygmy-event-motomoto-return-to-nifrel",
+      "animal_id": "hippopotamus-pygmy-motomoto",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2026-05-25"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-nifrel",
+      "from_institution_id": "hippopotamus-pygmy-institution-ueno-zoo",
+      "to_institution_id": "hippopotamus-pygmy-institution-nifrel",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-motomoto-transfer"
+      ],
+      "notes": "The official Ueno Zoo update confirms Motomoto moved as scheduled and arrived safely at NIFREL."
+    },
+    {
+      "id": "hippopotamus-pygmy-event-penelope-birth",
+      "animal_id": "hippopotamus-pygmy-penelope",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2018-08-10"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-toronto-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth",
+        "hippopotamus-pygmy-source-toronto-penelope-name"
+      ],
+      "notes": "",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-kindia",
+        "hippopotamus-pygmy-harvey"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-pogo-birth",
+      "animal_id": "hippopotamus-pygmy-pogo",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1999-09-02"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-toronto-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ],
+      "notes": "",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-cleopatra",
+        "hippopotamus-pygmy-psi"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-kindia-transfer-to-toronto",
+      "animal_id": "hippopotamus-pygmy-kindia",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2016-06"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-toronto-zoo",
+      "from_institution_id": "hippopotamus-pygmy-institution-parc-zoologique-la-fleche",
+      "to_institution_id": "hippopotamus-pygmy-institution-toronto-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ],
+      "notes": "Toronto Zoo says Kindia arrived from Parc Zoologique de La Flèche in Sarthe, France, in June 2016; exact move day is not given."
+    },
+    {
+      "id": "hippopotamus-pygmy-event-hugo-birth",
+      "animal_id": "hippopotamus-pygmy-hugo",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2025-09-03"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-john-ball-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-john-ball-hugo"
+      ],
+      "notes": "",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-penelope",
+        "hippopotamus-pygmy-jahari"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-poppy-birth",
+      "animal_id": "hippopotamus-pygmy-poppy",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2024-12-09"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-metro-richmond-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-richmond-poppy-birth",
+        "hippopotamus-pygmy-source-richmond-poppy-name",
+        "hippopotamus-pygmy-source-richmond-poppy-profile"
+      ],
+      "notes": "",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-iris",
+        "hippopotamus-pygmy-corwin"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-maple-birth",
+      "animal_id": "hippopotamus-pygmy-maple",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2026-08-02"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-toronto-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-maple-birth",
+        "hippopotamus-pygmy-source-toronto-maple-name"
+      ],
+      "notes": "",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-kindia",
+        "hippopotamus-pygmy-harvey"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-penelope-transfer-to-john-ball",
+      "animal_id": "hippopotamus-pygmy-penelope",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2023"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-john-ball-zoo",
+      "from_institution_id": "hippopotamus-pygmy-institution-toronto-zoo",
+      "to_institution_id": "hippopotamus-pygmy-institution-john-ball-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-john-ball-hugo"
+      ],
+      "notes": "John Ball Zoo says Penelope arrived from Toronto Zoo in 2023; no exact date is supplied."
+    },
+    {
+      "id": "hippopotamus-pygmy-event-jahari-transfer-to-john-ball",
+      "animal_id": "hippopotamus-pygmy-jahari",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2023"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-john-ball-zoo",
+      "from_institution_id": "hippopotamus-pygmy-institution-pittsburgh-zoo",
+      "to_institution_id": "hippopotamus-pygmy-institution-john-ball-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-john-ball-hugo"
+      ],
+      "notes": "John Ball Zoo says Jahari came from Pittsburgh Zoo in early 2023; no exact date is supplied."
+    },
+    {
+      "id": "hippopotamus-pygmy-event-pogo-transfer-to-lowry-park",
+      "animal_id": "hippopotamus-pygmy-pogo",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2003-11"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-lowry-park-zoo",
+      "from_institution_id": "hippopotamus-pygmy-institution-toronto-zoo",
+      "to_institution_id": "hippopotamus-pygmy-institution-lowry-park-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ],
+      "notes": "Toronto Zoo says Pogo left in November 2003 and resided at Tampa’s Lowry Park Zoo; no exact day is supplied."
+    },
+    {
+      "id": "hippopotamus-pygmy-event-moo-deng-public-introduction",
+      "animal_id": "hippopotamus-pygmy-moo-deng",
+      "type": "observation",
+      "date": {
+        "precision": "exact",
+        "value": "2024-07-25"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-khao-kheow-open-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-khao-moodeng-birth"
+      ],
+      "notes": "Khao Kheow Open Zoo reports introducing its female pygmy hippo calf on this date. It is not recorded as her birth date."
+    }
+  ],
+  "institutions": [
+    {
+      "id": "hippopotamus-pygmy-institution-edinburgh-zoo",
+      "names": [
+        {
+          "value": "Edinburgh Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "GB",
+      "location": "Edinburgh, Scotland"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-zsl-london-zoo",
+      "names": [
+        {
+          "value": "ZSL London Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "GB",
+      "location": "London, England"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-ueno-zoo",
+      "names": [
+        {
+          "value": "Ueno Zoo",
+          "language": "en"
+        },
+        {
+          "value": "Ueno Zoological Gardens",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Tokyo"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-buin-zoo",
+      "names": [
+        {
+          "value": "Buin Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "CL",
+      "location": "Buin"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-nifrel",
+      "names": [
+        {
+          "value": "NIFREL",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Suita, Osaka"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-toronto-zoo",
+      "names": [
+        {
+          "value": "Toronto Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "CA",
+      "location": "Toronto, Ontario"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-lowry-park-zoo",
+      "names": [
+        {
+          "value": "Tampa’s Lowry Park Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Tampa, Florida"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-john-ball-zoo",
+      "names": [
+        {
+          "value": "John Ball Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Grand Rapids, Michigan"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-pittsburgh-zoo",
+      "names": [
+        {
+          "value": "Pittsburgh Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Pittsburgh, Pennsylvania"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-metro-richmond-zoo",
+      "names": [
+        {
+          "value": "Metro Richmond Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Moseley, Virginia"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-khao-kheow-open-zoo",
+      "names": [
+        {
+          "value": "สวนสัตว์เปิดเขาเขียว",
+          "language": "th"
+        },
+        {
+          "value": "Khao Kheow Open Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "TH",
+      "location": "Si Racha, Chonburi"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-parc-zoologique-la-fleche",
+      "names": [
+        {
+          "value": "Parc Zoologique de La Flèche",
+          "language": "fr"
+        }
+      ],
+      "country_code": "FR",
+      "location": "La Flèche, Sarthe"
+    }
+  ],
+  "media": [],
+  "sources": [
+    {
+      "id": "hippopotamus-pygmy-source-edinburgh-amara-family",
+      "title": "Haggis’ Trivia Trail – Pygmy hippos",
+      "publisher": "Edinburgh Zoo",
+      "url": "https://www.edinburghzoo.org.uk/animals/animal-inhabitants/pygmy-hippo/haggis/haggis-trivia-trail-4",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_family_record",
+      "notes": "States Amara (2021) was the previous calf of Otto and Gloria and moved to ZSL London Zoo in 2023.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-edinburgh-haggis-family",
+      "title": "Haggis hits the road",
+      "publisher": "Edinburgh Zoo",
+      "url": "https://www.edinburghzoo.org.uk/animals/animal-inhabitants/pygmy-hippo/haggis",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_family_record",
+      "notes": "Identifies Otto as father of the Edinburgh hippo family, Gloria as mother, and Haggis as their calf; says Haggis moved to another zoo but does not name the destination.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-edinburgh-haggis-birth",
+      "title": "Moo Deng who? Edinburgh Zoo welcomes Haggis the endangered pygmy hippo calf",
+      "publisher": "Edinburgh Zoo",
+      "url": "https://www.edinburghzoo.org.uk/news/moo-deng-who-edinburgh-zoo-welcomes-haggis-endangered-pygmy-hippo-calf",
+      "publication_date": "2024-11-04",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_birth_announcement",
+      "notes": "Names female calf Haggis, born 2024-10-30 to Otto and Gloria.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-edinburgh-piper-birth",
+      "title": "That was quick! Baby hippo born at Edinburgh Zoo",
+      "publisher": "Edinburgh Zoo",
+      "url": "https://www.edinburghzoo.org.uk/news/was-quick-baby-hippo-born-edinburgh-zoo",
+      "publication_date": "2026-08-03",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_birth_announcement",
+      "notes": "Reports the 2026-07-31 calf was born to Otto and Gloria and says Gloria had daughters Amara (2021) and Haggis (2024).",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-edinburgh-piper-name",
+      "title": "Pint-sized Piper: Baby pygmy hippo named after health check at Edinburgh Zoo",
+      "publisher": "Edinburgh Zoo",
+      "url": "https://www.edinburghzoo.org.uk/news/pint-sized-piper-baby-pygmy-hippo-named-after-health-check-edinburgh-zoo",
+      "publication_date": "2026-08-07",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_birth_and_naming_announcement",
+      "notes": "Names the female calf Piper, gives birth date 2026-07-31, and identifies Otto and Gloria as parents.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-natsume-birth",
+      "title": "Pygmy Hippopotamus hippo Natsume has given birth!",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/topics/news/ueno/155_29052_2025-03-18.html",
+      "publication_date": "2025-03-18",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_birth_announcement",
+      "notes": "Reports male calf born 2025-03-14 to mother Natsume and father Motomoto; gives Natsume birth date 2011-06-22 and Motomoto birth date 2013-07-09 at Buin Zoo, plus receipt from NIFREL on 2023-03-20.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-momiji-birth",
+      "title": "Pygmy Hippopotamus “Momiji” has given birth!",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/topics/news/ueno/041_29468_2025-12-27.html",
+      "publication_date": "2025-12-26",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_birth_announcement",
+      "notes": "Original announcement 2025-12-26, updated 2025-12-27; reports female calf born 2025-12-25 to mother Momiji and father Motomoto; gives Momiji birth date 2003-11-20 at Ueno Zoo and Motomoto birth details.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-sisters",
+      "title": "Differences in behavior from breeding to raising offspring observed in two female Pygmy Hippopotamus hippos",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/ueno/blog/11485/index.html",
+      "publication_date": "2026-05-15",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_care_blog",
+      "notes": "Directly describes Natsume and Momiji as sisters born to the same parents; does not name their parents.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-iroha-name",
+      "title": "The baby Pygmy Hippopotamus has been named!",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/ueno/news/11041/index.html",
+      "publication_date": "2026-04-07",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_naming_announcement",
+      "notes": "Names the female calf born at Ueno Zoo on 2025-12-25 Iroha; the linked birth facts identify Momiji and Motomoto as parents.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-motomoto-transfer",
+      "title": "We are moving Pygmy Hippopotamus “Motomoto” to NIFREL",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/ueno/news/11241/index.html",
+      "publication_date": "2026-04-24",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_transfer_announcement",
+      "notes": "Updated 2026-05-26 to confirm arrival; identifies male Motomoto, birth at Buin Zoo on 2013-07-09, move from NIFREL to Ueno on 2023-03-20, and return move from Ueno to NIFREL on 2026-05-25.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-kobushi-name",
+      "title": "Ueno Zoo pygmy hippo mother-and-calf public-viewing announcement",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/topics/news/ueno/079_29149_2025-05-18.html",
+      "publication_date": "2025-05-18",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_exhibit_announcement",
+      "notes": "Identifies the Ueno calf as Kobushi in the caption and describes the mother-and-calf exhibit. Ueno Zoo’s official About page also lists “Pygmy Hippopotamus Natsume gives birth to baby Kobushi.”",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-about-kobushi",
+      "title": "About Ueno Zoo",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/ueno/about/index.html",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_history",
+      "notes": "The official Ueno Zoo timeline names Kobushi as Natsume’s baby in the 2025 entry.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-toronto-penelope-birth",
+      "title": "Toronto Zoo Welcomes Birth of Endangered Pygmy Hippopotamus Calf",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/press/2018/%21newsite.asp?pg=20180821",
+      "publication_date": "2018-08-21",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_birth_announcement",
+      "notes": "Reports Kindia gave birth to a female calf on 2018-08-10; identifies male Harvey as sire; also records male Pogo, born 1999-09-02 to sire Psi and dam Cleopatra, and Pogo’s departure for Tampa’s Lowry Park Zoo in November 2003.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-toronto-penelope-name",
+      "title": "Toronto Zoo’s Endangered Pygmy Hippopotamus Calf Has a Name!",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/press/2018/%21newsite.asp?pg=20181004",
+      "publication_date": "2018-10-04",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_naming_announcement",
+      "notes": "Names the female calf Penelope and confirms she was born to Kindia on 2018-08-10.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-toronto-maple-birth",
+      "title": "Pygmy Hippo Calf Born At Your Toronto Zoo!",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/mediaroom/press2026/20260805-pygmy-hippo-calf",
+      "publication_date": "2026-08-05",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_birth_announcement",
+      "notes": "Reports female calf born 2026-08-02 to mother Kindia after breeding with male Harvey; identifies Kindia’s daughter Penelope as her 2018 calf.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-toronto-maple-name",
+      "title": "Introducing... Pygmy Hippo Calf Name Reveal!",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/mediaroom/press2026/20260821-maple",
+      "publication_date": "2026-08-21",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_naming_announcement",
+      "notes": "Names the female calf Maple; says she was born 2026-08-02 and identifies Kindia and Harvey as her parents.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-john-ball-hugo",
+      "title": "A Rare Birth: Behind The Scenes Of Baby Pygmy Hippo Hugo’s Arrival",
+      "publisher": "John Ball Zoo",
+      "url": "https://jbzoo.org/2025/12/02/pygmy-hippo-arrival-at-john-ball-zoo/",
+      "publication_date": "2025-12-02",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_birth_and_family_record",
+      "notes": "Names male Hugo, born 2025-09-03 to Penelope and Jahari; states Penelope came from Toronto Zoo in 2023 and Jahari from Pittsburgh Zoo in early 2023.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-richmond-poppy-birth",
+      "title": "Pygmy Hippo Born Before Christmas",
+      "publisher": "Metro Richmond Zoo",
+      "url": "https://metrorichmondzoo.com/newsroom/pygmy-hippo-born-before-christmas/",
+      "publication_date": "2024-12-24",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_birth_announcement",
+      "notes": "Reports a female calf born 2024-12-09 to parents Iris and Corwin; calf unnamed in this initial announcement.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-richmond-poppy-name",
+      "title": "Pygmy Hippo Name Announcement",
+      "publisher": "Metro Richmond Zoo",
+      "url": "https://metrorichmondzoo.com/newsroom/pygmy-hippo-name-announcement/",
+      "publication_date": "2025-01-06",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_naming_announcement",
+      "notes": "Names the calf Poppy and identifies Iris as her mother.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-richmond-poppy-profile",
+      "title": "Poppy The Pygmy Hippo",
+      "publisher": "Metro Richmond Zoo",
+      "url": "https://metrorichmondzoo.com/animals/poppy-the-pygmy-hippo/",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_animal_profile",
+      "notes": "Current official animal page identifies Poppy, gives her 2024-12-09 birth date and names Iris and Corwin as her parents.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-khao-moodeng-birth",
+      "title": "ฉลองวันแม่แห่งชาติ สวนสัตว์เปิดเขาเขียว ชวนโหวตตั้งชื่อลูกฮิปโปโปเตมัสแคระ",
+      "publisher": "Khao Kheow Open Zoo",
+      "url": "https://khaokheow.zoothailand.org/ewt_news.php?n_id=1242",
+      "publication_date": "2024-08-06",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_birth_announcement",
+      "notes": "Thai official announcement states the zoo introduced a female calf on 2024-07-25 and identifies mother Jona and father Tony. It does not establish a birth date. The official page returned a direct-fetch timeout during this review; indexed text from the exact official URL was reviewed and parentage was cross-checked against the Thailand Zoological Park Organization report.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-khao-moodeng-name",
+      "title": "ได้ชื่อแล้ว น้องหมูเด้ง ลูกฮิปโปแคระ สวนสัตว์เปิดเขาเขียว",
+      "publisher": "Khao Kheow Open Zoo",
+      "url": "https://khaokheow.zoothailand.org/ewt_news.php?n_id=1247",
+      "publication_date": "2024-08-20",
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_naming_announcement",
+      "notes": "Thai official announcement says the voted name is หมูเด้ง. The official page returned a direct-fetch timeout during this review; indexed text from the exact official URL was reviewed.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-khao-thailand-zoo-report",
+      "title": "แผนวิสาหกิจ พ.ศ. 2566–2570 (ฉบับทบทวนปีงบประมาณ 2569) ของ อสส.",
+      "publisher": "Zoological Park Organization of Thailand",
+      "url": "https://www.zoothailand.org/download/article/article_20250918104413.pdf",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_organization_report",
+      "notes": "Official organization plan records Moo Deng as offspring of breeding male Tony and female Jona; used only to cross-check named parentage, not as a studbook extract.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    },
+    {
+      "id": "hippopotamus-pygmy-source-khao-english-name",
+      "title": "Official Khao Kheow Open Zoo PDF (article_20260618143005.pdf)",
+      "publisher": "Khao Kheow Open Zoo",
+      "url": "https://khaokheow.zoothailand.org/download/article/article_20260618143005.pdf",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official_zoo_document",
+      "notes": "The zoo’s official document uses the romanization “Moo Deng”; used for the English localized name only. It is not used as individual pedigree data.",
+      "data_use": "The import stores brief factual metadata and attribution links only. No page text or image bytes are copied; no legal reuse conclusion is asserted."
+    }
+  ]
+}
