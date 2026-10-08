@@ -10,7 +10,7 @@
       "/atlas.polar-bear/",
       "/atlas.hippopotamus/"
     ],
-    "deployment_status": "pending",
+    "deployment_status": "deployed",
     "legacy_path_checks": "excluded by the user's Phase 2 scope"
   },
   "corpus_counts": {
@@ -66,21 +66,63 @@
     "build": "all four independent Atlas paths passed"
   },
   "github_actions": {
-    "status": "pending reviewed pull request",
-    "main_revision": null,
-    "run_url": null
+    "status": "passed",
+    "pull_request": "https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/4",
+    "main_revision": "ad24b3bb51c08242c731189040d15241d56ab3b4",
+    "run_url": "https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/37725623575"
   },
   "production_verification": {
-    "status": "pending",
-    "manifest_revision_matches_github_main": null,
-    "active_manifest": null,
-    "previous_four_path_targets_recorded": null,
-    "http_statuses": null,
-    "direct_profiles": null,
-    "production_browser": null,
-    "nginx_config_test": null,
-    "no_animal_photos": null,
-    "filesystem_free_space": null
+    "status": "passed",
+    "verified_at_utc": "2026-10-08T04:08:14Z",
+    "main_revision_at_verification": "ad24b3bb51c08242c731189040d15241d56ab3b4",
+    "manifest_revision_matches_github_main": true,
+    "active_manifest": "/var/www/html/_animal-lineage-releases/ad24b3bb51c08242c731189040d15241d56ab3b4/release-manifest.json",
+    "active_targets": {
+      "/atlas/": "_animal-lineage-releases/ad24b3bb51c08242c731189040d15241d56ab3b4/atlas",
+      "/atlas.red-panda/": "_animal-lineage-releases/ad24b3bb51c08242c731189040d15241d56ab3b4/atlas.red-panda",
+      "/atlas.polar-bear/": "_animal-lineage-releases/ad24b3bb51c08242c731189040d15241d56ab3b4/atlas.polar-bear",
+      "/atlas.hippopotamus/": "_animal-lineage-releases/ad24b3bb51c08242c731189040d15241d56ab3b4/atlas.hippopotamus"
+    },
+    "previous_four_path_targets_recorded": {
+      "/atlas/": "_animal-lineage-releases/8bafae5ee12da07912cbc2e95811aafe8fb5b320/atlas",
+      "/atlas.red-panda/": "_animal-lineage-releases/8bafae5ee12da07912cbc2e95811aafe8fb5b320/atlas.red-panda",
+      "/atlas.polar-bear/": "_animal-lineage-releases/8bafae5ee12da07912cbc2e95811aafe8fb5b320/atlas.polar-bear",
+      "/atlas.hippopotamus/": "_animal-lineage-releases/8bafae5ee12da07912cbc2e95811aafe8fb5b320/atlas.hippopotamus"
+    },
+    "previous_targets_exist": true,
+    "http_statuses": {
+      "/atlas/": 200,
+      "/atlas/main.js": 200,
+      "/atlas/catalog.json": 200,
+      "/atlas.red-panda/": 200,
+      "/atlas.red-panda/main.js": 200,
+      "/atlas.red-panda/runtime.json": 200,
+      "/atlas.polar-bear/": 200,
+      "/atlas.polar-bear/main.js": 200,
+      "/atlas.polar-bear/runtime.json": 200,
+      "/atlas.hippopotamus/": 200,
+      "/atlas.hippopotamus/main.js": 200,
+      "/atlas.hippopotamus/runtime.json": 200
+    },
+    "direct_profiles": [
+      {"path": "/atlas.red-panda/?animal=red-panda%3Akelu", "profile": "Kelú", "http_status": 200, "genealogy": "rendered", "source_S24_visible": true},
+      {"path": "/atlas.polar-bear/?animal=polar-bear%3Afranz", "profile": "Franz", "http_status": 200, "genealogy": "rendered"},
+      {"path": "/atlas.hippopotamus/?animal=hippopotamus%3Afiona", "profile": "Fiona", "http_status": 200, "genealogy": "rendered"}
+    ],
+    "production_browser": {
+      "runner": "Playwright Chromium",
+      "hub_cards": 3,
+      "red_panda_hub_count": 1554,
+      "interface_locales": {"Japanese": "passed", "Russian": "passed"},
+      "mobile_viewport_css_px": [390, 844],
+      "mobile_document_width_px": 390,
+      "page_errors": 0,
+      "atlas_asset_errors": 0,
+      "screenshots_directory": "/tmp/animal-lineage-atlas-qa/"
+    },
+    "nginx_config_test": "passed",
+    "no_animal_photos": "passed",
+    "filesystem_free_space": {"filesystem_gb": 38, "available_gb": 5.5, "used_percent": 85}
   },
   "preflight_disk": {"filesystem_gb": 38, "used_gb": 31, "available_gb": 5.5, "used_percent": 85},
   "rollback": "The deployment helper records the previous four Atlas symlink targets in the immutable release manifest; use tools/rollback_release.py with that manifest."
