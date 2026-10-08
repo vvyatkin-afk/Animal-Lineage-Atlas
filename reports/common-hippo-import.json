@@ -1,0 +1,565 @@
+{
+  "report_version": "1.0.0",
+  "generated_on": "2026-10-08",
+  "bundle_path": "atlases/hippopotamus/imports/common-hippo.json",
+  "bundle_sha256": "0845eb6ed1c21c083e2fcbaecb84a528e327ff0a0ce0b566fa0d70facb969f61",
+  "taxon": "Hippopotamus amphibius",
+  "counts": {
+    "animals": 60,
+    "claims": 85,
+    "relationships": 57,
+    "events": 59,
+    "institutions": 27,
+    "sources": 37,
+    "media": 0,
+    "parentage_relationships_by_type": {
+      "biological_mother": 32,
+      "biological_father": 25
+    },
+    "animal_sex": {
+      "female": 32,
+      "male": 25,
+      "unknown": 3
+    },
+    "animal_status": {
+      "unknown": 42,
+      "deceased": 9,
+      "living": 9
+    }
+  },
+  "canonical_overlap": {
+    "canonical_dataset_path": "atlases/hippopotamus/atlas.json",
+    "bundle_records": 60,
+    "exact_existing_individual_overlaps": 5,
+    "additional_import_candidates": 55,
+    "identity_crosswalk": [
+      {
+        "bundle_animal_id": "hippopotamus-common-animal-cin-bibi",
+        "canonical_animal_id": "hippopotamus:bibi",
+        "canonical_name": "Bibi",
+        "identity_match": "exact named Cincinnati Zoo individual; import evidence context aligns with canonical family record"
+      },
+      {
+        "bundle_animal_id": "hippopotamus-common-animal-cin-henry",
+        "canonical_animal_id": "hippopotamus:henry",
+        "canonical_name": "Henry",
+        "identity_match": "exact named Cincinnati Zoo individual; import evidence context aligns with canonical family record"
+      },
+      {
+        "bundle_animal_id": "hippopotamus-common-animal-cin-fiona",
+        "canonical_animal_id": "hippopotamus:fiona",
+        "canonical_name": "Fiona",
+        "identity_match": "exact named Cincinnati Zoo individual; import evidence context aligns with canonical family record"
+      },
+      {
+        "bundle_animal_id": "hippopotamus-common-animal-cin-tucker",
+        "canonical_animal_id": "hippopotamus:tucker",
+        "canonical_name": "Tucker",
+        "identity_match": "exact named Cincinnati Zoo individual; import evidence context aligns with canonical family record"
+      },
+      {
+        "bundle_animal_id": "hippopotamus-common-animal-cin-fritz",
+        "canonical_animal_id": "hippopotamus:fritz",
+        "canonical_name": "Fritz",
+        "identity_match": "exact named Cincinnati Zoo individual; import evidence context aligns with canonical family record"
+      }
+    ],
+    "note": "Cincinnati family records are repeated in this self-contained import bundle. The five exact name/context matches map to existing canonical IDs; the remaining 55 are new import candidates requiring integration review."
+  },
+  "evidence_audit": {
+    "all_animal_taxa_exact": true,
+    "all_animal_names_source_linked": true,
+    "all_claims_relationships_events_have_resolving_source_ids": true,
+    "all_relationship_endpoints_resolve": true,
+    "all_event_animal_and_institution_references_resolve": true,
+    "all_record_ids_use_required_prefix": true,
+    "unnamed_calf_animal_nodes_created": 0,
+    "animal_media_records": 0,
+    "parentage_policy": "Only direct source statements create parentage edges; no parentage inferred from cohabitation."
+  },
+  "source_access": {
+    "access_date": "2026-10-08",
+    "source_count": 37,
+    "sources": [
+      {
+        "id": "hippopotamus-common-source-cin-birth",
+        "title": "Hippo Baby Arrives Six Weeks Early",
+        "publisher": "Cincinnati Zoo & Botanical Garden",
+        "publication_date": "2017-01-24",
+        "accessed_date": "2026-10-08",
+        "url": "https://cincinnatizoo.org/hippo-baby-arrives-six-weeks-early-cincinnati-zoo-staff-providing-critical-care-for-premature-calf/"
+      },
+      {
+        "id": "hippopotamus-common-source-cin-fiona",
+        "title": "Cincinnati Zoo’s Hippo Baby has a Name",
+        "publisher": "Cincinnati Zoo & Botanical Garden",
+        "publication_date": "2017-02-01",
+        "accessed_date": "2026-10-08",
+        "url": "https://cincinnatizoo.org/cincinnati-zoos-hippo-baby-has-a-name/"
+      },
+      {
+        "id": "hippopotamus-common-source-cin-fiona-blog",
+        "title": "Hippo Blog #9: Bloat of 3, Finally!",
+        "publisher": "Cincinnati Zoo & Botanical Garden",
+        "publication_date": "2017-07-18",
+        "accessed_date": "2026-10-08",
+        "url": "https://cincinnatizoo.org/hippo-blog-9-bloat-of-3-finally/"
+      },
+      {
+        "id": "hippopotamus-common-source-cin-fritz",
+        "title": "Fritz Explores Outside",
+        "publisher": "Cincinnati Zoo & Botanical Garden",
+        "publication_date": "2022-08-16",
+        "accessed_date": "2026-10-08",
+        "url": "https://cincinnatizoo.org/fritz-explores-outside/"
+      },
+      {
+        "id": "hippopotamus-common-source-cin-henry",
+        "title": "Cincinnati Zoo Mourns Loss of Henry the Hippo",
+        "publisher": "Cincinnati Zoo & Botanical Garden",
+        "publication_date": "2017-10-31",
+        "accessed_date": "2026-10-08",
+        "url": "https://cincinnatizoo.org/cincinnati-zoo-mourns-loss-henry-hippo/"
+      },
+      {
+        "id": "hippopotamus-common-source-cin-tucker",
+        "title": "Hippo Introductions Happening Faster than Expected at the Cincinnati Zoo",
+        "publisher": "Cincinnati Zoo & Botanical Garden",
+        "publication_date": "2021-09-27",
+        "accessed_date": "2026-10-08",
+        "url": "https://cincinnatizoo.org/hippo-introductions-happening-faster-than-expected-at-the-cincinnati-zoo/"
+      },
+      {
+        "id": "hippopotamus-common-source-cin-2024",
+        "title": "Meet the 2024 Zoo Babies!",
+        "publisher": "Cincinnati Zoo & Botanical Garden",
+        "publication_date": "2024-05-01",
+        "accessed_date": "2026-10-08",
+        "url": "https://cincinnatizoo.org/meet-the-2024-zoo-babies/"
+      },
+      {
+        "id": "hippopotamus-common-source-cin-report",
+        "title": "Cincinnati Zoo Annual Report 2022–23",
+        "publisher": "Cincinnati Zoo & Botanical Garden",
+        "publication_date": "2023-11",
+        "accessed_date": "2026-10-08",
+        "url": "https://cincinnatizoo.org/wp-content/uploads/2023/11/AnnualReport_2022-23.pdf"
+      },
+      {
+        "id": "hippopotamus-common-source-sd-devi",
+        "title": "Mammal of Mystery",
+        "publisher": "San Diego Zoo Wildlife Alliance",
+        "publication_date": "2015-11-12",
+        "accessed_date": "2026-10-08",
+        "url": "https://blogs.sandiegozoo.org/story-hub/zoonooz/mammal-of-mystery"
+      },
+      {
+        "id": "hippopotamus-common-source-sd-tony-born",
+        "title": "Newborn Hippo Makes Waves at the San Diego Zoo",
+        "publisher": "San Diego Zoo Wildlife Alliance",
+        "publication_date": "2017-09-22",
+        "accessed_date": "2026-10-08",
+        "url": "https://blogs.sandiegozoo.org/2017/09/22/newborn-hippo-makes-waves-at-the-san-diego-zoo/"
+      },
+      {
+        "id": "hippopotamus-common-source-sd-tony-sex",
+        "title": "Oh, Boy! Hippo Calf Born at the San Diego Zoo Is Male",
+        "publisher": "San Diego Zoo Wildlife Alliance",
+        "publication_date": "2017-10-12",
+        "accessed_date": "2026-10-08",
+        "url": "https://blogs.sandiegozoo.org/2017/10/12/oh-boy-hippo-calf-born-at-the-san-diego-zoo-is-male/"
+      },
+      {
+        "id": "hippopotamus-common-source-sd-tony-name",
+        "title": "The San Diego Zoo Names Its ‘Fearless’ Baby Hippo: Tony",
+        "publisher": "San Diego Zoo Wildlife Alliance",
+        "publication_date": "2017-11-17",
+        "accessed_date": "2026-10-08",
+        "url": "https://blogs.sandiegozoo.org/2017/11/17/the-san-diego-zoo-names-its-fearless-baby-hippo-tony/"
+      },
+      {
+        "id": "hippopotamus-common-source-sd-family",
+        "title": "Big Family",
+        "publisher": "San Diego Zoo Wildlife Alliance",
+        "publication_date": "2019-03-18",
+        "accessed_date": "2026-10-08",
+        "url": "https://sandiegozoowildlifealliance.org/story-hub/zoonooz/big-family"
+      },
+      {
+        "id": "hippopotamus-common-source-sd-amahle",
+        "title": "By Popular Vote, San Diego Zoo Hippo Calf Is Named Amahle",
+        "publisher": "San Diego Zoo Wildlife Alliance",
+        "publication_date": "2020-02-28",
+        "accessed_date": "2026-10-08",
+        "url": "https://blogs.sandiegozoo.org/pressroom/news-releases/popular-vote-san-diego-zoo-hippo-calf-named-amahle"
+      },
+      {
+        "id": "hippopotamus-common-source-sd-moon",
+        "title": "Moon Baby",
+        "publisher": "San Diego Zoo Wildlife Alliance",
+        "publication_date": "2020-03-25",
+        "accessed_date": "2026-10-08",
+        "url": "https://blogs.sandiegozoo.org/2020/03/25/moon-baby/"
+      },
+      {
+        "id": "hippopotamus-common-source-sd-current",
+        "title": "Every Day’s a Pool Party",
+        "publisher": "San Diego Zoo Wildlife Alliance",
+        "publication_date": "2026-07-01",
+        "accessed_date": "2026-10-08",
+        "url": "https://blogs.sandiegozoo.org/story-hub/2026/every-days-pool-party"
+      },
+      {
+        "id": "hippopotamus-common-source-wp-lupe",
+        "title": "Zoo finds new home for its last hippo, Lupe",
+        "publisher": "Woodland Park Zoo",
+        "publication_date": "2024-09-12",
+        "accessed_date": "2026-10-08",
+        "url": "https://blog.zoo.org/2024/09/zoo-finds-new-home-for-its-last-hippo.html"
+      },
+      {
+        "id": "hippopotamus-common-source-prague",
+        "title": "Slávek the Hippopotamus",
+        "publisher": "Prague Zoo",
+        "publication_date": null,
+        "accessed_date": "2026-10-08",
+        "url": "https://www.zoopraha.cz/en/animals/209-meet-them/7604-slavek-the-hippopotamus"
+      },
+      {
+        "id": "hippopotamus-common-source-budapest",
+        "title": "Tücsök Turns 52!",
+        "publisher": "Budapest Zoo and Botanical Garden",
+        "publication_date": "2025-04-27",
+        "accessed_date": "2026-10-08",
+        "url": "https://zoobudapest.com/en/news/tucsok-turns-52/"
+      },
+      {
+        "id": "hippopotamus-common-source-ostrava-report",
+        "title": "Zoo Ostrava Annual Report 2009: Keeping the common hippopotamus at Ostrava Zoo",
+        "publisher": "Zoo Ostrava",
+        "publication_date": null,
+        "accessed_date": "2026-10-08",
+        "url": "https://www.zoo-ostrava.cz/soubory_texty/471_7.pdf"
+      },
+      {
+        "id": "hippopotamus-common-source-ostrava-current",
+        "title": "Tanganyika",
+        "publisher": "Zoo Ostrava",
+        "publication_date": null,
+        "accessed_date": "2026-10-08",
+        "url": "https://www.zoo-ostrava.cz/en/exhibits-and-animals/exhibits/140-tanganyika.html"
+      },
+      {
+        "id": "hippopotamus-common-source-hsg",
+        "title": "Studbooks",
+        "publisher": "IUCN SSC Hippo Specialist Group",
+        "publication_date": null,
+        "accessed_date": "2026-10-08",
+        "url": "https://www.hipposg.org/studbooks"
+      },
+      {
+        "id": "hippopotamus-common-source-waza",
+        "title": "WAZA International Studbooks",
+        "publisher": "World Association of Zoos and Aquariums",
+        "publication_date": "2026-01-14",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.waza.org/priorities/conservation/waza-international-studbooks/"
+      },
+      {
+        "id": "hippopotamus-common-source-kobe",
+        "title": "Kobe Oji Zoo hippopotamus announcement, item 62",
+        "publisher": "Kobe Oji Zoo",
+        "publication_date": "2009-09-07",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.kobe-ojizoo.jp/info/detail/?id=62"
+      },
+      {
+        "id": "hippopotamus-common-source-kobe-mag",
+        "title": "Habataki No. 65",
+        "publisher": "Kobe Oji Zoo",
+        "publication_date": null,
+        "accessed_date": "2026-10-08",
+        "url": "https://kobe-ojizoo.jp/habataki/pdf/habataki65.pdf"
+      },
+      {
+        "id": "hippopotamus-common-source-tobe-hm",
+        "title": "Hagler and Mimi",
+        "publisher": "Tobe Zoo",
+        "publication_date": "2011-02-28",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.tobezoo.com/animals/idol/2011/02281450.html"
+      },
+      {
+        "id": "hippopotamus-common-source-tobe-yui",
+        "title": "Yui",
+        "publisher": "Tobe Zoo",
+        "publication_date": "2012-02-29",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.tobezoo.com/animals/idol/2012/02295952.html"
+      },
+      {
+        "id": "hippopotamus-common-source-ueno-yui",
+        "title": "Ehime’s hippo Yui coming",
+        "publisher": "Tokyo Zoological Park Society",
+        "publication_date": "2015-05-20",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.tokyo-zoo.net/topics/news/ueno/4418_22933_2015-05-20.html"
+      },
+      {
+        "id": "hippopotamus-common-source-tobe-2018",
+        "title": "Hippo calf born and died",
+        "publisher": "Tobe Zoo",
+        "publication_date": "2018-01-19",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.tobezoo.com/tobenews/animalinfo/2018/01193445.html"
+      },
+      {
+        "id": "hippopotamus-common-source-tobe-manpuku-born",
+        "title": "Hippo calf born",
+        "publisher": "Tobe Zoo",
+        "publication_date": "2021-04-26",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.tobezoo.com/tobenews/animalinfo/2021/04260000.html"
+      },
+      {
+        "id": "hippopotamus-common-source-tobe-manpuku-name",
+        "title": "Manpuku",
+        "publisher": "Tobe Zoo",
+        "publication_date": "2021-07-18",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.tobezoo.com/animals/idol/2021/07180043.html"
+      },
+      {
+        "id": "hippopotamus-common-source-tobe-newsletter",
+        "title": "Zoo Friends Vol. 35-1",
+        "publisher": "Tobe Zoo",
+        "publication_date": null,
+        "accessed_date": "2026-10-08",
+        "url": "https://www.tobezoo.com/zoofriends/vol35-1small.pdf"
+      },
+      {
+        "id": "hippopotamus-common-source-tobe-pair",
+        "title": "Hagler and Mimi breeding pair",
+        "publisher": "Tobe Zoo",
+        "publication_date": "2024-08-25",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.tobezoo.com/tobetopics/2024/08/258093.html"
+      },
+      {
+        "id": "hippopotamus-common-source-tokuyama",
+        "title": "Common hippopotamus Maru",
+        "publisher": "Tokuyama Zoo",
+        "publication_date": "2023-03-20",
+        "accessed_date": "2026-10-08",
+        "url": "https://tokuyama-zoo.jp/as/file/news/pic000000150003.pdf"
+      },
+      {
+        "id": "hippopotamus-common-source-zsl",
+        "title": "Europe’s first female hippopotamus",
+        "publisher": "Zoological Society of London",
+        "publication_date": "2014-07-01",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.zsl.org/news-and-events/feature/europes-first-female-hippopotamus"
+      },
+      {
+        "id": "hippopotamus-common-source-berlin-twins",
+        "title": "Neuer Winzling in der Hippo Bay",
+        "publisher": "Zoo Berlin",
+        "publication_date": "2025-10-07",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.zoo-berlin.de/de/aktuelles/news/artikel/neuer-winzling-in-der-hippo-bay"
+      },
+      {
+        "id": "hippopotamus-common-source-berlin-willi",
+        "title": "Noch mehr Hippo-Glück im Zoo Berlin",
+        "publisher": "Zoo Berlin",
+        "publication_date": "2026-05-12",
+        "accessed_date": "2026-10-08",
+        "url": "https://www.zoo-berlin.de/de/aktuelles/news/artikel/noch-mehr-hippo-glueck-im-zoo-berlin"
+      }
+    ]
+  },
+  "coverage": {
+    "regions": [
+      "United States",
+      "Central Europe",
+      "Japan",
+      "United Kingdom"
+    ],
+    "institutions": [
+      {
+        "id": "hippopotamus-common-institution-cincinnati",
+        "name": "Cincinnati Zoo & Botanical Garden",
+        "country_code": "US",
+        "location": "Cincinnati, Ohio"
+      },
+      {
+        "id": "hippopotamus-common-institution-san-diego",
+        "name": "San Diego Zoo",
+        "country_code": "US",
+        "location": "San Diego, California"
+      },
+      {
+        "id": "hippopotamus-common-institution-woodland",
+        "name": "Woodland Park Zoo",
+        "country_code": "US",
+        "location": "Seattle, Washington"
+      },
+      {
+        "id": "hippopotamus-common-institution-disney",
+        "name": "Disney’s Animal Kingdom",
+        "country_code": "US",
+        "location": "Lake Buena Vista, Florida"
+      },
+      {
+        "id": "hippopotamus-common-institution-prague",
+        "name": "Prague Zoo",
+        "country_code": "CZ",
+        "location": "Prague"
+      },
+      {
+        "id": "hippopotamus-common-institution-budapest",
+        "name": "Budapest Zoo and Botanical Garden",
+        "country_code": "HU",
+        "location": "Budapest"
+      },
+      {
+        "id": "hippopotamus-common-institution-ostrava",
+        "name": "Zoo Ostrava",
+        "country_code": "CZ",
+        "location": "Ostrava"
+      },
+      {
+        "id": "hippopotamus-common-institution-dvur",
+        "name": "Dvůr Králové Zoo",
+        "country_code": "CZ",
+        "location": "Dvůr Králové nad Labem"
+      },
+      {
+        "id": "hippopotamus-common-institution-cologne",
+        "name": "Cologne Zoo",
+        "country_code": "DE",
+        "location": "Cologne"
+      },
+      {
+        "id": "hippopotamus-common-institution-london",
+        "name": "London Zoo",
+        "country_code": "GB",
+        "location": "London"
+      },
+      {
+        "id": "hippopotamus-common-institution-asahiyama",
+        "name": "Asahiyama Zoo",
+        "country_code": "JP",
+        "location": "Asahikawa"
+      },
+      {
+        "id": "hippopotamus-common-institution-higashiyama",
+        "name": "Higashiyama Zoo and Botanical Gardens",
+        "country_code": "JP",
+        "location": "Nagoya"
+      },
+      {
+        "id": "hippopotamus-common-institution-himeji",
+        "name": "Himeji Central Park",
+        "country_code": "JP",
+        "location": "Himeji"
+      },
+      {
+        "id": "hippopotamus-common-institution-kobe",
+        "name": "Kobe Oji Zoo",
+        "country_code": "JP",
+        "location": "Kobe"
+      },
+      {
+        "id": "hippopotamus-common-institution-tobe",
+        "name": "Tobe Zoo",
+        "country_code": "JP",
+        "location": "Toon, Ehime"
+      },
+      {
+        "id": "hippopotamus-common-institution-kumamoto",
+        "name": "Kumamoto City Zoological and Botanical Gardens",
+        "country_code": "JP",
+        "location": "Kumamoto"
+      },
+      {
+        "id": "hippopotamus-common-institution-ueno",
+        "name": "Ueno Zoological Gardens",
+        "country_code": "JP",
+        "location": "Tokyo"
+      },
+      {
+        "id": "hippopotamus-common-institution-tokuyama",
+        "name": "Tokuyama Zoo",
+        "country_code": "JP",
+        "location": "Shunan"
+      },
+      {
+        "id": "hippopotamus-common-institution-tobu",
+        "name": "Tobu Zoo",
+        "country_code": "JP",
+        "location": "Miyashiro"
+      },
+      {
+        "id": "hippopotamus-common-institution-vienna",
+        "name": "Vienna Zoo",
+        "country_code": "AT",
+        "location": "Vienna"
+      },
+      {
+        "id": "hippopotamus-common-institution-lahore",
+        "name": "Lahore Zoo",
+        "country_code": "PK",
+        "location": "Lahore"
+      },
+      {
+        "id": "hippopotamus-common-institution-warsaw",
+        "name": "Warsaw Zoo",
+        "country_code": "PL",
+        "location": "Warsaw"
+      },
+      {
+        "id": "hippopotamus-common-institution-debrecen",
+        "name": "Debrecen Zoo and Amusement Park",
+        "country_code": "HU",
+        "location": "Debrecen"
+      },
+      {
+        "id": "hippopotamus-common-institution-amneville",
+        "name": "Zoo d’Amnéville",
+        "country_code": "FR",
+        "location": "Amnéville"
+      },
+      {
+        "id": "hippopotamus-common-institution-berlin",
+        "name": "Berlin Zoo",
+        "country_code": "DE",
+        "location": "Berlin"
+      },
+      {
+        "id": "hippopotamus-common-institution-leipzig",
+        "name": "Leipzig Zoo",
+        "country_code": "DE",
+        "location": "Leipzig"
+      },
+      {
+        "id": "hippopotamus-common-institution-sendai",
+        "name": "Yagiyama Zoological Park",
+        "country_code": "JP",
+        "location": "Sendai"
+      }
+    ]
+  },
+  "excluded_material": {
+    "full_european_common_hippo_studbook": "Not reproduced; HSG page describes keeper-request access.",
+    "japanese_common_hippo_studbook": "Not reproduced; HSG page describes keeper-request access.",
+    "ostrava_public_historical_chapter": "Used at publication-level provenance; studbook numbers and unnamed rows omitted; no reuse license asserted.",
+    "animal_photographs": "None included."
+  },
+  "validation": {
+    "schema": "passed: python3 tools/validate_schema.py atlases/hippopotamus/imports/common-hippo.json",
+    "atlas_cross_references": "passed: python3 tools/validate_atlas.py atlases/hippopotamus/imports/common-hippo.json",
+    "focused_audit": "passed: taxon, prefix, name evidence, source references, relationship endpoints, event animal/institution references, canonical overlap map"
+  }
+}
