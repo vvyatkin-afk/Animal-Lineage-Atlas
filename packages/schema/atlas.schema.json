@@ -127,6 +127,7 @@
       "properties": {
         "id": {"$ref": "#/$defs/id"},
         "taxon": {"type": "string", "minLength": 1},
+        "population": {"enum": ["wild", "zoo_captive", "other_managed", "unknown"]},
         "sex": {"enum": ["female", "male", "intersex", "unknown"]},
         "status": {"enum": ["living", "deceased", "unknown"]},
         "name": {"$ref": "#/$defs/name"},
@@ -203,12 +204,12 @@
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "publisher", "url", "publication_date", "accessed_date", "source_type", "notes", "data_use"],
+      "required": ["id", "title", "publisher", "url", "publication_date", "accessed_date", "source_type", "tier", "notes", "data_use"],
       "properties": {
         "id": {"$ref": "#/$defs/id"}, "title": {"type": "string", "minLength": 1},
         "publisher": {"type": "string", "minLength": 1}, "url": {"type": "string", "format": "uri"},
         "publication_date": {"type": ["string", "null"]}, "accessed_date": {"type": "string", "format": "date"},
-        "source_type": {"type": "string", "minLength": 1}, "notes": {"type": "string"},
+        "source_type": {"type": "string", "minLength": 1}, "tier": {"enum": ["A", "B", "C", "D", "discovery_only"]}, "notes": {"type": "string"},
         "data_use": {"type": "string", "minLength": 1}
       }
     }

@@ -147,6 +147,21 @@ test('node limit reports truncation and keeps focus', async () => {
   assert.equal(graph.nodes.some((node) => node.id === 'focus'), true);
 });
 
+test('prebuilt genealogy index keeps disconnected components available for focused graph lookup', async () => {
+  const genealogy = await loadGenealogy();
+  assert.ok(genealogy, 'genealogy layout package should load');
+  const animals = [animal('parent-a'), animal('child-a'), animal('parent-b'), animal('child-b'), animal('island')];
+  const relationships = [relation('edge:a', 'parent-a', 'child-a'), relation('edge:b', 'parent-b', 'child-b')];
+  const index = genealogy.createGenealogyIndex(animals, relationships);
+
+  assert.deepEqual(index.components.map((component) => component.animalIds.length), [2, 2, 1]);
+  assert.deepEqual(
+    genealogy.buildFocusedGenealogy(index, 'child-b').nodes.map((node) => node.id),
+    ['parent-b', 'child-b'],
+  );
+  assert.equal(genealogy.buildFocusedGenealogy(index, 'island').nodes[0].id, 'island');
+});
+
 test('profile close restores tree state', async () => {
   const stateModule = await loadState();
   assert.ok(stateModule, 'genealogy state package should load');

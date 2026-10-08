@@ -49,12 +49,52 @@ test('searches names aliases IDs and institutions', async () => {
   assert.deepEqual(search.searchAnimals(animals, 'N-13').map((animal) => animal.id), ['polar-bear:nora']);
 });
 
+test('external ID namespaces do not create broad matches for shared namespace text', async () => {
+  const search = await loadSearch();
+  assert.ok(search, 'search package should load');
+  const family = [
+    {
+      id: 'red-panda:child-one', taxon: 'Ailurus fulgens',
+      name: { canonical: 'Child One' }, aliases: [],
+      external_ids: [{ namespace: 'legacy-futa-tree', value: 'child-one' }],
+    },
+    {
+      id: 'red-panda:futa', taxon: 'Ailurus fulgens',
+      name: { canonical: 'Futa' }, aliases: [],
+      external_ids: [{ namespace: 'legacy-futa-tree', value: 'futa' }],
+    },
+  ];
+
+  assert.deepEqual(search.searchAnimals(family, 'futa').map((animal) => animal.id), ['red-panda:futa']);
+  assert.deepEqual(search.searchAnimals(family, 'legacy-futa-tree:child-one').map((animal) => animal.id), ['red-panda:child-one']);
+});
+
 test('applies country and taxon facets without changing stored values', async () => {
   const search = await loadSearch();
   assert.ok(search, 'search package should load');
   assert.deepEqual(search.searchAnimals(animals, '', { countryCode: 'jp' }).map((animal) => animal.id), ['red-panda:futa']);
   assert.deepEqual(search.searchAnimals(animals, '', { taxon: 'URSUS MARITIMUS' }).map((animal) => animal.id), ['polar-bear:nora']);
   assert.equal(animals[0].name.canonical, '風太');
+});
+
+test('indexes population and normalized search text once for fast focused queries', async () => {
+  const indexModule = await import('../packages/search/atlas-index.ts');
+  const search = await loadSearch();
+  assert.ok(search, 'search package should load');
+  const index = indexModule.buildAtlasSearchIndex({
+    animals: [
+      { ...animals[0], population: 'wild' },
+      { ...animals[1], population: 'zoo_captive' },
+    ],
+    institutions: [],
+    events: [],
+  });
+
+  assert.equal(index[0].population, 'wild');
+  assert.match(index[0].search_key, /futa/);
+  assert.match(index[0].search_key, /千葉市動物公園/);
+  assert.deepEqual(search.searchAnimals(index, 'futa', { population: 'wild' }).map((animal) => animal.id), ['red-panda:futa']);
+  assert.deepEqual(search.searchAnimals(index, '', { population: 'zoo_captive' }).map((animal) => animal.id), ['polar-bear:nora']);
 });
 
 test('remote media requires explicit rights and embedding permission', async () => {
@@ -76,7 +116,7 @@ test('remote media requires explicit rights and embedding permission', async () 
   const restricted = media.resolvePublicMedia({
     ...reference,
     rights_status: 'unknown',
-    embedding_status: 'unknown',
+    embedding_status: 'link_only',
   });
   assert.equal(restricted.kind, 'placeholder');
   assert.equal(restricted.src, undefined);

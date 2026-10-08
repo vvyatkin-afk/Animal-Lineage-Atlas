@@ -1,4 +1,4 @@
-import type { AnimalSummary } from './search.ts';
+import { createAnimalSearchKey, type AnimalSummary } from './search.ts';
 
 interface IndexedAnimal extends AnimalSummary {
   country_code: string | null;
@@ -12,7 +12,7 @@ interface AtlasSearchDocument {
     names: Array<{ value: string }>;
     country_code?: string;
   }>;
-  events: Array<{
+  events?: Array<{
     animal_id: string;
     date?: { precision?: string; value?: string; start?: string; end?: string };
     institution_id?: string;
@@ -21,7 +21,7 @@ interface AtlasSearchDocument {
   }>;
 }
 
-function sortKey(event: AtlasSearchDocument['events'][number]): string {
+function sortKey(event: NonNullable<AtlasSearchDocument['events']>[number]): string {
   return event.date?.value ?? event.date?.end ?? event.date?.start ?? '';
 }
 
@@ -30,7 +30,7 @@ export function buildAtlasSearchIndex(atlas: AtlasSearchDocument): IndexedAnimal
   const institutions = new Map((atlas.institutions ?? []).map((institution) => [institution.id, institution]));
   const countryByAnimal = new Map<string, string>();
   const institutionNamesByAnimal = new Map<string, Set<string>>();
-  for (const event of [...atlas.events].sort((left, right) => sortKey(left).localeCompare(sortKey(right)))) {
+  for (const event of [...(atlas.events ?? [])].sort((left, right) => sortKey(left).localeCompare(sortKey(right)))) {
     const allInstitutionIds = [event.from_institution_id, event.to_institution_id, event.institution_id]
       .filter((id): id is string => Boolean(id));
     const searchNames = institutionNamesByAnimal.get(event.animal_id) ?? new Set<string>();
@@ -44,9 +44,15 @@ export function buildAtlasSearchIndex(atlas: AtlasSearchDocument): IndexedAnimal
     const destination = documentedDestination ? institutions.get(documentedDestination) : undefined;
     if (destination?.country_code) countryByAnimal.set(event.animal_id, destination.country_code);
   }
-  return atlas.animals.map((animal) => ({
-    ...animal,
-    country_code: countryByAnimal.get(animal.id) ?? null,
-    institution_names: [...(institutionNamesByAnimal.get(animal.id) ?? [])],
-  }));
+  return atlas.animals.map((animal) => {
+    const indexed = {
+      ...animal,
+      country_code: countryByAnimal.get(animal.id) ?? animal.country_code ?? null,
+      institution_names: [...new Set([
+        ...(animal.institution_names ?? []),
+        ...(institutionNamesByAnimal.get(animal.id) ?? []),
+      ])],
+    };
+    return { ...indexed, search_key: createAnimalSearchKey(indexed) };
+  });
 }

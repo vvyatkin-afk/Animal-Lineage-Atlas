@@ -4,6 +4,8 @@
 
 Prefer the institution responsible for the animal or record: zoo biographies, dated announcements, official histories, public studbooks, and direct genetic findings. Use secondary reporting to locate or corroborate primary material, and label its role. Each source record retains the direct page URL and publication/access information available during review.
 
+Source tiers are defined in [`DATA_PROVENANCE_TIERS.md`](DATA_PROVENANCE_TIERS.md). A `discovery_only` source can document a research lead or an unresolved report, but cannot be the sole support for a canonical animal fact, claim, relationship, or event. A public community dataset is tier D and can support imported records when the snapshot, version, and hash are recorded.
+
 ## Linking claims to evidence
 
 Every factual relationship, event, and claim must identify its supporting source record. A source may support a name, an event, or one particular family link; it does not automatically prove all facts about that animal. Do not infer parentage from co-housing, breeding-pair expectations, or a shared enclosure.

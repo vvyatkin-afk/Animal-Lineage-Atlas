@@ -19,6 +19,7 @@ REVIEW_STATUSES = {"reviewed", "needs_review", "unreviewed"}
 RELATION_TYPES = {"biological_mother", "biological_father", "foster", "adoptive", "social"}
 ANCESTRY_TYPES = {"biological_mother", "biological_father"}
 EVENT_TYPES = {"birth", "death", "move", "transfer", "release", "observation"}
+EMBEDDABLE_RIGHTS = {"cc0", "public_domain", "permission_granted", "license_allows_embedding"}
 PARTIAL_DATE_RE = re.compile(r"^\d{4}(?:-\d{2}(?:-\d{2})?)?$")
 FULL_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
@@ -217,6 +218,11 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
         path = f"$.animals[{index}]"
         if not _is_nonempty_string(animal.get("taxon")):
             _issue(issues, "invalid_animal", f"{path}.taxon", "Animal taxon must be non-empty text.")
+        population = animal.get("population")
+        if population is not None and population not in {"wild", "zoo_captive", "other_managed", "unknown"}:
+            _issue(issues, "invalid_population", f"{path}.population", "Population must preserve wild, zoo captive, other managed, or unknown scope.")
+        if animal.get("taxon") == "Ursus maritimus" and population is None:
+            _issue(issues, "missing_population", f"{path}.population", "Polar bear records must state wild, zoo_captive, other_managed, or unknown population scope.")
         if animal.get("sex") not in {"female", "male", "intersex", "unknown"}:
             _issue(issues, "invalid_animal", f"{path}.sex", "Animal sex must preserve known or unknown status.")
         if animal.get("status") not in {"living", "deceased", "unknown"}:
@@ -271,6 +277,8 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
             _issue(issues, "dangling_animal", f"{path}.subject", f"Animal {subject!r} does not exist.")
         if obj not in animals:
             _issue(issues, "dangling_animal", f"{path}.object", f"Animal {obj!r} does not exist.")
+        if subject in animals and obj in animals and animals[subject].get("taxon") != animals[obj].get("taxon"):
+            _issue(issues, "cross_taxon_relationship", path, "Relationships must not cross taxonomic boundaries.")
         if subject == obj and subject in animals:
             _issue(issues, "self_ancestry", path, "An animal cannot have a relationship to itself.")
         if relation.get("type") not in RELATION_TYPES:
@@ -332,8 +340,10 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
             _issue(issues, "dangling_animal", f"{path}.animal_id", f"Animal {media.get('animal_id')!r} does not exist.")
         if not _check_uri(media.get("source_page_url")):
             _issue(issues, "invalid_media_source", f"{path}.source_page_url", "Media source must be an HTTP(S) source page URL.")
-        if media.get("direct_remote_url") is not None and media.get("embedding_status") != "allowed":
-            _issue(issues, "restricted_embedding", f"{path}.direct_remote_url", "Direct image URLs require explicit allowed embedding status.")
+        if media.get("direct_remote_url") is not None and not _check_uri(media.get("direct_remote_url")):
+            _issue(issues, "invalid_direct_media_url", f"{path}.direct_remote_url", "Direct media metadata must be an HTTP(S) URL.")
+        if media.get("embedding_status") == "allowed" and str(media.get("rights_status", "")).lower() not in EMBEDDABLE_RIGHTS:
+            _issue(issues, "unlicensed_embedding", f"{path}.embedding_status", "Embedding is allowed only when the recorded rights status explicitly permits it.")
         if media.get("embedding_status") not in {"allowed", "link_only", "denied", "unknown"}:
             _issue(issues, "invalid_embedding_status", f"{path}.embedding_status", "Embedding status is not supported.")
         if not _valid_date_text(media.get("checked_date"), full_only=True):
@@ -352,6 +362,8 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
         publication_date = source.get("publication_date")
         if publication_date is not None and not _valid_date_text(publication_date):
             _issue(issues, "invalid_source_date", f"{path}.publication_date", "Publication date must preserve a valid full or partial date.")
+        if source.get("tier") not in {"A", "B", "C", "D", "discovery_only"}:
+            _issue(issues, "invalid_provenance_tier", f"{path}.tier", "Every source must have a supported provenance tier: A, B, C, D, or discovery_only.")
 
     return sorted(issues, key=lambda issue: (issue.path, issue.code, issue.message))
 

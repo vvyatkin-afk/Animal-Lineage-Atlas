@@ -76,7 +76,7 @@ input[type="search"], select {
 .search-results { display: grid; gap: 0.5rem; }
 .result-card {
   display: grid; gap: 0.18rem; width: 100%; padding: 0.7rem 0.75rem; border: 1px solid transparent; border-radius: 0.65rem;
-  background: #f5f5ef; text-align: left; cursor: pointer;
+  background: #f5f5ef; text-align: left; cursor: pointer; contain: content;
 }
 .result-card:hover { border-color: #aec5b7; background: var(--accent-soft); }
 .result-card strong { font-family: Georgia, serif; font-size: 1rem; font-weight: 600; }
@@ -94,14 +94,18 @@ input[type="search"], select {
 .graph-controls button:hover, .close-button:hover { background: var(--accent-soft); border-color: #aec5b7; }
 .graph-help { margin: 0; padding: 0 1.3rem 0.6rem; color: var(--muted); font-size: 0.76rem; }
 .genealogy-container { min-height: 340px; overflow: hidden; background: #fbfaf5; border-block: 1px solid var(--line); }
-.genealogy-surface { position: relative; min-height: 340px; }
+.genealogy-surface { position: relative; min-height: 340px; contain: layout paint; }
 .genealogy-svg { display: block; width: 100%; height: clamp(340px, 52vw, 700px); touch-action: none; cursor: grab; }
 .genealogy-svg:active { cursor: grabbing; }
 .genealogy-node { cursor: pointer; outline: none; }
 .genealogy-node rect { fill: #fffefa; stroke: #9eafa2; stroke-width: 1.5; filter: drop-shadow(0 3px 4px rgba(32, 47, 37, 0.08)); }
 .genealogy-node:hover rect, .genealogy-node:focus rect { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.8; }
 .node-name { fill: var(--ink); font-size: 16px; font-weight: 700; }
+.node-compact-name { display: none; fill: var(--ink); font-size: 16px; font-weight: 800; }
 .node-metadata { fill: var(--muted); font-size: 10px; }
+.is-compact .genealogy-node rect { x: -20px; y: -20px; width: 40px; height: 40px; rx: 20px; }
+.is-compact .node-name, .is-compact .node-metadata { display: none; }
+.is-compact .node-compact-name { display: block; }
 .genealogy-edge { stroke: #87978d; stroke-width: 1.8; }
 .edge-biological-mother { stroke: #9b6f55; }
 .edge-biological-father { stroke: #53768a; }
@@ -109,6 +113,16 @@ input[type="search"], select {
 .status-probable, .status-disputed { stroke-dasharray: 5 5; }
 .status-disputed { stroke: #9a4c45; }
 .graph-note { margin: 0; padding: 0.7rem 1rem; background: #fbf0dc; color: #745329; font-size: 0.8rem; }
+.global-overview { padding: 1rem; }
+.global-index-summary { max-width: 78ch; margin: 0 0 0.85rem; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+.global-component-map { display: block; width: 100%; height: clamp(350px, 50vw, 640px); border: 1px solid var(--line); border-radius: 0.75rem; background: #fbfaf5; cursor: crosshair; touch-action: manipulation; }
+.global-family-heading { margin: 1rem 0 0.6rem; font-size: 0.84rem; }
+.global-family-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; }
+.global-family-button { min-width: 0; min-height: 2.75rem; padding: 0.5rem 0.7rem; border: 1px solid var(--line); border-radius: 0.6rem; overflow-wrap: anywhere; background: white; color: var(--ink); text-align: left; cursor: pointer; }
+.global-family-button:hover { background: var(--accent-soft); border-color: #aec5b7; }
+.graph-controls[hidden], .all-families-button[hidden] { display: none; }
+.all-families-button { min-height: 2.4rem; padding: 0.3rem 0.65rem; border: 1px solid var(--line); border-radius: 0.6rem; background: white; cursor: pointer; }
+.all-families-button:hover { background: var(--accent-soft); border-color: #aec5b7; }
 .coverage-details { padding: 1rem 1.3rem 1.2rem; }
 .coverage-details summary { color: var(--accent); font-weight: 750; cursor: pointer; }
 .coverage-details > p, .coverage-details li { max-width: 80ch; color: var(--muted); font-size: 0.85rem; line-height: 1.55; }
@@ -169,8 +183,12 @@ dialog#profile-dialog::backdrop { background: rgba(22, 34, 27, 0.55); backdrop-f
   .tree-heading-row { align-items: start; flex-direction: column; padding-inline: 1rem; }
   .graph-controls { gap: 0.25rem; }
   .graph-controls button { min-width: 2.65rem; min-height: 2.65rem; }
+  .all-families-button { min-height: 2.65rem; }
   .graph-help { padding-inline: 1rem; }
   .genealogy-svg { height: 52vh; min-height: 330px; }
+  .global-overview { padding: 0.75rem; }
+  .global-component-map { height: 48vh; min-height: 340px; max-height: 560px; }
+  .global-family-list { grid-template-columns: minmax(0, 1fr); }
   .profile-heading { grid-template-columns: minmax(0, 1fr); }
   .profile-media { max-width: 270px; }
   .profile-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }

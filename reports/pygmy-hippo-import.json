@@ -1,0 +1,412 @@
+{
+  "report_version": "1.0.0",
+  "created_on": "2026-10-08",
+  "taxon": "Choeropsis liberiensis",
+  "import_file": "atlases/hippopotamus/imports/pygmy-hippo.json",
+  "scope": "Publicly accessible, individually attributed pygmy-hippo zoo records. Import package only; canonical atlas was not modified.",
+  "counts": {
+    "animals": 25,
+    "relationships": 21,
+    "claims": 26,
+    "events": 21,
+    "institutions": 12,
+    "sources": 24,
+    "media_records": 0,
+    "source_cited_relationships": 21,
+    "unresolved_or_unnamed_animals_imported": 0,
+    "source_cited_events": 21,
+    "sex_counts": {
+      "female": 15,
+      "male": 9,
+      "unknown": 1
+    },
+    "status_counts": {
+      "living": 0,
+      "deceased": 0,
+      "unknown": 25
+    },
+    "source_cited_claims": 26,
+    "population_counts": {
+      "zoo_captive": 25
+    }
+  },
+  "families": {
+    "Edinburgh/London": {
+      "animals": 5,
+      "parent_relationships": 6,
+      "note": "Otto and Gloria are parents of Amara, Haggis, and Piper; Amara’s move to ZSL London Zoo is source-backed. Haggis destination is unnamed."
+    },
+    "Ueno/Buin/NIFREL": {
+      "animals": 5,
+      "parent_relationships": 4,
+      "note": "Motomoto parents Kobushi and Iroha with Natsume and Momiji; Natsume and Momiji are directly described as sisters; Motomoto’s transfers are dated by official notices."
+    },
+    "Toronto/John Ball/Pittsburgh": {
+      "animals": 9,
+      "parent_relationships": 8,
+      "note": "Kindia and Harvey are parents of Penelope and Maple; Penelope and Jahari are parents of Hugo; Psi and Cleopatra are Pogo’s parents. Kindia, Penelope, and Hugo provide a three-generation connection."
+    },
+    "Metro Richmond": {
+      "animals": 3,
+      "parent_relationships": 1,
+      "note": "Iris and Corwin are named as Poppy’s parents. The source explicitly identifies Iris as the mother; Corwin’s father role is not separately assigned."
+    },
+    "Khao Kheow": {
+      "animals": 3,
+      "parent_relationships": 2,
+      "note": "Jona and Tony are named by official Thai zoo sources as Moo Deng’s parents."
+    }
+  },
+  "sources": [
+    {
+      "id": "hippopotamus-pygmy-source-edinburgh-amara-family",
+      "title": "Haggis’ Trivia Trail – Pygmy hippos",
+      "publisher": "Edinburgh Zoo",
+      "url": "https://www.edinburghzoo.org.uk/animals/animal-inhabitants/pygmy-hippo/haggis/haggis-trivia-trail-4",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-edinburgh-haggis-family",
+      "title": "Haggis hits the road",
+      "publisher": "Edinburgh Zoo",
+      "url": "https://www.edinburghzoo.org.uk/animals/animal-inhabitants/pygmy-hippo/haggis",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-edinburgh-haggis-birth",
+      "title": "Moo Deng who? Edinburgh Zoo welcomes Haggis the endangered pygmy hippo calf",
+      "publisher": "Edinburgh Zoo",
+      "url": "https://www.edinburghzoo.org.uk/news/moo-deng-who-edinburgh-zoo-welcomes-haggis-endangered-pygmy-hippo-calf",
+      "publication_date": "2024-11-04",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-edinburgh-piper-birth",
+      "title": "That was quick! Baby hippo born at Edinburgh Zoo",
+      "publisher": "Edinburgh Zoo",
+      "url": "https://www.edinburghzoo.org.uk/news/was-quick-baby-hippo-born-edinburgh-zoo",
+      "publication_date": "2026-08-03",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-edinburgh-piper-name",
+      "title": "Pint-sized Piper: Baby pygmy hippo named after health check at Edinburgh Zoo",
+      "publisher": "Edinburgh Zoo",
+      "url": "https://www.edinburghzoo.org.uk/news/pint-sized-piper-baby-pygmy-hippo-named-after-health-check-edinburgh-zoo",
+      "publication_date": "2026-08-07",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-natsume-birth",
+      "title": "Pygmy Hippopotamus hippo Natsume has given birth!",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/topics/news/ueno/155_29052_2025-03-18.html",
+      "publication_date": "2025-03-18",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-momiji-birth",
+      "title": "Pygmy Hippopotamus “Momiji” has given birth!",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/topics/news/ueno/041_29468_2025-12-27.html",
+      "publication_date": "2025-12-26",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-sisters",
+      "title": "Differences in behavior from breeding to raising offspring observed in two female Pygmy Hippopotamus hippos",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/ueno/blog/11485/index.html",
+      "publication_date": "2026-05-15",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-iroha-name",
+      "title": "The baby Pygmy Hippopotamus has been named!",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/ueno/news/11041/index.html",
+      "publication_date": "2026-04-07",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-motomoto-transfer",
+      "title": "We are moving Pygmy Hippopotamus “Motomoto” to NIFREL",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/ueno/news/11241/index.html",
+      "publication_date": "2026-04-24",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-kobushi-name",
+      "title": "Ueno Zoo pygmy hippo mother-and-calf public-viewing announcement",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/topics/news/ueno/079_29149_2025-05-18.html",
+      "publication_date": "2025-05-18",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-ueno-about-kobushi",
+      "title": "About Ueno Zoo",
+      "publisher": "Tokyo Zoological Park Society (Ueno Zoo)",
+      "url": "https://www.tokyo-zoo.net/en/ueno/about/index.html",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-toronto-penelope-birth",
+      "title": "Toronto Zoo Welcomes Birth of Endangered Pygmy Hippopotamus Calf",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/press/2018/%21newsite.asp?pg=20180821",
+      "publication_date": "2018-08-21",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-toronto-penelope-name",
+      "title": "Toronto Zoo’s Endangered Pygmy Hippopotamus Calf Has a Name!",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/press/2018/%21newsite.asp?pg=20181004",
+      "publication_date": "2018-10-04",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-toronto-maple-birth",
+      "title": "Pygmy Hippo Calf Born At Your Toronto Zoo!",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/mediaroom/press2026/20260805-pygmy-hippo-calf",
+      "publication_date": "2026-08-05",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-toronto-maple-name",
+      "title": "Introducing... Pygmy Hippo Calf Name Reveal!",
+      "publisher": "Toronto Zoo",
+      "url": "https://www.torontozoo.com/mediaroom/press2026/20260821-maple",
+      "publication_date": "2026-08-21",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-john-ball-hugo",
+      "title": "A Rare Birth: Behind The Scenes Of Baby Pygmy Hippo Hugo’s Arrival",
+      "publisher": "John Ball Zoo",
+      "url": "https://jbzoo.org/2025/12/02/pygmy-hippo-arrival-at-john-ball-zoo/",
+      "publication_date": "2025-12-02",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-richmond-poppy-birth",
+      "title": "Pygmy Hippo Born Before Christmas",
+      "publisher": "Metro Richmond Zoo",
+      "url": "https://metrorichmondzoo.com/newsroom/pygmy-hippo-born-before-christmas/",
+      "publication_date": "2024-12-24",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-richmond-poppy-name",
+      "title": "Pygmy Hippo Name Announcement",
+      "publisher": "Metro Richmond Zoo",
+      "url": "https://metrorichmondzoo.com/newsroom/pygmy-hippo-name-announcement/",
+      "publication_date": "2025-01-06",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-richmond-poppy-profile",
+      "title": "Poppy The Pygmy Hippo",
+      "publisher": "Metro Richmond Zoo",
+      "url": "https://metrorichmondzoo.com/animals/poppy-the-pygmy-hippo/",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-khao-moodeng-birth",
+      "title": "ฉลองวันแม่แห่งชาติ สวนสัตว์เปิดเขาเขียว ชวนโหวตตั้งชื่อลูกฮิปโปโปเตมัสแคระ",
+      "publisher": "Khao Kheow Open Zoo",
+      "url": "https://khaokheow.zoothailand.org/ewt_news.php?n_id=1242",
+      "publication_date": "2024-08-06",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-khao-moodeng-name",
+      "title": "ได้ชื่อแล้ว น้องหมูเด้ง ลูกฮิปโปแคระ สวนสัตว์เปิดเขาเขียว",
+      "publisher": "Khao Kheow Open Zoo",
+      "url": "https://khaokheow.zoothailand.org/ewt_news.php?n_id=1247",
+      "publication_date": "2024-08-20",
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-khao-thailand-zoo-report",
+      "title": "แผนวิสาหกิจ พ.ศ. 2566–2570 (ฉบับทบทวนปีงบประมาณ 2569) ของ อสส.",
+      "publisher": "Zoological Park Organization of Thailand",
+      "url": "https://www.zoothailand.org/download/article/article_20250918104413.pdf",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-khao-english-name",
+      "title": "Official Khao Kheow Open Zoo PDF (article_20260618143005.pdf)",
+      "publisher": "Khao Kheow Open Zoo",
+      "url": "https://khaokheow.zoothailand.org/download/article/article_20260618143005.pdf",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "use": "included"
+    }
+  ],
+  "context_only_sources": [
+    {
+      "title": "Studbooks",
+      "publisher": "IUCN SSC Hippo Specialist Group",
+      "url": "https://www.hipposg.org/studbooks",
+      "accessed_date": "2026-10-08",
+      "use": "Context only. Page states 1,677 total animals and 452 living in 146 institutions for the 2021 global pygmy hippo studbook, but does not provide the individual register as an openly downloadable import. No studbook rows were copied."
+    }
+  ],
+  "exclusions": [
+    "No restricted or access-requested studbook rows were copied; the public count 1,677/452 is context only, not reuse permission.",
+    "No unnamed calves or calves represented only by placeholder identities were materialized. Each included calf is named in an official zoo source.",
+    "No inference from social grouping, co-housing, news coverage, or shared names.",
+    "No precise birth date for Moo Deng: the official Khao Kheow page reports introduction on 2024-07-25, not birth.",
+    "No move destination assigned for Haggis after Edinburgh Zoo; the official page only says she moved to another zoo.",
+    "No current alive/deceased status inferred; all imported animal status values are unknown.",
+    "No local photos, remote-image URLs, or other media bytes."
+  ],
+  "checks": {
+    "canonical_hippopotamus_atlas_modified": false,
+    "shared_source_docs_modified": false,
+    "schema_validation": "passed: tools/validate_schema.py",
+    "atlas_validation": "passed: tools/validate_atlas.py",
+    "no_photo_validation": "passed: tools/check_no_animal_photos.py (repository root and import directory)",
+    "all_relationships_have_source_ids": true,
+    "all_events_have_source_ids": true,
+    "all_animals_taxon_exact": true,
+    "all_stable_ids_prefixed": true,
+    "all_parent_edges_within_taxon": true,
+    "provenance_integrity": "passed: every animal name, known sex, relationship, claim, event, and institution mapping resolves to source IDs",
+    "stable_id_prefix": "passed: every record ID starts with hippopotamus-pygmy-",
+    "taxonomy_integrity": "passed: every animal uses Choeropsis liberiensis",
+    "diff_check": "passed: git diff --check",
+    "all_known_sex_values_have_source_cited_claims": true,
+    "all_animals_population_labeled": true
+  },
+  "source_access_notes": [
+    "Official Khao Kheow announcement and naming pages were reviewed from search-indexed content at their exact official URLs after direct browser fetches timed out; Thailand Zoological Park Organization official material independently corroborated Moo Deng parentage. No access controls were bypassed.",
+    "Other listed pages were opened on their official zoo or zoo-society websites on 2026-10-08."
+  ],
+  "institution_source_map": [
+    {
+      "institution_id": "hippopotamus-pygmy-institution-buin-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-motomoto-transfer",
+        "hippopotamus-pygmy-source-ueno-natsume-birth"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-edinburgh-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-amara-family",
+        "hippopotamus-pygmy-source-edinburgh-haggis-birth",
+        "hippopotamus-pygmy-source-edinburgh-piper-birth",
+        "hippopotamus-pygmy-source-edinburgh-piper-name"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-john-ball-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-john-ball-hugo"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-khao-kheow-open-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-khao-moodeng-birth"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-lowry-park-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-metro-richmond-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-richmond-poppy-birth",
+        "hippopotamus-pygmy-source-richmond-poppy-name",
+        "hippopotamus-pygmy-source-richmond-poppy-profile"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-nifrel",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-motomoto-transfer",
+        "hippopotamus-pygmy-source-ueno-natsume-birth"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-parc-zoologique-la-fleche",
+      "source_ids": [
+        "hippopotamus-pygmy-source-toronto-penelope-birth"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-pittsburgh-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-john-ball-hugo"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-toronto-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-john-ball-hugo",
+        "hippopotamus-pygmy-source-toronto-maple-birth",
+        "hippopotamus-pygmy-source-toronto-maple-name",
+        "hippopotamus-pygmy-source-toronto-penelope-birth",
+        "hippopotamus-pygmy-source-toronto-penelope-name"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-ueno-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-ueno-about-kobushi",
+        "hippopotamus-pygmy-source-ueno-iroha-name",
+        "hippopotamus-pygmy-source-ueno-kobushi-name",
+        "hippopotamus-pygmy-source-ueno-momiji-birth",
+        "hippopotamus-pygmy-source-ueno-motomoto-transfer",
+        "hippopotamus-pygmy-source-ueno-natsume-birth"
+      ]
+    },
+    {
+      "institution_id": "hippopotamus-pygmy-institution-zsl-london-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-edinburgh-amara-family"
+      ]
+    }
+  ],
+  "source_tiers": {
+    "B": 24
+  },
+  "bundle_sha256": "0345907cb9c1a7e087efed2515699737480a7712ff622ad725b5b244b71b8edf"
+}

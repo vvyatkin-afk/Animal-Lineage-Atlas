@@ -171,6 +171,16 @@ def _normalized_source_type(value: str) -> str:
     return mappings.get(value, "legacy_source")
 
 
+def _source_provenance_tier(source_type: str) -> str:
+    if source_type in {"official_source", "official_zoo_profile", "official_zoo_record", "official_social_post"}:
+        return "B"
+    if source_type in {"research_publication", "peer_reviewed_paper"}:
+        return "C"
+    if source_type in {"community_dataset", "secondary_database", "secondary_profile"}:
+        return "D"
+    return "discovery_only"
+
+
 def _name_key(value: str) -> str:
     return re.sub(r"（[^）]*）", "", value).strip().casefold()
 
@@ -239,6 +249,7 @@ def migrate_red_panda(
             f"Legacy date field: {original_date}." if original_date and not _publication_date(original_date) else "",
             "Access date is inherited from the curated dataset cutoff; this link was not independently revalidated during migration.",
         )
+        source_type = _normalized_source_type(_text(source.get("type_ja")))
         source_output[source_id_map[legacy_id]] = {
             "id": source_id_map[legacy_id],
             "title": _text(source.get("title")) or f"Legacy source {legacy_id}",
@@ -246,7 +257,8 @@ def migrate_red_panda(
             "url": _text(source.get("url")),
             "publication_date": _publication_date(original_date),
             "accessed_date": accessed_date,
-            "source_type": _normalized_source_type(_text(source.get("type_ja"))),
+            "source_type": source_type,
+            "tier": _source_provenance_tier(source_type),
             "notes": notes,
             "data_use": "Citation for factual claims only; no media reuse is implied.",
         }
@@ -538,6 +550,7 @@ def migrate_red_panda(
             "publication_date": None,
             "accessed_date": accessed_date,
             "source_type": source_type,
+            "tier": _source_provenance_tier(source_type),
             "notes": _merge_notes(note, "Link disposition and metadata are inherited from the curated dataset cutoff; the page was not independently revalidated during migration."),
             "data_use": "Link only. No image embedding, downloading, archiving, or redistribution permission is implied.",
         }

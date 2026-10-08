@@ -1,0 +1,5239 @@
+{
+  "release": {
+    "schema_version": "1.0.0",
+    "data_version": "2026.10.08-common-hippo-1",
+    "engine_version": "1.0.0",
+    "build_date": "2026-10-08",
+    "provenance": "Public-source import bundle from official zoo, zoo-association, conservation, and zoological-society publications; named records and directly stated relationships only. See docs/HIPPOPOTAMUS_COMMON_SOURCES.md and reports/common-hippo-import.json."
+  },
+  "coverage": {
+    "taxon": "Hippopotamus amphibius",
+    "scope": "Selected individually named common hippos and directly documented parentage across Cincinnati, San Diego, Prague, Budapest, Ostrava, Japanese zoos, Berlin and London.",
+    "limitations": [
+      "Selected named Hippopotamus amphibius from public zoo, conservation and research publications; not a complete census or pedigree.",
+      "Parentage is included only where a cited source directly identifies the parent. Unknown fathers, unnamed calves, cohabitation and ambiguous counts do not create nodes or parent edges.",
+      "Ostrava records come from a public historical chapter in its 2009 annual report. The full European studbook is separately keeper-requested; no studbook numbers or restricted records are copied, and no report reuse license is asserted.",
+      "The Japanese common-hippo studbook is also keeper-requested. This import uses named public zoo pages and does not reproduce studbook records.",
+      "Historical living status and incomplete dates remain unknown or approximate. No animal photos, image files or direct image URLs are included."
+    ],
+    "last_reviewed": "2026-10-08",
+    "source_categories": [
+      "official zoo announcements and biographies",
+      "official zoo annual reports and historical chapters",
+      "official zoo newsletters and magazines",
+      "specialist group and zoo association publications"
+    ],
+    "translations": {
+      "ja": {
+        "scope": "Cincinnati、San Diego、Prague、Budapest、Ostrava、日本、Berlin、Londonの公開資料にあるカバの個体名と直接確認可能な親子関係。",
+        "limitations": [
+          "公開動物園・保全・研究資料に基づくHippopotamus amphibiusの個体選定であり、完全な一覧や血統台帳ではありません。",
+          "親子関係は出典が親を直接示す場合のみ記録します。父親不明、無名の子、同居、曖昧な集計から記録を作成していません。",
+          "Ostravaの記録は2009年年次報告書の公開歴史章によります。完全な欧州血統台帳は管理者への請求が必要で、番号や制限記録を複製せず、報告書の再利用許諾も主張しません。",
+          "日本のカバ血統台帳も管理者への請求が必要です。このインポートは公開動物園ページのみを利用します。",
+          "歴史的な生存状況や不完全な日付は不明または概算のままです。写真や画像URLは含みません。"
+        ]
+      },
+      "ru": {
+        "scope": "Именованные обыкновенные бегемоты и прямо подтверждённое родство из публичных материалов Cincinnati, San Diego, Prague, Budapest, Ostrava, Японии, Berlin и London.",
+        "limitations": [
+          "Выборка Hippopotamus amphibius из общедоступных публикаций зоопарков и природоохранных организаций; это не полный каталог или родословная.",
+          "Родство включено только при прямом указании в источнике. Неизвестные отцы, безымянные детёныши, совместное содержание и неоднозначные подсчёты не создают записи.",
+          "Данные Ostrava взяты из открытой исторической главы годового отчёта за 2009 год. Полная европейская племенная книга предоставляется по запросу куратору; номера и закрытые записи не копируются, лицензия на повторное использование отчёта не заявляется.",
+          "Японская племенная книга также доступна по запросу куратору. Используются только опубликованные страницы зоопарков.",
+          "Исторический статус и неполные даты остаются неизвестными или приблизительными. Фотографии и URL изображений не включены."
+        ]
+      }
+    }
+  },
+  "animals": [
+    {
+      "id": "hippopotamus-common-animal-cin-bibi",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Bibi",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-cin-fiona",
+          "hippopotamus-common-source-cin-fritz",
+          "hippopotamus-common-source-cin-fiona-blog"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-cin-henry",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Henry",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-cin-fiona",
+          "hippopotamus-common-source-cin-henry"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-cin-fiona",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Fiona",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-cin-fiona",
+          "hippopotamus-common-source-cin-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-cin-tucker",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Tucker",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-cin-tucker",
+          "hippopotamus-common-source-cin-fritz"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-cin-fritz",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Fritz",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-cin-fritz",
+          "hippopotamus-common-source-cin-2024"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-sd-funani",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "living",
+      "name": {
+        "canonical": "Funani",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-sd-devi",
+          "hippopotamus-common-source-sd-family",
+          "hippopotamus-common-source-sd-amahle",
+          "hippopotamus-common-source-sd-moon",
+          "hippopotamus-common-source-sd-current"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-sd-otis",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Otis",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-sd-family"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-sd-devi",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Devi",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-sd-devi"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-sd-tony",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Tony",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-sd-tony-name",
+          "hippopotamus-common-source-sd-tony-sex",
+          "hippopotamus-common-source-sd-family"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-sd-amahle",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "living",
+      "name": {
+        "canonical": "Amahle",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-sd-amahle",
+          "hippopotamus-common-source-sd-moon",
+          "hippopotamus-common-source-sd-current"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-sd-guadalupe",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "living",
+      "name": {
+        "canonical": "Guadalupe",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-wp-lupe",
+          "hippopotamus-common-source-sd-current"
+        ],
+        "localized": []
+      },
+      "aliases": [
+        {
+          "value": "Lupe",
+          "language": "en",
+          "source_ids": [
+            "hippopotamus-common-source-wp-lupe",
+            "hippopotamus-common-source-sd-current"
+          ]
+        }
+      ],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-prague-zaira",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Zaira",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-prague"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-prague-zulu",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Zulu",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-prague"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-prague-slavek",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Slávek",
+        "language": "cs-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-prague"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-bud-tucsok",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "living",
+      "name": {
+        "canonical": "Tücsök",
+        "language": "hu",
+        "source_ids": [
+          "hippopotamus-common-source-budapest"
+        ],
+        "localized": []
+      },
+      "aliases": [
+        {
+          "value": "Borbála",
+          "language": "hu",
+          "source_ids": [
+            "hippopotamus-common-source-budapest"
+          ]
+        }
+      ],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo says she was registered as Borbála and the nickname Tücsök became her official name; living in Budapest in 2025."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-bud-momba",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "deceased",
+      "name": {
+        "canonical": "Momba",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-budapest"
+        ],
+        "localized": []
+      },
+      "aliases": [
+        {
+          "value": "Mombassa",
+          "language": "hu",
+          "source_ids": [
+            "hippopotamus-common-source-budapest"
+          ]
+        }
+      ],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-bud-nairobi",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Nairobi",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-budapest"
+        ],
+        "localized": []
+      },
+      "aliases": [
+        {
+          "value": "Robi",
+          "language": "hu",
+          "source_ids": [
+            "hippopotamus-common-source-budapest"
+          ]
+        }
+      ],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-bud-susu",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Süsü",
+        "language": "hu",
+        "source_ids": [
+          "hippopotamus-common-source-budapest"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-bud-siegfried",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "unknown",
+      "status": "living",
+      "name": {
+        "canonical": "Siegfried",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-budapest"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-bud-linda",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "unknown",
+      "status": "living",
+      "name": {
+        "canonical": "Linda",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-budapest"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-bud-alie",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "unknown",
+      "status": "living",
+      "name": {
+        "canonical": "Alie",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-budapest"
+        ],
+        "localized": []
+      },
+      "aliases": [
+        {
+          "value": "Mara",
+          "language": "en",
+          "source_ids": [
+            "hippopotamus-common-source-budapest"
+          ]
+        }
+      ],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-bud-jusztina",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "living",
+      "name": {
+        "canonical": "Jusztina",
+        "language": "hu",
+        "source_ids": [
+          "hippopotamus-common-source-budapest"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-bud-kincsem",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "deceased",
+      "name": {
+        "canonical": "Kincsem",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-budapest"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-roza",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "deceased",
+      "name": {
+        "canonical": "Róza",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-tanga",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "deceased",
+      "name": {
+        "canonical": "Tanga",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-lutz2",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Lutz II",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-lutz1",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Lutz I",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-dora",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Dora",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-heini",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Heini",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-honza",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Honza",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-aenne",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Aenne II",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-toni",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Toni",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-dita",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Dita",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-asmar",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "deceased",
+      "name": {
+        "canonical": "Asmar",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-ostep",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Oštěp",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-katka",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Katka",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-alenka",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Alenka",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-benda",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Benda",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-rambo",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Rambo",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-snehurka",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Sněhurka",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-arka",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Arka",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-maruska",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Maruška",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report",
+          "hippopotamus-common-source-prague"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-adelka",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Adélka",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-ost-hugo",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Hugo",
+        "language": "cs",
+        "source_ids": [
+          "hippopotamus-common-source-ostrava-report"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-namiko",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Namiko",
+        "language": "ja-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-kobe"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-demeo3",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "三代目出目男",
+        "language": "ja",
+        "source_ids": [
+          "hippopotamus-common-source-kobe"
+        ],
+        "localized": [
+          {
+            "value": "Third Demeo",
+            "language": "en",
+            "source_ids": [
+              "hippopotamus-common-source-kobe"
+            ]
+          }
+        ]
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-chameko",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Chameko",
+        "language": "ja-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-kobe-mag",
+          "hippopotamus-common-source-kobe"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-hagler",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Hagler",
+        "language": "ja-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-tobe-hm",
+          "hippopotamus-common-source-tobe-pair"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-mimi",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Mimi",
+        "language": "ja-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-tobe-hm",
+          "hippopotamus-common-source-tobe-pair",
+          "hippopotamus-common-source-tokuyama"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-momoko",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Momoko",
+        "language": "ja-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-tobe-hm"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-yui",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Yui",
+        "language": "ja-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-tobe-yui",
+          "hippopotamus-common-source-ueno-yui"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-manpuku",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "まんぷく",
+        "language": "ja",
+        "source_ids": [
+          "hippopotamus-common-source-tobe-manpuku-name",
+          "hippopotamus-common-source-tobe-newsletter"
+        ],
+        "localized": [
+          {
+            "value": "Manpuku",
+            "language": "en",
+            "source_ids": [
+              "hippopotamus-common-source-tobe-manpuku-name",
+              "hippopotamus-common-source-tobe-newsletter"
+            ]
+          }
+        ]
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-maru",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Maru",
+        "language": "ja-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-tokuyama"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-moomin",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Moomin",
+        "language": "ja-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-tokuyama"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-kabako",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Kabako",
+        "language": "ja-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-tokuyama"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-jp-bero",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Bero",
+        "language": "ja-Latn",
+        "source_ids": [
+          "hippopotamus-common-source-tokuyama"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-uk-adhela",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "deceased",
+      "name": {
+        "canonical": "Adhela",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-zsl"
+        ],
+        "localized": []
+      },
+      "aliases": [
+        {
+          "value": "Dil",
+          "language": "en",
+          "source_ids": [
+            "hippopotamus-common-source-zsl"
+          ]
+        }
+      ],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-uk-guy",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Guy Fawkes",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-zsl"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-berlin-nala",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Nala",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-berlin-twins",
+          "hippopotamus-common-source-berlin-willi"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-berlin-willi",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "living",
+      "name": {
+        "canonical": "Willi Wackelöhrchen",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-berlin-twins",
+          "hippopotamus-common-source-berlin-willi"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Name and available sex/status evidence are source-linked; unverified current status remains unknown."
+      },
+      "population": "zoo_captive"
+    }
+  ],
+  "claims": [
+    {
+      "id": "hippopotamus-common-claim-0001",
+      "subject": "hippopotamus-common-animal-cin-bibi",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-fiona",
+        "hippopotamus-common-source-cin-fritz"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0002",
+      "subject": "hippopotamus-common-animal-cin-henry",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-fiona",
+        "hippopotamus-common-source-cin-henry"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0003",
+      "subject": "hippopotamus-common-animal-cin-henry",
+      "claim_type": "life_status",
+      "value": "deceased",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-henry"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0004",
+      "subject": "hippopotamus-common-animal-cin-fiona",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0005",
+      "subject": "hippopotamus-common-animal-cin-tucker",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-tucker",
+        "hippopotamus-common-source-cin-fritz"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0006",
+      "subject": "hippopotamus-common-animal-cin-fritz",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-2024"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0007",
+      "subject": "hippopotamus-common-animal-cin-fiona",
+      "claim_type": "sibling",
+      "value": "hippopotamus-common-animal-cin-fritz",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-fritz",
+        "hippopotamus-common-source-cin-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cincinnati sources directly describe Fritz as Fiona’s younger brother."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0008",
+      "subject": "hippopotamus-common-animal-sd-funani",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-devi",
+        "hippopotamus-common-source-sd-current"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0009",
+      "subject": "hippopotamus-common-animal-sd-funani",
+      "claim_type": "life_status",
+      "value": "living",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-current"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0010",
+      "subject": "hippopotamus-common-animal-sd-otis",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-family"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0011",
+      "subject": "hippopotamus-common-animal-sd-devi",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-devi"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0012",
+      "subject": "hippopotamus-common-animal-sd-tony",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-tony-sex"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0013",
+      "subject": "hippopotamus-common-animal-sd-amahle",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-amahle",
+        "hippopotamus-common-source-sd-current"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0014",
+      "subject": "hippopotamus-common-animal-sd-amahle",
+      "claim_type": "life_status",
+      "value": "living",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-current"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0015",
+      "subject": "hippopotamus-common-animal-sd-guadalupe",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-wp-lupe",
+        "hippopotamus-common-source-sd-current"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0016",
+      "subject": "hippopotamus-common-animal-sd-guadalupe",
+      "claim_type": "life_status",
+      "value": "living",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-current"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0017",
+      "subject": "hippopotamus-common-animal-prague-zaira",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-prague"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0018",
+      "subject": "hippopotamus-common-animal-prague-zulu",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-prague"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0019",
+      "subject": "hippopotamus-common-animal-prague-slavek",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-prague"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0020",
+      "subject": "hippopotamus-common-animal-bud-tucsok",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0021",
+      "subject": "hippopotamus-common-animal-bud-tucsok",
+      "claim_type": "life_status",
+      "value": "living",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0022",
+      "subject": "hippopotamus-common-animal-bud-momba",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0023",
+      "subject": "hippopotamus-common-animal-bud-momba",
+      "claim_type": "life_status",
+      "value": "deceased",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0024",
+      "subject": "hippopotamus-common-animal-bud-nairobi",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0025",
+      "subject": "hippopotamus-common-animal-bud-nairobi",
+      "claim_type": "life_status",
+      "value": "deceased",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0026",
+      "subject": "hippopotamus-common-animal-bud-susu",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0027",
+      "subject": "hippopotamus-common-animal-bud-susu",
+      "claim_type": "life_status",
+      "value": "deceased",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0028",
+      "subject": "hippopotamus-common-animal-bud-siegfried",
+      "claim_type": "life_status",
+      "value": "living",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0029",
+      "subject": "hippopotamus-common-animal-bud-linda",
+      "claim_type": "life_status",
+      "value": "living",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0030",
+      "subject": "hippopotamus-common-animal-bud-alie",
+      "claim_type": "life_status",
+      "value": "living",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0031",
+      "subject": "hippopotamus-common-animal-bud-jusztina",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0032",
+      "subject": "hippopotamus-common-animal-bud-jusztina",
+      "claim_type": "life_status",
+      "value": "living",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0033",
+      "subject": "hippopotamus-common-animal-bud-kincsem",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0034",
+      "subject": "hippopotamus-common-animal-bud-kincsem",
+      "claim_type": "life_status",
+      "value": "deceased",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0035",
+      "subject": "hippopotamus-common-animal-bud-tucsok",
+      "claim_type": "offspring_count",
+      "value": 7,
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo states seven offspring; unnamed offspring are not represented."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0036",
+      "subject": "hippopotamus-common-animal-bud-momba",
+      "claim_type": "offspring_count_with_nairobi",
+      "value": 13,
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo states thirteen calves; unnamed offspring are not represented."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0037",
+      "subject": "hippopotamus-common-animal-bud-nairobi",
+      "claim_type": "offspring_count_with_kincsem",
+      "value": 5,
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo states five additional calves; unnamed offspring are not represented."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0038",
+      "subject": "hippopotamus-common-animal-ost-roza",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0039",
+      "subject": "hippopotamus-common-animal-ost-roza",
+      "claim_type": "life_status",
+      "value": "deceased",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0040",
+      "subject": "hippopotamus-common-animal-ost-tanga",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0041",
+      "subject": "hippopotamus-common-animal-ost-tanga",
+      "claim_type": "life_status",
+      "value": "deceased",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0042",
+      "subject": "hippopotamus-common-animal-ost-lutz2",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0043",
+      "subject": "hippopotamus-common-animal-ost-lutz1",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0044",
+      "subject": "hippopotamus-common-animal-ost-dora",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0045",
+      "subject": "hippopotamus-common-animal-ost-heini",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0046",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0047",
+      "subject": "hippopotamus-common-animal-ost-aenne",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0048",
+      "subject": "hippopotamus-common-animal-ost-toni",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0049",
+      "subject": "hippopotamus-common-animal-ost-dita",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0050",
+      "subject": "hippopotamus-common-animal-ost-asmar",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0051",
+      "subject": "hippopotamus-common-animal-ost-asmar",
+      "claim_type": "life_status",
+      "value": "deceased",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0052",
+      "subject": "hippopotamus-common-animal-ost-ostep",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0053",
+      "subject": "hippopotamus-common-animal-ost-katka",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0054",
+      "subject": "hippopotamus-common-animal-ost-alenka",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0055",
+      "subject": "hippopotamus-common-animal-ost-benda",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0056",
+      "subject": "hippopotamus-common-animal-ost-rambo",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0057",
+      "subject": "hippopotamus-common-animal-ost-snehurka",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0058",
+      "subject": "hippopotamus-common-animal-ost-arka",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0059",
+      "subject": "hippopotamus-common-animal-ost-maruska",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0060",
+      "subject": "hippopotamus-common-animal-ost-adelka",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0061",
+      "subject": "hippopotamus-common-animal-ost-hugo",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0062",
+      "subject": "hippopotamus-common-animal-ost-roza",
+      "claim_type": "sibling",
+      "value": "hippopotamus-common-animal-ost-dora",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Report directly identifies Dora as Róza’s sister."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0063",
+      "subject": "hippopotamus-common-animal-ost-roza",
+      "claim_type": "sibling",
+      "value": "hippopotamus-common-animal-ost-heini",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Report directly identifies Heini as Róza’s brother."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0064",
+      "subject": "hippopotamus-common-animal-jp-namiko",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-kobe"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0065",
+      "subject": "hippopotamus-common-animal-jp-demeo3",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-kobe"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0066",
+      "subject": "hippopotamus-common-animal-jp-chameko",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-kobe-mag",
+        "hippopotamus-common-source-kobe"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0067",
+      "subject": "hippopotamus-common-animal-jp-namiko",
+      "claim_type": "grandchild_of",
+      "value": "hippopotamus-common-animal-jp-chameko",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-kobe-mag"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo magazine calls Namiko Chameko’s granddaughter without naming the intervening parent."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0068",
+      "subject": "hippopotamus-common-animal-jp-chameko",
+      "claim_type": "offspring_count_with_named_males",
+      "value": 17,
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-kobe"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Zoo says 17 offspring with first, second and third Demeo males; individual paternity not attributed."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0069",
+      "subject": "hippopotamus-common-animal-jp-hagler",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-pair"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0070",
+      "subject": "hippopotamus-common-animal-jp-mimi",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-pair"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0071",
+      "subject": "hippopotamus-common-animal-jp-momoko",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-hm"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0072",
+      "subject": "hippopotamus-common-animal-jp-yui",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ueno-yui"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0073",
+      "subject": "hippopotamus-common-animal-jp-manpuku",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-newsletter"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0074",
+      "subject": "hippopotamus-common-animal-jp-maru",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tokuyama"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0075",
+      "subject": "hippopotamus-common-animal-jp-moomin",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tokuyama"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0076",
+      "subject": "hippopotamus-common-animal-jp-kabako",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tokuyama"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0077",
+      "subject": "hippopotamus-common-animal-jp-bero",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tokuyama"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0078",
+      "subject": "hippopotamus-common-animal-jp-maru",
+      "claim_type": "sibling",
+      "value": "hippopotamus-common-animal-jp-bero",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tokuyama"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Tokuyama Zoo directly names Bero as Maru’s older brother."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0079",
+      "subject": "hippopotamus-common-animal-jp-maru",
+      "claim_type": "sibling",
+      "value": "hippopotamus-common-animal-jp-mimi",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tokuyama"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Tokuyama Zoo directly names Mimi at Tobe as Maru’s older sister."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0080",
+      "subject": "hippopotamus-common-animal-uk-adhela",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-zsl"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0081",
+      "subject": "hippopotamus-common-animal-uk-adhela",
+      "claim_type": "life_status",
+      "value": "deceased",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-zsl"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0082",
+      "subject": "hippopotamus-common-animal-uk-guy",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-zsl"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0083",
+      "subject": "hippopotamus-common-animal-berlin-nala",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-berlin-twins"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0084",
+      "subject": "hippopotamus-common-animal-berlin-willi",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-berlin-twins"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    },
+    {
+      "id": "hippopotamus-common-claim-0085",
+      "subject": "hippopotamus-common-animal-berlin-willi",
+      "claim_type": "life_status",
+      "value": "living",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-berlin-willi"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Directly stated in cited source."
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "hippopotamus-common-relationship-0001",
+      "subject": "hippopotamus-common-animal-cin-bibi",
+      "object": "hippopotamus-common-animal-cin-fiona",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-fiona",
+        "hippopotamus-common-source-cin-fiona-blog"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0002",
+      "subject": "hippopotamus-common-animal-cin-henry",
+      "object": "hippopotamus-common-animal-cin-fiona",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-fiona",
+        "hippopotamus-common-source-cin-fiona-blog"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0003",
+      "subject": "hippopotamus-common-animal-cin-bibi",
+      "object": "hippopotamus-common-animal-cin-fritz",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-fritz",
+        "hippopotamus-common-source-cin-2024"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0004",
+      "subject": "hippopotamus-common-animal-cin-tucker",
+      "object": "hippopotamus-common-animal-cin-fritz",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-cin-fritz",
+        "hippopotamus-common-source-cin-2024"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0005",
+      "subject": "hippopotamus-common-animal-sd-funani",
+      "object": "hippopotamus-common-animal-sd-devi",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-devi"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0006",
+      "subject": "hippopotamus-common-animal-sd-funani",
+      "object": "hippopotamus-common-animal-sd-tony",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-family"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0007",
+      "subject": "hippopotamus-common-animal-sd-otis",
+      "object": "hippopotamus-common-animal-sd-tony",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-family"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0008",
+      "subject": "hippopotamus-common-animal-sd-funani",
+      "object": "hippopotamus-common-animal-sd-amahle",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-sd-amahle",
+        "hippopotamus-common-source-sd-moon",
+        "hippopotamus-common-source-sd-current"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0009",
+      "subject": "hippopotamus-common-animal-prague-zaira",
+      "object": "hippopotamus-common-animal-prague-slavek",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-prague"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0010",
+      "subject": "hippopotamus-common-animal-prague-zulu",
+      "object": "hippopotamus-common-animal-prague-slavek",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-prague"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0011",
+      "subject": "hippopotamus-common-animal-bud-momba",
+      "object": "hippopotamus-common-animal-bud-tucsok",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0012",
+      "subject": "hippopotamus-common-animal-bud-nairobi",
+      "object": "hippopotamus-common-animal-bud-tucsok",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0013",
+      "subject": "hippopotamus-common-animal-bud-tucsok",
+      "object": "hippopotamus-common-animal-bud-siegfried",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0014",
+      "subject": "hippopotamus-common-animal-bud-tucsok",
+      "object": "hippopotamus-common-animal-bud-linda",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0015",
+      "subject": "hippopotamus-common-animal-bud-tucsok",
+      "object": "hippopotamus-common-animal-bud-alie",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0016",
+      "subject": "hippopotamus-common-animal-bud-tucsok",
+      "object": "hippopotamus-common-animal-bud-jusztina",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0017",
+      "subject": "hippopotamus-common-animal-bud-susu",
+      "object": "hippopotamus-common-animal-bud-jusztina",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0018",
+      "subject": "hippopotamus-common-animal-ost-tanga",
+      "object": "hippopotamus-common-animal-ost-lutz2",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0019",
+      "subject": "hippopotamus-common-animal-ost-lutz1",
+      "object": "hippopotamus-common-animal-ost-lutz2",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0020",
+      "subject": "hippopotamus-common-animal-ost-tanga",
+      "object": "hippopotamus-common-animal-ost-roza",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0021",
+      "subject": "hippopotamus-common-animal-ost-lutz2",
+      "object": "hippopotamus-common-animal-ost-roza",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0022",
+      "subject": "hippopotamus-common-animal-ost-aenne",
+      "object": "hippopotamus-common-animal-ost-honza",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0023",
+      "subject": "hippopotamus-common-animal-ost-toni",
+      "object": "hippopotamus-common-animal-ost-honza",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0024",
+      "subject": "hippopotamus-common-animal-ost-roza",
+      "object": "hippopotamus-common-animal-ost-dita",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0025",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-dita",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0026",
+      "subject": "hippopotamus-common-animal-ost-roza",
+      "object": "hippopotamus-common-animal-ost-asmar",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0027",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-asmar",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0028",
+      "subject": "hippopotamus-common-animal-ost-roza",
+      "object": "hippopotamus-common-animal-ost-ostep",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0029",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-ostep",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0030",
+      "subject": "hippopotamus-common-animal-ost-roza",
+      "object": "hippopotamus-common-animal-ost-katka",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0031",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-katka",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0032",
+      "subject": "hippopotamus-common-animal-ost-roza",
+      "object": "hippopotamus-common-animal-ost-snehurka",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0033",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-snehurka",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0034",
+      "subject": "hippopotamus-common-animal-ost-katka",
+      "object": "hippopotamus-common-animal-ost-alenka",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0035",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-alenka",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0036",
+      "subject": "hippopotamus-common-animal-ost-katka",
+      "object": "hippopotamus-common-animal-ost-benda",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0037",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-benda",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0038",
+      "subject": "hippopotamus-common-animal-ost-katka",
+      "object": "hippopotamus-common-animal-ost-rambo",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0039",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-rambo",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0040",
+      "subject": "hippopotamus-common-animal-ost-katka",
+      "object": "hippopotamus-common-animal-ost-arka",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0041",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-arka",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0042",
+      "subject": "hippopotamus-common-animal-ost-katka",
+      "object": "hippopotamus-common-animal-ost-maruska",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0043",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-maruska",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0044",
+      "subject": "hippopotamus-common-animal-ost-katka",
+      "object": "hippopotamus-common-animal-ost-adelka",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0045",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-adelka",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0046",
+      "subject": "hippopotamus-common-animal-ost-katka",
+      "object": "hippopotamus-common-animal-ost-hugo",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0047",
+      "subject": "hippopotamus-common-animal-ost-honza",
+      "object": "hippopotamus-common-animal-ost-hugo",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0048",
+      "subject": "hippopotamus-common-animal-jp-hagler",
+      "object": "hippopotamus-common-animal-jp-momoko",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-hm"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0049",
+      "subject": "hippopotamus-common-animal-jp-mimi",
+      "object": "hippopotamus-common-animal-jp-momoko",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-hm"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0050",
+      "subject": "hippopotamus-common-animal-jp-hagler",
+      "object": "hippopotamus-common-animal-jp-yui",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-ueno-yui"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0051",
+      "subject": "hippopotamus-common-animal-jp-mimi",
+      "object": "hippopotamus-common-animal-jp-yui",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-yui"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0052",
+      "subject": "hippopotamus-common-animal-jp-hagler",
+      "object": "hippopotamus-common-animal-jp-manpuku",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-manpuku-born"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0053",
+      "subject": "hippopotamus-common-animal-jp-mimi",
+      "object": "hippopotamus-common-animal-jp-manpuku",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-manpuku-born"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0054",
+      "subject": "hippopotamus-common-animal-jp-moomin",
+      "object": "hippopotamus-common-animal-jp-maru",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tokuyama"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0055",
+      "subject": "hippopotamus-common-animal-jp-kabako",
+      "object": "hippopotamus-common-animal-jp-maru",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-tokuyama"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0056",
+      "subject": "hippopotamus-common-animal-uk-adhela",
+      "object": "hippopotamus-common-animal-uk-guy",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-zsl"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-0057",
+      "subject": "hippopotamus-common-animal-berlin-nala",
+      "object": "hippopotamus-common-animal-berlin-willi",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-berlin-willi"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-08",
+        "notes": "Cited source directly identifies this parent and offspring."
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "hippopotamus-common-event-0001",
+      "animal_id": "hippopotamus-common-animal-cin-fiona",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2017-01-24"
+      },
+      "institution_id": "hippopotamus-common-institution-cincinnati",
+      "source_ids": [
+        "hippopotamus-common-source-cin-birth",
+        "hippopotamus-common-source-cin-fiona"
+      ],
+      "notes": "Female calf born six weeks early."
+    },
+    {
+      "id": "hippopotamus-common-event-0002",
+      "animal_id": "hippopotamus-common-animal-cin-henry",
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "2017-10-31"
+      },
+      "institution_id": "hippopotamus-common-institution-cincinnati",
+      "source_ids": [
+        "hippopotamus-common-source-cin-henry"
+      ],
+      "notes": "Zoo reported Henry’s death."
+    },
+    {
+      "id": "hippopotamus-common-event-0003",
+      "animal_id": "hippopotamus-common-animal-cin-fritz",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2022-08-03"
+      },
+      "institution_id": "hippopotamus-common-institution-cincinnati",
+      "source_ids": [
+        "hippopotamus-common-source-cin-fritz",
+        "hippopotamus-common-source-cin-2024"
+      ],
+      "notes": "Male calf born to Bibi and Tucker."
+    },
+    {
+      "id": "hippopotamus-common-event-0004",
+      "animal_id": "hippopotamus-common-animal-sd-tony",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "2017-09"
+      },
+      "institution_id": "hippopotamus-common-institution-san-diego",
+      "source_ids": [
+        "hippopotamus-common-source-sd-tony-born",
+        "hippopotamus-common-source-sd-tony-sex",
+        "hippopotamus-common-source-sd-tony-name"
+      ],
+      "notes": "Official announcements identify a newborn calf in September; exact day is unstated."
+    },
+    {
+      "id": "hippopotamus-common-event-0005",
+      "animal_id": "hippopotamus-common-animal-sd-amahle",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2020-02-08"
+      },
+      "institution_id": "hippopotamus-common-institution-san-diego",
+      "source_ids": [
+        "hippopotamus-common-source-sd-moon",
+        "hippopotamus-common-source-sd-amahle"
+      ],
+      "notes": "Female calf born to Funani."
+    },
+    {
+      "id": "hippopotamus-common-event-0006",
+      "animal_id": "hippopotamus-common-animal-sd-guadalupe",
+      "type": "birth",
+      "date": {
+        "precision": "unknown",
+        "notes": "The official source identifies Disney’s Animal Kingdom as birthplace but gives no exact date."
+      },
+      "institution_id": "hippopotamus-common-institution-disney",
+      "source_ids": [
+        "hippopotamus-common-source-wp-lupe"
+      ],
+      "notes": "Birthplace stated, date unavailable."
+    },
+    {
+      "id": "hippopotamus-common-event-0007",
+      "animal_id": "hippopotamus-common-animal-sd-guadalupe",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2024-09"
+      },
+      "institution_id": "hippopotamus-common-institution-san-diego",
+      "source_ids": [
+        "hippopotamus-common-source-wp-lupe",
+        "hippopotamus-common-source-sd-current"
+      ],
+      "notes": "Woodland Park announced the planned September 24 date; San Diego later confirms her at the zoo, but the exact completed arrival date is not independently stated.",
+      "from_institution_id": "hippopotamus-common-institution-woodland",
+      "to_institution_id": "hippopotamus-common-institution-san-diego"
+    },
+    {
+      "id": "hippopotamus-common-event-0008",
+      "animal_id": "hippopotamus-common-animal-prague-slavek",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1984-10-30"
+      },
+      "institution_id": "hippopotamus-common-institution-prague",
+      "source_ids": [
+        "hippopotamus-common-source-prague"
+      ],
+      "notes": "Prague Zoo identifies Slávek as a native-born animal."
+    },
+    {
+      "id": "hippopotamus-common-event-0009",
+      "animal_id": "hippopotamus-common-animal-bud-tucsok",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "1973"
+      },
+      "institution_id": "hippopotamus-common-institution-budapest",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "notes": "Zoo gives year only."
+    },
+    {
+      "id": "hippopotamus-common-event-0010",
+      "animal_id": "hippopotamus-common-animal-bud-siegfried",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "1978"
+      },
+      "institution_id": "hippopotamus-common-institution-budapest",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "notes": "Zoo gives year only."
+    },
+    {
+      "id": "hippopotamus-common-event-0011",
+      "animal_id": "hippopotamus-common-animal-bud-linda",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "1986"
+      },
+      "institution_id": "hippopotamus-common-institution-budapest",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "notes": "Zoo gives year only."
+    },
+    {
+      "id": "hippopotamus-common-event-0012",
+      "animal_id": "hippopotamus-common-animal-bud-alie",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "1989"
+      },
+      "institution_id": "hippopotamus-common-institution-budapest",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "notes": "Zoo gives year only."
+    },
+    {
+      "id": "hippopotamus-common-event-0013",
+      "animal_id": "hippopotamus-common-animal-bud-jusztina",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1994-09-26"
+      },
+      "institution_id": "hippopotamus-common-institution-budapest",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "notes": "Daughter of Tücsök and Süsü."
+    },
+    {
+      "id": "hippopotamus-common-event-0014",
+      "animal_id": "hippopotamus-common-animal-bud-susu",
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "1994-08-06"
+      },
+      "institution_id": "hippopotamus-common-institution-budapest",
+      "source_ids": [
+        "hippopotamus-common-source-budapest"
+      ],
+      "notes": "Zoo reports Süsü died on this date."
+    },
+    {
+      "id": "hippopotamus-common-event-0015",
+      "animal_id": "hippopotamus-common-animal-ost-roza",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1961-06-20"
+      },
+      "institution_id": null,
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Born in Munich on this date; the source names no specific zoo of birth. Studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0016",
+      "animal_id": "hippopotamus-common-animal-ost-honza",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1967-07-20"
+      },
+      "institution_id": "hippopotamus-common-institution-cologne",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0017",
+      "animal_id": "hippopotamus-common-animal-ost-dita",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1972-01-30"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0018",
+      "animal_id": "hippopotamus-common-animal-ost-asmar",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1973-12-15"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0019",
+      "animal_id": "hippopotamus-common-animal-ost-ostep",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1975-04-07"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0020",
+      "animal_id": "hippopotamus-common-animal-ost-katka",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1977-08-31"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0021",
+      "animal_id": "hippopotamus-common-animal-ost-alenka",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1982-10-22"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0022",
+      "animal_id": "hippopotamus-common-animal-ost-benda",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1984-09-29"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0023",
+      "animal_id": "hippopotamus-common-animal-ost-rambo",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1989-11-24"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0024",
+      "animal_id": "hippopotamus-common-animal-ost-snehurka",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1989-12-09"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0025",
+      "animal_id": "hippopotamus-common-animal-ost-arka",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1994-08-14"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0026",
+      "animal_id": "hippopotamus-common-animal-ost-maruska",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1999-12-29"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0027",
+      "animal_id": "hippopotamus-common-animal-ost-adelka",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2003-08-08"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0028",
+      "animal_id": "hippopotamus-common-animal-ost-hugo",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2007-05-29"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Exact birth date in public historical chapter/table; studbook identifier omitted."
+    },
+    {
+      "id": "hippopotamus-common-event-0029",
+      "animal_id": "hippopotamus-common-animal-ost-roza",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1967-11-16"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Moved from Dvůr Králové to Ostrava.",
+      "from_institution_id": "hippopotamus-common-institution-dvur",
+      "to_institution_id": "hippopotamus-common-institution-ostrava"
+    },
+    {
+      "id": "hippopotamus-common-event-0030",
+      "animal_id": "hippopotamus-common-animal-ost-honza",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1968-07-13"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Arrived from Cologne.",
+      "from_institution_id": "hippopotamus-common-institution-cologne",
+      "to_institution_id": "hippopotamus-common-institution-ostrava"
+    },
+    {
+      "id": "hippopotamus-common-event-0031",
+      "animal_id": "hippopotamus-common-animal-ost-roza",
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "2009-10-07"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Report documents Róza’s death."
+    },
+    {
+      "id": "hippopotamus-common-event-0032",
+      "animal_id": "hippopotamus-common-animal-ost-asmar",
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "1975-02-10"
+      },
+      "institution_id": "hippopotamus-common-institution-ostrava",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Historical table reports death at Ostrava."
+    },
+    {
+      "id": "hippopotamus-common-event-0033",
+      "animal_id": "hippopotamus-common-animal-ost-dita",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1975-05-24"
+      },
+      "institution_id": null,
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Transferred to dealer Van den Brink; no destination zoo is stated.",
+      "from_institution_id": "hippopotamus-common-institution-ostrava"
+    },
+    {
+      "id": "hippopotamus-common-event-0034",
+      "animal_id": "hippopotamus-common-animal-ost-ostep",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1976-10-05"
+      },
+      "institution_id": null,
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Transferred to dealer Van den Brink; no destination zoo is stated.",
+      "from_institution_id": "hippopotamus-common-institution-ostrava"
+    },
+    {
+      "id": "hippopotamus-common-event-0035",
+      "animal_id": "hippopotamus-common-animal-ost-alenka",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1988-08-09"
+      },
+      "institution_id": null,
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Transferred to Müller company/dealer; destination unstated.",
+      "from_institution_id": "hippopotamus-common-institution-ostrava"
+    },
+    {
+      "id": "hippopotamus-common-event-0036",
+      "animal_id": "hippopotamus-common-animal-ost-benda",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1988-08-09"
+      },
+      "institution_id": null,
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Transferred to Müller company/dealer; destination unstated.",
+      "from_institution_id": "hippopotamus-common-institution-ostrava"
+    },
+    {
+      "id": "hippopotamus-common-event-0037",
+      "animal_id": "hippopotamus-common-animal-ost-rambo",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1990-11-22"
+      },
+      "institution_id": null,
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Report destination wording is “Amougies (France)”; venue and geography are left unresolved, so no destination institution is asserted.",
+      "from_institution_id": "hippopotamus-common-institution-ostrava"
+    },
+    {
+      "id": "hippopotamus-common-event-0038",
+      "animal_id": "hippopotamus-common-animal-ost-snehurka",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1990-11-22"
+      },
+      "institution_id": null,
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Report destination wording is “Amougies (France)”; venue and geography are left unresolved, so no destination institution is asserted.",
+      "from_institution_id": "hippopotamus-common-institution-ostrava"
+    },
+    {
+      "id": "hippopotamus-common-event-0039",
+      "animal_id": "hippopotamus-common-animal-ost-arka",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1995-09-07"
+      },
+      "institution_id": "hippopotamus-common-institution-vienna",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Transferred to Vienna Zoo.",
+      "from_institution_id": "hippopotamus-common-institution-ostrava",
+      "to_institution_id": "hippopotamus-common-institution-vienna"
+    },
+    {
+      "id": "hippopotamus-common-event-0040",
+      "animal_id": "hippopotamus-common-animal-ost-maruska",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2002-11-15"
+      },
+      "institution_id": "hippopotamus-common-institution-prague",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Transferred to Prague Zoo; Prague Zoo independently confirms origin.",
+      "from_institution_id": "hippopotamus-common-institution-ostrava",
+      "to_institution_id": "hippopotamus-common-institution-prague"
+    },
+    {
+      "id": "hippopotamus-common-event-0041",
+      "animal_id": "hippopotamus-common-animal-ost-adelka",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2006-07-09"
+      },
+      "institution_id": "hippopotamus-common-institution-lahore",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Transferred to Lahore Zoo, Pakistan.",
+      "from_institution_id": "hippopotamus-common-institution-ostrava",
+      "to_institution_id": "hippopotamus-common-institution-lahore"
+    },
+    {
+      "id": "hippopotamus-common-event-0042",
+      "animal_id": "hippopotamus-common-animal-ost-hugo",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2009-11-03"
+      },
+      "institution_id": "hippopotamus-common-institution-warsaw",
+      "source_ids": [
+        "hippopotamus-common-source-ostrava-report"
+      ],
+      "notes": "Transferred to Warsaw Zoo.",
+      "from_institution_id": "hippopotamus-common-institution-ostrava",
+      "to_institution_id": "hippopotamus-common-institution-warsaw"
+    },
+    {
+      "id": "hippopotamus-common-event-0043",
+      "animal_id": null,
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2009-08-11"
+      },
+      "institution_id": "hippopotamus-common-institution-kobe",
+      "source_ids": [
+        "hippopotamus-common-source-kobe",
+        "hippopotamus-common-source-kobe-mag"
+      ],
+      "notes": "Unnamed calf of Namiko and third-generation Demeo.",
+      "related_animal_ids": [
+        "hippopotamus-common-animal-jp-namiko",
+        "hippopotamus-common-animal-jp-demeo3"
+      ],
+      "outcome_count": 1
+    },
+    {
+      "id": "hippopotamus-common-event-0044",
+      "animal_id": "hippopotamus-common-animal-jp-namiko",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1992-09-16"
+      },
+      "institution_id": "hippopotamus-common-institution-asahiyama",
+      "source_ids": [
+        "hippopotamus-common-source-kobe"
+      ],
+      "notes": "Born at Asahiyama Zoo."
+    },
+    {
+      "id": "hippopotamus-common-event-0045",
+      "animal_id": "hippopotamus-common-animal-jp-namiko",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2003-06-25"
+      },
+      "institution_id": "hippopotamus-common-institution-kobe",
+      "source_ids": [
+        "hippopotamus-common-source-kobe"
+      ],
+      "notes": "From Asahiyama to Kobe Oji Zoo.",
+      "from_institution_id": "hippopotamus-common-institution-asahiyama",
+      "to_institution_id": "hippopotamus-common-institution-kobe"
+    },
+    {
+      "id": "hippopotamus-common-event-0046",
+      "animal_id": "hippopotamus-common-animal-jp-demeo3",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1981-12-23"
+      },
+      "institution_id": "hippopotamus-common-institution-higashiyama",
+      "source_ids": [
+        "hippopotamus-common-source-kobe"
+      ],
+      "notes": "Born at Higashiyama Zoo."
+    },
+    {
+      "id": "hippopotamus-common-event-0047",
+      "animal_id": "hippopotamus-common-animal-jp-demeo3",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1986-09-24"
+      },
+      "institution_id": "hippopotamus-common-institution-kobe",
+      "source_ids": [
+        "hippopotamus-common-source-kobe"
+      ],
+      "notes": "From Himeji Central Park to Kobe Oji Zoo.",
+      "from_institution_id": "hippopotamus-common-institution-himeji",
+      "to_institution_id": "hippopotamus-common-institution-kobe"
+    },
+    {
+      "id": "hippopotamus-common-event-0048",
+      "animal_id": "hippopotamus-common-animal-jp-momoko",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2010-05"
+      },
+      "institution_id": "hippopotamus-common-institution-kumamoto",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-hm"
+      ],
+      "notes": "Tobe reports move to Kumamoto in May 2010.",
+      "from_institution_id": "hippopotamus-common-institution-tobe",
+      "to_institution_id": "hippopotamus-common-institution-kumamoto"
+    },
+    {
+      "id": "hippopotamus-common-event-0049",
+      "animal_id": "hippopotamus-common-animal-jp-yui",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2011-07-24"
+      },
+      "institution_id": "hippopotamus-common-institution-tobe",
+      "source_ids": [
+        "hippopotamus-common-source-ueno-yui"
+      ],
+      "notes": "Born at Tobe; planned later Ueno arrival is not treated as a completed transfer."
+    },
+    {
+      "id": "hippopotamus-common-event-0050",
+      "animal_id": "hippopotamus-common-animal-jp-manpuku",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2021-04-23"
+      },
+      "institution_id": "hippopotamus-common-institution-tobe",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-manpuku-born",
+        "hippopotamus-common-source-tobe-manpuku-name"
+      ],
+      "notes": "Later named Manpuku."
+    },
+    {
+      "id": "hippopotamus-common-event-0051",
+      "animal_id": "hippopotamus-common-animal-jp-manpuku",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2023-03-13"
+      },
+      "institution_id": "hippopotamus-common-institution-tobu",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-newsletter"
+      ],
+      "notes": "Transferred to Tobu Zoo.",
+      "from_institution_id": "hippopotamus-common-institution-tobe",
+      "to_institution_id": "hippopotamus-common-institution-tobu"
+    },
+    {
+      "id": "hippopotamus-common-event-0052",
+      "animal_id": null,
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2018-01-18"
+      },
+      "institution_id": "hippopotamus-common-institution-tobe",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-2018"
+      ],
+      "notes": "Unnamed male calf of Hagler and Mimi.",
+      "related_animal_ids": [
+        "hippopotamus-common-animal-jp-hagler",
+        "hippopotamus-common-animal-jp-mimi"
+      ],
+      "outcome_count": 1
+    },
+    {
+      "id": "hippopotamus-common-event-0053",
+      "animal_id": null,
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "2018-01-19"
+      },
+      "institution_id": "hippopotamus-common-institution-tobe",
+      "source_ids": [
+        "hippopotamus-common-source-tobe-2018"
+      ],
+      "notes": "Unnamed male calf died the following day.",
+      "related_animal_ids": [
+        "hippopotamus-common-animal-jp-hagler",
+        "hippopotamus-common-animal-jp-mimi"
+      ],
+      "outcome_count": 1
+    },
+    {
+      "id": "hippopotamus-common-event-0054",
+      "animal_id": "hippopotamus-common-animal-jp-maru",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1990-02-23"
+      },
+      "institution_id": "hippopotamus-common-institution-tokuyama",
+      "source_ids": [
+        "hippopotamus-common-source-tokuyama"
+      ],
+      "notes": "Born at Tokuyama Zoo."
+    },
+    {
+      "id": "hippopotamus-common-event-0055",
+      "animal_id": "hippopotamus-common-animal-uk-adhela",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "1854-07-22"
+      },
+      "institution_id": "hippopotamus-common-institution-london",
+      "source_ids": [
+        "hippopotamus-common-source-zsl"
+      ],
+      "notes": "Arrived at London Zoo."
+    },
+    {
+      "id": "hippopotamus-common-event-0056",
+      "animal_id": "hippopotamus-common-animal-uk-adhela",
+      "type": "death",
+      "date": {
+        "precision": "exact",
+        "value": "1882-12-16"
+      },
+      "institution_id": "hippopotamus-common-institution-london",
+      "source_ids": [
+        "hippopotamus-common-source-zsl"
+      ],
+      "notes": "ZSL reports her death."
+    },
+    {
+      "id": "hippopotamus-common-event-0057",
+      "animal_id": "hippopotamus-common-animal-uk-guy",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "1872-11-05"
+      },
+      "institution_id": "hippopotamus-common-institution-london",
+      "source_ids": [
+        "hippopotamus-common-source-zsl"
+      ],
+      "notes": "Female calf successfully reared by Adhela."
+    },
+    {
+      "id": "hippopotamus-common-event-0058",
+      "animal_id": "hippopotamus-common-animal-berlin-willi",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2025-09-28"
+      },
+      "institution_id": "hippopotamus-common-institution-berlin",
+      "source_ids": [
+        "hippopotamus-common-source-berlin-twins",
+        "hippopotamus-common-source-berlin-willi"
+      ],
+      "notes": "Named surviving male from twin birth; other calf is unnamed."
+    },
+    {
+      "id": "hippopotamus-common-event-0059",
+      "animal_id": null,
+      "type": "death",
+      "date": {
+        "precision": "approximate",
+        "value": "2025-09"
+      },
+      "institution_id": "hippopotamus-common-institution-berlin",
+      "source_ids": [
+        "hippopotamus-common-source-berlin-twins"
+      ],
+      "notes": "One unnamed male twin died shortly after birth; no animal node created.",
+      "related_animal_ids": [
+        "hippopotamus-common-animal-berlin-nala"
+      ],
+      "outcome_count": 1
+    }
+  ],
+  "institutions": [
+    {
+      "id": "hippopotamus-common-institution-cincinnati",
+      "names": [
+        {
+          "value": "Cincinnati Zoo & Botanical Garden",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Cincinnati, Ohio"
+    },
+    {
+      "id": "hippopotamus-common-institution-san-diego",
+      "names": [
+        {
+          "value": "San Diego Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "San Diego, California"
+    },
+    {
+      "id": "hippopotamus-common-institution-woodland",
+      "names": [
+        {
+          "value": "Woodland Park Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Seattle, Washington"
+    },
+    {
+      "id": "hippopotamus-common-institution-disney",
+      "names": [
+        {
+          "value": "Disney’s Animal Kingdom",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Lake Buena Vista, Florida"
+    },
+    {
+      "id": "hippopotamus-common-institution-prague",
+      "names": [
+        {
+          "value": "Prague Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "CZ",
+      "location": "Prague"
+    },
+    {
+      "id": "hippopotamus-common-institution-budapest",
+      "names": [
+        {
+          "value": "Budapest Zoo and Botanical Garden",
+          "language": "en"
+        }
+      ],
+      "country_code": "HU",
+      "location": "Budapest"
+    },
+    {
+      "id": "hippopotamus-common-institution-ostrava",
+      "names": [
+        {
+          "value": "Zoo Ostrava",
+          "language": "en"
+        }
+      ],
+      "country_code": "CZ",
+      "location": "Ostrava"
+    },
+    {
+      "id": "hippopotamus-common-institution-dvur",
+      "names": [
+        {
+          "value": "Dvůr Králové Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "CZ",
+      "location": "Dvůr Králové nad Labem"
+    },
+    {
+      "id": "hippopotamus-common-institution-cologne",
+      "names": [
+        {
+          "value": "Cologne Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Cologne"
+    },
+    {
+      "id": "hippopotamus-common-institution-london",
+      "names": [
+        {
+          "value": "London Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "GB",
+      "location": "London"
+    },
+    {
+      "id": "hippopotamus-common-institution-asahiyama",
+      "names": [
+        {
+          "value": "Asahiyama Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Asahikawa"
+    },
+    {
+      "id": "hippopotamus-common-institution-higashiyama",
+      "names": [
+        {
+          "value": "Higashiyama Zoo and Botanical Gardens",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Nagoya"
+    },
+    {
+      "id": "hippopotamus-common-institution-himeji",
+      "names": [
+        {
+          "value": "Himeji Central Park",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Himeji"
+    },
+    {
+      "id": "hippopotamus-common-institution-kobe",
+      "names": [
+        {
+          "value": "Kobe Oji Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Kobe"
+    },
+    {
+      "id": "hippopotamus-common-institution-tobe",
+      "names": [
+        {
+          "value": "Tobe Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Toon, Ehime"
+    },
+    {
+      "id": "hippopotamus-common-institution-kumamoto",
+      "names": [
+        {
+          "value": "Kumamoto City Zoological and Botanical Gardens",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Kumamoto"
+    },
+    {
+      "id": "hippopotamus-common-institution-ueno",
+      "names": [
+        {
+          "value": "Ueno Zoological Gardens",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Tokyo"
+    },
+    {
+      "id": "hippopotamus-common-institution-tokuyama",
+      "names": [
+        {
+          "value": "Tokuyama Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Shunan"
+    },
+    {
+      "id": "hippopotamus-common-institution-tobu",
+      "names": [
+        {
+          "value": "Tobu Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Miyashiro"
+    },
+    {
+      "id": "hippopotamus-common-institution-vienna",
+      "names": [
+        {
+          "value": "Vienna Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "AT",
+      "location": "Vienna"
+    },
+    {
+      "id": "hippopotamus-common-institution-lahore",
+      "names": [
+        {
+          "value": "Lahore Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "PK",
+      "location": "Lahore"
+    },
+    {
+      "id": "hippopotamus-common-institution-warsaw",
+      "names": [
+        {
+          "value": "Warsaw Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "PL",
+      "location": "Warsaw"
+    },
+    {
+      "id": "hippopotamus-common-institution-debrecen",
+      "names": [
+        {
+          "value": "Debrecen Zoo and Amusement Park",
+          "language": "en"
+        }
+      ],
+      "country_code": "HU",
+      "location": "Debrecen"
+    },
+    {
+      "id": "hippopotamus-common-institution-amneville",
+      "names": [
+        {
+          "value": "Zoo d’Amnéville",
+          "language": "en"
+        }
+      ],
+      "country_code": "FR",
+      "location": "Amnéville"
+    },
+    {
+      "id": "hippopotamus-common-institution-berlin",
+      "names": [
+        {
+          "value": "Berlin Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Berlin"
+    },
+    {
+      "id": "hippopotamus-common-institution-leipzig",
+      "names": [
+        {
+          "value": "Leipzig Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "DE",
+      "location": "Leipzig"
+    },
+    {
+      "id": "hippopotamus-common-institution-sendai",
+      "names": [
+        {
+          "value": "Yagiyama Zoological Park",
+          "language": "en"
+        }
+      ],
+      "country_code": "JP",
+      "location": "Sendai"
+    }
+  ],
+  "media": [],
+  "sources": [
+    {
+      "id": "hippopotamus-common-source-cin-birth",
+      "title": "Hippo Baby Arrives Six Weeks Early",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/hippo-baby-arrives-six-weeks-early-cincinnati-zoo-staff-providing-critical-care-for-premature-calf/",
+      "publication_date": "2017-01-24",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Female calf born to Bibi on 2017-01-24.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-cin-fiona",
+      "title": "Cincinnati Zoo’s Hippo Baby has a Name",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/cincinnati-zoos-hippo-baby-has-a-name/",
+      "publication_date": "2017-02-01",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Names Fiona and identifies Bibi and Henry as parents.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-cin-fiona-blog",
+      "title": "Hippo Blog #9: Bloat of 3, Finally!",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/hippo-blog-9-bloat-of-3-finally/",
+      "publication_date": "2017-07-18",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo blog",
+      "notes": "Further identifies Fiona’s parents.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-cin-fritz",
+      "title": "Fritz Explores Outside",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/fritz-explores-outside/",
+      "publication_date": "2022-08-16",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Fritz born 2022-08-03 to Bibi and Tucker; Fiona is his older sister.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-cin-henry",
+      "title": "Cincinnati Zoo Mourns Loss of Henry the Hippo",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/cincinnati-zoo-mourns-loss-henry-hippo/",
+      "publication_date": "2017-10-31",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Reports Henry’s death and origin at Dickerson Park Zoo.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-cin-tucker",
+      "title": "Hippo Introductions Happening Faster than Expected at the Cincinnati Zoo",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/hippo-introductions-happening-faster-than-expected-at-the-cincinnati-zoo/",
+      "publication_date": "2021-09-27",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Identifies Tucker as male at Cincinnati; says he came from San Francisco but does not name prior facility.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-cin-2024",
+      "title": "Meet the 2024 Zoo Babies!",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/meet-the-2024-zoo-babies/",
+      "publication_date": "2024-05-01",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo roster",
+      "notes": "Confirms Fritz’s sex, birth date and parents.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-cin-report",
+      "title": "Cincinnati Zoo Annual Report 2022–23",
+      "publisher": "Cincinnati Zoo & Botanical Garden",
+      "url": "https://cincinnatizoo.org/wp-content/uploads/2023/11/AnnualReport_2022-23.pdf",
+      "publication_date": "2023-11",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo annual report",
+      "notes": "Confirms Fritz as Fiona’s younger brother.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-sd-devi",
+      "title": "Mammal of Mystery",
+      "publisher": "San Diego Zoo Wildlife Alliance",
+      "url": "https://blogs.sandiegozoo.org/story-hub/zoonooz/mammal-of-mystery",
+      "publication_date": "2015-11-12",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo feature",
+      "notes": "Identifies Devi as Funani’s daughter; no sire identified.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-sd-tony-born",
+      "title": "Newborn Hippo Makes Waves at the San Diego Zoo",
+      "publisher": "San Diego Zoo Wildlife Alliance",
+      "url": "https://blogs.sandiegozoo.org/2017/09/22/newborn-hippo-makes-waves-at-the-san-diego-zoo/",
+      "publication_date": "2017-09-22",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Reports newborn calf during September 2017; exact day absent.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-sd-tony-sex",
+      "title": "Oh, Boy! Hippo Calf Born at the San Diego Zoo Is Male",
+      "publisher": "San Diego Zoo Wildlife Alliance",
+      "url": "https://blogs.sandiegozoo.org/2017/10/12/oh-boy-hippo-calf-born-at-the-san-diego-zoo-is-male/",
+      "publication_date": "2017-10-12",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Identifies 2017 calf as male.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-sd-tony-name",
+      "title": "The San Diego Zoo Names Its ‘Fearless’ Baby Hippo: Tony",
+      "publisher": "San Diego Zoo Wildlife Alliance",
+      "url": "https://blogs.sandiegozoo.org/2017/11/17/the-san-diego-zoo-names-its-fearless-baby-hippo-tony/",
+      "publication_date": "2017-11-17",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Names the male 2017 calf Tony.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-sd-family",
+      "title": "Big Family",
+      "publisher": "San Diego Zoo Wildlife Alliance",
+      "url": "https://sandiegozoowildlifealliance.org/story-hub/zoonooz/big-family",
+      "publication_date": "2019-03-18",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo feature",
+      "notes": "Identifies Tony’s mother Funani and father Otis.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-sd-amahle",
+      "title": "By Popular Vote, San Diego Zoo Hippo Calf Is Named Amahle",
+      "publisher": "San Diego Zoo Wildlife Alliance",
+      "url": "https://blogs.sandiegozoo.org/pressroom/news-releases/popular-vote-san-diego-zoo-hippo-calf-named-amahle",
+      "publication_date": "2020-02-28",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Names female Amahle; identifies mother Funani.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-sd-moon",
+      "title": "Moon Baby",
+      "publisher": "San Diego Zoo Wildlife Alliance",
+      "url": "https://blogs.sandiegozoo.org/2020/03/25/moon-baby/",
+      "publication_date": "2020-03-25",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo feature",
+      "notes": "Gives Amahle’s birth date as 2020-02-08 and identifies Funani as mother.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-sd-current",
+      "title": "Every Day’s a Pool Party",
+      "publisher": "San Diego Zoo Wildlife Alliance",
+      "url": "https://blogs.sandiegozoo.org/story-hub/2026/every-days-pool-party",
+      "publication_date": "2026-07-01",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo feature",
+      "notes": "Lists living Funani, Amahle, Guadalupe (Lupe), and identifies mother/daughter relation Funani–Amahle.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-wp-lupe",
+      "title": "Zoo finds new home for its last hippo, Lupe",
+      "publisher": "Woodland Park Zoo",
+      "url": "https://blog.zoo.org/2024/09/zoo-finds-new-home-for-its-last-hippo.html",
+      "publication_date": "2024-09-12",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Names female Guadalupe (Lupe), says born at Disney’s Animal Kingdom, planned move 2024-09-24.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-prague",
+      "title": "Slávek the Hippopotamus",
+      "publisher": "Prague Zoo",
+      "url": "https://www.zoopraha.cz/en/animals/209-meet-them/7604-slavek-the-hippopotamus",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo biography",
+      "notes": "Slávek male, born 1984-10-30 at Prague Zoo to Zaira and Zulu; Maruška born Ostrava.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-budapest",
+      "title": "Tücsök Turns 52!",
+      "publisher": "Budapest Zoo and Botanical Garden",
+      "url": "https://zoobudapest.com/en/news/tucsok-turns-52/",
+      "publication_date": "2025-04-27",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo feature",
+      "notes": "Named lineage; Tücsök, Momba/Nairobi, Süsü/Jusztina and named descendants.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-ostrava-report",
+      "title": "Zoo Ostrava Annual Report 2009: Keeping the common hippopotamus at Ostrava Zoo",
+      "publisher": "Zoo Ostrava",
+      "url": "https://www.zoo-ostrava.cz/soubory_texty/471_7.pdf",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "public zoo annual report chapter",
+      "notes": "Jan Pluháček’s public historical chapter; selected named identities, births, parents, transfers and deaths. No studbook numbers or unnamed rows copied; no reuse license asserted.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-ostrava-current",
+      "title": "Tanganyika",
+      "publisher": "Zoo Ostrava",
+      "url": "https://www.zoo-ostrava.cz/en/exhibits-and-animals/exhibits/140-tanganyika.html",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo exhibit page",
+      "notes": "Coverage context only; not used to name current animals or infer parentage.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-hsg",
+      "title": "Studbooks",
+      "publisher": "IUCN SSC Hippo Specialist Group",
+      "url": "https://www.hipposg.org/studbooks",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "specialist group program page",
+      "notes": "Describes keeper-request access for European and Japanese common-hippo studbooks; coverage boundary only.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-waza",
+      "title": "WAZA International Studbooks",
+      "publisher": "World Association of Zoos and Aquariums",
+      "url": "https://www.waza.org/priorities/conservation/waza-international-studbooks/",
+      "publication_date": "2026-01-14",
+      "accessed_date": "2026-10-08",
+      "source_type": "zoo association program page",
+      "notes": "Program coverage context only.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-kobe",
+      "title": "Kobe Oji Zoo hippopotamus announcement, item 62",
+      "publisher": "Kobe Oji Zoo",
+      "url": "https://www.kobe-ojizoo.jp/info/detail/?id=62",
+      "publication_date": "2009-09-07",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Namiko, third Demeo, their birth/origin/transfer, and unnamed calf born 2009-08-11.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-kobe-mag",
+      "title": "Habataki No. 65",
+      "publisher": "Kobe Oji Zoo",
+      "url": "https://kobe-ojizoo.jp/habataki/pdf/habataki65.pdf",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo magazine",
+      "notes": "Identifies calf’s parents and Namiko as Chameko’s granddaughter.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-tobe-hm",
+      "title": "Hagler and Mimi",
+      "publisher": "Tobe Zoo",
+      "url": "https://www.tobezoo.com/animals/idol/2011/02281450.html",
+      "publication_date": "2011-02-28",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo profile",
+      "notes": "Identifies Hagler, Mimi, daughter Momoko and her 2010 transfer.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-tobe-yui",
+      "title": "Yui",
+      "publisher": "Tobe Zoo",
+      "url": "https://www.tobezoo.com/animals/idol/2012/02295952.html",
+      "publication_date": "2012-02-29",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo profile",
+      "notes": "Identifies Yui with mother Mimi.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-ueno-yui",
+      "title": "Ehime’s hippo Yui coming",
+      "publisher": "Tokyo Zoological Park Society",
+      "url": "https://www.tokyo-zoo.net/topics/news/ueno/4418_22933_2015-05-20.html",
+      "publication_date": "2015-05-20",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Female Yui born 2011-07-24 at Tobe; father Hagler; planned Ueno arrival.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-tobe-2018",
+      "title": "Hippo calf born and died",
+      "publisher": "Tobe Zoo",
+      "url": "https://www.tobezoo.com/tobenews/animalinfo/2018/01193445.html",
+      "publication_date": "2018-01-19",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo news",
+      "notes": "Unnamed male calf born Jan 18, died Jan 19; parents Hagler and Mimi.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-tobe-manpuku-born",
+      "title": "Hippo calf born",
+      "publisher": "Tobe Zoo",
+      "url": "https://www.tobezoo.com/tobenews/animalinfo/2021/04260000.html",
+      "publication_date": "2021-04-26",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo news",
+      "notes": "Calf born 2021-04-23 to Hagler and Mimi.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-tobe-manpuku-name",
+      "title": "Manpuku",
+      "publisher": "Tobe Zoo",
+      "url": "https://www.tobezoo.com/animals/idol/2021/07180043.html",
+      "publication_date": "2021-07-18",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo profile",
+      "notes": "Names the 2021 calf Manpuku.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-tobe-newsletter",
+      "title": "Zoo Friends Vol. 35-1",
+      "publisher": "Tobe Zoo",
+      "url": "https://www.tobezoo.com/zoofriends/vol35-1small.pdf",
+      "publication_date": null,
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo newsletter",
+      "notes": "Identifies Manpuku as male and transferred to Tobu Zoo on 2023-03-13.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-tobe-pair",
+      "title": "Hagler and Mimi breeding pair",
+      "publisher": "Tobe Zoo",
+      "url": "https://www.tobezoo.com/tobetopics/2024/08/258093.html",
+      "publication_date": "2024-08-25",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo feature",
+      "notes": "Confirms Hagler male and Mimi female.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-tokuyama",
+      "title": "Common hippopotamus Maru",
+      "publisher": "Tokuyama Zoo",
+      "url": "https://tokuyama-zoo.jp/as/file/news/pic000000150003.pdf",
+      "publication_date": "2023-03-20",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo document",
+      "notes": "Maru female born at Tokuyama to Moomin and Kabako; names older siblings Bero and Mimi at other zoos.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-zsl",
+      "title": "Europe’s first female hippopotamus",
+      "publisher": "Zoological Society of London",
+      "url": "https://www.zsl.org/news-and-events/feature/europes-first-female-hippopotamus",
+      "publication_date": "2014-07-01",
+      "accessed_date": "2026-10-08",
+      "source_type": "zoo society history feature",
+      "notes": "Adhela/Dil, London arrival/death, daughter Guy Fawkes with birth date.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-berlin-twins",
+      "title": "Neuer Winzling in der Hippo Bay",
+      "publisher": "Zoo Berlin",
+      "url": "https://www.zoo-berlin.de/de/aktuelles/news/artikel/neuer-winzling-in-der-hippo-bay",
+      "publication_date": "2025-10-07",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Nala had twin male common-hippo calves 2025-09-28; one died shortly after birth.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-berlin-willi",
+      "title": "Noch mehr Hippo-Glück im Zoo Berlin",
+      "publisher": "Zoo Berlin",
+      "url": "https://www.zoo-berlin.de/de/aktuelles/news/artikel/noch-mehr-hippo-glueck-im-zoo-berlin",
+      "publication_date": "2026-05-12",
+      "accessed_date": "2026-10-08",
+      "source_type": "official zoo announcement",
+      "notes": "Names surviving common-hippo calf Willi Wackelöhrchen and identifies mother Nala.",
+      "data_use": "Factual identification and provenance only; no animal images or restricted register records copied.",
+      "tier": "B"
+    }
+  ]
+}

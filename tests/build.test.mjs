@@ -40,8 +40,65 @@ test('all four independent static paths are emitted', async () => {
 
 test('runtime payloads remain within the configured transfer budget', async () => {
   for (const appPath of appPaths.slice(1)) {
-    const bytes = (await stat(path.join(outputRoot, appPath, 'runtime.json'))).size;
-    assert.ok(bytes < 1_000_000, `${appPath} runtime is ${bytes} bytes`);
+    const species = appPath.replace('atlas.', '');
+    const canonical = JSON.parse(await readFile(path.join(repoRoot, 'atlases', species, 'atlas.json'), 'utf8'));
+    const runtimePath = path.join(outputRoot, appPath, 'runtime.json');
+    const bytes = (await stat(runtimePath)).size;
+    assert.ok(bytes < Buffer.byteLength(JSON.stringify(canonical)), `${appPath} runtime index should be smaller than its canonical document`);
+  }
+});
+
+test('runtime uses a compact searchable graph index and separate lazy profile chunks', async () => {
+  const atlasDir = path.join(outputRoot, 'atlas.red-panda');
+  const runtime = JSON.parse(await readFile(path.join(atlasDir, 'runtime.json'), 'utf8'));
+  assert.equal(runtime.format, 'animal-lineage-atlas-runtime-index-v1');
+  const canonical = JSON.parse(await readFile(path.join(repoRoot, 'atlases', 'red-panda', 'atlas.json'), 'utf8'));
+  assert.equal(runtime.animals.length, canonical.animals.length);
+  assert.ok(runtime.relationships.length > 0);
+  assert.equal(runtime.relationships.length, canonical.relationships.length);
+  for (const field of ['events', 'claims', 'media', 'sources', 'institutions']) {
+    assert.equal(Object.hasOwn(runtime, field), false, `${field} should load with profile details`);
+  }
+  assert.ok(runtime.animals.every((animal) => typeof animal.detail_chunk === 'string'));
+
+  const chunkNames = [...new Set(runtime.animals.map((animal) => animal.detail_chunk))];
+  assert.equal(chunkNames.length, Math.ceil(canonical.animals.length / 128));
+  const chunks = await Promise.all(chunkNames.map(async (chunkName) => JSON.parse(
+    await readFile(path.join(atlasDir, chunkName), 'utf8'),
+  )));
+  const detailAnimals = chunks.flatMap((chunk) => chunk.animals);
+  assert.deepEqual(
+    detailAnimals.map((animal) => animal.id).sort(),
+    canonical.animals.map((animal) => animal.id).sort(),
+  );
+  const futaChunk = chunks.find((chunk) => chunk.animals.some((animal) => animal.id === 'red-panda:futa'));
+  assert.ok(futaChunk, 'the Futa profile chunk is emitted');
+  assert.deepEqual(futaChunk.animals.find((animal) => animal.id === 'red-panda:futa'), canonical.animals.find((animal) => animal.id === 'red-panda:futa'));
+  assert.ok(futaChunk.sources.length > 0, 'profile sources are emitted lazily with detail chunks');
+  assert.ok(futaChunk.events.length > 0, 'profile events are emitted lazily with detail chunks');
+  assert.ok(chunks.every((chunk) => chunk.animals.length <= 128), 'profile chunk size remains bounded');
+});
+
+test('runtime indexes and lazy detail chunks are byte-for-byte reproducible', async () => {
+  const otherRoot = await mkdtemp(path.join(os.tmpdir(), 'animal-lineage-reproducible-'));
+  try {
+    const result = spawnSync('python3', [buildScript, '--out', otherRoot], { cwd: repoRoot, encoding: 'utf8' });
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+    for (const appPath of appPaths.slice(1)) {
+      const left = path.join(outputRoot, appPath);
+      const right = path.join(otherRoot, appPath);
+      const relativeFiles = async (root) => (await readdir(root, { recursive: true }))
+        .filter((name) => name === 'runtime.json' || name.startsWith('details/'))
+        .sort();
+      const leftFiles = await relativeFiles(left);
+      const rightFiles = await relativeFiles(right);
+      assert.deepEqual(leftFiles, rightFiles);
+      for (const file of leftFiles) {
+        assert.deepEqual(await readFile(path.join(left, file)), await readFile(path.join(right, file)), `${appPath}/${file}`);
+      }
+    }
+  } finally {
+    await rm(otherRoot, { recursive: true, force: true });
   }
 });
 
