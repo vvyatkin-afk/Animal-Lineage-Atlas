@@ -157,9 +157,8 @@ function edgeColor(type: RelationshipType, status: RelationshipStatus): string {
   return '#87978d';
 }
 
-function flagEmoji(countryCode: string | null): string {
-  if (!countryCode || !/^[A-Za-z]{2}$/.test(countryCode)) return '';
-  return [...countryCode.toUpperCase()].map((letter) => String.fromCodePoint(127397 + letter.charCodeAt(0))).join('');
+function normalizedCountryCode(countryCode: string | null): string | null {
+  return countryCode && /^[A-Za-z]{2}$/.test(countryCode) ? countryCode.toLowerCase() : null;
 }
 
 function sexLabel(node: GraphNode, messages: GlobalGenealogyMessages): string {
@@ -181,15 +180,25 @@ function makeNodeCard(node: GraphNode, basePath: string, messages: GlobalGenealo
   card.target = '_blank';
   card.rel = 'noopener';
   card.dataset.animalId = node.id;
-  card.setAttribute('aria-label', `${node.name}, ${messages.generationLabel} ${node.generation}. ${sexLabel(node, messages)}. ${statusLabel(node, messages)}. ${messages.viewProfileLabel} in a new tab.`);
+  card.setAttribute('aria-label', `${node.name}, ${node.countryCode ?? ''}. ${messages.generationLabel} ${node.generation}. ${sexLabel(node, messages)}. ${statusLabel(node, messages)}. ${messages.viewProfileLabel} in a new tab.`);
   card.style.left = `${node.x}px`;
   card.style.top = `${node.y}px`;
   card.style.transform = 'translate(-50%, -50%)';
 
   const avatar = document.createElement('span');
   avatar.className = 'global-node-avatar';
-  const flag = flagEmoji(node.countryCode);
-  avatar.textContent = flag || node.countryCode || '•';
+  const countryCode = normalizedCountryCode(node.countryCode);
+  avatar.textContent = node.countryCode || '•';
+  if (countryCode) {
+    const flag = document.createElement('img');
+    flag.className = 'global-node-flag';
+    flag.src = `${basePath}flags/${countryCode}.svg`;
+    flag.alt = `${node.countryCode} flag`;
+    flag.loading = 'lazy';
+    flag.decoding = 'async';
+    flag.addEventListener('error', () => flag.remove(), { once: true });
+    avatar.append(flag);
+  }
   if (node.photoConfirmed && node.photoUrl) {
     const image = document.createElement('img');
     image.className = 'global-node-photo';
@@ -241,8 +250,10 @@ function makeLegend(messages: GlobalGenealogyMessages): HTMLElement {
     ['edge-foster', messages.fosterLegend],
     ['edge-adoptive', messages.adoptiveLegend],
     ['edge-social', messages.socialLegend],
+    ['status-confirmed', messages.confirmedLabel],
     ['status-probable', messages.probableLabel],
     ['status-disputed', messages.disputedLabel],
+    ['status-unknown', messages.unknownValue],
   ];
   for (const [className, label] of relationItems) {
     const item = document.createElement('span');
@@ -341,6 +352,7 @@ export function renderGlobalGenealogy(
   let dragMoved = false;
   let viewportWidth = 0;
   let viewportHeight = 0;
+  const flagImages = new Map<string, HTMLImageElement | null>();
 
   const scheduleDraw = () => {
     if (frame) return;
@@ -348,6 +360,20 @@ export function renderGlobalGenealogy(
       frame = 0;
       draw();
     });
+  };
+
+  const getFlagImage = (countryCode: string | null): HTMLImageElement | null => {
+    const code = normalizedCountryCode(countryCode);
+    if (!code) return null;
+    if (!flagImages.has(code)) {
+      const image = new Image();
+      flagImages.set(code, image);
+      image.addEventListener('load', scheduleDraw, { once: true });
+      image.addEventListener('error', () => flagImages.set(code, null), { once: true });
+      image.src = `${basePath}flags/${code}.svg`;
+    }
+    const image = flagImages.get(code);
+    return image?.complete && image.naturalWidth > 0 ? image : null;
   };
 
   const applyView = (patch: Partial<AtlasViewState>) => {
@@ -440,7 +466,9 @@ export function renderGlobalGenealogy(
     context.lineWidth = Math.max(0.7 / zoom, 0.25);
     if (edge.status === 'probable' || edge.status === 'disputed' || edge.status === 'unknown'
       || edge.type === 'foster' || edge.type === 'adoptive' || edge.type === 'social') {
-      const dash = edge.status === 'disputed' ? [7 / zoom, 4 / zoom] : [5 / zoom, 4 / zoom];
+      const dash = edge.status === 'disputed'
+        ? [7 / zoom, 4 / zoom]
+        : edge.status === 'unknown' ? [2 / zoom, 4 / zoom] : [5 / zoom, 4 / zoom];
       context.setLineDash(dash);
     } else context.setLineDash([]);
     context.stroke();
@@ -468,11 +496,25 @@ export function renderGlobalGenealogy(
         context.fill();
       }
       if (zoom >= 0.07 && zoom < CARD_ZOOM) {
-        const flag = flagEmoji(node.countryCode);
-        context.font = '10px sans-serif';
-        context.textBaseline = 'middle';
-        context.fillStyle = '#273b32';
-        context.fillText(flag || (node.countryCode ?? ''), x + radius + 2, y);
+        const flag = getFlagImage(node.countryCode);
+        if (flag) context.drawImage(flag, x + radius + 2, y - 4, 12, 8);
+        else if (node.countryCode) {
+          context.font = '10px sans-serif';
+          context.textBaseline = 'middle';
+          context.fillStyle = '#273b32';
+          context.fillText(node.countryCode, x + radius + 2, y);
+        }
+      } else if (zoom >= 0.02) {
+        const flag = getFlagImage(node.countryCode);
+        if (flag) {
+          const size = zoom < 0.035 ? 5 : 8;
+          context.drawImage(flag, x + radius + 1, y - size * 0.375, size, size * 0.75);
+        } else if (node.countryCode) {
+          context.font = `${zoom < 0.035 ? 6 : 8}px sans-serif`;
+          context.textBaseline = 'middle';
+          context.fillStyle = '#273b32';
+          context.fillText(node.countryCode, x + radius + 1, y);
+        }
       }
       if (selectedId === node.id) {
         context.beginPath();
@@ -530,6 +572,15 @@ export function renderGlobalGenealogy(
     context.lineCap = 'round';
     context.lineJoin = 'round';
     const generationLabelThreshold = 0.025;
+    const generationPositions = graph.generationRows.flatMap((row) => {
+      const first = nodeById.get(row.animalIds[0] ?? '');
+      return first ? [first.y] : [];
+    }).sort((left, right) => left - right);
+    const minimumGenerationGap = generationPositions.length > 1
+      ? Math.min(...generationPositions.slice(1).map((position, index) => position - generationPositions[index]!))
+      : Number.POSITIVE_INFINITY;
+    const showGenerationLabels = activeView.zoom >= generationLabelThreshold
+      && minimumGenerationGap * activeView.zoom >= 16;
     if (activeView.zoom >= generationLabelThreshold) {
       for (const row of graph.generationRows) {
         const first = nodeById.get(row.animalIds[0] ?? '');
@@ -546,7 +597,7 @@ export function renderGlobalGenealogy(
     for (const route of visibleEdges) drawEdge(route, activeView.zoom);
     drawNodes(visibleNodes);
 
-    if (activeView.zoom >= generationLabelThreshold) {
+    if (showGenerationLabels) {
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
       context.font = '11px system-ui, sans-serif';
       context.fillStyle = '#6a766e';
@@ -571,6 +622,7 @@ export function renderGlobalGenealogy(
     canvas.dataset.zoom = String(activeView.zoom);
     canvas.dataset.panX = String(activeView.pan.x);
     canvas.dataset.panY = String(activeView.pan.y);
+    canvas.dataset.generationLabelsVisible = String(showGenerationLabels);
     canvas.dataset.layoutBounds = `${graph.bounds?.left ?? 0},${graph.bounds?.top ?? 0},${graph.bounds?.right ?? 0},${graph.bounds?.bottom ?? 0}`;
   }
 
@@ -587,7 +639,8 @@ export function renderGlobalGenealogy(
   };
 
   const hitNode = (worldX: number, worldY: number): GraphNode | null => {
-    const searchRadius = Math.max(NODE_WIDTH / 2, 18 / activeView.zoom);
+    const screenHitRadius = 12;
+    const searchRadius = Math.max(NODE_WIDTH / 2, screenHitRadius / activeView.zoom);
     const candidates = nodeIndex.query({
       left: worldX - searchRadius,
       top: worldY - searchRadius,
@@ -598,10 +651,10 @@ export function renderGlobalGenealogy(
     let closestDistance = Number.POSITIVE_INFINITY;
     for (const node of candidates) {
       if (visibleAnimalIds && !visibleAnimalIds.has(node.id)) continue;
-      const horizontal = Math.abs(node.x - worldX);
-      const vertical = Math.abs(node.y - worldY);
-      if (horizontal > NODE_WIDTH / 2 || vertical > NODE_HEIGHT / 2) continue;
+      const horizontal = (node.x - worldX) * activeView.zoom;
+      const vertical = (node.y - worldY) * activeView.zoom;
       const distance = Math.hypot(horizontal, vertical);
+      if (distance > screenHitRadius) continue;
       if (distance < closestDistance) {
         closest = node;
         closestDistance = distance;

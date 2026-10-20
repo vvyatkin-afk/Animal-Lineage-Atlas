@@ -27,6 +27,7 @@ CHILD_PATHS = {
 OUTPUT_NAMES = ("atlas", "atlas.red-panda", "atlas.polar-bear", "atlas.hippopotamus")
 DETAIL_CHUNK_SIZE = 128
 EMBEDDABLE_MEDIA_RIGHTS = {"cc0", "public_domain", "permission_granted", "license_allows_embedding"}
+FLAG_ASSET_ROOT = REPO_ROOT / "packages" / "ui" / "flags"
 
 
 def _remove_recreatable_target(path: Path) -> None:
@@ -52,6 +53,26 @@ def _date_label(date: dict | None) -> str | None:
         start, end = date.get("start"), date.get("end")
         return f"{start}–{end}" if start and end else None
     return None
+
+
+def _write_country_flag_assets(output_dir: Path, animals: list[dict]) -> None:
+    """Copy the licensed SVG flags needed by this atlas into its static release."""
+    codes = sorted({
+        str(animal.get("country_code", "")).strip().lower()
+        for animal in animals
+        if re.fullmatch(r"[A-Za-z]{2}", str(animal.get("country_code", "")).strip())
+    })
+    if not codes:
+        return
+    flags_dir = output_dir / "flags"
+    _remove_recreatable_target(flags_dir)
+    flags_dir.mkdir(parents=True)
+    for code in codes:
+        source = FLAG_ASSET_ROOT / f"{code}.svg"
+        if not source.is_file():
+            raise RuntimeError(f"Missing licensed flag asset for country code {code.upper()}")
+        shutil.copy2(source, flags_dir / source.name)
+    shutil.copy2(FLAG_ASSET_ROOT / "LICENSE", flags_dir / "LICENSE")
 
 
 def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DETAIL_CHUNK_SIZE) -> None:
@@ -236,6 +257,7 @@ def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DET
         json.dumps(runtime_index, ensure_ascii=False, separators=(",", ":")) + "\n",
         encoding="utf-8",
     )
+    _write_country_flag_assets(output_dir, compact_animals)
 
 
 def build_atlases(output_root: Path) -> list[Path]:

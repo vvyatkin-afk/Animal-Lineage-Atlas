@@ -68,11 +68,12 @@ test('all-animal view draws the complete red-panda genealogy and defers full det
   await page.getByLabel('Arrange rows by').selectOption('family');
   const layoutBuildsBeforeZoom = Number(await page.locator('#genealogy-container').getAttribute('data-layout-builds'));
   expect(layoutBuildsBeforeZoom).toBeGreaterThan(familyLayoutBuilds);
-  const zoomBefore = Number(await globalCanvas.getAttribute('data-zoom'));
-  await page.getByRole('button', { name: 'Zoom in' }).click();
-  await expect.poll(async () => Number(await globalCanvas.getAttribute('data-zoom'))).toBeGreaterThan(zoomBefore);
+  await page.getByRole('button', { name: 'Fit all' }).click();
+  await expect(globalCanvas).toHaveAttribute('data-generation-labels-visible', 'false');
+  for (let step = 0; step < 10; step += 1) await page.getByRole('button', { name: 'Zoom in' }).click();
+  await expect(globalCanvas).toHaveAttribute('data-generation-labels-visible', 'true');
   expect(Number(await page.locator('#genealogy-container').getAttribute('data-layout-builds'))).toBe(layoutBuildsBeforeZoom);
-  await page.getByRole('button', { name: 'Zoom out' }).click();
+  await page.getByRole('button', { name: 'Fit all' }).click();
   await page.locator('[data-global-graph-viewport="true"]').screenshot({ path: `${screenshotDir}/phase3-red-panda-global-desktop-1440x900.png` });
 
   await page.getByLabel('Search animals').fill('Futa');
@@ -94,6 +95,7 @@ test('global graph keeps its camera open while high-detail animal cards open exa
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/atlas.red-panda/');
   const canvas = page.locator('canvas[data-global-graph-canvas="true"]');
+  await expect(canvas).toBeVisible();
   const layoutBuilds = Number(await page.locator('#genealogy-container').getAttribute('data-layout-builds'));
   for (let step = 0; step < 5; step += 1) await page.getByRole('button', { name: 'Zoom in' }).click();
   const firstCard = page.locator('.global-node-card').first();
@@ -127,7 +129,10 @@ test('global graph includes every species index and keeps hippo taxa within thei
     await expect(canvas).toHaveAttribute('data-node-count', String(atlas.animals));
     await expect(canvas).toHaveAttribute('data-edge-count', String(atlas.relationships));
     await expect(page.locator('.global-index-summary')).toContainText(`${atlas.animals} animals`);
+    await expect(page.locator('.global-graph-legend')).toContainText('Confirmed');
+    await expect(page.locator('.global-graph-legend')).toContainText('Unknown');
     if (atlas.id === 'hippopotamus') {
+      await expect(page.locator('#atlas-title')).toContainText('Hippopotamuses (common and pygmy)');
       const taxaCounts = await page.evaluate(async () => {
         const runtime = await (await fetch('./runtime.json')).json() as {
           animals: Array<{ id: string; taxon: string }>;
@@ -143,6 +148,61 @@ test('global graph includes every species index and keeps hippo taxa within thei
       expect(taxaCounts).toEqual({ common: 64, pygmy: 32, crossTaxonEdges: 0 });
     }
   }
+});
+
+test('country-coded nodes use bundled SVG flags at overview and card detail levels', async ({ page }) => {
+  const flagRequests: string[] = [];
+  page.on('request', (request) => {
+    const pathname = new URL(request.url()).pathname;
+    if (pathname.includes('/flags/')) flagRequests.push(pathname);
+  });
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/atlas.polar-bear/');
+  const flagResponse = await page.request.get('/atlas.polar-bear/flags/us.svg');
+  expect(flagResponse.ok()).toBeTruthy();
+  expect(await flagResponse.text()).toContain('<svg');
+
+  await page.getByLabel('Known location').selectOption('US');
+  await page.getByRole('button', { name: 'Fit all' }).click();
+  const canvas = page.locator('canvas[data-global-graph-canvas="true"]');
+  await expect.poll(async () => Number(await canvas.getAttribute('data-visible-node-count'))).toBeGreaterThan(0);
+  const nodePoint = await canvas.evaluate((element) => {
+    const canvasElement = element as HTMLCanvasElement;
+    const context = canvasElement.getContext('2d');
+    if (!context) return null;
+    const pixels = context.getImageData(0, 0, canvasElement.width, canvasElement.height).data;
+    const nodeColors = new Set(['71,119,92', '120,131,125', '176,147,94']);
+    for (let index = 0; index < pixels.length; index += 4) {
+      if (nodeColors.has(`${pixels[index]},${pixels[index + 1]},${pixels[index + 2]}`)) {
+        const pixelIndex = index / 4;
+        const ratio = canvasElement.width / canvasElement.clientWidth;
+        return { x: (pixelIndex % canvasElement.width) / ratio, y: Math.floor(pixelIndex / canvasElement.width) / ratio };
+      }
+    }
+    return null;
+  });
+  expect(nodePoint).not.toBeNull();
+  const viewport = page.locator('[data-global-graph-viewport="true"]');
+  await viewport.screenshot({ path: `${screenshotDir}/phase3-polar-bear-flags-overview-desktop-1440x900.png` });
+  await viewport.evaluate((element, point) => {
+    const rectangle = element.getBoundingClientRect();
+    for (let step = 0; step < 18; step += 1) {
+      element.dispatchEvent(new WheelEvent('wheel', {
+        bubbles: true,
+        cancelable: true,
+        deltaY: -100,
+        clientX: rectangle.left + point.x,
+        clientY: rectangle.top + point.y,
+      }));
+    }
+  }, nodePoint!);
+  await expect.poll(async () => Number(await canvas.getAttribute('data-zoom'))).toBeGreaterThan(0.6);
+  const cardFlag = page.locator('.global-node-card img.global-node-flag').first();
+  await expect(cardFlag).toBeVisible();
+  await expect.poll(() => cardFlag.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+  expect(flagRequests.some((pathname) => pathname.endsWith('/flags/us.svg'))).toBeTruthy();
+  await expect(canvas).toHaveAttribute('data-node-count', '72');
+  await viewport.screenshot({ path: `${screenshotDir}/phase3-polar-bear-flags-desktop-1440x900.png` });
 });
 
 test('sex, life-status, and photo filters update visible graph nodes and only retain edges between visible animals', async ({ page }) => {
@@ -213,6 +273,30 @@ test('mobile full graph fits all rows, remains within the viewport, and supports
   await page.mouse.move(box!.x + box!.width / 2 + 36, box!.y + box!.height / 2 + 22);
   await page.mouse.up();
   await expect.poll(async () => Number(await canvas.getAttribute('data-pan-x'))).not.toBe(panBefore);
+
+  const panAfterDrag = Number(await canvas.getAttribute('data-pan-x'));
+  await page.getByRole('button', { name: 'Fit all' }).click();
+  await expect.poll(async () => Number(await canvas.getAttribute('data-pan-x'))).not.toBe(panAfterDrag);
+  const nodePoint = await canvas.evaluate((element) => {
+    const canvasElement = element as HTMLCanvasElement;
+    const context = canvasElement.getContext('2d');
+    if (!context) return null;
+    const pixels = context.getImageData(0, 0, canvasElement.width, canvasElement.height).data;
+    const nodeColors = new Set(['71,119,92', '120,131,125', '176,147,94']);
+    for (let index = 0; index < pixels.length; index += 4) {
+      if (nodeColors.has(`${pixels[index]},${pixels[index + 1]},${pixels[index + 2]}`)) {
+        const pixelIndex = index / 4;
+        const ratio = canvasElement.width / canvasElement.clientWidth;
+        return { x: (pixelIndex % canvasElement.width) / ratio, y: Math.floor(pixelIndex / canvasElement.width) / ratio };
+      }
+    }
+    return null;
+  });
+  expect(nodePoint).not.toBeNull();
+  const fitAllBox = await page.locator('[data-global-graph-viewport="true"]').boundingBox();
+  expect(fitAllBox).not.toBeNull();
+  await page.mouse.click(fitAllBox!.x + nodePoint!.x, fitAllBox!.y + nodePoint!.y);
+  await expect(page.locator('svg[data-genealogy]')).toBeVisible();
   expect(errors).toEqual([]);
 });
 

@@ -91,6 +91,7 @@ async function boot() {
     'Ailurus fulgens': 'redPandaSpeciesName',
     'Ursus maritimus': 'polarBearSpeciesName',
     'Hippopotamus amphibius': 'hippopotamusSpeciesName',
+    'Hippopotamus amphibius and Choeropsis liberiensis': 'hippopotamusAtlasSpeciesName',
   };
   const speciesNameKey = speciesNameKeyByTaxon[atlas.coverage?.taxon ?? ''];
   const localeFromStorage = (() => {

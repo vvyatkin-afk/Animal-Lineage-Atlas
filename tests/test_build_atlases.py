@@ -50,6 +50,8 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
             output = Path(temporary)
             _write_runtime_index(document, output)
             runtime = json.loads((output / "runtime.json").read_text(encoding="utf-8"))
+            flag_svg_exists = (output / "flags" / "us.svg").is_file()
+            flag_license = (output / "flags" / "LICENSE").read_text(encoding="utf-8")
 
         summary = runtime["animals"][0]
         self.assertEqual(summary["sex"], "female")
@@ -60,6 +62,8 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
         self.assertTrue(summary["photo_confirmed"])
         self.assertEqual(summary["photo_url"], "https://images.example.org/nora.jpg")
         self.assertEqual(summary["photo_source_url"], "https://zoo.example.org/nora")
+        self.assertTrue(flag_svg_exists)
+        self.assertIn("Copyright (c) 2013 Panayiotis Lipiridis", flag_license)
 
     def test_summary_does_not_choose_between_conflicting_dates_or_unapproved_photos(self):
         document = {
@@ -88,6 +92,7 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
         self.assertFalse(summary["photo_confirmed"])
         self.assertNotIn("photo_url", summary)
         self.assertNotIn("photo_source_url", summary)
+        self.assertFalse((output / "flags").exists())
 
 
 if __name__ == "__main__":
