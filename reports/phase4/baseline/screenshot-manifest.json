@@ -1,0 +1,66 @@
+{
+  "schema_version": "phase4-baseline-screenshots-v1",
+  "source_revision": "5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed",
+  "viewports_css_pixels": [
+    "1440x900",
+    "390x844"
+  ],
+  "screenshots": [
+    {
+      "path": "reports/phase4/baseline/futa-focus-1440x900.png",
+      "sha256": "08cab43288a746f856ee352ff4c65dc53d65f213601eec714509373f217b7c0b"
+    },
+    {
+      "path": "reports/phase4/baseline/futa-focus-390x844.png",
+      "sha256": "40559b90c1e201bdcd5f7d35f0a033c69c773f6be40d812a8b86d8af6c61abd2"
+    },
+    {
+      "path": "reports/phase4/baseline/futa-profile-1440x900.png",
+      "sha256": "328b07b18f1fffcbf712321fef47c81bab8fbc76876bfb3232ef9b2b1e39b29f"
+    },
+    {
+      "path": "reports/phase4/baseline/futa-profile-390x844.png",
+      "sha256": "99adfd35b6e1bc7aa2826ccb7f8debc32320177444fb25b70400f2ea5348f164"
+    },
+    {
+      "path": "reports/phase4/baseline/hippopotamus-all-1440x900.png",
+      "sha256": "61d34f1fac4bb26e48f9cd38127e3a025a9b1a768c0929d75be46e3936530833"
+    },
+    {
+      "path": "reports/phase4/baseline/hippopotamus-all-390x844.png",
+      "sha256": "76be382be999f431fecd1d8f6912e58dc142880be80484c1ca76112305691c9f"
+    },
+    {
+      "path": "reports/phase4/baseline/polar-bear-all-1440x900.png",
+      "sha256": "551b0585a412d113ec020c551cf5eccc0ec8eac600ad6cad2092a2d0146da062"
+    },
+    {
+      "path": "reports/phase4/baseline/polar-bear-all-390x844.png",
+      "sha256": "056d6941ef3d18b0555371522b8a5da3dc15bc69da94e8fb56888c62b917c526"
+    },
+    {
+      "path": "reports/phase4/baseline/rakesh-focus-1440x900.png",
+      "sha256": "27f389f7267b9b77acc64524128de2423ba7e592947f81668248868b0f683670"
+    },
+    {
+      "path": "reports/phase4/baseline/rakesh-focus-390x844.png",
+      "sha256": "5a6a52aa870f716b5c0be19fb6af8b1f3dcdc001cbaf9a675e1fd81a03c53b73"
+    },
+    {
+      "path": "reports/phase4/baseline/red-panda-all-1440x900.png",
+      "sha256": "1ea2e78620bc063cd29e4322f842afb3fa7d91bd4efef2af5765dde04c95207c"
+    },
+    {
+      "path": "reports/phase4/baseline/red-panda-all-390x844.png",
+      "sha256": "636c9a10273c8ea64b43041393ba4f77f535d8d5782c4e829e4cdc753891843a"
+    },
+    {
+      "path": "reports/phase4/baseline/red-panda-largest-component-1440x900.png",
+      "sha256": "286a7dcb23f28df0beb4325d5fba508fa15d3ebfe166fc4fa56649d61b022829"
+    },
+    {
+      "path": "reports/phase4/baseline/red-panda-largest-component-390x844.png",
+      "sha256": "1144c78c8b741badb5aaf48d0d58c2eaa7ec8701f0137d78fa19da3331053d00"
+    }
+  ]
+}

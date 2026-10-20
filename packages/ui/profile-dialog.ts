@@ -166,16 +166,25 @@ function mediaMarkup(
   messages: ProfileMessages,
 ): string {
   if (!media.length) return `<div class="media-placeholder" role="img" aria-label="${escapeHtml(messages.noMedia)}">${escapeHtml(messages.noMedia)}</div>`;
-  return media.map(({ item, presentation, sources }) => {
-    const image = presentation.kind === 'remote' || presentation.kind === 'local'
-      ? `<img class="profile-image" src="${escapeHtml(presentation.src)}" alt="${escapeHtml(name)}" data-image-fallback="${escapeHtml(presentation.kind === 'local' ? messages.localMediaUnavailable : messages.mediaUnavailable)}">`
+  const hasImage = media.some(({ presentation }) => presentation.kind !== 'placeholder');
+  return `<div class="profile-media-gallery">${media.map(({ item, presentation, sources }) => {
+    if (presentation.kind === 'placeholder' && hasImage) {
+      const sourceUrl = presentation.sourceUrl;
+      const link = sourceUrl ? `<p><a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(messages.sourceLabel)}</a></p>` : '';
+      return `<figure class="profile-media profile-media-source-only">${link}${sourceLinks(sources, messages.sourceLabel)}</figure>`;
+    }
+    const isImage = presentation.kind === 'remote' || presentation.kind === 'local' || presentation.kind === 'relay';
+    const image = isImage
+      ? `<img class="profile-image" src="${escapeHtml(presentation.src)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-image-fallback="${escapeHtml(presentation.kind === 'local' ? messages.localMediaUnavailable : messages.mediaUnavailable)}">`
       : `<div class="media-placeholder" role="img" aria-label="${escapeHtml(presentation.description)}">${escapeHtml(presentation.description)}</div>`;
     const sourceUrl = presentation.sourceUrl;
     const link = sourceUrl ? `<p><a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(messages.sourceLabel)}</a></p>` : '';
-    const creditText = item.credit ?? (presentation.kind === 'local' ? presentation.credit : null);
-    const credit = creditText ? `<p class="media-credit">${escapeHtml(creditText)}</p>` : '';
+    const creditText = item.credit ?? (presentation.kind === 'local' || presentation.kind === 'relay' ? presentation.credit : null);
+    const credit = presentation.kind === 'relay'
+      ? `<p class="media-credit">${escapeHtml(creditText ?? presentation.credit)} · <a href="${escapeHtml(presentation.licenseUrl)}" target="_blank" rel="noreferrer">${escapeHtml(presentation.licenseName)}</a><span>${escapeHtml(presentation.changes)}</span></p>`
+      : creditText ? `<p class="media-credit">${escapeHtml(creditText)}</p>` : '';
     return `<figure class="profile-media">${image}${credit}${link}${sourceLinks(sources, messages.sourceLabel)}</figure>`;
-  }).join('');
+  }).join('')}</div>`;
 }
 
 export function renderProfileDialog(

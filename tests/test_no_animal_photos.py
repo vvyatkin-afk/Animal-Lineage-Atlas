@@ -1,3 +1,4 @@
+import hashlib
 import json
 import tempfile
 import unittest
@@ -38,6 +39,44 @@ class NoAnimalPhotosTests(unittest.TestCase):
             (root / "main.js").write_text(f'const image = "{image_uri}";', encoding="utf-8")
             findings = scan_tree(root)
             self.assertTrue(any("embedded animal image" in finding for finding in findings))
+
+    def test_allows_only_screenshot_pngs_listed_with_matching_hashes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            capture_dir = root / "reports" / "phase4" / "baseline"
+            capture_dir.mkdir(parents=True)
+            screenshot = capture_dir / "baseline.png"
+            screenshot.write_bytes(b"QA screenshot bytes")
+            manifest = {
+                "schema_version": "phase4-baseline-screenshots-v1",
+                "screenshots": [{
+                    "path": "reports/phase4/baseline/baseline.png",
+                    "sha256": hashlib.sha256(screenshot.read_bytes()).hexdigest(),
+                }],
+            }
+            (capture_dir / "screenshot-manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+            self.assertEqual(scan_tree(root), [])
+
+    def test_rejects_unlisted_tampered_or_out_of_scope_screenshot_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            capture_dir = root / "reports" / "phase4" / "after"
+            capture_dir.mkdir(parents=True)
+            listed = capture_dir / "listed.png"
+            listed.write_bytes(b"original capture")
+            unlisted = capture_dir / "unlisted.png"
+            unlisted.write_bytes(b"extra image")
+            manifest = {
+                "schema_version": "phase4-after-screenshots-v1",
+                "screenshots": [{"path": "reports/phase4/after/listed.png", "sha256": "0" * 64}],
+            }
+            (capture_dir / "screenshot-manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+            findings = scan_tree(root)
+            self.assertEqual(len(findings), 2)
+            self.assertTrue(any("listed.png" in finding for finding in findings))
+            self.assertTrue(any("unlisted.png" in finding for finding in findings))
 
 
 if __name__ == "__main__":

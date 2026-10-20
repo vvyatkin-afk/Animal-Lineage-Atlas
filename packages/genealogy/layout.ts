@@ -1,3 +1,6 @@
+import { optimizeGenerationRows } from './optimizer.ts';
+import type { LayoutOptimizerOptions } from './optimizer.ts';
+
 export type RelationshipStatus = 'confirmed' | 'probable' | 'disputed' | 'unknown';
 export type RelationshipType = 'biological_mother' | 'biological_father' | 'foster' | 'adoptive' | 'social';
 
@@ -10,6 +13,8 @@ export interface GraphAnimal {
   photo_confirmed?: boolean;
   photo_url?: string | null;
   photo_source_url?: string | null;
+  photo_credit?: string | null;
+  photo_license?: string | null;
   birth_date_label?: string | null;
   death_date_label?: string | null;
   institution_label?: string | null;
@@ -29,6 +34,7 @@ export interface GraphOptions {
   maxNodes?: number;
   columnGap?: number;
   rowGap?: number;
+  optimizer?: LayoutOptimizerOptions;
 }
 
 export type GraphGrouping = 'family' | 'country';
@@ -39,6 +45,7 @@ export interface GlobalGraphOptions {
   rowGap?: number;
   familyGap?: number;
   margin?: number;
+  optimizer?: LayoutOptimizerOptions;
 }
 
 export interface GraphNode {
@@ -53,6 +60,8 @@ export interface GraphNode {
   photoConfirmed: boolean;
   photoUrl: string | null;
   photoSourceUrl: string | null;
+  photoCredit: string | null;
+  photoLicense: string | null;
   birthDateLabel: string | null;
   deathDateLabel: string | null;
   institutionLabel: string | null;
@@ -269,6 +278,8 @@ export function buildFocusedGenealogy(
         photoConfirmed: animal.photo_confirmed === true,
         photoUrl: animal.photo_url ?? null,
         photoSourceUrl: animal.photo_source_url ?? null,
+        photoCredit: animal.photo_credit ?? null,
+        photoLicense: animal.photo_license ?? null,
         birthDateLabel: animal.birth_date_label ?? null,
         deathDateLabel: animal.death_date_label ?? null,
         institutionLabel: animal.institution_label ?? null,
@@ -299,7 +310,11 @@ export function buildFocusedGenealogy(
       sourceIds: relationship.source_ids ?? [],
     }));
 
-  return { nodes, edges, generationRows, truncated };
+  const optimized = optimizeGenerationRows(generationRows, edges, new Map(nodes.map((node) => [node.id, node])), 'focused', {
+    nodeSpacing: columnGap,
+    ...options.optimizer,
+  });
+  return { nodes: optimized.nodes, edges, generationRows: optimized.generationRows, truncated };
 }
 
 /**
@@ -320,7 +335,7 @@ export function buildGlobalGenealogy(index: GenealogyIndex, options: GlobalGraph
   const orderedIds = new Map<string, string[]>();
 
   if (grouping === 'family') {
-    for (const component of index.familyComponents) {
+    for (const component of index.components) {
       const rows = new Map<number, string[]>();
       for (const animalId of component.animalIds) {
         const generation = generationById.get(animalId) ?? 0;
@@ -343,7 +358,7 @@ export function buildGlobalGenealogy(index: GenealogyIndex, options: GlobalGraph
     for (const [generation, ids] of rows) orderedIds.set(`global\u0000${generation}`, ids);
   }
 
-  const nodes: GraphNode[] = [];
+  let nodes: GraphNode[] = [];
   if (grouping === 'family') {
     const displayDegree = new Set<string>();
     for (const relationship of index.relationships) {
@@ -351,16 +366,16 @@ export function buildGlobalGenealogy(index: GenealogyIndex, options: GlobalGraph
       displayDegree.add(relationship.subject);
       displayDegree.add(relationship.object);
     }
-    const isolated = new Set(index.familyComponents
+    const isolated = new Set(index.components
       .filter((component) => component.animalIds.length === 1 && !displayDegree.has(component.animalIds[0] ?? ''))
       .map((component) => component.id));
-    const groups = index.familyComponents.filter((component) => !isolated.has(component.id));
+    const groups = index.components.filter((component) => !isolated.has(component.id));
     groups.sort((left, right) => right.animalIds.length - left.animalIds.length || left.id.localeCompare(right.id));
     if (isolated.size) {
       groups.push({
         id: '__unconnected__',
         representativeId: '__unconnected__',
-        animalIds: [...isolated].flatMap((id) => index.familyComponentByAnimal.get(id)?.animalIds ?? []).sort(),
+        animalIds: [...isolated].flatMap((id) => index.componentByAnimal.get(id)?.animalIds ?? []).sort(),
       });
     }
 
@@ -435,16 +450,19 @@ export function buildGlobalGenealogy(index: GenealogyIndex, options: GlobalGraph
     sourceIds: relationship.source_ids ?? [],
   }));
 
-  const rows = new Map<number, GraphNode[]>();
-  for (const node of nodes) {
-    const row = rows.get(node.generation) ?? [];
-    row.push(node);
-    rows.set(node.generation, row);
+  let generationRows: GenerationRow[];
+  if (grouping === 'family') {
+    nodes = optimizeFamilyGroups(nodes, edges, index, nodeWidth + columnGap, options.optimizer);
+    generationRows = rowsFromNodes(nodes);
+  } else {
+    generationRows = rowsFromNodes(nodes);
+    const optimized = optimizeGenerationRows(generationRows, edges, new Map(nodes.map((node) => [node.id, node])), 'global', {
+      nodeSpacing: nodeWidth + columnGap,
+      ...options.optimizer,
+    });
+    nodes = optimized.nodes;
+    generationRows = optimized.generationRows;
   }
-  const generationRows = [...rows.keys()].sort((left, right) => left - right).map((generation) => ({
-    generation,
-    animalIds: (rows.get(generation) ?? []).sort((left, right) => left.x - right.x || left.id.localeCompare(right.id)).map((node) => node.id),
-  }));
   const bounds = nodes.length ? {
     left: Math.min(...nodes.map((node) => node.x - nodeWidth / 2)),
     top: Math.min(...nodes.map((node) => node.y - nodeHeight / 2)),
@@ -475,11 +493,62 @@ function makeGraphNode(animal: GraphAnimal, generation: number, x: number, y: nu
     photoConfirmed: animal.photo_confirmed === true,
     photoUrl: animal.photo_url ?? null,
     photoSourceUrl: animal.photo_source_url ?? null,
+    photoCredit: animal.photo_credit ?? null,
+    photoLicense: animal.photo_license ?? null,
     birthDateLabel: animal.birth_date_label ?? null,
     deathDateLabel: animal.death_date_label ?? null,
     institutionLabel: animal.institution_label ?? null,
     componentId,
   };
+}
+
+function optimizeFamilyGroups(
+  nodes: GraphNode[],
+  edges: GraphEdge[],
+  index: GenealogyIndex,
+  nodeSpacing: number,
+  optimizerOptions: LayoutOptimizerOptions | undefined,
+): GraphNode[] {
+  const nodeById = new Map(nodes.map((node) => [node.id, node]));
+  const optimizedById = new Map<string, GraphNode>();
+  const largeCorpusBounds: LayoutOptimizerOptions = index.animalById.size > 500
+    ? { maxSwapEvaluations: 0, maxExactCandidates: 0 }
+    : {};
+  for (const component of index.components) {
+    const componentNodes = component.animalIds.flatMap((id) => {
+      const node = nodeById.get(id);
+      return node ? [node] : [];
+    });
+    if (componentNodes.length < 2) {
+      for (const node of componentNodes) optimizedById.set(node.id, node);
+      continue;
+    }
+    const componentIds = new Set(componentNodes.map((node) => node.id));
+    const componentEdges = edges.filter((edge) => componentIds.has(edge.from) && componentIds.has(edge.to));
+    const center = (Math.min(...componentNodes.map((node) => node.x)) + Math.max(...componentNodes.map((node) => node.x))) / 2;
+    const componentRows = rowsFromNodes(componentNodes);
+    const optimized = optimizeGenerationRows(componentRows, componentEdges,
+      new Map(componentNodes.map((node) => [node.id, node])), 'global', {
+        nodeSpacing,
+        ...largeCorpusBounds,
+        ...optimizerOptions,
+      });
+    for (const node of optimized.nodes) optimizedById.set(node.id, { ...node, x: node.x + center });
+  }
+  return nodes.map((node) => optimizedById.get(node.id) ?? node);
+}
+
+function rowsFromNodes(nodes: GraphNode[]): GenerationRow[] {
+  const rows = new Map<number, GraphNode[]>();
+  for (const node of nodes) {
+    const row = rows.get(node.generation) ?? [];
+    row.push(node);
+    rows.set(node.generation, row);
+  }
+  return [...rows.keys()].sort((left, right) => left - right).map((generation) => ({
+    generation,
+    animalIds: (rows.get(generation) ?? []).sort((left, right) => left.x - right.x || left.id.localeCompare(right.id)).map((node) => node.id),
+  }));
 }
 
 function assignGlobalGenerations(index: GenealogyIndex): Map<string, number> {

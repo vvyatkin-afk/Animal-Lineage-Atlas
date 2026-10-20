@@ -4,9 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 from pathlib import Path
+from pathlib import PurePosixPath
 from urllib.parse import urlsplit
 
 
@@ -23,6 +25,11 @@ CSS_IMAGE_RE = re.compile(
     r"url\(\s*(['\"]?)(?!https?://|//|data:)([^)'\"\s]+\.(?:jpe?g|png|webp)(?:[?#][^)'\"\s]*)?)\1\s*\)",
     re.IGNORECASE,
 )
+SCREENSHOT_MANIFESTS = {
+    "baseline": ("reports/phase4/baseline/screenshot-manifest.json", "phase4-baseline-screenshots-v1"),
+    "after": ("reports/phase4/after/screenshot-manifest.json", "phase4-after-screenshots-v1"),
+    "comparisons": ("reports/phase4/comparisons/screenshot-manifest.json", "phase4-comparison-screenshots-v1"),
+}
 
 
 def _walk_files(root: Path):
@@ -55,14 +62,63 @@ def _media_references(document, relative_path: str, findings: list[str]) -> None
             _media_references(value, relative_path, findings)
 
 
+def _verified_screenshot_paths(root: Path) -> set[str]:
+    """Allow only PNG captures under reports/phase4 with an exact manifest hash."""
+    allowed: set[str] = set()
+    for _, (manifest_relative, expected_schema) in SCREENSHOT_MANIFESTS.items():
+        manifest_path = root / manifest_relative
+        if manifest_path.is_symlink() or not manifest_path.is_file():
+            continue
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            continue
+        if manifest.get("schema_version") != expected_schema or not isinstance(manifest.get("screenshots"), list):
+            continue
+        for record in manifest["screenshots"]:
+            if not isinstance(record, dict):
+                continue
+            relative_text = record.get("path")
+            expected_hash = record.get("sha256")
+            if not isinstance(relative_text, str) or not re.fullmatch(r"[a-f0-9]{64}", str(expected_hash)):
+                continue
+            relative = PurePosixPath(relative_text)
+            if (
+                relative.is_absolute()
+                or ".." in relative.parts
+                or len(relative.parts) < 4
+                or relative.parts[:2] != ("reports", "phase4")
+                or relative.parts[2] not in {"baseline", "after", "comparisons"}
+                or relative.suffix.lower() != ".png"
+            ):
+                continue
+            category_manifest = SCREENSHOT_MANIFESTS.get(relative.parts[2])
+            if not category_manifest or manifest_relative != category_manifest[0]:
+                continue
+            screenshot = root.joinpath(*relative.parts)
+            if screenshot.is_symlink() or not screenshot.is_file():
+                continue
+            try:
+                screenshot.resolve(strict=True).relative_to(root.resolve(strict=True))
+            except (OSError, ValueError):
+                continue
+            digest = hashlib.sha256(screenshot.read_bytes()).hexdigest()
+            if digest == expected_hash:
+                allowed.add(relative.as_posix())
+    return allowed
+
+
 def scan_tree(root: Path) -> list[str]:
     root = Path(root).resolve()
     findings: list[str] = []
     if not root.exists():
         return [f"scan root does not exist: {root}"]
+    verified_screenshots = _verified_screenshot_paths(root)
     for path in _walk_files(root):
         relative_path = path.relative_to(root).as_posix()
         if path.suffix.lower() in PHOTO_EXTENSIONS:
+            if relative_path in verified_screenshots:
+                continue
             findings.append(f"local animal-photo file: {relative_path}")
             continue
         if path.suffix.lower() == ".json":

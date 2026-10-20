@@ -1,0 +1,142 @@
+{
+  "schema_version": "phase4-after-screenshots-v1",
+  "source_revision": "e1920337fdda82f9449dadc6d11d8420168a26db",
+  "viewports_css_pixels": [
+    "1440x900",
+    "390x844"
+  ],
+  "screenshots": [
+    {
+      "path": "reports/phase4/after/futa-profile-1440x900.png",
+      "sha256": "020ff863675050a97bfd71c5f4257ea44e9616aabc978075d7ea65547e5c3a41",
+      "bytes": 403959,
+      "view": "futa-profile",
+      "viewport": "1440x900",
+      "media": "licensed relay image appears in-memory"
+    },
+    {
+      "path": "reports/phase4/after/futa-focus-1440x900.png",
+      "sha256": "74913e6dd5763786096d5ba9af963af8753c99fbfcb55c4d30d2077e9f483d42",
+      "bytes": 116298,
+      "view": "futa-focus",
+      "viewport": "1440x900",
+      "nodes": 100,
+      "edges": 100
+    },
+    {
+      "path": "reports/phase4/after/rakesh-focus-1440x900.png",
+      "sha256": "2d68a6ac44b9dd7a3ad6f53acd15aeb625d588d895335abf1d5e47260c89c44c",
+      "bytes": 111539,
+      "view": "rakesh-focus",
+      "viewport": "1440x900",
+      "nodes": 14,
+      "edges": 13
+    },
+    {
+      "path": "reports/phase4/after/red-panda-largest-component-1440x900.png",
+      "sha256": "9756d4b1789e17f58caa0c97baee3eec96da3cbc52f2a9a7f578e39323ea72c4",
+      "bytes": 256157,
+      "view": "red-panda-largest-component",
+      "viewport": "1440x900",
+      "nodes": 1554,
+      "edges": 2394,
+      "visible_nodes": 826
+    },
+    {
+      "path": "reports/phase4/after/red-panda-all-1440x900.png",
+      "sha256": "59369f2f8edc03a1a809cb44c8680a0d41496943ff7a08eb99bfd5b1787d4d94",
+      "bytes": 117282,
+      "view": "red-panda-all",
+      "viewport": "1440x900",
+      "nodes": 1554,
+      "edges": 2394,
+      "visible_nodes": 1554
+    },
+    {
+      "path": "reports/phase4/after/polar-bear-all-1440x900.png",
+      "sha256": "a3d548069aba9f16962aae6316d0d8cd697c95c948b9a10700e6e25ba420b31b",
+      "bytes": 131041,
+      "view": "polar-bear-all",
+      "viewport": "1440x900",
+      "nodes": 72,
+      "edges": 63,
+      "visible_nodes": 72
+    },
+    {
+      "path": "reports/phase4/after/hippopotamus-all-1440x900.png",
+      "sha256": "30343a8d728f5ad4546950174f898e1972ac34b8230556440ae6bbf2bbd2e660",
+      "bytes": 143282,
+      "view": "hippopotamus-all",
+      "viewport": "1440x900",
+      "nodes": 96,
+      "edges": 86,
+      "visible_nodes": 96
+    },
+    {
+      "path": "reports/phase4/after/futa-profile-390x844.png",
+      "sha256": "705346ce9a3c65039afe917ea4172f13c08262733a0b3c86a099009b82d97e87",
+      "bytes": 225864,
+      "view": "futa-profile",
+      "viewport": "390x844",
+      "media": "licensed relay image appears in-memory"
+    },
+    {
+      "path": "reports/phase4/after/futa-focus-390x844.png",
+      "sha256": "a69dd6fc88dd3972e8e1aae1af313eb50e0a5676698cd0b02261fdacf9721262",
+      "bytes": 63216,
+      "view": "futa-focus",
+      "viewport": "390x844",
+      "nodes": 100,
+      "edges": 100
+    },
+    {
+      "path": "reports/phase4/after/rakesh-focus-390x844.png",
+      "sha256": "aeb3bc88787a52836f44246117c8a42d28f987dfaccb67ab4292f9596045c971",
+      "bytes": 42720,
+      "view": "rakesh-focus",
+      "viewport": "390x844",
+      "nodes": 14,
+      "edges": 13
+    },
+    {
+      "path": "reports/phase4/after/red-panda-largest-component-390x844.png",
+      "sha256": "a70c7a96675cde13f3c4e8a02c7351aef3fcdef11a808e724fdce570995a6824",
+      "bytes": 52519,
+      "view": "red-panda-largest-component",
+      "viewport": "390x844",
+      "nodes": 1554,
+      "edges": 2394,
+      "visible_nodes": 834
+    },
+    {
+      "path": "reports/phase4/after/red-panda-all-390x844.png",
+      "sha256": "f7698a53bced6b3a207439e2e442c8ef6e9511b002d2cb9d78668eea68531eda",
+      "bytes": 40246,
+      "view": "red-panda-all",
+      "viewport": "390x844",
+      "nodes": 1554,
+      "edges": 2394,
+      "visible_nodes": 1554
+    },
+    {
+      "path": "reports/phase4/after/polar-bear-all-390x844.png",
+      "sha256": "476b9239a2fba9f24a1d11ed7dbe3ac1096bd8fd7260c0898e73a83e37983e7a",
+      "bytes": 45556,
+      "view": "polar-bear-all",
+      "viewport": "390x844",
+      "nodes": 72,
+      "edges": 63,
+      "visible_nodes": 72
+    },
+    {
+      "path": "reports/phase4/after/hippopotamus-all-390x844.png",
+      "sha256": "dd27e5ab7ece804bf253c3a59c2ff99fe5f90b3ba189ffdc36a928dead028520",
+      "bytes": 44971,
+      "view": "hippopotamus-all",
+      "viewport": "390x844",
+      "nodes": 96,
+      "edges": 86,
+      "visible_nodes": 96
+    }
+  ]
+}

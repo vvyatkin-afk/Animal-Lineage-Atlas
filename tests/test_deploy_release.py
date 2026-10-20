@@ -11,6 +11,14 @@ from tools.release_common import atomic_symlink_swap
 from tools.rollback_release import rollback_release
 
 
+def private_media_root(web_root: Path) -> Path:
+    return web_root.parent / "private-media"
+
+
+def deploy(web_root: Path, dist: Path, revision: str, **options) -> Path:
+    return deploy_release(web_root, dist, revision, media_root=private_media_root(web_root), **options)
+
+
 def make_dist(root: Path) -> Path:
     dist = root / "dist"
     for name in EXPECTED_PATHS:
@@ -24,6 +32,10 @@ def make_dist(root: Path) -> Path:
                 json.dumps({"format": "animal-lineage-atlas-local-media-manifest-v1", "items": []}),
                 encoding="utf-8",
             )
+            (app / "media-manifest.json").write_text(
+                json.dumps({"format": "animal-lineage-atlas-public-media-v1", "items": []}),
+                encoding="utf-8",
+            )
     return dist
 
 
@@ -33,7 +45,7 @@ class DeployReleaseTests(unittest.TestCase):
             root = Path(directory) / "www"
             root.mkdir()
             dist = make_dist(Path(directory))
-            release = deploy_release(root, dist, "a" * 40)
+            release = deploy(root, dist, "a" * 40)
 
             self.assertEqual(release, root / "_animal-lineage-releases" / ("a" * 40))
             self.assertEqual(stat.S_IMODE(release.stat().st_mode), 0o755)
@@ -44,8 +56,150 @@ class DeployReleaseTests(unittest.TestCase):
 
             (dist / "atlas" / "index.html").write_text("different bytes", encoding="utf-8")
             with self.assertRaisesRegex(RuntimeError, "already exists"):
-                deploy_release(root, dist, "a" * 40)
+                deploy(root, dist, "a" * 40)
             self.assertEqual((release / "atlas" / "index.html").read_text(encoding="utf-8"), "<main>atlas</main>")
+
+    def test_release_stages_relay_code_and_records_rollback_safe_current_target(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "www"
+            root.mkdir()
+            dist = make_dist(Path(directory))
+            first_sha = "a" * 40
+            first_release = deploy(root, dist, first_sha)
+            current_link = private_media_root(root) / "media-current"
+
+            self.assertEqual(os.readlink(current_link), f"{first_sha}/media-service")
+            media_service = private_media_root(root) / first_sha / "media-service"
+            self.assertTrue((media_service / "relay-server.mjs").is_file())
+            self.assertTrue((media_service / "approved-media-v1.json").is_file())
+            self.assertFalse((first_release / "media-service").exists())
+            self.assertNotIn("www", media_service.parts)
+            first_manifest = json.loads((first_release / "release-manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(first_manifest["media_service"], {
+                "previous_target": None,
+                "target": f"{first_sha}/media-service",
+                "previous_enabled": None,
+            })
+
+            second_sha = "b" * 40
+            second_release = deploy(root, dist, second_sha)
+            second_manifest = json.loads((second_release / "release-manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(second_manifest["media_service"], {
+                "previous_target": f"{first_sha}/media-service",
+                "target": f"{second_sha}/media-service",
+                "previous_enabled": None,
+            })
+            rollback_release(root, second_release / "release-manifest.json", media_root=private_media_root(root))
+            self.assertEqual(os.readlink(current_link), f"{first_sha}/media-service")
+
+    def test_managed_deploy_records_and_enables_the_media_service(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "www"
+            root.mkdir()
+            dist = make_dist(Path(directory))
+            from tools import deploy_release as deploy_module
+
+            with (
+                patch.object(deploy_module, "_media_service_enabled", return_value=False),
+                patch.object(deploy_module, "_restart_media_service") as restart,
+                patch.object(deploy_module, "_set_media_service_enabled") as enable,
+            ):
+                release = deploy(root, dist, "9" * 40, restart_media_service=True)
+
+            restart.assert_called_once_with()
+            enable.assert_called_once_with(True)
+            manifest = json.loads((release / "release-manifest.json").read_text(encoding="utf-8"))
+            self.assertFalse(manifest["media_service"]["previous_enabled"])
+
+    def test_first_release_rollback_disables_a_newly_enabled_media_service(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "www"
+            root.mkdir()
+            dist = make_dist(Path(directory))
+            release = deploy(root, dist, "8" * 40)
+            manifest_path = release / "release-manifest.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["media_service"]["previous_enabled"] = False
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            from tools import rollback_release as rollback_module
+
+            with (
+                patch.object(rollback_module, "_media_service_enabled", return_value=True),
+                patch.object(rollback_module, "_stop_media_service") as stop,
+                patch.object(rollback_module, "_set_media_service_enabled") as set_enabled,
+            ):
+                rollback_release(
+                    root,
+                    manifest_path,
+                    media_root=private_media_root(root),
+                    manage_media_service=True,
+                )
+
+            stop.assert_called_once_with()
+            set_enabled.assert_called_once_with(False)
+
+    def test_rollback_manages_service_and_restores_it_if_restart_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "www"
+            root.mkdir()
+            dist = make_dist(Path(directory))
+            deploy(root, dist, "a" * 40)
+            current_release = deploy(root, dist, "b" * 40)
+            current_link = private_media_root(root) / "media-current"
+            from tools import rollback_release as rollback_module
+
+            with (
+                patch.object(rollback_module, "_media_service_enabled", return_value=True),
+                patch.object(rollback_module, "_set_media_service_enabled"),
+                patch.object(rollback_module, "_restart_media_service", side_effect=[RuntimeError("unavailable"), None]) as restart,
+            ):
+                with self.assertRaisesRegex(RuntimeError, "changed paths were restored"):
+                    rollback_release(
+                        root,
+                        current_release / "release-manifest.json",
+                        media_root=private_media_root(root),
+                        manage_media_service=True,
+                    )
+
+            self.assertEqual(os.readlink(current_link), f"{'b' * 40}/media-service")
+            for name in EXPECTED_PATHS:
+                self.assertEqual(os.readlink(root / name), f"_animal-lineage-releases/{'b' * 40}/{name}")
+            self.assertEqual(restart.call_count, 2)
+
+    def test_rollback_refuses_when_media_target_changed_after_deploy(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "www"
+            root.mkdir()
+            dist = make_dist(Path(directory))
+            deploy(root, dist, "a" * 40)
+            release = deploy(root, dist, "b" * 40)
+            current_link = private_media_root(root) / "media-current"
+            current_link.unlink()
+            os.symlink(f"{'a' * 40}/media-service", current_link)
+
+            with self.assertRaisesRegex(RuntimeError, "Media service target changed"):
+                rollback_release(root, release / "release-manifest.json", media_root=private_media_root(root))
+
+            self.assertEqual(os.readlink(root / "atlas"), f"_animal-lineage-releases/{'b' * 40}/atlas")
+            self.assertEqual(os.readlink(current_link), f"{'a' * 40}/media-service")
+
+    def test_failed_media_service_restart_restores_paths_and_current_link(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "www"
+            root.mkdir()
+            dist = make_dist(Path(directory))
+            from tools import deploy_release as deploy_module
+            with (
+                patch.object(deploy_module, "_media_service_enabled", return_value=False),
+                patch.object(deploy_module, "_stop_media_service"),
+                patch.object(deploy_module, "_set_media_service_enabled"),
+                patch.object(deploy_module, "_restart_media_service", side_effect=RuntimeError("service unavailable")),
+            ):
+                with self.assertRaisesRegex(RuntimeError, "restored"):
+                    deploy(root, dist, "c" * 40, restart_media_service=True)
+
+            self.assertFalse((private_media_root(root) / "media-current").exists())
+            self.assertFalse(any((root / name).exists() or (root / name).is_symlink() for name in EXPECTED_PATHS))
 
     def test_symlink_swap_uses_atomic_replace(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -68,10 +222,10 @@ class DeployReleaseTests(unittest.TestCase):
                 previous_targets[name] = f"previous/{name}"
                 os.symlink(previous_targets[name], root / name)
             dist = make_dist(Path(directory))
-            release = deploy_release(root, dist, "b" * 40)
+            release = deploy(root, dist, "b" * 40)
 
             manifest = release / "release-manifest.json"
-            rollback_release(root, manifest)
+            rollback_release(root, manifest, media_root=private_media_root(root))
 
             for name, target in previous_targets.items():
                 self.assertTrue((root / name).is_symlink())
@@ -84,9 +238,10 @@ class DeployReleaseTests(unittest.TestCase):
             root = Path(directory) / "www"
             root.mkdir()
             dist = make_dist(Path(directory))
-            release = deploy_release(root, dist, "f" * 40)
-            rollback_release(root, release / "release-manifest.json")
+            release = deploy(root, dist, "f" * 40)
+            rollback_release(root, release / "release-manifest.json", media_root=private_media_root(root))
             self.assertFalse(any((root / name).exists() or (root / name).is_symlink() for name in EXPECTED_PATHS))
+            self.assertFalse((private_media_root(root) / "media-current").exists())
 
     def test_partial_public_switch_restores_prior_targets(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -108,7 +263,7 @@ class DeployReleaseTests(unittest.TestCase):
 
             with patch("tools.deploy_release.atomic_symlink_swap", side_effect=fail_on_second):
                 with self.assertRaisesRegex(RuntimeError, "earlier paths were restored"):
-                    deploy_release(root, dist, "1" * 40)
+                    deploy(root, dist, "1" * 40)
             for name, target in previous_targets.items():
                 self.assertEqual(os.readlink(root / name), target)
 
@@ -117,11 +272,11 @@ class DeployReleaseTests(unittest.TestCase):
             root = Path(directory) / "www"
             root.mkdir()
             dist = make_dist(Path(directory))
-            release = deploy_release(root, dist, "2" * 40)
+            release = deploy(root, dist, "2" * 40)
             (root / "atlas").unlink()
             os.symlink("manually-changed/atlas", root / "atlas")
             with self.assertRaisesRegex(RuntimeError, "changed since this release"):
-                rollback_release(root, release / "release-manifest.json")
+                rollback_release(root, release / "release-manifest.json", media_root=private_media_root(root))
             self.assertEqual(os.readlink(root / "atlas"), "manually-changed/atlas")
 
     def test_deploy_never_changes_the_legacy_red_panda_path(self):
@@ -134,7 +289,7 @@ class DeployReleaseTests(unittest.TestCase):
             marker.write_text("keep legacy", encoding="utf-8")
             dist = make_dist(Path(directory))
 
-            deploy_release(root, dist, "c" * 40)
+            deploy(root, dist, "c" * 40)
 
             self.assertTrue(legacy.is_dir())
             self.assertEqual(marker.read_text(encoding="utf-8"), "keep legacy")
@@ -147,7 +302,7 @@ class DeployReleaseTests(unittest.TestCase):
             (dist / "atlas.red-panda" / "portrait.png").write_bytes(b"photo bytes")
 
             with self.assertRaisesRegex(ValueError, "photo"):
-                deploy_release(root, dist, "d" * 40)
+                deploy(root, dist, "d" * 40)
 
             self.assertEqual(list(root.iterdir()), [])
 
@@ -162,9 +317,38 @@ class DeployReleaseTests(unittest.TestCase):
             dist = make_dist(Path(directory))
 
             with self.assertRaisesRegex(RuntimeError, "non-symlink"):
-                deploy_release(root, dist, "e" * 40)
+                deploy(root, dist, "e" * 40)
 
             self.assertEqual(marker.read_text(encoding="utf-8"), "keep")
+
+    def test_deploy_rejects_media_root_inside_public_web_root(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "www"
+            root.mkdir()
+            dist = make_dist(Path(directory))
+            private_path = root / "private-media"
+
+            with self.assertRaisesRegex(ValueError, "separate from the public web root"):
+                deploy_release(root, dist, "7" * 40, media_root=private_path)
+
+            self.assertFalse(private_path.exists())
+            self.assertEqual(list(root.iterdir()), [])
+
+    def test_deploy_refuses_existing_public_routes_that_escape_the_web_root(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            root = base / "www"
+            root.mkdir()
+            external = base / "external-atlas"
+            external.mkdir()
+            os.symlink(external, root / "atlas")
+            dist = make_dist(base)
+
+            with self.assertRaisesRegex(ValueError, "escapes the public web root"):
+                deploy(root, dist, "6" * 40)
+
+            self.assertEqual(os.readlink(root / "atlas"), str(external))
+            self.assertEqual({path.name for path in root.iterdir()}, {"atlas"})
 
 
 if __name__ == "__main__":

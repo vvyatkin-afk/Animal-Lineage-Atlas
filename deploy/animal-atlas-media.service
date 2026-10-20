@@ -1,0 +1,38 @@
+[Unit]
+Description=Animal Lineage Atlas approved media relay
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/lib/animal-lineage-atlas/media-current
+Environment=ATLAS_MEDIA_HOST=127.0.0.1
+Environment=ATLAS_MEDIA_PORT=4175
+Environment=ATLAS_MEDIA_MANIFEST=/var/lib/animal-lineage-atlas/media-current/approved-media-v1.json
+ExecStart=/usr/bin/node --max-old-space-size=96 /var/lib/animal-lineage-atlas/media-current/relay-server.mjs
+Restart=on-failure
+RestartSec=3s
+MemoryMax=256M
+TasksMax=32
+LimitNOFILE=1024
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ProtectClock=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+AmbientCapabilities=
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

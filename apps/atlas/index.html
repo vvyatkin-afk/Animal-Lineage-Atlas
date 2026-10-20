@@ -94,6 +94,15 @@
           </div>
           <p class="graph-help" data-i18n="graphHelpText">Select a name to open its profile. Drag the tree or use arrow keys to move; + and − change zoom.</p>
           <div id="genealogy-container" class="genealogy-container"></div>
+          <section id="layout-diagnostics" class="layout-diagnostics" hidden aria-live="polite" aria-labelledby="layout-diagnostics-title">
+            <h3 id="layout-diagnostics-title" data-i18n="layoutDiagnosticsLabel">Layout diagnostics</h3>
+            <dl>
+              <div><dt data-i18n="layoutCrossingsLabel">Measured curve crossings</dt><dd data-diagnostic="crossings" data-value="">—</dd></div>
+              <div><dt data-i18n="layoutRouteLengthLabel">Rendered route length (world units)</dt><dd data-diagnostic="route-length" data-value="">—</dd></div>
+              <div><dt data-i18n="layoutGenerationWidthLabel">Widest generation row (world units)</dt><dd data-diagnostic="generation-width" data-value="">—</dd></div>
+              <div><dt data-i18n="layoutParentOrderLabel">Mother-left/father-right violations</dt><dd data-diagnostic="parent-order" data-value="">—</dd></div>
+            </dl>
+          </section>
           <details id="coverage-details" class="coverage-details">
             <summary data-i18n="coverageLabel">Coverage and limitations</summary>
             <p id="coverage-scope"></p>

@@ -47,11 +47,11 @@ The static build emits `dist/atlas`, `dist/atlas.red-panda`, `dist/atlas.polar-b
 
 - [Mission and scope](docs/MISSION_AND_SCOPE.md) describes what each corpus includes and omits.
 - [Data model](docs/DATA_MODEL.md) and [evidence policy](docs/SOURCE_AND_EVIDENCE_POLICY.md) explain identifiers, relationships, date precision, and conflicts.
-- [Media and rights policy](docs/MEDIA_AND_RIGHTS_POLICY.md) and [offline archive plan](docs/OFFLINE_ARCHIVE_FUTURE.md) describe link-only media and the resolver contract.
+- [Media and rights policy](docs/MEDIA_AND_RIGHTS_POLICY.md) and [offline archive plan](docs/OFFLINE_ARCHIVE_FUTURE.md) describe the approved image relay, attribution, and private archive contract.
 - Species research notes: [red panda migration](docs/RED_PANDA_MIGRATION.md) and [upstream sync](docs/RED_PANDA_UPSTREAM_SYNC.md), [polar bear](docs/POLAR_BEAR_SOURCES.md), and [hippopotamus](docs/HIPPOPOTAMUS_SOURCES.md).
 - [Architecture](docs/ARCHITECTURE.md), [deployment and rollback](docs/DEPLOYMENT_AND_ROLLBACK.md), the [v1 release record](docs/RELEASE_V1.md), and the [Phase 2 expanded-data release record](docs/RELEASE_V2_EXPANDED_DATASETS.md) cover implementation and operations.
 - [Machine-readable QA report](docs/QA_REPORT.json) and [performance report](docs/PERFORMANCE_REPORT_PHASE2.md) record validation, payload sizes, browser results, and search/layout timings.
 
-The public repository and production bundles contain no animal-photo files, copied thumbnails, or embedded animal photos. Media is shown only when the recorded rights and embedding status allow it; otherwise the interface keeps a source link and placeholder.
+The public repository and static bundles contain no animal-photo files, copied thumbnails, or embedded animal photos. One verified Futa image is fetched at request time through the restricted same-origin relay and shown with its CC BY 4.0 attribution; other media stays link-only until its rights are verified.
 
 Navigation, controls, help copy, source categories, and coverage scope/limitations are available in English, Japanese, and Russian. Proper names and cited source titles retain their curated spelling; changing the interface language does not alter source records.

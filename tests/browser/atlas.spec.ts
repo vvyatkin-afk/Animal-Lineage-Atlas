@@ -2,10 +2,12 @@ import { mkdirSync } from 'node:fs';
 import { test, expect, type Page } from '@playwright/test';
 
 const screenshotDir = '/tmp/animal-lineage-atlas-qa';
+const futaRelayPath = '/atlas.red-panda/media/a426db98f35e4bc984275cc031467ac9/profile';
 mkdirSync(screenshotDir, { recursive: true });
 
-function observeErrors(page: Page) {
+function observeErrors(page: Page, expectedFailedImages: string[] = []) {
   const errors: string[] = [];
+  const expectedFailures = new Set(expectedFailedImages);
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('console', (message) => {
     if (message.type() === 'error' && !message.text().includes('net::ERR_FAILED')) {
@@ -18,11 +20,24 @@ function observeErrors(page: Page) {
     }
   });
   page.on('requestfailed', (request) => {
+    if (expectedFailures.has(new URL(request.url()).pathname)) return;
     const isExpectedBlockedImage = request.resourceType() === 'image'
       && new URL(request.url()).origin !== 'http://127.0.0.1:4173';
     if (!isExpectedBlockedImage) errors.push(`request failed: ${request.url()}`);
   });
   return errors;
+}
+
+async function failApprovedRelay(page: Page) {
+  await page.route('**/media/a426db98f35e4bc984275cc031467ac9/profile', (route) => route.abort('failed'));
+}
+
+async function fulfillApprovedRelayFixture(page: Page) {
+  await page.route('**/media/a426db98f35e4bc984275cc031467ac9/profile', (route) => route.fulfill({
+    status: 200,
+    contentType: 'image/svg+xml',
+    body: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="24"><rect width="32" height="24" fill="#789"/></svg>',
+  }));
 }
 
 async function blockRemoteImages(page: Page) {
@@ -186,9 +201,13 @@ test('country-coded nodes use bundled SVG flags at overview and card detail leve
     const context = canvasElement.getContext('2d');
     if (!context) return null;
     const pixels = context.getImageData(0, 0, canvasElement.width, canvasElement.height).data;
-    const nodeColors = new Set(['71,119,92', '120,131,125', '176,147,94']);
+    const nodeColors = [[71, 119, 92], [120, 131, 125], [176, 147, 94], [135, 76, 133], [63, 111, 145]];
     for (let index = 0; index < pixels.length; index += 4) {
-      if (nodeColors.has(`${pixels[index]},${pixels[index + 1]},${pixels[index + 2]}`)) {
+      const matchesNodeColor = nodeColors.some(([red, green, blue]) =>
+        Math.abs((pixels[index] ?? 0) - red) <= 8
+        && Math.abs((pixels[index + 1] ?? 0) - green) <= 8
+        && Math.abs((pixels[index + 2] ?? 0) - blue) <= 8);
+      if (matchesNodeColor) {
         const pixelIndex = index / 4;
         const ratio = canvasElement.width / canvasElement.clientWidth;
         return { x: (pixelIndex % canvasElement.width) / ratio, y: Math.floor(pixelIndex / canvasElement.width) / ratio };
@@ -218,6 +237,51 @@ test('country-coded nodes use bundled SVG flags at overview and card detail leve
   expect(flagRequests.some((pathname) => pathname.endsWith('/flags/us.svg'))).toBeTruthy();
   await expect(canvas).toHaveAttribute('data-node-count', '72');
   await viewport.screenshot({ path: `${screenshotDir}/phase3-polar-bear-flags-desktop-1440x900.png` });
+});
+
+test('focused Futa parents are ordered and layout diagnostics stay hidden by default', async ({ page }) => {
+  await blockRemoteImages(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/atlas.red-panda/?animal=red-panda%3Afuta');
+  const diagnostics = page.locator('#layout-diagnostics');
+  await expect(diagnostics).toBeHidden();
+  await expect(page.locator('svg[data-genealogy="true"]')).toBeVisible();
+  const parents = await page.evaluate(async () => {
+    const atlas = await (await fetch('./runtime.json')).json() as {
+      relationships: Array<{ subject: string; object: string; type: string }>;
+    };
+    return {
+      mother: atlas.relationships.find((edge) => edge.object === 'red-panda:futa' && edge.type === 'biological_mother')?.subject,
+      father: atlas.relationships.find((edge) => edge.object === 'red-panda:futa' && edge.type === 'biological_father')?.subject,
+    };
+  });
+  expect(parents.mother).toBeTruthy();
+  expect(parents.father).toBeTruthy();
+  const xPosition = async (animalId: string) => page.locator(`.genealogy-node[data-animal-id="${animalId}"]`).getAttribute('transform')
+    .then((transform) => Number(transform?.match(/translate\(([-\d.]+)/)?.[1]));
+  expect(await xPosition(parents.mother!)).toBeLessThan(await xPosition(parents.father!));
+});
+
+test('layoutDiagnostics=1 displays measured global metrics and leaves parent sex ordering unconstrained', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/atlas.red-panda/?layoutDiagnostics=1');
+  const diagnostics = page.locator('#layout-diagnostics');
+  await expect(diagnostics).toBeVisible();
+  await expect(diagnostics).toHaveAttribute('data-layout-mode', 'global');
+  await expect(diagnostics.locator('[data-diagnostic="crossings"]')).toHaveAttribute('data-value', /^[1-9]\d*$/);
+  await expect(diagnostics.locator('[data-diagnostic="route-length"]')).toHaveAttribute('data-value', /^[1-9]\d*$/);
+  await expect(diagnostics.locator('[data-diagnostic="generation-width"]')).toHaveAttribute('data-value', /^[1-9]\d*$/);
+  await expect(diagnostics.locator('[data-diagnostic="parent-order"]')).toHaveAttribute('data-value', 'unconstrained');
+  await expect(diagnostics.locator('[data-diagnostic="parent-order"]')).toContainText(/not constrained/i);
+});
+
+test('layout diagnostics remain usable on a mobile focused view', async ({ page }) => {
+  await blockRemoteImages(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/atlas.red-panda/?animal=red-panda%3Afuta&layoutDiagnostics=1');
+  await expect(page.locator('#layout-diagnostics')).toBeVisible();
+  await expect(page.locator('#layout-diagnostics [data-diagnostic="parent-order"]')).toHaveAttribute('data-value', '0');
+  await expect(page.locator('svg[data-genealogy="true"]')).toBeVisible();
 });
 
 test('sex, life-status, and photo filters update visible graph nodes and only retain edges between visible animals', async ({ page }) => {
@@ -297,9 +361,13 @@ test('mobile full graph fits all rows, remains within the viewport, and supports
     const context = canvasElement.getContext('2d');
     if (!context) return null;
     const pixels = context.getImageData(0, 0, canvasElement.width, canvasElement.height).data;
-    const nodeColors = new Set(['71,119,92', '120,131,125', '176,147,94']);
+    const nodeColors = [[71, 119, 92], [120, 131, 125], [176, 147, 94], [135, 76, 133], [63, 111, 145]];
     for (let index = 0; index < pixels.length; index += 4) {
-      if (nodeColors.has(`${pixels[index]},${pixels[index + 1]},${pixels[index + 2]}`)) {
+      const matchesNodeColor = nodeColors.some(([red, green, blue]) =>
+        Math.abs((pixels[index] ?? 0) - red) <= 8
+        && Math.abs((pixels[index + 1] ?? 0) - green) <= 8
+        && Math.abs((pixels[index + 2] ?? 0) - blue) <= 8);
+      if (matchesNodeColor) {
         const pixelIndex = index / 4;
         const ratio = canvasElement.width / canvasElement.clientWidth;
         return { x: (pixelIndex % canvasElement.width) / ratio, y: Math.floor(pixelIndex / canvasElement.width) / ratio };
@@ -340,8 +408,9 @@ test('hub renders all atlas cards, changes locale, and works at desktop size', a
 });
 
 test('each child path opens a direct profile and shows its family tree', async ({ page }) => {
-  const errors = observeErrors(page);
+  const errors = observeErrors(page, [futaRelayPath]);
   await blockRemoteImages(page);
+  await failApprovedRelay(page);
   const profiles = [
     { path: '/atlas.red-panda/', id: 'red-panda:futa', name: '風太（フウタ）', atlas: 'red-panda', expectedDetail: null },
     { path: '/atlas.red-panda/', id: 'red-panda:kelu', name: 'Kelú', atlas: 'red-panda', expectedDetail: 'Zoológico de Parquemet' },
@@ -421,8 +490,35 @@ test('child coverage scope and limitations follow Japanese and Russian locale ch
   await expect(page.locator('#coverage-scope')).toContainText('Именованные карликовые бегемоты');
 });
 
+test('Futa profile uses a same-origin approved media URL with CC BY attribution on desktop and mobile', async ({ page }) => {
+  await blockRemoteImages(page);
+  await page.route('**/media/a426db98f35e4bc984275cc031467ac9/profile', (route) => route.fulfill({
+    status: 200,
+    contentType: 'image/svg+xml',
+    body: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="24"><rect width="32" height="24" fill="#789"/></svg>',
+  }));
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:futa')}`);
+    const image = page.locator('#profile-dialog .profile-media img');
+    await expect(image).toBeVisible();
+    await expect(image).toHaveAttribute('src', '/atlas.red-panda/media/a426db98f35e4bc984275cc031467ac9/profile');
+    await expect(image).toHaveJSProperty('naturalWidth', 32);
+    expect(await image.evaluate((element) => new URL((element as HTMLImageElement).src).origin)).toBe('http://127.0.0.1:4173');
+    const bounds = await image.boundingBox();
+    expect(bounds).not.toBeNull();
+    expect(bounds!.width).toBeLessThanOrEqual(viewport.width);
+    await expect(page.locator('#profile-dialog')).toContainText('Misei sen');
+    await expect(page.locator('#profile-dialog')).toContainText('CC BY 4.0');
+    await expect(page.locator('#profile-dialog')).toContainText('No changes made');
+    await expect(page.locator('#profile-dialog a[href="https://creativecommons.org/licenses/by/4.0/"]')).toBeVisible();
+    await expect(page.locator('#profile-dialog .profile-media > p > a[href="https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg"]')).toBeVisible();
+  }
+});
+
 test('optional local manifest renders a local media asset in the profile UI', async ({ page }) => {
   const errors = observeErrors(page);
+  await fulfillApprovedRelayFixture(page);
   await interceptRedPandaDetails(page, (chunk) => {
     const media = chunk.media as Array<Record<string, unknown>>;
     media.push({
@@ -459,8 +555,9 @@ test('optional local manifest renders a local media asset in the profile UI', as
 });
 
 test('failed remote image falls back while search and genealogy remain usable', async ({ page }) => {
-  const errors = observeErrors(page);
+  const errors = observeErrors(page, [futaRelayPath]);
   await blockRemoteImages(page);
+  await failApprovedRelay(page);
   await interceptRedPandaDetails(page, (chunk) => {
     const media = chunk.media as Array<Record<string, unknown>>;
     media.push({
@@ -474,7 +571,7 @@ test('failed remote image falls back while search and genealogy remain usable', 
     });
   });
   await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:futa')}`);
-  await expect(page.locator('#profile-dialog .media-placeholder')).toHaveCount(2);
+  await expect(page.locator('#profile-dialog .media-placeholder')).toHaveCount(1);
   await expect(page.locator('#profile-dialog .profile-image')).toHaveCount(0);
   await expect(page.locator('#profile-dialog a[href="https://example.org/animal-record"]')).toBeVisible();
   await expect(page.locator('#search-results .result-card').first()).toBeVisible();
@@ -486,6 +583,7 @@ test('failed remote image falls back while search and genealogy remain usable', 
 
 test('mobile atlas fits the viewport and supports keyboard profile controls', async ({ page }) => {
   const errors = observeErrors(page);
+  await fulfillApprovedRelayFixture(page);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`/atlas.hippopotamus/?animal=${encodeURIComponent('hippopotamus:fiona')}`);
   await expect(page.locator('.language-control > span')).toBeVisible();

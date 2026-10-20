@@ -93,6 +93,13 @@ input[type="search"], select {
 }
 .graph-controls button:hover, .close-button:hover { background: var(--accent-soft); border-color: #aec5b7; }
 .graph-help { margin: 0; padding: 0 1.3rem 0.6rem; color: var(--muted); font-size: 0.76rem; }
+.layout-diagnostics { margin: 0.85rem 1.3rem; padding: 0.75rem 0.9rem; border: 1px solid var(--line); border-radius: 0.7rem; background: #f5f5ee; color: var(--muted); }
+.layout-diagnostics[hidden] { display: none; }
+.layout-diagnostics h3 { margin: 0 0 0.55rem; color: var(--ink); font-size: 0.82rem; }
+.layout-diagnostics dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem 1rem; margin: 0; }
+.layout-diagnostics dl > div { display: flex; justify-content: space-between; gap: 0.6rem; font-size: 0.7rem; }
+.layout-diagnostics dt { font-weight: 600; }
+.layout-diagnostics dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; text-align: right; }
 .genealogy-container { min-height: 340px; overflow: hidden; background: #fbfaf5; border-block: 1px solid var(--line); }
 .genealogy-surface { position: relative; min-height: 340px; contain: layout paint; }
 .genealogy-svg { display: block; width: 100%; height: clamp(340px, 52vw, 700px); touch-action: none; cursor: grab; }
@@ -168,10 +175,12 @@ dialog#profile-dialog::backdrop { background: rgba(22, 34, 27, 0.55); backdrop-f
 .profile-content h2 { margin: 0.15rem 0 0.5rem; font-size: clamp(1.8rem, 4vw, 2.5rem); }
 .profile-content h3 { margin-bottom: 0.65rem; font-size: 0.88rem; letter-spacing: 0.01em; }
 .profile-heading { display: grid; grid-template-columns: minmax(150px, 0.75fr) minmax(0, 1.25fr); gap: 1.25rem; align-items: start; }
+.profile-media-gallery { display: grid; min-width: 0; gap: 0.75rem; }
 .profile-media { min-width: 0; margin: 0; }
 .profile-image, .media-placeholder { display: grid; place-items: center; width: 100%; min-height: 175px; aspect-ratio: 1; border-radius: 0.75rem; object-fit: cover; }
 .media-placeholder { padding: 1rem; background: linear-gradient(145deg, #e8eee6, #f4eee1); color: #59685d; text-align: center; font-size: 0.85rem; line-height: 1.5; }
 .media-credit { margin: 0.35rem 0; color: var(--muted); font-size: 0.7rem; }
+.media-credit span { display: block; margin-top: 0.2rem; }
 .profile-aliases { color: var(--muted); font-size: 0.88rem; }
 .profile-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 1rem; margin: 1rem 0; }
 .profile-facts div { min-width: 0; }
@@ -207,6 +216,8 @@ dialog#profile-dialog::backdrop { background: rgba(22, 34, 27, 0.55); backdrop-f
   .tree-heading-row { align-items: start; flex-direction: column; padding-inline: 1rem; }
   .graph-controls { gap: 0.25rem; }
   .graph-controls button { min-width: 2.65rem; min-height: 2.65rem; }
+  .layout-diagnostics { margin: 0.6rem 0.75rem; }
+  .layout-diagnostics dl { grid-template-columns: minmax(0, 1fr); }
   .all-families-button { min-height: 2.65rem; }
   .fit-all-button { min-height: 2.65rem; }
   .graph-view-options { padding-inline: 1rem; }

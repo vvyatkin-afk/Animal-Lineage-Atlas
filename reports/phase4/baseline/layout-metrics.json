@@ -1,0 +1,328 @@
+{
+  "schema_version": "phase4-layout-baseline-v1",
+  "captured_at": "2026-10-20",
+  "production_revision": "5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed",
+  "method": {
+    "route": "Shared renderer route geometry; cubic Beziers sampled into 24 segments; route length sums the rendered centerline. A crossing requires both polylines to pass from opposite sides of each other; tangencies and edge pairs sharing an animal endpoint do not count. Dashed and solid routes are both measured; dash gaps do not alter centerline totals.",
+    "node_rect": "176x74 world-unit bounds. Edge-node collision pairs exclude each edge endpoint."
+  },
+  "atlases": {
+    "red-panda": {
+      "records": 1554,
+      "relationships": 2394,
+      "components": 171,
+      "largest_component_animals": 823,
+      "global": {
+        "nodes": 1554,
+        "edges": 2394,
+        "generations": 14,
+        "truncated": false,
+        "crossings": {
+          "edge_pairs": 48041,
+          "samples_per_curve": 24
+        },
+        "total_route_length": 5472576.87,
+        "node_overlap_pairs": 0,
+        "edge_node_collision_pairs": 4080,
+        "generation_order_violations": 0,
+        "parent_order_violations": 0,
+        "width": 99042,
+        "height": 2934
+      },
+      "largest_component": {
+        "nodes": 823,
+        "edges": 1468,
+        "generations": 14,
+        "truncated": false,
+        "crossings": {
+          "edge_pairs": 35210,
+          "samples_per_curve": 24
+        },
+        "total_route_length": 3428194.25,
+        "node_overlap_pairs": 0,
+        "edge_node_collision_pairs": 3009,
+        "generation_order_violations": 0,
+        "parent_order_violations": 0,
+        "width": 23918,
+        "height": 2934
+      },
+      "focus": {
+        "futa_default": {
+          "nodes": 100,
+          "edges": 100,
+          "generations": 7,
+          "truncated": false,
+          "crossings": {
+            "edge_pairs": 277,
+            "samples_per_curve": 24
+          },
+          "total_route_length": 126772.03,
+          "node_overlap_pairs": 0,
+          "edge_node_collision_pairs": 0,
+          "generation_order_violations": 0,
+          "parent_order_violations": 0,
+          "width": 8376,
+          "height": 1034
+        },
+        "futa_all": {
+          "nodes": 121,
+          "edges": 121,
+          "generations": 9,
+          "truncated": false,
+          "crossings": {
+            "edge_pairs": 286,
+            "samples_per_curve": 24
+          },
+          "total_route_length": 142595.56,
+          "node_overlap_pairs": 0,
+          "edge_node_collision_pairs": 0,
+          "generation_order_violations": 0,
+          "parent_order_violations": 0,
+          "width": 8376,
+          "height": 1354
+        },
+        "rakesh_default": {
+          "nodes": 14,
+          "edges": 13,
+          "generations": 4,
+          "truncated": false,
+          "crossings": {
+            "edge_pairs": 10,
+            "samples_per_curve": 24
+          },
+          "total_route_length": 4049.75,
+          "node_overlap_pairs": 0,
+          "edge_node_collision_pairs": 0,
+          "generation_order_violations": 0,
+          "parent_order_violations": 0,
+          "width": 1376,
+          "height": 554
+        }
+      }
+    },
+    "polar-bear": {
+      "records": 72,
+      "relationships": 63,
+      "components": 23,
+      "largest_component_animals": 9,
+      "global": {
+        "nodes": 72,
+        "edges": 63,
+        "generations": 3,
+        "truncated": false,
+        "crossings": {
+          "edge_pairs": 33,
+          "samples_per_curve": 24
+        },
+        "total_route_length": 16217.28,
+        "node_overlap_pairs": 0,
+        "edge_node_collision_pairs": 3,
+        "generation_order_violations": 0,
+        "parent_order_violations": 0,
+        "width": 8450,
+        "height": 514
+      },
+      "largest_component": {
+        "nodes": 9,
+        "edges": 10,
+        "generations": 2,
+        "truncated": false,
+        "crossings": {
+          "edge_pairs": 7,
+          "samples_per_curve": 24
+        },
+        "total_route_length": 3015.72,
+        "node_overlap_pairs": 0,
+        "edge_node_collision_pairs": 0,
+        "generation_order_violations": 0,
+        "parent_order_violations": 0,
+        "width": 1032,
+        "height": 294
+      }
+    },
+    "hippopotamus": {
+      "records": 96,
+      "relationships": 86,
+      "components": 28,
+      "largest_component_animals": 19,
+      "global": {
+        "nodes": 96,
+        "edges": 86,
+        "generations": 5,
+        "truncated": false,
+        "crossings": {
+          "edge_pairs": 39,
+          "samples_per_curve": 24
+        },
+        "total_route_length": 27100.89,
+        "node_overlap_pairs": 0,
+        "edge_node_collision_pairs": 17,
+        "generation_order_violations": 0,
+        "parent_order_violations": 0,
+        "width": 11838,
+        "height": 954
+      },
+      "largest_component": {
+        "nodes": 19,
+        "edges": 30,
+        "generations": 5,
+        "truncated": false,
+        "crossings": {
+          "edge_pairs": 31,
+          "samples_per_curve": 24
+        },
+        "total_route_length": 14603.7,
+        "node_overlap_pairs": 0,
+        "edge_node_collision_pairs": 16,
+        "generation_order_violations": 0,
+        "parent_order_violations": 0,
+        "width": 1460,
+        "height": 954
+      }
+    }
+  },
+  "production_urls": {
+    "hub": "http://204.168.161.237/atlas/",
+    "red-panda": "http://204.168.161.237/atlas.red-panda/",
+    "polar-bear": "http://204.168.161.237/atlas.polar-bear/",
+    "hippopotamus": "http://204.168.161.237/atlas.hippopotamus/"
+  },
+  "browser": {
+    "name": "Playwright Chromium",
+    "source": "live production release",
+    "viewports_css_pixels": [
+      "1440x900",
+      "390x844"
+    ],
+    "page_errors": 0,
+    "external_image_requests": "blocked"
+  },
+  "screenshots": [
+    {
+      "path": "reports/phase4/baseline/futa-focus-1440x900.png",
+      "sha256": "08cab43288a746f856ee352ff4c65dc53d65f213601eec714509373f217b7c0b",
+      "bytes": 117720,
+      "viewport": [
+        "focus",
+        "1440x900"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/futa-focus-390x844.png",
+      "sha256": "40559b90c1e201bdcd5f7d35f0a033c69c773f6be40d812a8b86d8af6c61abd2",
+      "bytes": 62776,
+      "viewport": [
+        "focus",
+        "390x844"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/futa-profile-1440x900.png",
+      "sha256": "328b07b18f1fffcbf712321fef47c81bab8fbc76876bfb3232ef9b2b1e39b29f",
+      "bytes": 249098,
+      "viewport": [
+        "profile",
+        "1440x900"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/futa-profile-390x844.png",
+      "sha256": "99adfd35b6e1bc7aa2826ccb7f8debc32320177444fb25b70400f2ea5348f164",
+      "bytes": 81347,
+      "viewport": [
+        "profile",
+        "390x844"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/hippopotamus-all-1440x900.png",
+      "sha256": "61d34f1fac4bb26e48f9cd38127e3a025a9b1a768c0929d75be46e3936530833",
+      "bytes": 143356,
+      "viewport": [
+        "all",
+        "1440x900"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/hippopotamus-all-390x844.png",
+      "sha256": "76be382be999f431fecd1d8f6912e58dc142880be80484c1ca76112305691c9f",
+      "bytes": 44972,
+      "viewport": [
+        "all",
+        "390x844"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/polar-bear-all-1440x900.png",
+      "sha256": "551b0585a412d113ec020c551cf5eccc0ec8eac600ad6cad2092a2d0146da062",
+      "bytes": 131437,
+      "viewport": [
+        "all",
+        "1440x900"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/polar-bear-all-390x844.png",
+      "sha256": "056d6941ef3d18b0555371522b8a5da3dc15bc69da94e8fb56888c62b917c526",
+      "bytes": 45568,
+      "viewport": [
+        "all",
+        "390x844"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/rakesh-focus-1440x900.png",
+      "sha256": "27f389f7267b9b77acc64524128de2423ba7e592947f81668248868b0f683670",
+      "bytes": 115419,
+      "viewport": [
+        "focus",
+        "1440x900"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/rakesh-focus-390x844.png",
+      "sha256": "5a6a52aa870f716b5c0be19fb6af8b1f3dcdc001cbaf9a675e1fd81a03c53b73",
+      "bytes": 42637,
+      "viewport": [
+        "focus",
+        "390x844"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/red-panda-all-1440x900.png",
+      "sha256": "1ea2e78620bc063cd29e4322f842afb3fa7d91bd4efef2af5765dde04c95207c",
+      "bytes": 122905,
+      "viewport": [
+        "all",
+        "1440x900"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/red-panda-all-390x844.png",
+      "sha256": "636c9a10273c8ea64b43041393ba4f77f535d8d5782c4e829e4cdc753891843a",
+      "bytes": 41232,
+      "viewport": [
+        "all",
+        "390x844"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/red-panda-largest-component-1440x900.png",
+      "sha256": "286a7dcb23f28df0beb4325d5fba508fa15d3ebfe166fc4fa56649d61b022829",
+      "bytes": 261247,
+      "viewport": [
+        "component",
+        "1440x900"
+      ]
+    },
+    {
+      "path": "reports/phase4/baseline/red-panda-largest-component-390x844.png",
+      "sha256": "1144c78c8b741badb5aaf48d0d58c2eaa7ec8701f0137d78fa19da3331053d00",
+      "bytes": 53587,
+      "viewport": [
+        "component",
+        "390x844"
+      ]
+    }
+  ]
+}

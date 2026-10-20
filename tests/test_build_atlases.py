@@ -3,11 +3,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.build_atlases import _write_runtime_index
+from tools.build_atlases import _write_public_media_manifest, _write_runtime_index
 
 
 class RuntimeGraphSummaryTests(unittest.TestCase):
-    def test_graph_summary_preserves_dates_location_and_media_permission_gates(self):
+    def test_graph_summary_preserves_dates_location_and_requires_approved_media_allowlist(self):
         document = {
             "release": {"data_version": "test", "build_date": "2026-10-20"},
             "coverage": {"scope": "fixture"},
@@ -59,9 +59,9 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
         self.assertEqual(summary["birth_date_label"], "~2001")
         self.assertEqual(summary["death_date_label"], "2021–2022")
         self.assertEqual(summary["institution_label"], "Example Zoo")
-        self.assertTrue(summary["photo_confirmed"])
-        self.assertEqual(summary["photo_url"], "https://images.example.org/nora.jpg")
-        self.assertEqual(summary["photo_source_url"], "https://zoo.example.org/nora")
+        self.assertFalse(summary["photo_confirmed"])
+        self.assertNotIn("photo_url", summary)
+        self.assertNotIn("photo_source_url", summary)
         self.assertTrue(flag_svg_exists)
         self.assertIn("Copyright (c) 2013 Panayiotis Lipiridis", flag_license)
 
@@ -93,6 +93,45 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
         self.assertNotIn("photo_url", summary)
         self.assertNotIn("photo_source_url", summary)
         self.assertFalse((output / "flags").exists())
+
+    def test_approved_photo_uses_fixed_same_origin_thumbnail_and_public_manifest_hides_fetch_urls(self):
+        media_id = "a426db98f35e4bc984275cc031467ac9"
+        source_url = "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg"
+        document = {
+            "release": {}, "coverage": {},
+            "animals": [{"id": "red-panda:futa", "taxon": "Ailurus fulgens", "sex": "male", "status": "living",
+                         "name": {"canonical": "Futa"}}],
+            "relationships": [], "events": [], "claims": [], "sources": [], "institutions": [],
+            "media": [{"media_id": media_id, "animal_id": "red-panda:futa", "embedding_status": "allowed",
+                       "rights_status": "cc-by-4.0", "identity_confidence": "confirmed", "source_page_url": source_url}],
+        }
+        approved = [{
+            "id": media_id, "animal_id": "red-panda:futa", "identity_confidence": "confirmed",
+            "source_page_url": source_url, "creator": "Misei sen", "credit": "Misei sen",
+            "rights_status": "cc-by-4.0", "embedding_status": "allowed",
+            "license": {"name": "CC BY 4.0", "version": "4.0", "url": "https://creativecommons.org/licenses/by/4.0/"},
+            "changes": "No changes made.",
+            "variants": {"thumb": {"url": "https://thumb.wikimedia.org/example.jpg", "max_bytes": 65536},
+                         "profile": {"url": "https://thumb.wikimedia.org/example-large.jpg", "max_bytes": 393216}},
+        }]
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            _write_runtime_index(document, output, "/atlas.red-panda/", approved)
+            _write_public_media_manifest(output, approved)
+            runtime = json.loads((output / "runtime.json").read_text(encoding="utf-8"))
+            public_manifest_text = (output / "media-manifest.json").read_text(encoding="utf-8")
+            chunk_name = runtime["animals"][0]["detail_chunk"]
+            chunk = json.loads((output / chunk_name).read_text(encoding="utf-8"))
+
+        summary = runtime["animals"][0]
+        self.assertTrue(summary["photo_confirmed"])
+        self.assertEqual(summary["photo_url"], f"/atlas.red-panda/media/{media_id}/thumb")
+        self.assertEqual(summary["photo_credit"], "Misei sen")
+        self.assertEqual(summary["photo_license"], "CC BY 4.0")
+        self.assertEqual(chunk["media"][0]["media_id"], media_id)
+        self.assertNotIn("direct_remote_url", chunk["media"][0])
+        self.assertNotIn("thumb.wikimedia.org", public_manifest_text)
+        self.assertIn(source_url, public_manifest_text)
 
 
 if __name__ == "__main__":

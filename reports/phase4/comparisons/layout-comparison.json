@@ -1,0 +1,158 @@
+{
+  "schema_version": "phase4-layout-comparison-v1",
+  "captured_at": "2026-10-20T12:46:03.961Z",
+  "baseline_revision": "5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed",
+  "after_revision": "e1920337fdda82f9449dadc6d11d8420168a26db",
+  "method": "Crossings count renderer-route pairs; length sums rendered route centerlines. Each before/after view uses identical records and edges.",
+  "cases": [
+    {
+      "label": "red panda · Futa · 3 generations",
+      "nodes": 100,
+      "edges": 100,
+      "crossings": {
+        "baseline": 277,
+        "after": 6,
+        "reduction_percent": 97.8
+      },
+      "route_length": {
+        "baseline": 126772.03,
+        "after": 102548.13,
+        "reduction_percent": 19.1
+      },
+      "constraints": {
+        "node_overlap_pairs": 0,
+        "generation_order_violations": 0,
+        "focused_parent_order_violations": 0,
+        "global_parent_ordering": "focused constraint"
+      }
+    },
+    {
+      "label": "red panda · Futa · all known generations",
+      "nodes": 121,
+      "edges": 121,
+      "crossings": {
+        "baseline": 286,
+        "after": 18,
+        "reduction_percent": 93.7
+      },
+      "route_length": {
+        "baseline": 142595.56,
+        "after": 121431.54,
+        "reduction_percent": 14.8
+      },
+      "constraints": {
+        "node_overlap_pairs": 0,
+        "generation_order_violations": 0,
+        "focused_parent_order_violations": 0,
+        "global_parent_ordering": "focused constraint"
+      }
+    },
+    {
+      "label": "red panda · Rakesh · 3 generations",
+      "nodes": 14,
+      "edges": 13,
+      "crossings": {
+        "baseline": 10,
+        "after": 4,
+        "reduction_percent": 60
+      },
+      "route_length": {
+        "baseline": 4049.75,
+        "after": 2908.52,
+        "reduction_percent": 28.2
+      },
+      "constraints": {
+        "node_overlap_pairs": 0,
+        "generation_order_violations": 0,
+        "focused_parent_order_violations": 0,
+        "global_parent_ordering": "focused constraint"
+      }
+    },
+    {
+      "label": "red panda · largest component",
+      "nodes": 823,
+      "edges": 1468,
+      "crossings": {
+        "baseline": 35210,
+        "after": 31352,
+        "reduction_percent": 11
+      },
+      "route_length": {
+        "baseline": 3428194.25,
+        "after": 3163209.23,
+        "reduction_percent": 7.7
+      },
+      "constraints": {
+        "node_overlap_pairs": 0,
+        "generation_order_violations": 0,
+        "focused_parent_order_violations": null,
+        "global_parent_ordering": "unconstrained"
+      }
+    },
+    {
+      "label": "red panda · all animals",
+      "nodes": 1554,
+      "edges": 2394,
+      "crossings": {
+        "baseline": 48041,
+        "after": 42931,
+        "reduction_percent": 10.6
+      },
+      "route_length": {
+        "baseline": 5472576.87,
+        "after": 4662636.83,
+        "reduction_percent": 14.8
+      },
+      "constraints": {
+        "node_overlap_pairs": 0,
+        "generation_order_violations": 0,
+        "focused_parent_order_violations": null,
+        "global_parent_ordering": "unconstrained"
+      }
+    },
+    {
+      "label": "polar bears · all animals",
+      "nodes": 72,
+      "edges": 63,
+      "crossings": {
+        "baseline": 33,
+        "after": 28,
+        "reduction_percent": 15.2
+      },
+      "route_length": {
+        "baseline": 16217.28,
+        "after": 15820.18,
+        "reduction_percent": 2.4
+      },
+      "constraints": {
+        "node_overlap_pairs": 0,
+        "generation_order_violations": 0,
+        "focused_parent_order_violations": null,
+        "global_parent_ordering": "unconstrained"
+      }
+    },
+    {
+      "label": "hippos · all animals",
+      "nodes": 96,
+      "edges": 86,
+      "crossings": {
+        "baseline": 39,
+        "after": 35,
+        "reduction_percent": 10.3
+      },
+      "route_length": {
+        "baseline": 27100.89,
+        "after": 26477.58,
+        "reduction_percent": 2.3
+      },
+      "constraints": {
+        "node_overlap_pairs": 0,
+        "generation_order_violations": 0,
+        "focused_parent_order_violations": null,
+        "global_parent_ordering": "unconstrained"
+      }
+    }
+  ],
+  "all_cases_reduce_crossings": true,
+  "all_cases_reduce_route_length": true
+}
