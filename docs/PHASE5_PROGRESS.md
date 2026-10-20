@@ -4,7 +4,7 @@ Updated: 2026-10-20 UTC
 
 ## Scope and production baseline
 
-Execution follows the user-authorized [Phase 5 brief](PHASE5_PHOTO_LAYOUT_BRIEF_20261021.md), first on `phase5/legible-tree-and-identified-photo-20261021` and now on relay-repair branch `phase5/commons-thumbnail-relay-fix-20261020`. Phase 5's main implementation merged through PR [#11](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/11) as `6c1e238424e0bfd5994bce9ab2976a7c6f566a05`. Production is currently restored to Phase 4 release `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7` after the first Phase 5 relay smoke check failed; the deployment and rollback evidence is recorded below. The legacy `/red-panda/` and unrelated projects remain unchanged. The starting branch commit was `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`.
+Execution follows the user-authorized [Phase 5 brief](PHASE5_PHOTO_LAYOUT_BRIEF_20261021.md), first on `phase5/legible-tree-and-identified-photo-20261021` and now on relay-repair branch `phase5/commons-thumbnail-relay-fix-20261020`. Phase 5's main implementation merged through PR [#11](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/11) as `6c1e238424e0bfd5994bce9ab2976a7c6f566a05`; the thumbnail relay repair is under PR [#12](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/12). Production is currently restored to Phase 4 release `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7` after the first Phase 5 relay smoke check failed; the deployment and rollback evidence is recorded below. The legacy `/red-panda/` and unrelated projects remain unchanged. The starting branch commit was `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`.
 
 Phase 4 desktop/mobile captures and the live Bandit baseline are preserved with hashes in `reports/phase5/baseline/`. They show the original all-animal ribbon and record the prior rendered crossing and route-length measurements. The current Phase 5 local screenshots and hashes are in `reports/phase5/after/screenshot-manifest.json`.
 
@@ -52,7 +52,7 @@ PR #11's merge SHA `6c1e238424e0bfd5994bce9ab2976a7c6f566a05` was deployed at 20
 
 The saved Phase 5 release manifest was used to restore the four Atlas symlinks and `media-current` to Phase 4 `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7`. The media service is active and enabled; all five routes still return HTTP 200. A fresh comparison verified all 505 files in `/red-panda/` still match its baseline SHA-256 manifest `28ac4d968723ddcc1f79367793f405c1b5702aafe1ca057e7a0e825abccb1927`.
 
-The approved relay records now use Wikimedia's standard 250px and 500px widths, which keep these preview dimensions within the existing caps. Four Node relay regression tests and one Python builder test cover aspect-ratio limits, supported widths, the same-file rule, and distinct direct/relay URLs. They failed against the previous settings/behavior and pass with the fix. Before redeployment, a local instance of the release relay fetched and validated all 24 approved variants (12 photos × thumb/profile); each returned HTTP 200 and stayed within its byte and pixel caps. Those response bytes remained in process memory and were not written to disk. The follow-up PR is being prepared on `phase5/commons-thumbnail-relay-fix-20261020`; production activation remains pending its CI and live smoke checks.
+The approved relay records now use Wikimedia's standard 250px and 500px widths, which keep these preview dimensions within the existing caps. Four Node relay regression tests and one Python builder test cover aspect-ratio limits, supported widths, the same-file rule, and distinct direct/relay URLs. They failed against the previous settings/behavior and pass with the fix. Before redeployment, a local instance of the release relay fetched and validated all 24 approved variants (12 photos × thumb/profile); each returned HTTP 200 and stayed within its byte and pixel caps. Those response bytes remained in process memory and were not written to disk. PR #12 is open on `phase5/commons-thumbnail-relay-fix-20261020`; production activation remains pending its CI and live smoke checks.
 
 ## Local verification
 
@@ -75,7 +75,8 @@ The approved relay records now use Wikimedia's standard 250px and 500px widths, 
 - [x] GitHub Atlas CI run [39467566584](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/39467566584) passed on exact PR head `f60e5022bf8b35b78521f78436f11a67dcf44e7e`; its tree matches merge SHA `6c1e238424e0bfd5994bce9ab2976a7c6f566a05`.
 - [x] Merge PR #11 as `6c1e238424e0bfd5994bce9ab2976a7c6f566a05`.
 - [x] Correct the Commons relay width/height failure, add regressions, and confirm the approved manifest matches the audit for all 12 source records and 24 bounded preview URLs.
-- [ ] Open and pass CI on the standard-thumbnail-size follow-up PR.
+- [x] Open the standard-thumbnail-size follow-up PR [#12](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/12).
+- [ ] Pass hosted CI on PR #12's final head.
 - [ ] Merge the follow-up standard-thumbnail-size fix after its full CI run passes.
 - [ ] Redeploy all four Atlas routes atomically with a recorded rollback manifest; smoke-test the relay and public routes, then reconfirm `/red-panda/` and unrelated projects remain unchanged.
 - [ ] Write final production SHA, public route URLs, CI evidence, deployment manifest, and verified rollback commands to `docs/PHASE5_RELEASE.md`.
