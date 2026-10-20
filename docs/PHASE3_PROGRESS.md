@@ -1,8 +1,8 @@
 # Phase 3 Progress — Rich Genealogy and Verified Data
 
-Last updated: 2026-10-20 09:44 UTC
+Last updated: 2026-10-20 10:07 UTC
 Owner: repository owner
-Working branch: `phase3/rich-trees-media-data-20261020`
+Working branch: `docs/phase3-production-record-20261020`
 
 ## Initial audit
 
@@ -57,7 +57,7 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 2. **Scalable view and interaction — verified locally.** Canvas rendering uses spatial culling and hit testing; high-detail cards are capped and lazy; pan/zoom preserves layout; profile cards open exact URLs in a new tab. Sex, life-status, photo, country, species, and population facets narrow the global graph without changing canonical records.
 3. **Regression coverage — verified locally.** 54 Node tests pass, including shared ancestors, multi-generation partner branches across countries, disconnected lineages, exact Futa family connectivity, full 1,554 / 2,394 graph counts, lazy detail/media behavior, and every relationship-type/confidence combination. The latest serial browser run passes 15/15 at desktop/mobile.
 4. **Data/source pass — additions and review complete for this pass.** Polar bears grew to 72 animals / 63 relationships and hippos to 96 / 86 (64 common, 32 pygmy). Red pandas remain 1,554 / 2,394; candidate additions were withheld where identity could not be resolved. Dryad remains unimported because the published file endpoint returned 403.
-5. **Performance, review, and release — locally verified; review/release pending.** The final-code benchmark is pinned to clean revision `ba9a3f0`; branch `phase3/rich-trees-media-data-20261020` is pushed and draft PR #6 is open. GitHub CI is pending and independent review is running; merge, atomic deployment, production browser checks, and rollback evidence remain outstanding.
+5. **Performance, review, and release — complete.** Independent review cleared the relationship styling fix; PR #6 was merged as `5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed`, its required CI passed, and the four Atlas links were atomically deployed. Production browser checks and the exact legacy tree comparison passed. Final performance data is pinned to the merged revision. This branch records the completed release evidence.
 
 ## Measurable acceptance criteria
 
@@ -78,6 +78,16 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 - No production changes until the feature branch is tested and release checks are green. Legacy `/red-panda/`, Nginx configuration, and unrelated projects are outside scope.
 
 ## Current status
+
+### Phase 3 production release — 2026-10-20 10:02 UTC
+
+- PR #6 merged to `main` as `5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed`; required GitHub run [39404428209](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/39404428209) passed. The independent reviewer confirmed the P2 relationship type/confidence styling issue was fixed with no remaining blockers.
+- Built all four paths from the merged commit and deployed them with the documented atomic release helper. The active release is `/var/www/html/_animal-lineage-releases/5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed/`; active manifest: `/var/www/html/_animal-lineage-releases/5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed/release-manifest.json`.
+- Production routes returned HTTP 200: [hub](http://204.168.161.237/atlas/), [red panda](http://204.168.161.237/atlas.red-panda/), [polar bear](http://204.168.161.237/atlas.polar-bear/), [hippopotamus](http://204.168.161.237/atlas.hippopotamus/), and [legacy red panda](http://204.168.161.237/red-panda/). Chromium opened the 1,554/2,394, 72/63, and 96/86 global graphs, direct Futa/Franz/Fiona profiles, and the 390×844 mobile graph with no page errors or local asset failures.
+- The release manifest records the four Phase 2 symlinks under release `133f7a5324a4095aeb922f77c4dce3e4c2a50b5a` as rollback targets. `/var/www/html/red-panda/` still has 505 files, 32 directories, 136,957,949 file bytes, zero symlinks, and an exact file-by-file match to baseline SHA-256 `a32ae67433de89bca8067743dbb28581e9a4053965c96b46032a84720664fdf3`.
+- `sudo -n /usr/sbin/nginx -t` passed before deployment; Nginx configuration was not changed. The final [performance report](PERFORMANCE_REPORT_PHASE3.json) is pinned to the merged revision with a clean worktree: global red-panda layout p95 113.685 ms; largest component (823 animals / 1,468 edges) p95 60.141 ms; search p95 4.693 ms; 5,000-record synthetic search p95 13.019 ms; desktop first global render 164.3 ms; measured Chromium heap 15.2 MB. The serial Playwright run passed 15/15.
+- Production screenshots are saved under `/tmp/animal-lineage-atlas-qa/` as `phase3-live-red-panda-global-1440x900.png`, `phase3-live-polar-bear-global-1440x900.png`, `phase3-live-hippopotamus-global-1440x900.png`, `phase3-live-futa-profile-1440x900.png`, and `phase3-live-red-panda-mobile-390x844.png`.
+- The documentation follow-up branch records the deployed SHA, manifest, rollback target, screenshots, and performance report; the existing feature PR remains merged.
 
 ### Verification update — 2026-10-20 09:38 UTC
 
@@ -108,13 +118,12 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 
 ## NEXT_ACTIONS
 
-1. Wait for required GitHub CI on the current PR head; resolve any findings and rerun affected plus full release checks.
-2. Keep PR #6 in draft until review is clean and CI is green, then mark it ready and merge.
-3. After merge and green CI, deploy only `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/`; verify all four plus legacy `/red-panda/`, capture screenshots and manifest, and record rollback evidence.
+1. If this documentation-only follow-up has not merged, merge it after its required checks pass. The application release itself is complete.
+2. For a production rollback, run `sudo -n python3 tools/rollback_release.py --root /var/www/html --manifest /var/www/html/_animal-lineage-releases/5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed/release-manifest.json` and repeat the documented HTTP smoke checks.
 
 Continuation command:
 
 ```sh
-cd /home/codex/projects/Animal-Lineage-Atlas/.worktrees/phase3-rich-genealogy
-npm run lint && npm run typecheck && npm test && npm run test:python && npm run validate:data && npm run validate:schema && npm run build && npm run check:no-photos && npm run test:browser -- --workers=1
+cd /home/codex/projects/Animal-Lineage-Atlas/.worktrees/phase3-production-release
+git fetch origin main && gh pr checks 7
 ```
