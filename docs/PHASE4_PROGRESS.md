@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 13:00 UTC
+Updated: 2026-10-20 13:07 UTC
 
 ## Approved scope and baseline
 
@@ -56,7 +56,9 @@ PR #8 merged on 2026-10-20 as `ee48fbb10f3f35c1b35234fc3ee4aa8f84e7857f`. Before
 
 The static release was switched to the merged SHA. The Nginx relay manager rejected the generated location regex because Nginx treats unescaped `{32}` as a configuration block delimiter. It automatically restored the prior Nginx configuration, so the public media route is not installed. The service unit was enabled, but its process exited with status 0: Node resolves the `media-current/relay-server.mjs` symlink before setting `import.meta.url`, while `process.argv[1]` retains the symlink path, causing the entry-point guard to skip startup. The deploy helper trusted the successful `systemctl restart` command and did not check that the service stayed active. Four Atlas pages and `/red-panda/` still return HTTP 200; the service is currently inactive and the media route remains unavailable.
 
-All three causes are now covered by regression tests. The Nginx test runs the actual parser against the deployed snippet, and CI installs Nginx so the test runs there. The relay process test invokes the service through a symlink and verifies that it reaches the loopback listening state. The Nginx quantifier is escaped, the entry-point guard canonicalizes the invoked path, and deployment now polls for active state then verifies it remains active after one second. A failed health check triggers the existing activation rollback before public path switches. Full local verification is green: Node 77/77, Python 101/101, ESLint, TypeScript, all three data and schema validations, build, and worktree/build no-photo scans. Fresh GitHub CI (including Chromium) and independent hotfix review are pending.
+The startup guard and deployment health check are covered by regression tests: the relay process is invoked through a symlink and must reach the loopback listening state, and a service that exits during its one-second stability window must fail activation. The Nginx config test runs the actual parser against the deployed snippet, and CI installs Nginx so this check runs there.
+
+Independent hotfix review found that escaping the quantifier braces made the Nginx route match literal braces rather than a 32-character ID. This was reproduced with an actual local Nginx request, which returned 404 for a valid ID. The expression now quotes the full regex and keeps `{32}` unescaped. A request-level regression test starts Nginx with the production location expression, exercises all four public Atlas prefixes with both allowed variants and exact capture forwarding, and verifies a 31-character ID falls through to 404. The full local verification on this correction is green: Node 77/77, Python 102/102, Chromium 19/19, ESLint, TypeScript, all three data and schema validations, build, and source/build no-photo scans. Fresh CI and follow-up review for this correction are pending. Production remains in the partial state described above until the corrected hotfix is merged and redeployed.
 
 ## Milestones
 
