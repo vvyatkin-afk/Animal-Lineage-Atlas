@@ -88,4 +88,4 @@ sudo -n python3 tools/rollback_release.py \
   --manifest /var/www/html/_animal-lineage-releases/ee48fbb10f3f35c1b35234fc3ee4aa8f84e7857f/release-manifest.json
 ```
 
-The first rollback restores the preceding Phase 4 static targets without restarting the prior relay code. The second restores the Phase 3 static targets, removes `media-current`, stops and disables the relay, according to the earlier release manifest. Each command refuses stale or changed targets instead of overwriting them. After rollback, check the five public URLs, service state, and `nginx -t`.
+The first rollback restores the preceding Phase 4 static targets without restarting the prior relay code. The second restores the Phase 3 static targets, removes `media-current`, stops and disables the relay, according to the earlier release manifest. Each command refuses stale or changed targets instead of overwriting them. After rollback, check the five public URLs and service state, then run `sudo -n /usr/sbin/nginx -t` to validate the restored Nginx configuration with the permissions required by this host.
