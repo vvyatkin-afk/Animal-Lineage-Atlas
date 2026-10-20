@@ -2,35 +2,66 @@
 
 ## Release layout
 
-Production Nginx serves `/var/www/html`. This deployment covers the four Atlas routes `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/`. A release is staged under:
+Production Nginx serves `/var/www/html`. Releases switch only these four paths: `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/`. The read-only `/red-panda/` application is outside this release and is not modified.
 
-```text
-/var/www/html/_animal-lineage-releases/<40-character-git-sha>/
-```
+Static files are staged under `/var/www/html/_animal-lineage-releases/<40-character-git-sha>/`. The relay code and full upstream allowlist are staged separately under `/var/lib/animal-lineage-atlas/<git-sha>/media-service`, outside the web root. `/var/lib/animal-lineage-atlas/media-current` selects the active relay release. Public `media-manifest.json` files contain opaque IDs and attribution only; they contain no upstream image URLs.
 
-The release contains `atlas/`, `atlas.red-panda/`, `atlas.polar-bear/`, and `atlas.hippopotamus/`. Each public path is a symlink into the selected immutable release. Each child path includes an empty `local-media-manifest.json`; the public release has no local animal-image assets.
-
-The published release root is mode `0755` so Nginx can traverse it. The deployer keeps its `mkdtemp` staging directory private while copying and validating files, then changes the completed directory to `0755` immediately before the atomic rename.
+The deployer validates all four child builds and runs the no-photo scanner before staging. Release directories are immutable and retained for rollback. Nginx's media include exposes only fixed opaque-ID and variant routes and proxies to the relay on loopback. The Node service runs as `www-data`, binds only `127.0.0.1:4175`, and has no persistent image cache.
 
 ## Deployment procedure
 
-1. Confirm the source is the reviewed GitHub `main` commit and the CI run is green.
-2. Build to `dist/`; run the repository and built-release no-photo checks.
-3. Run the complete Node, Python, data-validation, browser, and deployment test suites. Check free disk before copying the release.
-4. Run `nginx -t` to validate the active configuration. The Atlas deployment does not edit Nginx configuration.
-5. Stage with `sudo -n python3 tools/deploy_release.py --root /var/www/html --dist dist --revision <git-sha>` when the web root is not writable by the workspace account. This release task authorizes that scoped deployment command; it does not alter Nginx configuration.
-6. Verify all four Atlas paths and representative direct-profile queries, then record the deployed SHA and manifest path in `docs/RELEASE_V2_EXPANDED_DATASETS.md`.
+1. Confirm the reviewed source commit, green CI, and a successful complete local verification run. Build the four static paths into `dist/` and run the no-photo scanner on the worktree and build output.
+2. Check free disk and record the current four public symlink targets. The release manifest records these targets and the media service's previous target and enablement state before activation.
+3. Install the unit only if it is absent or already byte-identical. If an existing unit differs, stop and review it rather than overwrite it:
 
-The deployer refuses to replace an unexpected non-symlink target. It validates the four build directories and no-photo policy, writes a manifest containing the four prior Atlas path targets before atomically switching each path, and retains existing releases.
+   ```sh
+   if sudo -n test -e /etc/systemd/system/animal-atlas-media.service; then
+     sudo -n cmp -s deploy/animal-atlas-media.service /etc/systemd/system/animal-atlas-media.service || exit 1
+   else
+     sudo -n install -o root -g root -m 0644 deploy/animal-atlas-media.service /etc/systemd/system/animal-atlas-media.service
+   fi
+   sudo -n systemctl daemon-reload
+   ```
+
+4. Stage and activate the release. This switches `media-current`, restarts and enables the relay, then atomically switches each of the four public paths. A restart or path-switch failure restores the previous targets:
+
+   ```sh
+   sudo -n python3 tools/deploy_release.py \
+     --root /var/www/html \
+     --media-root /var/lib/animal-lineage-atlas \
+     --dist dist \
+     --revision <40-character-git-sha>
+   ```
+
+5. Install the Nginx route. The manager writes a mode-0700, hash-verified backup under `/var/backups/animal-lineage-atlas/nginx/`, adds one include inside the existing Atlas server block, runs `/usr/sbin/nginx -t`, and reloads Nginx. It refuses unrelated existing snippets or configuration drift:
+
+   ```sh
+   sudo -n python3 tools/manage_nginx_relay.py install
+   ```
+
+   Save the printed backup directory in the release record. Nginx installation automatically restores the original pair if validation or reload fails.
+
+6. Verify the relay service is active, all four Atlas paths return HTTP 200, profile and tree cards use same-origin `/media/` URLs, and Chromium decodes the licensed profile image at its expected dimensions. Confirm the active legacy `/red-panda/` hashes still match the pre-release record. Record the deployed SHA, release manifest, Nginx backup directory, service status, and smoke-test evidence in `docs/PHASE4_RELEASE.md`.
+
+The explicit `sudo -n` commands are needed because the production web root, systemd unit directory, Nginx configuration, and backup directory are root-owned. No SSH, firewall, DNS, or legacy application setting is changed.
 
 ## Rollback
 
-Use the manifest written in the deployed release:
+Restore the four routes and relay activation state from the release manifest:
 
 ```sh
-sudo -n python3 tools/rollback_release.py --root /var/www/html --manifest /var/www/html/_animal-lineage-releases/<git-sha>/release-manifest.json
+sudo -n python3 tools/rollback_release.py \
+  --root /var/www/html \
+  --media-root /var/lib/animal-lineage-atlas \
+  --manifest /var/www/html/_animal-lineage-releases/<git-sha>/release-manifest.json
 ```
 
-Rollback atomically restores the prior four Atlas path targets recorded in that manifest. Do not remove the release directories or manifest needed to restore a previous version. Run the HTTP smoke checks again after rollback.
+When the release had no prior relay, rollback stops and disables the service. When a prior relay existed, rollback restores its current target and its prior enablement state. Stale or changed paths cause rollback to stop without overwriting them. Keep both immutable release trees and manifests.
 
-The web root is root-owned on the production host. The user authorized this release deployment, so use the scoped `sudo -n` commands above if required. Do not change service configuration as part of this release.
+If the Nginx include should also be removed, use the exact backup printed during install. The manager checks that both active files still match the installed hashes before restoring them, then tests and reloads Nginx:
+
+```sh
+sudo -n python3 tools/manage_nginx_relay.py rollback --backup /var/backups/animal-lineage-atlas/nginx/<backup-directory>
+```
+
+The Nginx rollback restores the complete prior server config and snippet pair. It leaves the read-only `/red-panda/` application untouched. Run the four Atlas HTTP checks and the legacy hash check after rollback.

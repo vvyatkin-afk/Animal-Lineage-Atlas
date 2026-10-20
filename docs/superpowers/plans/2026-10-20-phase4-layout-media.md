@@ -129,11 +129,13 @@
 - Create: deploy/nginx/atlas-media-relay.conf
 - Modify: tools/deploy_release.py
 - Modify: tools/rollback_release.py
+- Create: tools/manage_nginx_relay.py
 - Modify: tools/check_no_animal_photos.py
 - Modify: docs/MEDIA_AND_RIGHTS_POLICY.md
 - Modify: docs/DEPLOYMENT_AND_ROLLBACK.md
 - Test: tests/media-relay.test.mjs
 - Test: tests/test_deploy_release.py
+- Test: tests/test_manage_nginx_relay.py
 - Test: tests/test_no_animal_photos.py
 
 **Interfaces:**
@@ -141,11 +143,11 @@
 - Nginx exposes only the same-origin Atlas media paths and relays client IP only through a trusted loopback proxy configuration.
 - Release and rollback helpers record and restore the service/config activation state without touching legacy /red-panda/.
 
-- [ ] Add failing endpoint tests for 200 image bytes and MIME, 404 bogus IDs, blocked hosts/redirects, over-size and bad-magic responses, and ETag/memory cache.
-- [ ] Add failing deployment tests for rollback-safe service release metadata and scanner allowlisting for only hashed screenshot artifacts.
-- [ ] Run the focused tests and verify each security case fails before implementation.
-- [ ] Implement the service, tests, service unit, scoped Nginx snippet, deploy/rollback tracking, and policy documentation.
-- [ ] Run all server/deployment tests and the no-photo scan.
+- [x] Add failing endpoint tests for 200 image bytes and MIME, 404 bogus IDs, blocked hosts/redirects, over-size and bad-magic responses, and ETag/memory cache.
+- [x] Add failing deployment tests for rollback-safe service release metadata and scanner allowlisting for only hashed screenshot artifacts.
+- [x] Run the focused tests and verify each security case fails before implementation.
+- [x] Implement the service, tests, service unit, scoped Nginx snippet, deploy/rollback tracking, reversible Nginx manager, and policy documentation.
+- [x] Run relay, server/deployment tests, and the no-photo scan. The live source check also verified both actual JPEG variants in memory.
 - [ ] Commit the relay and operational change.
 
 ### Task 6: Full Phase 4 validation, review, CI, and release

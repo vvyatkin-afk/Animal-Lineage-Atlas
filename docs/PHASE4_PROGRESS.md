@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 12:15 UTC
+Updated: 2026-10-20 12:12 UTC
 
 ## Approved scope and baseline
 
@@ -28,7 +28,7 @@ The baseline has no node overlaps or generation-order violations. The full red-p
 
 At the Phase 4 baseline, the production atlases contained zero media records, so the existing resolver had no image to display. A newly verified Futa image is available from Wikimedia Commons: File:Futa 20261004 3.jpg, by Misei sen, CC BY 4.0. The file page identifies the subject in Japanese as Chiba City Zoo's Futa, and Chiba Zoo's official 2026 page identifies Futa and says he will turn 23 on 2026-07-05. Required attribution is photographer credit, license link, and notice of changes. Sources: [Commons file/license](https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg) and [Chiba City Zoo 23rd-birthday page](https://www.city.chiba.jp/zoo/event/0705futabirthday.html). No image bytes have been downloaded or stored. Rights for additional red pandas, polar bears, and hippos remain under review; unverified records stay link-only.
 
-Phase 4 rechecked the Commons source on 2026-10-20 and confirmed the two published thumbnail variants respond as JPEG: 330×220 at 39,751 bytes and 960×640 at 247,773 bytes. The approved server manifest caps them at 65,536 and 393,216 bytes respectively. The client receives only an opaque ID, fixed variant names, and attribution metadata; direct fetch URLs remain out of static builds. The profile and visible genealogy cards display Misei sen and CC BY 4.0; the profile links the source page and license and states that no changes were made. The client browser test uses a generic non-animal SVG response; the real licensed JPEG will be verified through the service in Task 5. No image body was downloaded or persisted during source verification.
+Phase 4 rechecked the Commons source on 2026-10-20 and confirmed the two published thumbnail variants respond as JPEG: 330×220 at 39,751 bytes and 960×640 at 247,773 bytes. The approved server manifest caps them at 65,536 and 393,216 bytes respectively. The client receives only an opaque ID, fixed variant names, and attribution metadata; direct fetch URLs remain out of static builds. The profile and visible genealogy cards display Misei sen and CC BY 4.0; the profile links the source page and license and states that no changes were made. The client attribution test uses a generic non-animal SVG fixture. Task 5 also relayed both real variants from Wikimedia through the service in memory and verified JPEG type, exact byte count, and dimensions; no image body was written to disk.
 
 ## Layout optimizer checkpoint
 
@@ -57,7 +57,11 @@ These measurements use 24-segment renderer curves, transverse-intersection rules
 - [x] Implement deterministic focused/global layout optimization; 27/27 genealogy tests and TypeScript checks pass.
 - [x] Add focused-only parent ordering, regression fixtures, and opt-in diagnostics. The panel is hidden by default and enabled only with `layoutDiagnostics=1`; focused views show mother/father side violations, while global views say parent-side ordering is unconstrained. `npm run build`, the UI contract tests (11/11), and serial Playwright suite (18/18) pass. A mobile canvas test pixel probe was updated to tolerate antialiasing at the full-graph fit scale.
 - [x] Add verified Futa media metadata and same-origin profile/gallery/tree-card references; profile tests support multiple approved images. The actual relay service and production path are Task 5.
-- Build output passes the no-local-photo scan. The whole-worktree scan currently reports only the 14 baseline `.png` screenshots required by this brief; Task 5 will allow screenshot files only when their SHA-256 matches an explicit screenshot manifest.
+- [x] Add a hash-manifest-only screenshot exception to the no-photo scanner. All 14 baseline PNGs are individually listed under the required baseline capture directory; modified, unlisted, or out-of-scope images still fail the scan.
+- [x] Implement the loopback-only HTTPS image relay, with fixed-ID lookup, DNS pinning and all-answer validation, same-host redirects, byte and image-dimension checks, MIME sniffing, rate/concurrency limits, memory-only cache, ETags, and generic failure responses. Node 20.19 exposed a live integration bug: its network lookup callback requested the `all` form; the pinned callback now handles both documented signatures. The official [Node 20.19 DNS docs](https://nodejs.org/download/release/v20.19.0/docs/api/dns.html) describe that callback difference.
+- [x] Stage full relay code and allowlist under `/var/lib/animal-lineage-atlas`, outside Nginx's document root. Release manifests record previous relay targets and enablement; failed activation restores the prior service state. Rollback also restores the four Atlas symlinks and stops/disables the service when no earlier relay existed.
+- [x] Add a reversible Nginx manager. It inserts one include into the existing Atlas server block, saves a mode-0700 backup, validates and reloads, and restores only when installed file hashes still match. It does not rewrite any `/red-panda/` location.
+- [x] Focused relay tests pass (8/8); deploy/rollback, Nginx manager, and screenshot-scanner Python tests pass (29/29); ESLint passes. Live in-memory service verification returned 330×220 JPEG (39,751 bytes) and 960×640 JPEG (247,773 bytes). Production Nginx/service installation remains for the release phase.
 - [ ] Run serial browser and full Node/Python/schema/lint/type checks; capture before/after comparisons.
 - [ ] Complete independent review and green GitHub CI; push and merge reviewed commits.
 - [ ] Back up release state, deploy the four Atlas paths and relay integration, verify image HTTP bytes and Chromium rendering, and record rollback evidence.
