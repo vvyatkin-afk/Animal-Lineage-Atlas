@@ -63,8 +63,9 @@ The browser requests each approved full-size original directly from `upload.wiki
 - [x] Reduce exact rendered crossings in the full red-panda graph, largest component, Futa focused cases, and Bandit all-known case; publish lengths including the Futa all-known increase.
 - [x] Embed only individually identified/rights-cleared photos, load originals directly in Chromium, expose per-file credits/licenses/sources, and keep all unverified records link-only.
 - [x] Pass full local data, Python, Node, lint, type, build, no-photo, and serial browser checks; complete independent reviews.
-- [ ] Push branch, open PR, review green CI on the exact merge tree, and merge.
+- [x] Push the branch and open Phase 5 PR [#11](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/11).
+- [ ] Review green CI on the exact PR head, complete merge review, and merge.
 - [ ] Deploy all four Atlas routes atomically with a recorded rollback manifest; smoke-test them and confirm `/red-panda/` and unrelated projects remain unchanged.
 - [ ] Write final production SHA, public route URLs, CI evidence, deployment manifest, and verified rollback commands to `docs/PHASE5_RELEASE.md`.
 
-Production is still on Phase 4 until the remaining CI, merge, deploy and live-smoke steps are complete. First Phase 5 branch commit: `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`. Phase 5 implementation commit: `42ada5f883f8950493a9d0215cb9254b24c95d60`.
+Production is still on Phase 4 until the remaining CI, merge, deploy and live-smoke steps are complete. First Phase 5 branch commit: `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`. Phase 5 implementation commit: `42ada5f883f8950493a9d0215cb9254b24c95d60`. Evidence update: `b5b019e` (before this PR-tracking edit). PR #11 is open; its first post-implementation Atlas CI run began at 2026-10-20 17:34 UTC.
