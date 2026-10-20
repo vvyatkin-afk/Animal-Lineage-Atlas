@@ -33,7 +33,7 @@ The shared global graph and focus layout, family/country grouping, direct profil
 | Focus depth and relation semantics | Verified locally | Exact Futa all-generation component and focused ancestors/descendants match canonical IDs/edges; focus-depth/deep-link browser checks pass. |
 | Cross-species data integrity and provenance | Verified locally | 82 Python tests, canonical data/schema validators, and all-species browser checks pass. |
 | Desktop and mobile browser QA | Verified locally | Playwright 15/15 at 1440×900 and 390×844, including a readable focused Futa mobile view, data-backed SVG flags, and low-zoom mobile node selection; screenshots under `/tmp/animal-lineage-atlas-qa/`. |
-| Large-graph performance and memory | Verified locally | [Machine-readable report](PERFORMANCE_REPORT_PHASE3.json), pinned to clean source revision `58c5e34`: RP full graph layout p95 111.1 ms; largest 823-animal component p95 58.1 ms; Chromium first render 161.2 ms; search p95 5.6 ms; measured browser heap 17.1 MB. |
+| Large-graph performance and memory | Verified locally | [Machine-readable report](PERFORMANCE_REPORT_PHASE3.json), pinned to clean source revision `ba9a3f0`: RP full graph layout p95 153.1 ms; largest 823-animal component p95 122.5 ms; Chromium first render 229.3 ms; search p95 9.9 ms; measured browser heap 13.4 MB. |
 | No-photo source and built release scan | Verified locally | Source and `dist/` scans passed. |
 | CI green and reviewed PR merged to main | Pending | |
 | Four production routes and representative profiles | Pending | |

@@ -1,6 +1,6 @@
 # Phase 3 Progress — Rich Genealogy and Verified Data
 
-Last updated: 2026-10-20 09:42 UTC
+Last updated: 2026-10-20 09:44 UTC
 Owner: repository owner
 Working branch: `phase3/rich-trees-media-data-20261020`
 
@@ -57,7 +57,7 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 2. **Scalable view and interaction — verified locally.** Canvas rendering uses spatial culling and hit testing; high-detail cards are capped and lazy; pan/zoom preserves layout; profile cards open exact URLs in a new tab. Sex, life-status, photo, country, species, and population facets narrow the global graph without changing canonical records.
 3. **Regression coverage — verified locally.** 53 Node tests pass, including shared ancestors, multi-generation partner branches across countries, disconnected lineages, exact Futa family connectivity, full 1,554 / 2,394 graph counts, and lazy detail/media behavior. The latest serial browser run passes 15/15 at desktop/mobile.
 4. **Data/source pass — additions and review complete for this pass.** Polar bears grew to 72 animals / 63 relationships and hippos to 96 / 86 (64 common, 32 pygmy). Red pandas remain 1,554 / 2,394; candidate additions were withheld where identity could not be resolved. Dryad remains unimported because the published file endpoint returned 403.
-5. **Performance, review, and release — locally verified; review/release pending.** The previous full-graph benchmark report is recorded; regenerate it for the final reviewed code commit. Branch push, CI, independent PR review, merge, atomic deployment, production browser checks, and rollback evidence remain outstanding.
+5. **Performance, review, and release — locally verified; review/release pending.** The final-code benchmark is pinned to clean revision `ba9a3f0`; push, CI, independent PR review, merge, atomic deployment, production browser checks, and rollback evidence remain outstanding.
 
 ## Measurable acceptance criteria
 
@@ -84,7 +84,7 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 - Added MIT licensed `flag-icons` SVG subsets only for data-backed country codes; the build copies only used icons and their license. Red-panda country codes remain unknown in source data, so the UI does not infer flags for those records. The third-party attribution is in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 - Fixed full-graph selection at low zoom with a 12 CSS-pixel hit radius, added the combined common/pygmy hippo atlas title and confirmed/unknown legend keys, and made overview generation labels wait until rows are at least 16 screen pixels apart.
 - The focused country-flag browser regression and the full serial Playwright suite pass. Latest full run: 15/15 at desktop 1440×900 and mobile 390×844. It covers all species, all 1,554 red pandas, Futa exact family focus, low-zoom mobile selection, country-filtered flags, profile tabs, filters, zoom/pan, deep links, and media fallback. Screenshots are saved under `/tmp/animal-lineage-atlas-qa/`, including `phase3-polar-bear-flags-overview-desktop-1440x900.png` and `phase3-polar-bear-flags-desktop-1440x900.png`.
-- Verification after the latest UI change: all 53 Node tests, all 82 Python tests, lint, typecheck, data/schema validation, four-path build, source/built no-photo scan, and the full serial browser suite passed. Performance report must be regenerated from the final commit.
+- Verification after the latest UI change: all 53 Node tests, all 82 Python tests, lint, typecheck, data/schema validation, four-path build, source/built no-photo scan, and the full serial browser suite passed. The [final-code benchmark](PERFORMANCE_REPORT_PHASE3.json) is pinned to clean source revision `ba9a3f0`: the 1,554-node global layout p95 is 153.1 ms; the 823-node largest-component p95 is 122.5 ms; search p95 is 9.9 ms; first browser render is 229.3 ms; Chromium heap is 13.4 MB.
 - Production remains on Phase 2. No merge, deployment, or legacy `/red-panda/` change has occurred.
 
 ### Verified Phase 3 milestone — 2026-10-20 09:12 UTC
