@@ -1,0 +1,156 @@
+{
+  "schema_version": "phase5-layout-baseline-v1",
+  "captured_at": "2026-10-20T16:05:19.838669+00:00",
+  "production_revision": "6dfdb34b26f8f8ee574e40cff6e9e661779a19a7",
+  "renderer_source_revision": "e1920337fdda82f9449dadc6d11d8420168a26db",
+  "method": {
+    "route": "Shared renderer route geometry; cubic Beziers sampled into 24 segments; route length sums the rendered centerline. A crossing requires both polylines to pass from opposite sides of each other; tangencies and edge pairs sharing an animal endpoint do not count. Dashed and solid routes are both measured; dash gaps do not alter centerline totals.",
+    "node_rect": "176x74 world-unit bounds. Edge-node collision pairs exclude each edge endpoint."
+  },
+  "dataset": {
+    "species": "red-panda",
+    "animals": 1554,
+    "relationships": 2394,
+    "media_references": 5918,
+    "relationship_components": 171
+  },
+  "cases": {
+    "all_animals": {
+      "nodes": 1554,
+      "edges": 2394,
+      "generations": 14,
+      "truncated": false,
+      "crossings": {
+        "edge_pairs": 42931,
+        "samples_per_curve": 24
+      },
+      "total_route_length": 4662636.83,
+      "node_overlap_pairs": 0,
+      "edge_node_collision_pairs": 3896,
+      "generation_order_violations": 0,
+      "parent_order_violations": 0,
+      "width": 98418,
+      "height": 2934
+    },
+    "largest_component": {
+      "nodes": 823,
+      "edges": 1468,
+      "generations": 14,
+      "truncated": false,
+      "crossings": {
+        "edge_pairs": 31352,
+        "samples_per_curve": 24
+      },
+      "total_route_length": 3163209.23,
+      "node_overlap_pairs": 0,
+      "edge_node_collision_pairs": 2934,
+      "generation_order_violations": 0,
+      "parent_order_violations": 0,
+      "width": 23502,
+      "height": 2934
+    },
+    "futa_depth_3": {
+      "nodes": 100,
+      "edges": 100,
+      "generations": 7,
+      "truncated": false,
+      "crossings": {
+        "edge_pairs": 6,
+        "samples_per_curve": 24
+      },
+      "total_route_length": 102548.13,
+      "node_overlap_pairs": 0,
+      "edge_node_collision_pairs": 0,
+      "generation_order_violations": 0,
+      "parent_order_violations": 0,
+      "width": 8376,
+      "height": 1034
+    },
+    "futa_all_known": {
+      "nodes": 121,
+      "edges": 121,
+      "generations": 9,
+      "truncated": false,
+      "crossings": {
+        "edge_pairs": 18,
+        "samples_per_curve": 24
+      },
+      "total_route_length": 121431.54,
+      "node_overlap_pairs": 0,
+      "edge_node_collision_pairs": 0,
+      "generation_order_violations": 0,
+      "parent_order_violations": 0,
+      "width": 8376,
+      "height": 1354
+    },
+    "rakesh_depth_3": {
+      "nodes": 14,
+      "edges": 13,
+      "generations": 4,
+      "truncated": false,
+      "crossings": {
+        "edge_pairs": 4,
+        "samples_per_curve": 24
+      },
+      "total_route_length": 2908.52,
+      "node_overlap_pairs": 0,
+      "edge_node_collision_pairs": 0,
+      "generation_order_violations": 0,
+      "parent_order_violations": 0,
+      "width": 1376,
+      "height": 554
+    },
+    "bandit_depth_3": {
+      "nodes": 15,
+      "edges": 15,
+      "generations": 4,
+      "truncated": false,
+      "crossings": {
+        "edge_pairs": 2,
+        "samples_per_curve": 24
+      },
+      "total_route_length": 3960.49,
+      "node_overlap_pairs": 0,
+      "edge_node_collision_pairs": 3,
+      "generation_order_violations": 1,
+      "parent_order_violations": 0,
+      "width": 1576,
+      "height": 554,
+      "measurement_repeatable_across_two_runs": true,
+      "live_screenshot_viewports": [
+        "1440x900",
+        "390x844"
+      ]
+    },
+    "bandit_all_known": {
+      "nodes": 68,
+      "edges": 89,
+      "generations": 10,
+      "truncated": false,
+      "crossings": {
+        "edge_pairs": 181,
+        "samples_per_curve": 24
+      },
+      "total_route_length": 57769.02,
+      "node_overlap_pairs": 0,
+      "edge_node_collision_pairs": 34,
+      "generation_order_violations": 19,
+      "parent_order_violations": 0,
+      "width": 2976,
+      "height": 1514,
+      "measurement_repeatable_across_two_runs": true
+    }
+  },
+  "bandit_identity": {
+    "canonical_id": "red-panda:upstream-1186",
+    "name": "Bandit",
+    "biological_mother": "red-panda:upstream-999",
+    "biological_father": "red-panda:upstream-394",
+    "relationship_status": "probable"
+  },
+  "bandit_capture_sha256": {
+    "1440x900": "bc10b939bdf253478b118c1ad8053887b7edd884e6e845613c623d6d72fb232c",
+    "390x844": "eba1f549731792afd052e8b4d1f67fd1244661c89b94da1cca8748bcf5066f00"
+  },
+  "fit_all_note": "At the current global graph fit, all 1,554 records are drawn at once on a 98,418\u00d72,934 world-coordinate extent; the verified 1440\u00d7900 screenshot exhibits the reported ribbon. Existing UI has no family-level aggregation at far zoom."
+}

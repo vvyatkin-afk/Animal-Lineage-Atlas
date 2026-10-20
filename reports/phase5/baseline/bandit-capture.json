@@ -1,0 +1,27 @@
+{
+  "source": "live Phase 4 production",
+  "url": "http://204.168.161.237/atlas.red-panda/",
+  "focus_id": "red-panda:upstream-1186",
+  "screenshots": [
+    {
+      "path": "reports/phase5/baseline/bandit-focus-1440x900.png",
+      "viewport": "1440x900",
+      "sha256": "bc10b939bdf253478b118c1ad8053887b7edd884e6e845613c623d6d72fb232c",
+      "bytes": 106956,
+      "view": "bandit-focus",
+      "animals": 15,
+      "edges": 15,
+      "errors": []
+    },
+    {
+      "path": "reports/phase5/baseline/bandit-focus-390x844.png",
+      "viewport": "390x844",
+      "sha256": "eba1f549731792afd052e8b4d1f67fd1244661c89b94da1cca8748bcf5066f00",
+      "bytes": 42375,
+      "view": "bandit-focus",
+      "animals": 15,
+      "edges": 15,
+      "errors": []
+    }
+  ]
+}
