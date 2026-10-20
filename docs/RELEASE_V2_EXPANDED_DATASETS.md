@@ -36,3 +36,13 @@ No animal-photo bytes, copied thumbnails, local image paths, or embedded photos 
 - The filesystem had 5.5 GB free of 38 GB (85% used) after deployment. No cleanup was needed.
 
 Production browser screenshots were saved under `/tmp/animal-lineage-atlas-qa/production-*.png`. To roll back, run the `rollback_release.py` command against the deployed manifest as described in [Deployment and rollback](DEPLOYMENT_AND_ROLLBACK.md). This release record is a documentation-only follow-up to the deployed app revision.
+
+## Phase 3 deployment record — 2026-10-20
+
+Phase 3 was merged through [PR #6](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/6) as main commit `5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed`; required [GitHub Actions run 39404428209](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/39404428209) passed on the identical source tree. An independent read-only review confirmed the relationship type/confidence rendering fix with no remaining blockers. Deployment completed at 2026-10-20 10:02 UTC.
+
+The immutable production release is `/var/www/html/_animal-lineage-releases/5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed/`. Its active manifest is `/var/www/html/_animal-lineage-releases/5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed/release-manifest.json`; all four Atlas symlinks point into this release, and the manifest records Phase 2 release `133f7a5324a4095aeb922f77c4dce3e4c2a50b5a` as the rollback target. `nginx -t` passed before the switch; no Nginx configuration changed.
+
+The five production paths `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, `/atlas.hippopotamus/`, and `/red-panda/` returned HTTP 200 after deployment. Production Chromium opened all three global indexes at 1,554/2,394, 72/63, and 96/86 nodes/relationships, direct Futa, Franz, and Fiona profiles, and the red-panda graph at 390×844 without page errors or local asset failures. The legacy `/var/www/html/red-panda/` tree remained byte-for-byte unchanged: 505 files, 32 directories, 136,957,949 bytes, zero symlinks, and tree SHA-256 `a32ae67433de89bca8067743dbb28581e9a4053965c96b46032a84720664fdf3`.
+
+Final Phase 3 build, browser, and performance evidence is recorded in [the release record](PHASE3_RELEASE.md) and [the machine-readable performance report](PERFORMANCE_REPORT_PHASE3.json). The report is pinned to main commit `5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed`; production screenshots are saved under `/tmp/animal-lineage-atlas-qa/` with the `phase3-live-` prefix. The rollback command is in [Deployment and rollback](DEPLOYMENT_AND_ROLLBACK.md).
