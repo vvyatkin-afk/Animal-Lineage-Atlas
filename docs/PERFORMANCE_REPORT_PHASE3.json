@@ -1,0 +1,389 @@
+{
+  "schema_version": "1.0.0",
+  "measured_at_utc": "2026-10-20T09:11:51+00:00",
+  "repository": "vvyatkin-afk/Animal-Lineage-Atlas",
+  "source_revision": "58c5e34f46b78422e5b9ba7dfc5cf9e4541d83e3",
+  "source_worktree_dirty_excluding_report": false,
+  "release_root": "dist",
+  "runtime": {
+    "python": "3.13.5",
+    "node": "v20.19.2"
+  },
+  "measurement_method": {
+    "source_data": "Exact canonical atlases checked in at measurement time.",
+    "engine_runner": "Node.js with --expose-gc; after index construction, 120 search samples, 30 focused graph samples, and 10 global plus 10 largest-component layout samples per atlas.",
+    "synthetic_scale_fixture": "Deterministic 5,000-record fixture with 250 disconnected components; kept separate from source-backed corpus numbers.",
+    "browser_method": "Playwright Chromium local static release at 1440x1000 and 390x844 CSS pixel viewports; browser heap is reported only when Chromium exposes performance.memory.",
+    "render_timing_scope": "Synchronous focused SVG DOM construction/attachment; excludes the following paint/composite frame.",
+    "memory_limitations": "Node heap delta is an approximate derived-index cost after garbage collection; browser heap availability varies by Chromium build and is not a whole-device memory measure."
+  },
+  "release_sizes": {
+    "applications": {
+      "atlas": {
+        "files_bytes": {
+          "catalog.json": 14679,
+          "index.html": 8156,
+          "main.js": 78099,
+          "styles.css": 11803
+        },
+        "bundle_bytes": 89902,
+        "data_payload_bytes": 14679,
+        "initial_data_payload_bytes": 14679,
+        "detail_payloads": {
+          "chunk_count": 0,
+          "total_bytes": 0,
+          "largest_chunk_bytes": 0,
+          "median_chunk_bytes": 0
+        },
+        "complete_data_payload_bytes": 14679,
+        "total_bytes": 112737
+      },
+      "atlas.red-panda": {
+        "files_bytes": {
+          "details/chunk-0000.json": 550536,
+          "details/chunk-0001.json": 562389,
+          "details/chunk-0002.json": 791975,
+          "details/chunk-0003.json": 694688,
+          "details/chunk-0004.json": 862233,
+          "details/chunk-0005.json": 1292882,
+          "details/chunk-0006.json": 1022539,
+          "details/chunk-0007.json": 798350,
+          "details/chunk-0008.json": 641747,
+          "details/chunk-0009.json": 586977,
+          "details/chunk-0010.json": 690421,
+          "details/chunk-0011.json": 714756,
+          "details/chunk-0012.json": 126427,
+          "index.html": 7876,
+          "local-media-manifest.json": 69,
+          "main.js": 165819,
+          "runtime.json": 1547435,
+          "styles.css": 16841
+        },
+        "bundle_bytes": 182660,
+        "data_payload_bytes": 1547435,
+        "initial_data_payload_bytes": 1547504,
+        "detail_payloads": {
+          "chunk_count": 13,
+          "total_bytes": 9335920,
+          "largest_chunk_bytes": 1292882,
+          "median_chunk_bytes": 694688
+        },
+        "complete_data_payload_bytes": 10883424,
+        "total_bytes": 11073960
+      },
+      "atlas.polar-bear": {
+        "files_bytes": {
+          "details/chunk-0000.json": 104252,
+          "index.html": 7878,
+          "local-media-manifest.json": 69,
+          "main.js": 165819,
+          "runtime.json": 54521,
+          "styles.css": 16841
+        },
+        "bundle_bytes": 182660,
+        "data_payload_bytes": 54521,
+        "initial_data_payload_bytes": 54590,
+        "detail_payloads": {
+          "chunk_count": 1,
+          "total_bytes": 104252,
+          "largest_chunk_bytes": 104252,
+          "median_chunk_bytes": 104252
+        },
+        "complete_data_payload_bytes": 158842,
+        "total_bytes": 349380
+      },
+      "atlas.hippopotamus": {
+        "files_bytes": {
+          "details/chunk-0000.json": 179456,
+          "index.html": 7882,
+          "local-media-manifest.json": 69,
+          "main.js": 165819,
+          "runtime.json": 69718,
+          "styles.css": 16841
+        },
+        "bundle_bytes": 182660,
+        "data_payload_bytes": 69718,
+        "initial_data_payload_bytes": 69787,
+        "detail_payloads": {
+          "chunk_count": 1,
+          "total_bytes": 179456,
+          "largest_chunk_bytes": 179456,
+          "median_chunk_bytes": 179456
+        },
+        "complete_data_payload_bytes": 249243,
+        "total_bytes": 439785
+      }
+    },
+    "total_bytes": 11975862
+  },
+  "engine_timings": {
+    "red-panda": {
+      "record_count": 1554,
+      "relationship_count": 2394,
+      "component_count": 171,
+      "largest_component_size": 823,
+      "derived_index_heap_bytes": 2408088,
+      "search": {
+        "samples": 120,
+        "median_ms": 2.217,
+        "p95_ms": 5.637,
+        "mean_ms": 2.777,
+        "query_cases": [
+          {
+            "query": "アラタ",
+            "matches": 2
+          },
+          {
+            "query": "red-panda:arata",
+            "matches": 1
+          },
+          {
+            "query": "Ailurus fulgens",
+            "matches": 1554
+          }
+        ]
+      },
+      "global_genealogy_layout": {
+        "samples": 10,
+        "median_ms": 66.173,
+        "p95_ms": 111.077,
+        "mean_ms": 73.851,
+        "animals": 1554,
+        "relationships": 2394,
+        "truncated": false
+      },
+      "largest_component_layout": {
+        "samples": 10,
+        "median_ms": 49.418,
+        "p95_ms": 58.083,
+        "mean_ms": 47.792,
+        "animals": 823,
+        "relationships": 1468,
+        "truncated": false
+      },
+      "genealogy_layout": {
+        "samples": 30,
+        "median_ms": 0.067,
+        "p95_ms": 1.499,
+        "mean_ms": 0.18,
+        "representative_nodes": 5,
+        "representative_edges": 5,
+        "representative_truncated": false
+      }
+    },
+    "polar-bear": {
+      "record_count": 72,
+      "relationship_count": 63,
+      "component_count": 23,
+      "largest_component_size": 9,
+      "derived_index_heap_bytes": 110912,
+      "search": {
+        "samples": 120,
+        "median_ms": 0.063,
+        "p95_ms": 0.087,
+        "mean_ms": 0.074,
+        "query_cases": [
+          {
+            "query": "Franz",
+            "matches": 1
+          },
+          {
+            "query": "polar-bear:franz",
+            "matches": 1
+          },
+          {
+            "query": "Ursus maritimus",
+            "matches": 72
+          }
+        ]
+      },
+      "global_genealogy_layout": {
+        "samples": 10,
+        "median_ms": 3.438,
+        "p95_ms": 17.007,
+        "mean_ms": 5.976,
+        "animals": 72,
+        "relationships": 63,
+        "truncated": false
+      },
+      "largest_component_layout": {
+        "samples": 10,
+        "median_ms": 0.555,
+        "p95_ms": 2.535,
+        "mean_ms": 0.768,
+        "animals": 9,
+        "relationships": 10,
+        "truncated": false
+      },
+      "genealogy_layout": {
+        "samples": 30,
+        "median_ms": 0.062,
+        "p95_ms": 0.885,
+        "mean_ms": 0.259,
+        "representative_nodes": 7,
+        "representative_edges": 6,
+        "representative_truncated": false
+      }
+    },
+    "hippopotamus": {
+      "record_count": 96,
+      "relationship_count": 86,
+      "component_count": 28,
+      "largest_component_size": 19,
+      "derived_index_heap_bytes": 134144,
+      "search": {
+        "samples": 120,
+        "median_ms": 0.073,
+        "p95_ms": 0.113,
+        "mean_ms": 0.08,
+        "query_cases": [
+          {
+            "query": "Nala",
+            "matches": 1
+          },
+          {
+            "query": "hippopotamus-common-animal-berlin-nala",
+            "matches": 1
+          },
+          {
+            "query": "Hippopotamus amphibius and Choeropsis liberiensis",
+            "matches": 0
+          }
+        ]
+      },
+      "global_genealogy_layout": {
+        "samples": 10,
+        "median_ms": 4.03,
+        "p95_ms": 10.914,
+        "mean_ms": 4.784,
+        "animals": 96,
+        "relationships": 86,
+        "truncated": false
+      },
+      "largest_component_layout": {
+        "samples": 10,
+        "median_ms": 0.888,
+        "p95_ms": 0.979,
+        "mean_ms": 0.874,
+        "animals": 19,
+        "relationships": 30,
+        "truncated": false
+      },
+      "genealogy_layout": {
+        "samples": 30,
+        "median_ms": 0.02,
+        "p95_ms": 0.699,
+        "mean_ms": 0.164,
+        "representative_nodes": 2,
+        "representative_edges": 1,
+        "representative_truncated": false
+      }
+    }
+  },
+  "synthetic_scale": {
+    "fixture": "synthetic, deterministic 5,000-animal pedigree; 250 disconnected linear components of up to 20 animals",
+    "animal_count": 5000,
+    "relationship_count": 4750,
+    "component_count": 250,
+    "derived_index_heap_bytes": 6364976,
+    "search_index_build_ms": 192.157,
+    "graph_index_build_ms": 67.606,
+    "search": {
+      "samples": 150,
+      "median_ms": 8.301,
+      "p95_ms": 16.09,
+      "query_cases": [
+        {
+          "query": "synthetic:04999",
+          "matches": 1
+        },
+        {
+          "query": "synthetic animal 04",
+          "matches": 1000
+        },
+        {
+          "query": "Synthetic taxon",
+          "matches": 5000
+        }
+      ]
+    },
+    "focused_graph": {
+      "samples": 60,
+      "median_ms": 0.025,
+      "p95_ms": 0.033,
+      "nodes": 7,
+      "edges": 6,
+      "truncated": false
+    }
+  },
+  "browser_validation": {
+    "runner": "Playwright Chromium",
+    "viewports_css_pixels": [
+      "1440x1000 desktop",
+      "390x844 mobile"
+    ],
+    "external_image_policy": "External image requests are blocked; one permitted test image is deliberately failed to verify fallback.",
+    "screenshots_directory": "/tmp/animal-lineage-atlas-qa/",
+    "tests": {
+      "passed": 14,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "duration_ms": 43553.213
+    },
+    "screenshots": {
+      "hippopotamus-mobile.png": 404526,
+      "hub-desktop.png": 521039,
+      "phase3-red-panda-focus-mobile-390x844.png": 32746,
+      "phase3-red-panda-global-desktop-1440x900.png": 185685,
+      "phase3-red-panda-global-detail-desktop-1440x900.png": 381086,
+      "phase3-red-panda-global-mobile-390x844.png": 8678,
+      "red-panda-desktop.png": 289586,
+      "red-panda-mobile.png": 91320
+    }
+  },
+  "browser_performance": {
+    "browser": "153.0.8010.12",
+    "method": "Playwright Chromium against the local static build; desktop 1440x1000 CSS px and mobile 390x844 CSS px. Timings use in-app synchronous search/DOM/render durations and direct profile open duration including the detail fetch. Browser heap is Chromium performance.memory when available.",
+    "dataset": "red-panda",
+    "record_count": 1554,
+    "global_graph": {
+      "animal_count": 1554,
+      "relationship_count": 2394,
+      "initially_visible_nodes": 824,
+      "initially_visible_relationships": 1477,
+      "zoom": 0.04008169517487874,
+      "layout_builds": 1,
+      "layout_ms": 79.8,
+      "first_render_ms": 161.2
+    },
+    "initial_index_payload_bytes": 1547504,
+    "runtime_index_bytes": 1547435,
+    "initial_search_had_no_detail_request": true,
+    "opened_profile_detail_payload_bytes": 1022539,
+    "desktop": {
+      "viewport_css_px": [
+        1440,
+        1000
+      ],
+      "search_render_ms": 11,
+      "global_graph_render_ms": 161.2,
+      "focused_graph_render_ms": 4.3,
+      "focused_graph_nodes": 16,
+      "profile_open_ms": 122.8,
+      "used_heap_bytes": 17100000
+    },
+    "mobile": {
+      "viewport_css_px": [
+        390,
+        844
+      ],
+      "focused_graph_render_ms": 12.8,
+      "focused_graph_nodes": 16,
+      "profile_open_ms": 134.5,
+      "viewport_width": 390,
+      "document_width": 390,
+      "used_heap_bytes": 17100000
+    }
+  }
+}

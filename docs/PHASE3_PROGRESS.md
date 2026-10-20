@@ -1,6 +1,6 @@
 # Phase 3 Progress — Rich Genealogy and Verified Data
 
-Last updated: 2026-10-20 09:09 UTC
+Last updated: 2026-10-20 09:12 UTC
 Owner: repository owner
 Working branch: `phase3/rich-trees-media-data-20261020`
 
@@ -78,20 +78,20 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 
 ## Current status
 
-### Verified Phase 3 milestone — 2026-10-20 09:09 UTC
+### Verified Phase 3 milestone — 2026-10-20 09:12 UTC
 
 - Shared global and focused graph implementation is in place across all three canonical species indexes. The all-animal graph includes all canonical nodes and edges; disconnected family components start at generation 0, and family/country grouping does not change generation assignments or relationships.
 - The initial view fits the largest component for readable detail; `Fit all` exposes every disconnected component across the generation rows. Layout is not rebuilt during ordinary pan or zoom. Graph filters change only the displayed node/edge set.
 - The final serial Playwright run passed 14/14 at desktop 1440×900 and mobile 390×844, including the full red-panda graph, all three species, sex/life-status/photo filters, exact profile tabs, focus depth, and touch pan/zoom. The Futa mobile view shows readable multi-generation cards; global-detail and focused-mobile screenshots are under `/tmp/animal-lineage-atlas-qa/`.
-- The complete Node suite passed 53 tests and the Python suite passed 82 tests. Lint, typecheck, all three data/schema validations, build of all four paths, and no-photo scans on source and `dist/` passed. The performance report will be regenerated against the committed source revision before review.
-- The 1,554-animal global layout measured median 78.7 ms / p95 123.8 ms across 10 samples; the 823-animal largest component measured median 38.4 ms / p95 72.4 ms. Browser first global render was 152 ms; search render 8.5 ms; runtime index 1.55 MB; measured Chromium heap 17.1 MB. Full details are in [the Phase 3 performance report](PERFORMANCE_REPORT_PHASE3.json).
+- The complete Node suite passed 53 tests and the Python suite passed 82 tests. Lint, typecheck, all three data/schema validations, build of all four paths, and no-photo scans on source and `dist/` passed. The benchmark report is pinned to clean source revision `58c5e34f46b78422e5b9ba7dfc5cf9e4541d83e3`.
+- The 1,554-animal global layout measured median 66.2 ms / p95 111.1 ms across 10 samples; the 823-animal largest component measured median 49.4 ms / p95 58.1 ms. In Chromium at 1440×1000, first global render was 161.2 ms and search render 11 ms; runtime index was 1.55 MB and measured heap 17.1 MB. Full details are in [the Phase 3 performance report](PERFORMANCE_REPORT_PHASE3.json).
 - Canonical Phase 2 identities and red-panda counts remain. Source-backed additions are recorded in the polar-bear and hippo source docs; the [red-panda source review](RED_PANDA_PHASE3_SOURCE_REVIEW.md) records current candidates and why unresolved namesakes were not merged.
 - No production files, symlinks, Nginx configuration, parent-checkout untracked files, or research-worktree files were changed.
 
 ## NEXT_ACTIONS
 
-1. Inspect the complete diff, commit and push the implementation/data/docs, then rerun the release benchmark and pin it to the committed source revision.
-2. Inspect the complete diff, commit and push the implementation/data/docs, create the PR, and obtain independent review and green CI before merge.
+1. Commit the regenerated benchmark and final progress/release notes, then push the feature branch and open the review PR.
+2. Obtain independent review and green CI, fix any findings, and merge only after both pass.
 3. After approved merge and green CI, deploy only `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/`; verify all four plus legacy `/red-panda/`, capture screenshots and manifest, and record rollback evidence.
 
 Continuation command:
