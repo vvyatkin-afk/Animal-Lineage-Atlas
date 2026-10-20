@@ -342,7 +342,11 @@ def main() -> int:
         capture_output=True,
         text=True,
     ).stdout.splitlines()
-    report_paths = {"docs/QA_REPORT.json", "docs/PERFORMANCE_REPORT_PHASE2.json"}
+    report_paths = {
+        "docs/QA_REPORT.json",
+        "docs/PERFORMANCE_REPORT_PHASE2.json",
+        "docs/PERFORMANCE_REPORT_PHASE3.json",
+    }
     source_changes = [line[3:] for line in status if line[3:] not in report_paths]
     report = {
         "schema_version": "1.0.0",
