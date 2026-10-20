@@ -4,7 +4,7 @@
 
 Production Nginx serves `/var/www/html`. Releases switch only these four paths: `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/`. The read-only `/red-panda/` application is outside this release and is not modified.
 
-Static files are staged under `/var/www/html/_animal-lineage-releases/<40-character-git-sha>/`. The relay code and full upstream allowlist are staged separately under `/var/lib/animal-lineage-atlas/<git-sha>/media-service`, outside the web root. `/var/lib/animal-lineage-atlas/media-current` selects the active relay release. Public `media-manifest.json` files contain opaque IDs and attribution only; they contain no upstream image URLs.
+Static files are staged under `/var/www/html/_animal-lineage-releases/<40-character-git-sha>/`. The relay code and full upstream allowlist are staged separately under `/var/lib/animal-lineage-atlas/<git-sha>/media-service`, outside the web root. `/var/lib/animal-lineage-atlas/media-current` selects the active relay release. Public `media-manifest.json` files include browser-direct original and thumbnail URLs only for individually approved records, alongside attribution and license details. The browser cannot submit arbitrary URLs to the relay, which accepts only an opaque media ID and a fixed variant.
 
 The deployer validates all four child builds and runs the no-photo scanner before staging. Release directories are immutable and retained for rollback. Nginx's media include exposes only fixed opaque-ID and variant routes and proxies to the relay on loopback. The Node service runs as `www-data`, binds only `127.0.0.1:4175`, and has no persistent image cache.
 
@@ -41,7 +41,7 @@ The deployer validates all four child builds and runs the no-photo scanner befor
 
    Save the printed backup directory in the release record. Nginx installation automatically restores the original pair if validation or reload fails.
 
-6. Verify the relay service is active, all four Atlas paths return HTTP 200, profile and tree cards use same-origin `/media/` URLs, and Chromium decodes the licensed profile image at its expected dimensions. Confirm the active legacy `/red-panda/` hashes still match the pre-release record. Record the deployed SHA, release manifest, Nginx backup directory, service status, and smoke-test evidence in `docs/PHASE4_RELEASE.md`.
+6. Verify the relay service is active, all four Atlas paths return HTTP 200, and profile/tree images load directly from the approved Wikimedia hosts with same-origin `/media/` fallback URLs. Confirm Chromium decodes the licensed profile image and its attribution, then confirm the active legacy `/red-panda/` hashes still match the pre-release record. Record the deployed SHA, release manifest, Nginx backup directory, service status, and smoke-test evidence in the relevant phase release record.
 
 The explicit `sudo -n` commands are needed because the production web root, systemd unit directory, Nginx configuration, and backup directory are root-owned. No SSH, firewall, DNS, or legacy application setting is changed.
 

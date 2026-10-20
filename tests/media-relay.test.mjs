@@ -146,6 +146,74 @@ test('approved media endpoint relays bounded image bytes with ETag and memory ca
   assert.equal(upstreamRequests, 1);
 });
 
+test('Commons portrait thumbnails are requested small enough for the relay height cap', async (t) => {
+  const futaPhotoId = '0d5fefd1008bde032eae21eb4c225a77';
+  const { origin } = await makeRelay(t, {
+    requestUpstream: async (url) => {
+      const requestedWidth = Number(url.pathname.match(/\/(\d+)px-[^/]+$/)?.[1]);
+      assert.ok(Number.isInteger(requestedWidth), `expected a fixed-width Commons preview URL: ${url.pathname}`);
+      // Wikimedia's 330px variant for this 4:3 photo is 330x248.
+      const requestedHeight = Math.round(248 * requestedWidth / 330);
+      return {
+        statusCode: 200,
+        headers: { 'content-type': 'image/jpeg' },
+        body: jpegFixture(requestedWidth, requestedHeight),
+      };
+    },
+  });
+
+  const response = await get(origin, `/media/${futaPhotoId}/thumb`);
+  assert.equal(response.status, 200);
+  assert.equal(response.headers['content-type'], 'image/jpeg');
+});
+
+test('Commons portrait profile previews are requested small enough for the relay height cap', async (t) => {
+  const futaPhotoId = '0d5fefd1008bde032eae21eb4c225a77';
+  const { origin } = await makeRelay(t, {
+    requestUpstream: async (url) => {
+      const requestedWidth = Number(url.pathname.match(/\/(\d+)px-[^/]+$/)?.[1]);
+      assert.ok(Number.isInteger(requestedWidth), `expected a fixed-width Commons preview URL: ${url.pathname}`);
+      // Wikimedia's 960px variant for this 4:3 photo is 960x720.
+      const requestedHeight = Math.round(720 * requestedWidth / 960);
+      return {
+        statusCode: 200,
+        headers: { 'content-type': 'image/jpeg' },
+        body: jpegFixture(requestedWidth, requestedHeight),
+      };
+    },
+  });
+
+  const response = await get(origin, `/media/${futaPhotoId}/profile`);
+  assert.equal(response.status, 200);
+  assert.equal(response.headers['content-type'], 'image/jpeg');
+});
+
+test('Commons relay previews use supported thumbnail size steps', async (t) => {
+  const futaPhotoId = '0d5fefd1008bde032eae21eb4c225a77';
+  const supportedWidths = new Set([20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840]);
+  const { origin } = await makeRelay(t, {
+    requestUpstream: async (url) => {
+      const requestedWidth = Number(url.pathname.match(/\/(\d+)px-[^/]+$/)?.[1]);
+      assert.ok(Number.isInteger(requestedWidth), `expected a fixed-width Commons preview URL: ${url.pathname}`);
+      if (!supportedWidths.has(requestedWidth)) {
+        return { statusCode: 400, headers: { 'content-type': 'text/plain' }, body: Buffer.alloc(0) };
+      }
+      const sourceWidth = requestedWidth <= 330 ? 330 : 960;
+      const sourceHeight = requestedWidth <= 330 ? 248 : 720;
+      return {
+        statusCode: 200,
+        headers: { 'content-type': 'image/jpeg' },
+        body: jpegFixture(requestedWidth, Math.round(sourceHeight * requestedWidth / sourceWidth)),
+      };
+    },
+  });
+
+  for (const variant of ['thumb', 'profile']) {
+    const response = await get(origin, `/media/${futaPhotoId}/${variant}`);
+    assert.equal(response.status, 200, `${variant} URL should use a supported, bounded Commons size`);
+  }
+});
+
 test('pinned DNS lookup supports Node net single and all-address callback signatures', async () => {
   const { createPinnedLookup } = await import('../packages/media/relay-server.mjs');
   const lookup = createPinnedLookup(publicTestIp, 4);
@@ -219,6 +287,19 @@ test('manifest hosts and resolved addresses reject SSRF destinations', async (t)
   });
   assert.equal((await get(mixedAnswers.origin, `/media/${mediaId}/thumb`)).status, 502);
   assert.equal(upstreamRequests, 0);
+});
+
+test('approved Commons thumbnail paths match the original file and use standard widths', async () => {
+  const relayModule = await import('../packages/media/relay-server.mjs');
+  const manifest = JSON.parse(await readFile(manifestUrl, 'utf8'));
+  const nonstandardWidth = structuredClone(manifest);
+  nonstandardWidth.items[0].variants.thumb.url = nonstandardWidth.items[0].variants.thumb.url.replace('/250px-', '/292px-');
+  assert.throws(() => relayModule.validateApprovedMediaManifest(nonstandardWidth), /Commons thumbnail URL/i);
+
+  const differentFile = structuredClone(manifest);
+  differentFile.items[0].variants.thumb.url = differentFile.items[0].variants.thumb.url
+    .replaceAll('Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg', 'Other_red_panda.jpg');
+  assert.throws(() => relayModule.validateApprovedMediaManifest(differentFile), /Commons thumbnail URL/i);
 });
 
 test('stalled DNS resolution returns a bounded timeout response', async (t) => {

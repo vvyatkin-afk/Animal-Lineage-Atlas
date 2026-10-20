@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.build_atlases import _write_public_media_manifest, _write_runtime_index
+from tools.build_atlases import _approved_items_for_document, _write_public_media_manifest, _write_runtime_index
 
 
 class RuntimeGraphSummaryTests(unittest.TestCase):
@@ -97,6 +97,8 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
     def test_approved_photo_uses_browser_direct_thumbnail_and_original_with_thumbnail_relay_fallback(self):
         media_id = "a426db98f35e4bc984275cc031467ac9"
         source_url = "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg"
+        direct_thumbnail_url = "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg"
+        relay_thumbnail_url = "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/250px-Futa_20261004_3.jpg"
         document = {
             "release": {}, "coverage": {},
             "animals": [{"id": "red-panda:futa", "taxon": "Ailurus fulgens", "sex": "male", "status": "living",
@@ -105,7 +107,7 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
             "media": [{"media_id": media_id, "animal_id": "red-panda:futa", "embedding_status": "allowed",
                        "rights_status": "cc-by-4.0", "identity_confidence": "confirmed", "source_page_url": source_url,
                        "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Futa_20261004_3.jpg",
-                       "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg",
+                       "direct_thumbnail_url": direct_thumbnail_url,
                        "license_name": "CC BY 4.0", "license_url": "https://creativecommons.org/licenses/by/4.0/"}],
         }
         approved = [{
@@ -114,31 +116,74 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
             "rights_status": "cc-by-4.0", "embedding_status": "allowed",
             "license": {"name": "CC BY 4.0", "version": "4.0", "url": "https://creativecommons.org/licenses/by/4.0/"},
             "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Futa_20261004_3.jpg",
+            "direct_thumbnail_url": direct_thumbnail_url,
             "changes": "No changes made.",
-            "variants": {"thumb": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg", "max_bytes": 65536},
+            "variants": {"thumb": {"url": relay_thumbnail_url, "max_bytes": 65536},
                          "profile": {"url": "https://thumb.wikimedia.org/example-large.jpg", "max_bytes": 393216}},
         }]
+        approved_items = _approved_items_for_document(document, {"items": approved})
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary)
-            _write_runtime_index(document, output, "/atlas.red-panda/", approved)
-            _write_public_media_manifest(output, approved)
+            _write_runtime_index(document, output, "/atlas.red-panda/", approved_items)
+            _write_public_media_manifest(output, approved_items)
             runtime = json.loads((output / "runtime.json").read_text(encoding="utf-8"))
-            public_manifest_text = (output / "media-manifest.json").read_text(encoding="utf-8")
+            public_manifest = json.loads((output / "media-manifest.json").read_text(encoding="utf-8"))
             chunk_name = runtime["animals"][0]["detail_chunk"]
             chunk = json.loads((output / chunk_name).read_text(encoding="utf-8"))
 
         summary = runtime["animals"][0]
         self.assertTrue(summary["photo_confirmed"])
-        self.assertEqual(summary["photo_url"], "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg")
+        self.assertEqual(summary["photo_url"], direct_thumbnail_url)
         self.assertEqual(summary["photo_fallback_url"], f"/atlas.red-panda/media/{media_id}/thumb")
         self.assertEqual(summary["photo_credit"], "Misei sen")
         self.assertEqual(summary["photo_license"], "CC BY 4.0")
         self.assertEqual(chunk["media"][0]["media_id"], media_id)
         self.assertNotIn("direct_remote_url", chunk["media"][0])
         self.assertNotIn("direct_thumbnail_url", chunk["media"][0])
+        self.assertEqual(public_manifest["items"][0]["thumbnail_url"], relay_thumbnail_url)
+        public_manifest_text = json.dumps(public_manifest)
         self.assertIn("upload.wikimedia.org", public_manifest_text)
         self.assertIn("thumb.wikimedia.org", public_manifest_text)
         self.assertIn(source_url, public_manifest_text)
+
+    def test_approved_direct_thumbnail_must_match_its_original_and_a_standard_size(self):
+        media_id = "a426db98f35e4bc984275cc031467ac9"
+        source_url = "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg"
+        original_url = "https://upload.wikimedia.org/wikipedia/commons/5/55/Futa_20261004_3.jpg"
+        invalid_thumbnail_urls = [
+            "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Other_photo.jpg/330px-Other_photo.jpg",
+            "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/292px-Futa_20261004_3.jpg",
+        ]
+        for invalid_thumbnail_url in invalid_thumbnail_urls:
+            with self.subTest(thumbnail=invalid_thumbnail_url):
+                document = {"media": [{
+                    "media_id": media_id,
+                    "animal_id": "red-panda:futa",
+                    "embedding_status": "allowed",
+                    "rights_status": "cc-by-4.0",
+                    "identity_confidence": "confirmed",
+                    "source_page_url": source_url,
+                    "direct_remote_url": original_url,
+                    "direct_thumbnail_url": invalid_thumbnail_url,
+                    "license_name": "CC BY 4.0",
+                    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                }]}
+                approved = [{
+                    "id": media_id,
+                    "animal_id": "red-panda:futa",
+                    "identity_confidence": "confirmed",
+                    "source_page_url": source_url,
+                    "creator": "Misei sen",
+                    "credit": "Misei sen",
+                    "rights_status": "cc-by-4.0",
+                    "embedding_status": "allowed",
+                    "license": {"name": "CC BY 4.0", "version": "4.0", "url": "https://creativecommons.org/licenses/by/4.0/"},
+                    "original_url": original_url,
+                    "direct_thumbnail_url": invalid_thumbnail_url,
+                    "variants": {"thumb": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/250px-Futa_20261004_3.jpg"}},
+                }]
+                with self.assertRaisesRegex(RuntimeError, "does not match canonical record"):
+                    _approved_items_for_document(document, {"items": approved})
 
 
 if __name__ == "__main__":
