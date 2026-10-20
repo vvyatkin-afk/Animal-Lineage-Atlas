@@ -31,6 +31,7 @@ const ALLOWED_LICENSES = new Map([
 const ID_PATTERN = /^[a-f0-9]{32}$/;
 const VARIANT_PATTERN = /^(thumb|profile)$/;
 const ALLOWED_MIME_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
+const COMMONS_THUMBNAIL_STEPS = new Set([20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840]);
 
 export class RelayError extends Error {
   constructor(statusCode, message) {
@@ -132,6 +133,33 @@ function validateOriginalUrl(value) {
   return url;
 }
 
+function validateCommonsThumbnailUrl(value, originalUrl, maxWidth) {
+  const url = validateUpstreamUrl(value);
+  const original = originalUrl instanceof URL ? originalUrl : validateOriginalUrl(originalUrl);
+  const originalPrefix = '/wikipedia/commons/';
+  const originalPath = original.pathname.slice(originalPrefix.length);
+  const expectedPrefix = `/wikipedia/commons/thumb/${originalPath}/`;
+  if (!originalPath || !url.pathname.startsWith(expectedPrefix)) {
+    throw new Error('Approved Commons thumbnail URL does not match its original file');
+  }
+  const suffix = url.pathname.slice(expectedPrefix.length);
+  const match = /^(\d+)px-([^/]+)$/.exec(suffix);
+  const width = Number(match?.[1]);
+  let thumbnailFilename;
+  let originalFilename;
+  try {
+    thumbnailFilename = decodeURIComponent(match?.[2] ?? '');
+    originalFilename = decodeURIComponent(originalPath.slice(originalPath.lastIndexOf('/') + 1));
+  } catch {
+    throw new Error('Approved Commons thumbnail URL has an invalid filename');
+  }
+  if (!match || !COMMONS_THUMBNAIL_STEPS.has(width) || thumbnailFilename !== originalFilename
+    || (Number.isInteger(maxWidth) && width > maxWidth)) {
+    throw new Error('Approved Commons thumbnail URL must match its original file and use a supported bounded width');
+  }
+  return { url, width };
+}
+
 export function validateApprovedMediaManifest(manifest) {
   if (!manifest || manifest.format !== PUBLIC_MEDIA_FORMAT || manifest.version !== 1 || !Array.isArray(manifest.items)) {
     throw new Error('Unsupported approved media manifest format');
@@ -152,7 +180,9 @@ export function validateApprovedMediaManifest(manifest) {
       || typeof item.checked_date !== 'string') {
       throw new Error(`Approved media ${item.id} is missing source or attribution metadata`);
     }
-    item.original_url = validateOriginalUrl(item.original_url).href;
+    const originalUrl = validateOriginalUrl(item.original_url);
+    item.original_url = originalUrl.href;
+    item.direct_thumbnail_url = validateCommonsThumbnailUrl(item.direct_thumbnail_url, originalUrl).url.href;
     const license = item.license;
     const expectedLicense = ALLOWED_LICENSES.get(item.rights_status);
     if (!license || license.name !== expectedLicense.name || license.version !== expectedLicense.version
@@ -166,7 +196,8 @@ export function validateApprovedMediaManifest(manifest) {
     }
     for (const variantName of ['thumb', 'profile']) {
       const variant = item.variants[variantName];
-      const sourceUrl = validateUpstreamUrl(variant?.url);
+      const source = validateCommonsThumbnailUrl(variant?.url, originalUrl, variant?.max_width);
+      const sourceUrl = source.url;
       if (variant.mime_type !== item.mime_type || !Number.isInteger(variant.max_bytes)
         || variant.max_bytes < 1 || variant.max_bytes > TOTAL_MAX_BYTES
         || !Number.isInteger(variant.max_width) || variant.max_width < 1 || variant.max_width > 960
@@ -341,13 +372,13 @@ async function awaitWithTimeout(promise, timeoutMs, message) {
 
 async function fetchApprovedImage(item, variantName, dependencies) {
   const variant = item.variants[variantName];
-  const initialUrl = validateUpstreamUrl(variant.url);
+  const initialUrl = validateCommonsThumbnailUrl(variant.url, item.original_url, variant.max_width).url;
   let currentUrl = initialUrl;
   const deadline = Date.now() + dependencies.totalTimeoutMs;
   for (let redirectCount = 0; redirectCount <= dependencies.maxRedirects; redirectCount += 1) {
     const remainingMs = deadline - Date.now();
     if (remainingMs <= 0) throw new RelayError(504, 'Image source timed out');
-    currentUrl = validateUpstreamUrl(currentUrl.href);
+    currentUrl = validateCommonsThumbnailUrl(currentUrl.href, item.original_url, variant.max_width).url;
     if (currentUrl.hostname !== initialUrl.hostname) throw new RelayError(502, 'Image redirect left the approved host');
     let records;
     try {
@@ -386,7 +417,7 @@ async function fetchApprovedImage(item, variantName, dependencies) {
       } catch {
         throw new RelayError(502, 'Approved image redirect is invalid');
       }
-      currentUrl = validateUpstreamUrl(next.href);
+      currentUrl = validateCommonsThumbnailUrl(next.href, item.original_url, variant.max_width).url;
       if (currentUrl.hostname !== initialUrl.hostname) throw new RelayError(502, 'Image redirect left the approved host');
       continue;
     }

@@ -23,20 +23,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg/250px-Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg/960px-Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg/500px-Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg"
     },
     {
       "id": "240ee0c66fc6c07d92122ddbae5b39a5",
@@ -59,20 +60,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Futa_20261004_2.jpg/330px-Futa_20261004_2.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Futa_20261004_2.jpg/250px-Futa_20261004_2.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Futa_20261004_2.jpg/960px-Futa_20261004_2.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Futa_20261004_2.jpg/500px-Futa_20261004_2.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Futa_20261004_2.jpg/330px-Futa_20261004_2.jpg"
     },
     {
       "id": "327c2434dd7d8bec2623f1563a3ad7e4",
@@ -95,20 +97,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Futa20260321.jpg/330px-Futa20260321.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Futa20260321.jpg/250px-Futa20260321.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Futa20260321.jpg/960px-Futa20260321.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Futa20260321.jpg/500px-Futa20260321.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Futa20260321.jpg/330px-Futa20260321.jpg"
     },
     {
       "id": "4d2a81bcd5ff39500ed924064d6d0b7f",
@@ -131,20 +134,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Futa_20261004_5.jpg/330px-Futa_20261004_5.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Futa_20261004_5.jpg/250px-Futa_20261004_5.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Futa_20261004_5.jpg/960px-Futa_20261004_5.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Futa_20261004_5.jpg/500px-Futa_20261004_5.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Futa_20261004_5.jpg/330px-Futa_20261004_5.jpg"
     },
     {
       "id": "60a77a71b3b45c94a0d98a66898d9d2e",
@@ -167,20 +171,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg/250px-Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg/960px-Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg/500px-Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg"
     },
     {
       "id": "724ed8db7776be9270eadcc48c594822",
@@ -203,20 +208,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Futa_20261004_1.jpg/330px-Futa_20261004_1.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Futa_20261004_1.jpg/250px-Futa_20261004_1.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Futa_20261004_1.jpg/960px-Futa_20261004_1.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Futa_20261004_1.jpg/500px-Futa_20261004_1.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Futa_20261004_1.jpg/330px-Futa_20261004_1.jpg"
     },
     {
       "id": "73d3141f550c9dac1900adda924cec88",
@@ -239,20 +245,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg/250px-Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg/960px-Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg/500px-Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg"
     },
     {
       "id": "a426db98f35e4bc984275cc031467ac9",
@@ -275,20 +282,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/250px-Futa_20261004_3.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/960px-Futa_20261004_3.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/500px-Futa_20261004_3.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg"
     },
     {
       "id": "d6f849f9e592f14b86d41cafe802b301",
@@ -311,20 +319,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg/250px-Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg/960px-Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg/500px-Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg"
     },
     {
       "id": "d766c076a8a1d959784e769bab02d65d",
@@ -347,20 +356,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Futa_20261004_4.jpg/330px-Futa_20261004_4.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Futa_20261004_4.jpg/250px-Futa_20261004_4.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Futa_20261004_4.jpg/960px-Futa_20261004_4.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Futa_20261004_4.jpg/500px-Futa_20261004_4.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Futa_20261004_4.jpg/330px-Futa_20261004_4.jpg"
     },
     {
       "id": "e674cc38e610c5115281a8de2d862593",
@@ -383,20 +393,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Red_Panda_Simon_01.jpg/330px-Red_Panda_Simon_01.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Red_Panda_Simon_01.jpg/250px-Red_Panda_Simon_01.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Red_Panda_Simon_01.jpg/960px-Red_Panda_Simon_01.jpg",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Red_Panda_Simon_01.jpg/500px-Red_Panda_Simon_01.jpg",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Red_Panda_Simon_01.jpg/330px-Red_Panda_Simon_01.jpg"
     },
     {
       "id": "fef7308372861e1dab7ecf08270eba7c",
@@ -419,20 +430,21 @@
       "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/SIMON_RED_PANDA.JPG/330px-SIMON_RED_PANDA.JPG",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/SIMON_RED_PANDA.JPG/250px-SIMON_RED_PANDA.JPG",
           "mime_type": "image/jpeg",
           "max_bytes": 65536,
-          "max_width": 330,
+          "max_width": 250,
           "max_height": 220
         },
         "profile": {
-          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/SIMON_RED_PANDA.JPG/960px-SIMON_RED_PANDA.JPG",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/SIMON_RED_PANDA.JPG/500px-SIMON_RED_PANDA.JPG",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
-          "max_width": 960,
+          "max_width": 500,
           "max_height": 640
         }
-      }
+      },
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/SIMON_RED_PANDA.JPG/330px-SIMON_RED_PANDA.JPG"
     }
   ]
 }

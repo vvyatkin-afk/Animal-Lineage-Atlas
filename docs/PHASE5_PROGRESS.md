@@ -4,7 +4,7 @@ Updated: 2026-10-20 UTC
 
 ## Scope and production baseline
 
-Execution follows the user-authorized [Phase 5 brief](PHASE5_PHOTO_LAYOUT_BRIEF_20261021.md) on isolated branch `phase5/legible-tree-and-identified-photo-20261021`. Production remains on Phase 4 release `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7`; its four Atlas routes and legacy `/red-panda/` were not changed during local implementation. The starting branch commit was `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`.
+Execution follows the user-authorized [Phase 5 brief](PHASE5_PHOTO_LAYOUT_BRIEF_20261021.md), first on `phase5/legible-tree-and-identified-photo-20261021` and now on relay-repair branch `phase5/commons-thumbnail-relay-fix-20261020`. Phase 5's main implementation merged through PR [#11](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/11) as `6c1e238424e0bfd5994bce9ab2976a7c6f566a05`. Production is currently restored to Phase 4 release `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7` after the first Phase 5 relay smoke check failed; the deployment and rollback evidence is recorded below. The legacy `/red-panda/` and unrelated projects remain unchanged. The starting branch commit was `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`.
 
 Phase 4 desktop/mobile captures and the live Bandit baseline are preserved with hashes in `reports/phase5/baseline/`. They show the original all-animal ribbon and record the prior rendered crossing and route-length measurements. The current Phase 5 local screenshots and hashes are in `reports/phase5/after/screenshot-manifest.json`.
 
@@ -44,12 +44,20 @@ The one non-adjacent Bandit depth-3 candidate remains ordered correctly; adjacen
 
 Futa's ten photos are individually described as Futa at Chiba Zoological Park. Six are CC BY 4.0 by Misei sen and four are CC BY-SA 4.0 by KQuhen. Simon's two separately sourced Jerusalem Biblical Zoo images are CC BY-SA 3.0 by SuperJew and CC0 1.0 by Masha Gutman. The Commons file pages retain the evidence and clickable source/license links. Other named upstream records have no evidenced image reuse permission and stay source-page links/placeholders; generic red-panda photos are not mapped to individuals.
 
-The browser requests each approved full-size original directly from `upload.wikimedia.org`; the Atlas server never fetches, relays, or caches a full-size image. Cards and family previews use Commons thumbnails directly. The optional relay accepts only explicitly approved Commons-generated 330×220 or 960×640 JPEG variants and caches them in process memory for five minutes, with a 32-entry/5 MiB cap; it writes no thumbnail files. No animal-photo binary is in Git or the static release; local-media manifests are empty. Chromium confirmed nonzero `naturalWidth` for all ten Futa originals, both Simon originals, and the verified Commons thumbnail previews.
+The browser requests each approved full-size original directly from `upload.wikimedia.org`; the Atlas server never fetches, relays, or caches a full-size image. Cards and family previews use Commons thumbnails directly. The optional relay accepts only explicitly approved Commons-generated standard 250px thumbnail and 500px profile JPEG variants, with per-record bounds of 250×220 and 500×640 and the existing byte caps. It caches responses in process memory for five minutes, with a 32-entry/5 MiB cap, and writes no thumbnail files. No animal-photo binary is in Git or the static release; local-media manifests are empty. Chromium confirmed nonzero `naturalWidth` for all ten Futa originals, both Simon originals, and the verified Commons thumbnail previews.
+
+## First deployment attempt and rollback
+
+PR #11's merge SHA `6c1e238424e0bfd5994bce9ab2976a7c6f566a05` was deployed at 2026-10-20 17:39 UTC. All five public routes returned HTTP 200, but the production relay returned HTTP 502 for an approved 4:3 Futa preview. Wikimedia's 330px and 960px files were 330×248 and 960×720, exceeding the relay's height bounds. A custom 292px/853px preview URL was then rejected by Wikimedia with HTTP 400 because direct thumbnail requests require one of its standard widths.
+
+The saved Phase 5 release manifest was used to restore the four Atlas symlinks and `media-current` to Phase 4 `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7`. The media service is active and enabled; all five routes still return HTTP 200. A fresh comparison verified all 505 files in `/red-panda/` still match its baseline SHA-256 manifest `28ac4d968723ddcc1f79367793f405c1b5702aafe1ca057e7a0e825abccb1927`.
+
+The approved relay records now use Wikimedia's standard 250px and 500px widths, which keep these preview dimensions within the existing caps. Four Node relay regression tests and one Python builder test cover aspect-ratio limits, supported widths, the same-file rule, and distinct direct/relay URLs. They failed against the previous settings/behavior and pass with the fix. Before redeployment, a local instance of the release relay fetched and validated all 24 approved variants (12 photos × thumb/profile); each returned HTTP 200 and stayed within its byte and pixel caps. Those response bytes remained in process memory and were not written to disk. The follow-up PR is being prepared on `phase5/commons-thumbnail-relay-fix-20261020`; production activation remains pending its CI and live smoke checks.
 
 ## Local verification
 
-- `npm test`: **86/86 passed**, including the full 1,555-animal/2,394-relationship layout-budget case, focused pair constraints, and exact crossing metric fixtures.
-- `npm run test:python`: **105/105 passed**.
+- `npm test`: **90/90 passed**, including the full 1,555-animal/2,394-relationship layout-budget case, focused pair constraints, exact crossing metric fixtures, and new relay URL/size regressions.
+- `npm run test:python`: **106/106 passed**, including direct-thumbnail/source matching and builder checks for separate browser and relay variants.
 - `npm run validate:data`, `npm run validate:schema`, `npm run check:no-photos`, `npm run lint`, `npm run typecheck`, and `npm run build`: passed. The build emitted all four configured static paths.
 - `npm run test:browser -- --workers=1`: **22/22 passed** in serial Chromium. Coverage includes the 1,555-record overview, mobile full-graph pan/zoom, Bandit desktop/mobile, all four Atlas routes, Futa's ten direct-loaded originals, Simon's direct-loaded images, rights/source links, failure fallback, and viewport/memory measurements.
 - Independent layout and source reviews found and resolved two issues before this run: mobile focused graphs now recompute their frame on resize, and pair adjacency candidates are restricted to focused mode so global order remains sex-unconstrained.
@@ -64,9 +72,12 @@ The browser requests each approved full-size original directly from `upload.wiki
 - [x] Embed only individually identified/rights-cleared photos, load originals directly in Chromium, expose per-file credits/licenses/sources, and keep all unverified records link-only.
 - [x] Pass full local data, Python, Node, lint, type, build, no-photo, and serial browser checks; complete independent reviews.
 - [x] Push the branch and open Phase 5 PR [#11](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/11).
-- [x] GitHub Atlas CI run [39467295994](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/39467295994) passed on PR head `fdefeb479a2df21009d2c06b4ede3fd26dbfb4cc`.
-- [ ] Merge the reviewed PR head after its current post-evidence-update CI run passes.
-- [ ] Deploy all four Atlas routes atomically with a recorded rollback manifest; smoke-test them and confirm `/red-panda/` and unrelated projects remain unchanged.
+- [x] GitHub Atlas CI run [39467566584](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/39467566584) passed on exact PR head `f60e5022bf8b35b78521f78436f11a67dcf44e7e`; its tree matches merge SHA `6c1e238424e0bfd5994bce9ab2976a7c6f566a05`.
+- [x] Merge PR #11 as `6c1e238424e0bfd5994bce9ab2976a7c6f566a05`.
+- [x] Correct the Commons relay width/height failure, add regressions, and confirm the approved manifest matches the audit for all 12 source records and 24 bounded preview URLs.
+- [ ] Open and pass CI on the standard-thumbnail-size follow-up PR.
+- [ ] Merge the follow-up standard-thumbnail-size fix after its full CI run passes.
+- [ ] Redeploy all four Atlas routes atomically with a recorded rollback manifest; smoke-test the relay and public routes, then reconfirm `/red-panda/` and unrelated projects remain unchanged.
 - [ ] Write final production SHA, public route URLs, CI evidence, deployment manifest, and verified rollback commands to `docs/PHASE5_RELEASE.md`.
 
-Production is still on Phase 4 until merge, deploy and live-smoke steps are complete. First Phase 5 branch commit: `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`. Phase 5 implementation commit: `42ada5f883f8950493a9d0215cb9254b24c95d60`. Evidence update: `b5b019e`. CI run `39467295994` passed at 2026-10-20 17:35 UTC on head `fdefeb479a2df21009d2c06b4ede3fd26dbfb4cc`; the progress update adding that result starts a new CI run before merge.
+Production remains on Phase 4 after the verified rollback until the follow-up fix passes CI and a new live relay smoke. First Phase 5 branch commit: `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`. Phase 5 implementation commit: `42ada5f883f8950493a9d0215cb9254b24c95d60`. Evidence update: `b5b019e`. Final PR #11 CI run: `39467566584`, passed at 2026-10-20 17:37 UTC on head `f60e5022bf8b35b78521f78436f11a67dcf44e7e`.

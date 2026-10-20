@@ -11,6 +11,7 @@ import subprocess
 import sys
 from collections import defaultdict
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 try:
@@ -28,6 +29,7 @@ OUTPUT_NAMES = ("atlas", "atlas.red-panda", "atlas.polar-bear", "atlas.hippopota
 DETAIL_CHUNK_SIZE = 128
 FLAG_ASSET_ROOT = REPO_ROOT / "packages" / "ui" / "flags"
 APPROVED_MEDIA_MANIFEST = REPO_ROOT / "packages" / "media" / "approved-media-v1.json"
+COMMONS_THUMBNAIL_STEPS = {20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840}
 
 
 def _remove_recreatable_target(path: Path) -> None:
@@ -75,6 +77,36 @@ def _write_country_flag_assets(output_dir: Path, animals: list[dict]) -> None:
     shutil.copy2(FLAG_ASSET_ROOT / "LICENSE", flags_dir / "LICENSE")
 
 
+def _direct_thumbnail_matches_original(thumbnail_url: str | None, original_url: str | None) -> bool:
+    if not isinstance(thumbnail_url, str) or not isinstance(original_url, str):
+        return False
+    thumbnail = urlsplit(thumbnail_url)
+    original = urlsplit(original_url)
+    if (
+        thumbnail.scheme != "https"
+        or thumbnail.netloc.lower() != "thumb.wikimedia.org"
+        or thumbnail.query
+        or thumbnail.fragment
+        or original.scheme != "https"
+        or original.netloc.lower() != "upload.wikimedia.org"
+        or original.query
+        or original.fragment
+        or not original.path.startswith("/wikipedia/commons/")
+    ):
+        return False
+    original_path = original.path.removeprefix("/wikipedia/commons/")
+    if not original_path:
+        return False
+    expected_prefix = f"/wikipedia/commons/thumb/{original_path}/"
+    if not thumbnail.path.startswith(expected_prefix):
+        return False
+    suffix = thumbnail.path[len(expected_prefix):]
+    match = re.fullmatch(r"(\d+)px-([^/]+)", suffix)
+    if not match or int(match.group(1)) not in COMMONS_THUMBNAIL_STEPS:
+        return False
+    return unquote(match.group(2)) == unquote(original_path.rsplit("/", 1)[-1])
+
+
 def _approved_items_for_document(document: dict, manifest: dict) -> list[dict]:
     """Match individually cleared browser-direct sources to canonical records."""
     records = {item.get("media_id"): item for item in document.get("media", [])}
@@ -89,7 +121,8 @@ def _approved_items_for_document(document: dict, manifest: dict) -> list[dict]:
             or record.get("identity_confidence") != "confirmed"
             or record.get("rights_status") != item.get("rights_status")
             or record.get("direct_remote_url") != item.get("original_url")
-            or record.get("direct_thumbnail_url") != item.get("variants", {}).get("thumb", {}).get("url")
+            or record.get("direct_thumbnail_url") != item.get("direct_thumbnail_url")
+            or not _direct_thumbnail_matches_original(item.get("direct_thumbnail_url"), item.get("original_url"))
             or record.get("license_name") != item.get("license", {}).get("name")
             or record.get("license_url") != item.get("license", {}).get("url")
             or record.get("embedding_status") != "allowed"
@@ -172,7 +205,8 @@ def _write_runtime_index(
             and media.get("identity_confidence") == "confirmed"
             and media.get("source_page_url") == approved.get("source_page_url")
             and media.get("direct_remote_url") == approved.get("original_url")
-            and media.get("direct_thumbnail_url") == approved.get("variants", {}).get("thumb", {}).get("url")
+            and media.get("direct_thumbnail_url") == approved.get("direct_thumbnail_url")
+            and _direct_thumbnail_matches_original(approved.get("direct_thumbnail_url"), approved.get("original_url"))
             and "thumb" in approved.get("variants", {})
         )
         if allowed:
