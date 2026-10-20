@@ -13,18 +13,28 @@ Status: **in progress; no Phase 3 production release**
 
 ## Phase 3 results
 
-Implementation, dataset review, branch CI, PR review, production deployment, browser smoke checks, screenshots, and final rollback instructions are pending. Record each verified result here before marking it complete. Do not treat research-prototype results as Atlas release checks.
+Current canonical data on the feature branch:
+
+| Atlas | Animals | Relationships |
+|---|---:|---:|
+| Red panda | 1554 animals | 2394 relationships |
+| Polar bear | 72 animals | 63 relationships |
+| Hippopotamus | 96 animals | 86 relationships |
+
+The Phase 2 record in [Expanded dataset release](RELEASE_V2_EXPANDED_DATASETS.md) remains the historical release record. Added polar-bear and hippo records are source linked; no new photo assets or unlicensed embeds were added. The [red-panda source review](RED_PANDA_PHASE3_SOURCE_REVIEW.md) records 2025–2026 official zoo candidates that were not imported because existing namesakes could not be crosswalked safely. Local verification includes 53 Node tests, 82 Python tests, 14 serial browser tests, and passing lint/typecheck/data/schema/build/no-photo checks. The final browser run uses desktop 1440×900 and mobile 390×844; the Futa mobile screenshot assertion passed.
+
+The shared global graph and focus layout, family/country grouping, direct profile links, generation rows, pan/zoom, lazy detail chunks, and facet filtering are implemented in the feature branch. Local data review and verification are complete for this pass. Branch CI, independent PR review, production deployment, browser smoke checks against production, and final rollback instructions are pending. Do not treat research-prototype results as Atlas release checks.
 
 ## Release verification
 
 | Check | Status | Evidence |
 |---|---|---|
-| Shared all-animal generation graph | Pending | |
-| Focus depth and relation semantics | Pending | |
-| Cross-species data integrity and provenance | Pending | |
-| Desktop and mobile browser QA | Pending | |
-| Large-graph performance and memory | Pending | |
-| No-photo source and built release scan | Pending | |
+| Shared all-animal generation graph | Verified locally | 53 Node tests and 14/14 serial browser tests pass; global counts include all nodes/relationships. |
+| Focus depth and relation semantics | Verified locally | Exact Futa all-generation component and focused ancestors/descendants match canonical IDs/edges; focus-depth/deep-link browser checks pass. |
+| Cross-species data integrity and provenance | Verified locally | 82 Python tests, canonical data/schema validators, and all-species browser checks pass. |
+| Desktop and mobile browser QA | Verified locally | Playwright 14/14 at 1440×900 and 390×844, including a readable focused Futa mobile view; screenshots under `/tmp/animal-lineage-atlas-qa/`. |
+| Large-graph performance and memory | Verified locally; report refresh pending | [Machine-readable report](PERFORMANCE_REPORT_PHASE3.json): previous run measured RP full graph p95 123.8 ms; largest 823-animal component p95 72.4 ms; first render 152 ms; 17.1 MB browser heap. Regenerate after the implementation commit to pin its revision. |
+| No-photo source and built release scan | Verified locally | Source and `dist/` scans passed. |
 | CI green and reviewed PR merged to main | Pending | |
 | Four production routes and representative profiles | Pending | |
 | Legacy `/red-panda/` unchanged and healthy | Pending | |

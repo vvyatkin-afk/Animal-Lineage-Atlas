@@ -26,6 +26,7 @@ CHILD_PATHS = {
 }
 OUTPUT_NAMES = ("atlas", "atlas.red-panda", "atlas.polar-bear", "atlas.hippopotamus")
 DETAIL_CHUNK_SIZE = 128
+EMBEDDABLE_MEDIA_RIGHTS = {"cc0", "public_domain", "permission_granted", "license_allows_embedding"}
 
 
 def _remove_recreatable_target(path: Path) -> None:
@@ -35,6 +36,22 @@ def _remove_recreatable_target(path: Path) -> None:
         shutil.rmtree(path)
     elif path.exists():
         path.unlink()
+
+
+def _date_label(date: dict | None) -> str | None:
+    """Summarize a stored date without increasing its precision."""
+    if not isinstance(date, dict):
+        return None
+    precision = date.get("precision")
+    if precision == "exact":
+        return date.get("value")
+    if precision == "approximate":
+        value = date.get("value")
+        return f"~{value}" if value else None
+    if precision == "range":
+        start, end = date.get("start"), date.get("end")
+        return f"{start}–{end}" if start and end else None
+    return None
 
 
 def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DETAIL_CHUNK_SIZE) -> None:
@@ -59,6 +76,24 @@ def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DET
             relationships_by_animal[animal_id][relationship["id"]] = relationship
     country_by_animal: dict[str, str] = {}
     institution_names_by_animal: dict[str, set[str]] = {}
+    institution_label_by_animal: dict[str, str] = {}
+    dated_institution_by_animal: dict[str, tuple[str, str]] = {}
+    birth_labels_by_animal: dict[str, set[str]] = defaultdict(set)
+    death_labels_by_animal: dict[str, set[str]] = defaultdict(set)
+    photo_preview_by_animal: dict[str, dict] = {}
+
+    for media in sorted(document.get("media", []), key=lambda item: (item.get("animal_id", ""), item.get("media_id", ""))):
+        direct_url = media.get("direct_remote_url", "")
+        rights = str(media.get("rights_status", "")).strip().lower()
+        allowed = (
+            media.get("embedding_status") == "allowed"
+            and rights in EMBEDDABLE_MEDIA_RIGHTS
+            and media.get("identity_confidence") == "confirmed"
+            and direct_url.startswith("https://")
+            and media.get("source_page_url", "").startswith("https://")
+        )
+        if allowed:
+            photo_preview_by_animal.setdefault(media["animal_id"], media)
 
     events = sorted(
         document.get("events", []),
@@ -69,6 +104,12 @@ def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DET
     )
     for event in events:
         animal_id = event["animal_id"]
+        event_date = event.get("date", {})
+        date_label = _date_label(event_date)
+        if event.get("type") == "birth" and date_label:
+            birth_labels_by_animal[animal_id].add(date_label)
+        elif event.get("type") == "death" and date_label:
+            death_labels_by_animal[animal_id].add(date_label)
         institution_ids = [
             event.get("from_institution_id"),
             event.get("to_institution_id"),
@@ -83,6 +124,18 @@ def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DET
         destination = institutions.get(destination_id or "")
         if destination and destination.get("country_code"):
             country_by_animal[animal_id] = destination["country_code"]
+        if destination:
+            names = sorted(destination.get("names", []), key=lambda name: (name.get("language") != "en", name.get("value", "")))
+            destination_name = names[0].get("value") if names else None
+            if destination_name:
+                key = (
+                    event_date.get("value") or event_date.get("end") or event_date.get("start") or "",
+                    destination_name,
+                )
+                dated_institution_by_animal[animal_id] = key
+
+    for animal_id, (_, name) in dated_institution_by_animal.items():
+        institution_label_by_animal[animal_id] = name
 
     chunks: list[dict[str, object]] = []
     compact_animals: list[dict[str, object]] = []
@@ -132,6 +185,8 @@ def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DET
             compact_animals.append({
                 "id": animal["id"],
                 "taxon": animal["taxon"],
+                "sex": animal.get("sex", "unknown"),
+                "status": animal.get("status", "unknown"),
                 "name": {
                     "canonical": name.get("canonical", animal["id"]),
                     **({"localized": name["localized"]} if name.get("localized") else {}),
@@ -141,6 +196,14 @@ def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DET
                 **({"population": animal["population"]} if animal.get("population") else {}),
                 "country_code": country_by_animal.get(animal["id"]),
                 "institution_names": sorted(institution_names_by_animal.get(animal["id"], set())),
+                "birth_date_label": next(iter(birth_labels_by_animal[animal["id"]])) if len(birth_labels_by_animal[animal["id"]]) == 1 else None,
+                "death_date_label": next(iter(death_labels_by_animal[animal["id"]])) if len(death_labels_by_animal[animal["id"]]) == 1 else None,
+                "institution_label": institution_label_by_animal.get(animal["id"]),
+                "photo_confirmed": animal["id"] in photo_preview_by_animal,
+                **({
+                    "photo_url": photo_preview_by_animal[animal["id"]]["direct_remote_url"],
+                    "photo_source_url": photo_preview_by_animal[animal["id"]]["source_page_url"],
+                } if animal["id"] in photo_preview_by_animal else {}),
                 "detail_chunk": chunk_name,
             })
 

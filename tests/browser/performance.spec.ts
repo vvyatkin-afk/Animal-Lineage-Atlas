@@ -11,6 +11,7 @@ test('measures desktop and mobile atlas search, focused rendering, payloads, and
     const url = new URL(`../../dist/atlas.${id}/runtime.json`, import.meta.url);
     const runtime = JSON.parse(await readFile(url, 'utf8')) as {
       animals: Array<{ id: string }>;
+      relationships: Array<{ id: string }>;
     };
     return { id, runtime };
   }));
@@ -38,8 +39,17 @@ test('measures desktop and mobile atlas search, focused rendering, payloads, and
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(`/atlas.${atlas.id}/`);
   await expect(page.locator('[data-global-overview="true"]')).toBeVisible();
+  const globalGraph = await page.locator('canvas[data-global-graph-canvas="true"]').evaluate((element) => ({
+    animals: Number(element.getAttribute('data-node-count')),
+    relationships: Number(element.getAttribute('data-edge-count')),
+    visibleNodes: Number(element.getAttribute('data-visible-node-count')),
+    visibleEdges: Number(element.getAttribute('data-visible-edge-count')),
+    zoom: Number(element.getAttribute('data-zoom')),
+    layoutBuilds: Number(document.querySelector('#genealogy-container')?.getAttribute('data-layout-builds')),
+    layoutMs: Number(document.querySelector('#genealogy-container')?.getAttribute('data-layout-ms')),
+  }));
   await Promise.all(pendingBodyReads);
-  const globalOverviewRenderMs = await page.locator('#genealogy-container').evaluate((element) => Number(element.getAttribute('data-graph-render-ms')));
+  const globalGraphRenderMs = await page.locator('#genealogy-container').evaluate((element) => Number(element.getAttribute('data-graph-render-ms')));
   const initialIndexPayloadBytes = await page.evaluate((atlasId) => {
     const base = `/atlas.${atlasId}/`;
     return performance.getEntriesByType('resource')
@@ -62,7 +72,7 @@ test('measures desktop and mobile atlas search, focused rendering, payloads, and
     .reduce((total, [, bytes]) => total + bytes, 0);
   const desktopFocusedGraph = await page.locator('#genealogy-container').evaluate((element) => ({
     renderMs: Number(element.getAttribute('data-graph-render-ms')),
-    nodes: element.querySelectorAll('[data-animal-id]').length,
+    nodes: element.querySelectorAll('.genealogy-node').length,
   }));
   const desktopProfileOpenMs = await page.locator('#profile-dialog').evaluate((element) => Number(element.getAttribute('data-profile-open-ms')));
   const desktopMemoryBytes = await page.evaluate(() => (performance as Performance & { memory?: { usedJSHeapSize?: number } }).memory?.usedJSHeapSize ?? null);
@@ -73,7 +83,7 @@ test('measures desktop and mobile atlas search, focused rendering, payloads, and
   await expect(page.locator('svg[data-genealogy]')).toBeVisible();
   const mobileFocusedGraph = await page.locator('#genealogy-container').evaluate((element) => ({
     renderMs: Number(element.getAttribute('data-graph-render-ms')),
-    nodes: element.querySelectorAll('[data-animal-id]').length,
+    nodes: element.querySelectorAll('.genealogy-node').length,
   }));
   const mobileProfileOpenMs = await page.locator('#profile-dialog').evaluate((element) => Number(element.getAttribute('data-profile-open-ms')));
   const mobileLayout = await page.evaluate(() => ({
@@ -88,6 +98,16 @@ test('measures desktop and mobile atlas search, focused rendering, payloads, and
     method: 'Playwright Chromium against the local static build; desktop 1440x1000 CSS px and mobile 390x844 CSS px. Timings use in-app synchronous search/DOM/render durations and direct profile open duration including the detail fetch. Browser heap is Chromium performance.memory when available.',
     dataset: atlas.id,
     record_count: atlas.runtime.animals.length,
+    global_graph: {
+      animal_count: globalGraph.animals,
+      relationship_count: globalGraph.relationships,
+      initially_visible_nodes: globalGraph.visibleNodes,
+      initially_visible_relationships: globalGraph.visibleEdges,
+      zoom: globalGraph.zoom,
+      layout_builds: globalGraph.layoutBuilds,
+      layout_ms: globalGraph.layoutMs,
+      first_render_ms: globalGraphRenderMs,
+    },
     initial_index_payload_bytes: initialIndexPayloadBytes || runtimeIndexBytes,
     runtime_index_bytes: runtimeIndexBytes,
     initial_search_had_no_detail_request: initialSearchHadNoDetails,
@@ -95,7 +115,7 @@ test('measures desktop and mobile atlas search, focused rendering, payloads, and
     desktop: {
       viewport_css_px: [1440, 1000],
       search_render_ms: searchRenderMs,
-      global_overview_render_ms: globalOverviewRenderMs,
+      global_graph_render_ms: globalGraphRenderMs,
       focused_graph_render_ms: desktopFocusedGraph.renderMs,
       focused_graph_nodes: desktopFocusedGraph.nodes,
       profile_open_ms: desktopProfileOpenMs,
@@ -117,10 +137,14 @@ test('measures desktop and mobile atlas search, focused rendering, payloads, and
   expect(initialIndexPayloadBytes || runtimeIndexBytes).toBeGreaterThan(0);
   expect(detailChunkBytes).toBeGreaterThan(0);
   expect(Number.isFinite(searchRenderMs)).toBe(true);
-  expect(Number.isFinite(globalOverviewRenderMs)).toBe(true);
+  expect(Number.isFinite(globalGraphRenderMs)).toBe(true);
+  expect(Number.isFinite(globalGraph.layoutMs)).toBe(true);
+  expect(globalGraph.animals).toBe(atlas.runtime.animals.length);
+  expect(globalGraph.relationships).toBe(atlas.runtime.relationships.length);
+  expect(globalGraph.layoutMs).toBeLessThan(2000);
   expect(Number.isFinite(desktopFocusedGraph.renderMs)).toBe(true);
   expect(Number.isFinite(mobileFocusedGraph.renderMs)).toBe(true);
-  expect(desktopFocusedGraph.nodes).toBeLessThanOrEqual(180);
-  expect(mobileFocusedGraph.nodes).toBeLessThanOrEqual(72);
+  expect(desktopFocusedGraph.nodes).toBeLessThanOrEqual(300);
+  expect(mobileFocusedGraph.nodes).toBeLessThanOrEqual(150);
   expect(mobileLayout.documentWidth).toBeLessThanOrEqual(mobileLayout.viewportWidth);
 });

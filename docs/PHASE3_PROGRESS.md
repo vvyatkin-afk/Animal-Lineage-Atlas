@@ -1,6 +1,6 @@
 # Phase 3 Progress — Rich Genealogy and Verified Data
 
-Last updated: 2026-10-20 08:15 UTC
+Last updated: 2026-10-20 09:09 UTC
 Owner: repository owner
 Working branch: `phase3/rich-trees-media-data-20261020`
 
@@ -53,11 +53,11 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 
 ## Prioritized Phase 3 backlog
 
-1. **Shared graph foundation:** add deterministic global generation alignment across disconnected components; show every canonical animal and every accepted relationship; keep biological/foster/adoptive/social and confidence distinctions; provide `All animals`, family/country grouping, and selected focus with configurable finite or all-known depth.
-2. **Scalable view and interaction:** canvas/SVG hybrid with compact distant-zoom rendering, visible-node detail, viewport culling/spatial hit testing, touch and keyboard controls, stable positions, and no full layout recomputation for pan/zoom. Preserve selection/deep link/history and restore the tree view after opening profiles.
-3. **Regression coverage:** deterministic fixtures with shared ancestors, multiple partners, dense branches, disconnected lineages, multiple countries, and all relation types; verify exact canonical edge-ID mapping and edge counts. Add global, focus, search, grouping, direct-profile, pan/zoom and state-restore browser cases at 1440×900 and 390×844.
-4. **Data/source pass:** preserve all Phase 2 data. Recheck legitimate public access and reusable official source material for polar bears and both hippo taxa; add only individually attributable records/relations with confidence and source check dates. Keep the Dryad wild population separate and unimported while the file URL returns 403.
-5. **Performance, review, and release:** benchmark 1,554 red pandas and the largest component on this 4 GB host; run the full suite serially in browser; build/no-photo scan; review the branch and CI; create PR; merge only after green checks; then atomically deploy the four authorized Atlas paths, smoke test them and legacy `/red-panda/`, and record rollback evidence.
+1. **Shared graph foundation — verified locally.** Deterministic global generation alignment, exact edge IDs, family/country grouping, relation and confidence styling, and finite/all-depth focus use the shared genealogy engine.
+2. **Scalable view and interaction — verified locally.** Canvas rendering uses spatial culling and hit testing; high-detail cards are capped and lazy; pan/zoom preserves layout; profile cards open exact URLs in a new tab. Sex, life-status, photo, country, species, and population facets narrow the global graph without changing canonical records.
+3. **Regression coverage — verified locally.** 53 Node tests pass, including shared ancestors, multi-generation partner branches across countries, disconnected lineages, exact Futa family connectivity, full 1,554 / 2,394 graph counts, and lazy detail/media behavior. The serial browser run passes 14/14 at desktop/mobile.
+4. **Data/source pass — additions and review complete for this pass.** Polar bears grew to 72 animals / 63 relationships and hippos to 96 / 86 (64 common, 32 pygmy). Red pandas remain 1,554 / 2,394; candidate additions were withheld where identity could not be resolved. Dryad remains unimported because the published file endpoint returned 403.
+5. **Performance, review, and release — locally verified; review/release pending.** The full-graph benchmark report is recorded. Branch push, CI, independent PR review, merge, atomic deployment, production browser checks, and rollback evidence remain outstanding.
 
 ## Measurable acceptance criteria
 
@@ -76,19 +76,27 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 - No photo bytes are copied, cached, proxied, or added to the repository. Existing media permissions and link-only fallbacks remain authoritative.
 - No production changes until the feature branch is tested and release checks are green. Legacy `/red-panda/`, Nginx configuration, and unrelated projects are outside scope.
 
-## Current status and next action
+## Current status
 
-Audit and baseline verification are complete. Initial implementation work is next: global generation layout and a virtualized canvas renderer, followed by deterministic layout and browser regressions. Dataset research follows the shared engine milestone.
+### Verified Phase 3 milestone — 2026-10-20 09:09 UTC
+
+- Shared global and focused graph implementation is in place across all three canonical species indexes. The all-animal graph includes all canonical nodes and edges; disconnected family components start at generation 0, and family/country grouping does not change generation assignments or relationships.
+- The initial view fits the largest component for readable detail; `Fit all` exposes every disconnected component across the generation rows. Layout is not rebuilt during ordinary pan or zoom. Graph filters change only the displayed node/edge set.
+- The final serial Playwright run passed 14/14 at desktop 1440×900 and mobile 390×844, including the full red-panda graph, all three species, sex/life-status/photo filters, exact profile tabs, focus depth, and touch pan/zoom. The Futa mobile view shows readable multi-generation cards; global-detail and focused-mobile screenshots are under `/tmp/animal-lineage-atlas-qa/`.
+- The complete Node suite passed 53 tests and the Python suite passed 82 tests. Lint, typecheck, all three data/schema validations, build of all four paths, and no-photo scans on source and `dist/` passed. The performance report will be regenerated against the committed source revision before review.
+- The 1,554-animal global layout measured median 78.7 ms / p95 123.8 ms across 10 samples; the 823-animal largest component measured median 38.4 ms / p95 72.4 ms. Browser first global render was 152 ms; search render 8.5 ms; runtime index 1.55 MB; measured Chromium heap 17.1 MB. Full details are in [the Phase 3 performance report](PERFORMANCE_REPORT_PHASE3.json).
+- Canonical Phase 2 identities and red-panda counts remain. Source-backed additions are recorded in the polar-bear and hippo source docs; the [red-panda source review](RED_PANDA_PHASE3_SOURCE_REVIEW.md) records current candidates and why unresolved namesakes were not merged.
+- No production files, symlinks, Nginx configuration, parent-checkout untracked files, or research-worktree files were changed.
 
 ## NEXT_ACTIONS
 
-1. Implement and test shared all-animal generation layout for disconnected components and configurable focus depth.
-2. Replace the component-dot overview with a navigable generation graph using viewport culling and stable node geometry.
-3. Add deterministic graph fixtures and serial desktop/mobile browser regressions before starting source-backed dataset additions.
+1. Inspect the complete diff, commit and push the implementation/data/docs, then rerun the release benchmark and pin it to the committed source revision.
+2. Inspect the complete diff, commit and push the implementation/data/docs, create the PR, and obtain independent review and green CI before merge.
+3. After approved merge and green CI, deploy only `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/`; verify all four plus legacy `/red-panda/`, capture screenshots and manifest, and record rollback evidence.
 
 Continuation command:
 
 ```sh
 cd /home/codex/projects/Animal-Lineage-Atlas/.worktrees/phase3-rich-genealogy
-git status --short --branch
+npm run lint && npm run typecheck && npm test && npm run test:python && npm run validate:data && npm run validate:schema && npm run build && npm run check:no-photos && npm run test:browser -- --workers=1
 ```

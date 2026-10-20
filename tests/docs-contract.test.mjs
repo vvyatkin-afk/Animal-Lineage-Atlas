@@ -15,6 +15,7 @@ const requiredFiles = [
   'docs/RED_PANDA_UPSTREAM_SYNC.md',
   'docs/POLAR_BEAR_SOURCES.md',
   'docs/POLAR_BEAR_WESTERN_HUDSON_BAY.md',
+  'docs/RED_PANDA_PHASE3_SOURCE_REVIEW.md',
   'docs/HIPPOPOTAMUS_SOURCES.md',
   'docs/DATA_PROVENANCE_TIERS.md',
   'docs/DEPLOYMENT_AND_ROLLBACK.md',
@@ -41,7 +42,7 @@ test('README and release notes list the four exact production paths', async () =
 });
 
 test('release record and relationship counts match canonical datasets', async () => {
-  const release = await readFile(new URL('docs/RELEASE_V2_EXPANDED_DATASETS.md', root), 'utf8');
+  const release = await readFile(new URL('docs/PHASE3_RELEASE.md', root), 'utf8');
   for (const species of ['red-panda', 'polar-bear', 'hippopotamus']) {
     const atlas = JSON.parse(await readFile(new URL(`atlases/${species}/atlas.json`, root), 'utf8'));
     assert.match(release, new RegExp(`${atlas.animals.length}\\s+animals`, 'i'), `${species} animal count`);

@@ -77,6 +77,21 @@ test('applies country and taxon facets without changing stored values', async ()
   assert.equal(animals[0].name.canonical, '風太');
 });
 
+test('filters sex, life status, and photo confirmation without rewriting records', async () => {
+  const search = await loadSearch();
+  assert.ok(search, 'search package should load');
+  const records = [
+    { ...animals[0], sex: 'female', status: 'living', photo_confirmed: true },
+    { ...animals[1], sex: 'male', status: 'deceased', photo_confirmed: false },
+    { ...animals[0], id: 'red-panda:unknown', sex: 'unknown', status: 'unknown' },
+  ];
+  assert.deepEqual(search.searchAnimals(records, '', { sex: 'female', status: 'living' }).map((animal) => animal.id), ['red-panda:futa']);
+  assert.deepEqual(search.searchAnimals(records, '', { sex: 'unknown', status: 'unknown' }).map((animal) => animal.id), ['red-panda:unknown']);
+  assert.deepEqual(search.searchAnimals(records, '', { photo: 'confirmed' }).map((animal) => animal.id), ['red-panda:futa']);
+  assert.deepEqual(search.searchAnimals(records, '', { photo: 'unconfirmed' }).map((animal) => animal.id), ['polar-bear:nora', 'red-panda:unknown']);
+  assert.equal(records[0].sex, 'female');
+});
+
 test('indexes population and normalized search text once for fast focused queries', async () => {
   const indexModule = await import('../packages/search/atlas-index.ts');
   const search = await loadSearch();

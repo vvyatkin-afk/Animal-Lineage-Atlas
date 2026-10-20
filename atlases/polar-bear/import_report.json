@@ -541,5 +541,23 @@
     ],
     "reported_animal_span": null,
     "span_limitation": "The landing-page metadata reviewed did not establish a row-level sampling or birth span; the inaccessible files could not be inspected."
+  },
+  "current_canonical_counts": {
+    "animals": 72,
+    "claims": 7,
+    "relationships": 63,
+    "events": 97,
+    "institutions": 39,
+    "media": 5,
+    "sources": 33
+  },
+  "phase3_official_zoo_additions": {
+    "animals": 8,
+    "relationships": 5,
+    "events": 13,
+    "institutions": 8,
+    "sources": 5,
+    "media": 0,
+    "note": "Phase 2 import_report counts and the Dryad access audit above remain a historical snapshot; Phase 3 adds individually sourced public zoo records only."
   }
 }

@@ -1,14 +1,14 @@
 {
   "release": {
     "schema_version": "1.0.0",
-    "data_version": "2026.10.08",
+    "data_version": "2026.10.20",
     "engine_version": "1.0.0",
-    "build_date": "2026-10-08",
-    "provenance": "Compiled from directly cited public zoo records and histories. Counts are computed from this canonical file; Dryad Western Hudson Bay metadata is documented but its row file was not accessible through the published download route, so no wild research animals or edges are imported."
+    "build_date": "2026-10-20",
+    "provenance": "Compiled from directly cited public zoo records and histories. Counts are computed from this canonical file; Dryad Western Hudson Bay metadata is documented but its row file was not accessible through the published download route, so no wild research animals or edges are imported. Phase 3 adds public Toledo, Oregon, Eindhoven and Louisville Zoo records; uncertain parentage and unanchored relative dates remain absent or explicitly unknown."
   },
   "coverage": {
     "taxon": "Ursus maritimus",
-    "scope": "A source-bounded zoo/captive-history corpus: the existing Tallinn, Tierpark Berlin, and Prague records, expanded with officially documented Rostock, Toronto, Columbus, Nuremberg, and Prague Zoo histories. The separate wild Western Hudson Bay Dryad pedigree is reusable under Dryad’s stated CC0 terms, but was not imported because its public file endpoints denied access. A second, broader Hudson Bay-region Dryad dataset reports 414 research individuals and CC0 terms, but its published files also returned HTTP 403 and were not imported; it is not a Western Hudson Bay-only source.",
+    "scope": "A source-bounded zoo/captive-history corpus: the existing Tallinn, Tierpark Berlin, and Prague records, expanded with officially documented Rostock, Toronto, Columbus, Nuremberg, and Prague Zoo histories. The separate wild Western Hudson Bay Dryad pedigree is reusable under Dryad’s stated CC0 terms, but was not imported because its public file endpoints denied access. A second, broader Hudson Bay-region Dryad dataset reports 414 research individuals and CC0 terms, but its published files also returned HTTP 403 and were not imported; it is not a Western Hudson Bay-only source. Phase 3 adds named Toledo/Oregon, Eindhoven and Louisville polar bears, with parent links only where official zoo sources directly identify them.",
     "limitations": [
       "This is not a complete European or international polar-bear studbook.",
       "Tallinn Zoo gives only years for several births and deaths, and does not report dates for some transfers; those dates remain approximate or unknown.",
@@ -20,7 +20,7 @@
       "The official public pages consulted are individual histories, announcements, profiles, or zoo magazines. Restricted studbook tables were not scraped or imported. The corpus remains incomplete and source-bounded.",
       "Dryad’s 2017 Hudson Bay-region dataset reports 414 research individuals and sire/dam columns, but its public file links returned HTTP 403. It spans several regional clusters rather than Western Hudson Bay alone; no research IDs or parent links from it are in this atlas."
     ],
-    "last_reviewed": "2026-10-08",
+    "last_reviewed": "2026-10-20",
     "source_categories": [
       "official zoo announcements",
       "official zoo genetic announcement",
@@ -35,7 +35,7 @@
     "accent": "#315e50",
     "translations": {
       "ja": {
-        "scope": "出典で確認できる動物園飼育史のコーパス：Tallinn Zoo、Tierpark Berlin、Prague Zooの既存記録に、Zoo Rostock、Toronto Zoo、Columbus Zoo、Tiergarten Nürnbergの公式公開記録を追加しました。野生のWestern Hudson Bay集団は別の対象です。Dryadの再利用条件はCC0ですが、公開ダウンロードが拒否されたため、その個体データは未収録です。 別のより広いHudson Bay地域のDryadデータセットは414個体とCC0条件を示していますが、公開ファイルはHTTP 403となり未収録です。Western Hudson Bayだけの資料ではありません。",
+        "scope": "出典で確認できる動物園飼育史のコーパス：Tallinn Zoo、Tierpark Berlin、Prague Zooの既存記録に、Zoo Rostock、Toronto Zoo、Columbus Zoo、Tiergarten Nürnbergの公式公開記録を追加しました。野生のWestern Hudson Bay集団は別の対象です。Dryadの再利用条件はCC0ですが、公開ダウンロードが拒否されたため、その個体データは未収録です。 別のより広いHudson Bay地域のDryadデータセットは414個体とCC0条件を示していますが、公開ファイルはHTTP 403となり未収録です。Western Hudson Bayだけの資料ではありません。 Phase 3ではToledo、Oregon、Eindhoven、Louisvilleの個体を追加し、公式園の出典が明示する親子関係のみを記録しています。",
         "limitations": [
           "これはヨーロッパまたは国際的なホッキョクグマの完全な血統台帳ではありません。",
           "Tallinn Zooは複数の出生と死亡について年のみを示し、一部の移送については日付を公表していません。そのため、該当する日付は概算または不明のままです。",
@@ -49,7 +49,7 @@
         ]
       },
       "ru": {
-        "scope": "Корпус истории содержания в зоопарках, ограниченный открытыми источниками: прежние сведения Tallinn Zoo, Tierpark Berlin и Prague Zoo дополнены официальными материалами Zoo Rostock, Toronto Zoo, Columbus Zoo и Tiergarten Nürnberg. Дикая популяция Western Hudson Bay является отдельной областью данных; заявленные Dryad условия CC0 допускают повторное использование, но публичная загрузка была отклонена, поэтому записи этой популяции не включены. Другой, более широкий набор Dryad по региону Hudson Bay указывает 414 исследовательских особей и условия CC0, но опубликованные файлы отвечают HTTP 403 и не включены; источник не ограничен Western Hudson Bay.",
+        "scope": "Корпус истории содержания в зоопарках, ограниченный открытыми источниками: прежние сведения Tallinn Zoo, Tierpark Berlin и Prague Zoo дополнены официальными материалами Zoo Rostock, Toronto Zoo, Columbus Zoo и Tiergarten Nürnberg. Дикая популяция Western Hudson Bay является отдельной областью данных; заявленные Dryad условия CC0 допускают повторное использование, но публичная загрузка была отклонена, поэтому записи этой популяции не включены. Другой, более широкий набор Dryad по региону Hudson Bay указывает 414 исследовательских особей и условия CC0, но опубликованные файлы отвечают HTTP 403 и не включены; источник не ограничен Western Hudson Bay. Фаза 3 добавляет именованных медведей из зоопарков Толидо, Орегона, Эйндховена и Луисвилла; родство указано только там, где оно прямо подтверждено официальным зоопарком.",
         "limitations": [
           "Это не полный европейский или международный племенной реестр белых медведей.",
           "Tallinn Zoo указывает только годы рождения и смерти нескольких медведей и не сообщает даты некоторых перемещений; такие даты остаются приблизительными или неизвестными.",
@@ -1538,6 +1538,193 @@
         "notes": "Name and cited facts reviewed; unreported parents, dates, and present status remain unknown."
       },
       "population": "zoo_captive"
+    },
+    {
+      "id": "polar-bear:nuka-toledo",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "living",
+      "name": {
+        "canonical": "Nuka",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:toledo-nuka-family-2026"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Toledo Zoo reports Nuka as male and living at Toledo in 2026. No birth date is reported."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "polar-bear:crystal-toledo",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "living",
+      "name": {
+        "canonical": "Crystal",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:toledo-nuka-family-2026"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Toledo Zoo identifies Crystal as the female parent of twins Kallik and Kallu and reports her at Toledo in 2026."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "polar-bear:kallik-toledo",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "living",
+      "name": {
+        "canonical": "Kallik",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:toledo-nuka-family-2026",
+          "source:polar-bear:oregon-kallik-2026"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Toledo Zoo identifies Kallik’s parents; Oregon Zoo reports his sex, exact birth date, twin and transfers."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "polar-bear:kallu-toledo",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "living",
+      "name": {
+        "canonical": "Kallu",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:toledo-nuka-family-2026",
+          "source:polar-bear:oregon-kallik-2026"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Toledo Zoo identifies Kallu’s parents; Oregon Zoo describes him as Kallik’s twin brother and reports his 2025 move to Saint Louis."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "polar-bear:frimas-eindhoven",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Frimas",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:eindhoven-otis-2026"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Eindhoven Zoo identifies Frimas as the mother of male cub Otis; no birth date is reported."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "polar-bear:otis-eindhoven",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Otis",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:eindhoven-otis-2026"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Eindhoven Zoo names Otis as male and identifies his mother Frimas. The relative birth year cannot be anchored."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "polar-bear:qannik-louisville",
+      "taxon": "Ursus maritimus",
+      "sex": "female",
+      "status": "living",
+      "name": {
+        "canonical": "Qannik",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:louisville-polar-bears-2024"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Louisville Zoo reports Qannik’s sex, January 2011 birth, rescue history and managed-care status. Parent identities remain unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "polar-bear:borealis-louisville",
+      "taxon": "Ursus maritimus",
+      "sex": "male",
+      "status": "living",
+      "name": {
+        "canonical": "Borealis",
+        "language": "en",
+        "source_ids": [
+          "source:polar-bear:louisville-polar-bears-2024",
+          "source:polar-bear:louisville-our-polar-bears"
+        ],
+        "localized": []
+      },
+      "aliases": [
+        {
+          "value": "Bo",
+          "language": "en",
+          "source_ids": [
+            "source:polar-bear:louisville-polar-bears-2024"
+          ]
+        }
+      ],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Louisville Zoo reports Borealis (Bo) as male, born at Toledo Zoo on 2018-12-09 and living at Louisville. No parents are stated in the cited sources."
+      },
+      "population": "zoo_captive"
     }
   ],
   "claims": [
@@ -2544,6 +2731,82 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-08",
         "notes": "Prague Zoo identifies Ilun as the younger of Nora’s two female cubs; the older cub remained unnamed and died after four days."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:nuka-kallik",
+      "subject": "polar-bear:nuka-toledo",
+      "object": "polar-bear:kallik-toledo",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:toledo-nuka-family-2026",
+        "source:polar-bear:oregon-kallik-2026"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:crystal-kallik",
+      "subject": "polar-bear:crystal-toledo",
+      "object": "polar-bear:kallik-toledo",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:toledo-nuka-family-2026"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:nuka-kallu",
+      "subject": "polar-bear:nuka-toledo",
+      "object": "polar-bear:kallu-toledo",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:toledo-nuka-family-2026"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:crystal-kallu",
+      "subject": "polar-bear:crystal-toledo",
+      "object": "polar-bear:kallu-toledo",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:toledo-nuka-family-2026"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "relationship:polar-bear:frimas-otis-eindhoven",
+      "subject": "polar-bear:frimas-eindhoven",
+      "object": "polar-bear:otis-eindhoven",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "source:polar-bear:eindhoven-otis-2026"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
       }
     }
   ],
@@ -3840,6 +4103,218 @@
         "source:polar-bear:prague-1942"
       ],
       "notes": "Prague Zoo identifies female Severka with the 1960 first natural polar-bear breeding in Czechoslovakia; the source gives year only."
+    },
+    {
+      "id": "event:polar-bear:kallik-birth",
+      "animal_id": "polar-bear:kallik-toledo",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2022-11-11"
+      },
+      "institution_id": "institution:polar-bear:toledo-zoo",
+      "source_ids": [
+        "source:polar-bear:oregon-kallik-2026",
+        "source:polar-bear:toledo-nuka-family-2026"
+      ],
+      "notes": "Oregon Zoo gives the exact date and Toledo Zoo confirms the parent pair.",
+      "related_animal_ids": [
+        "polar-bear:crystal-toledo",
+        "polar-bear:nuka-toledo"
+      ]
+    },
+    {
+      "id": "event:polar-bear:kallu-birth",
+      "animal_id": "polar-bear:kallu-toledo",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2022-11-11"
+      },
+      "institution_id": "institution:polar-bear:toledo-zoo",
+      "source_ids": [
+        "source:polar-bear:toledo-nuka-family-2026",
+        "source:polar-bear:oregon-kallik-2026"
+      ],
+      "notes": "Twin birth reported by Toledo Zoo; Oregon Zoo gives the exact date for the pair.",
+      "related_animal_ids": [
+        "polar-bear:crystal-toledo",
+        "polar-bear:nuka-toledo"
+      ]
+    },
+    {
+      "id": "event:polar-bear:kallik-to-stl",
+      "animal_id": "polar-bear:kallik-toledo",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2025"
+      },
+      "institution_id": "institution:polar-bear:saint-louis-zoo",
+      "source_ids": [
+        "source:polar-bear:oregon-kallik-2026",
+        "source:polar-bear:toledo-nuka-family-2026"
+      ],
+      "notes": "Moved from Toledo to Saint Louis with twin Kallu in 2025; exact day is not reported.",
+      "from_institution_id": "institution:polar-bear:toledo-zoo",
+      "to_institution_id": "institution:polar-bear:saint-louis-zoo"
+    },
+    {
+      "id": "event:polar-bear:kallu-to-stl",
+      "animal_id": "polar-bear:kallu-toledo",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2025"
+      },
+      "institution_id": "institution:polar-bear:saint-louis-zoo",
+      "source_ids": [
+        "source:polar-bear:oregon-kallik-2026",
+        "source:polar-bear:toledo-nuka-family-2026"
+      ],
+      "notes": "Moved from Toledo to Saint Louis with twin Kallik in 2025; exact day is not reported.",
+      "from_institution_id": "institution:polar-bear:toledo-zoo",
+      "to_institution_id": "institution:polar-bear:saint-louis-zoo"
+    },
+    {
+      "id": "event:polar-bear:kallik-to-oregon",
+      "animal_id": "polar-bear:kallik-toledo",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2026-01"
+      },
+      "institution_id": "institution:polar-bear:oregon-zoo",
+      "source_ids": [
+        "source:polar-bear:oregon-kallik-2026"
+      ],
+      "notes": "Oregon Zoo announced arrival in January 2026; exact transfer day is not stated.",
+      "from_institution_id": "institution:polar-bear:saint-louis-zoo",
+      "to_institution_id": "institution:polar-bear:oregon-zoo"
+    },
+    {
+      "id": "event:polar-bear:nuka-to-detroit",
+      "animal_id": "polar-bear:nuka-toledo",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2011"
+      },
+      "institution_id": "institution:polar-bear:detroit-zoo",
+      "source_ids": [
+        "source:polar-bear:toledo-nuka-family-2026"
+      ],
+      "notes": "Nuka lived at Detroit Zoo beginning in 2011; exact departure date is not reported.",
+      "from_institution_id": "institution:polar-bear:toledo-zoo",
+      "to_institution_id": "institution:polar-bear:detroit-zoo"
+    },
+    {
+      "id": "event:polar-bear:nuka-to-toledo",
+      "animal_id": "polar-bear:nuka-toledo",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2022"
+      },
+      "institution_id": "institution:polar-bear:toledo-zoo",
+      "source_ids": [
+        "source:polar-bear:toledo-nuka-family-2026"
+      ],
+      "notes": "Nuka returned to Toledo in 2022; exact date is not reported.",
+      "from_institution_id": "institution:polar-bear:detroit-zoo",
+      "to_institution_id": "institution:polar-bear:toledo-zoo"
+    },
+    {
+      "id": "event:polar-bear:frimas-otis-birth",
+      "animal_id": "polar-bear:otis-eindhoven",
+      "type": "birth",
+      "date": {
+        "precision": "unknown",
+        "notes": "The source date is not reported."
+      },
+      "institution_id": "institution:polar-bear:eindhoven-zoo",
+      "source_ids": [
+        "source:polar-bear:eindhoven-otis-2026"
+      ],
+      "notes": "The source says late November and “last year” but has no publication date to anchor the relative year; no date is asserted.",
+      "related_animal_ids": [
+        "polar-bear:frimas-eindhoven"
+      ]
+    },
+    {
+      "id": "event:polar-bear:otis-eindhoven-observation",
+      "animal_id": "polar-bear:otis-eindhoven",
+      "type": "observation",
+      "date": {
+        "precision": "unknown",
+        "notes": "The source date is not reported."
+      },
+      "institution_id": "institution:polar-bear:eindhoven-zoo",
+      "source_ids": [
+        "source:polar-bear:eindhoven-otis-2026"
+      ],
+      "notes": "Eindhoven Zoo reports Otis living there with Frimas; no dated observation is provided."
+    },
+    {
+      "id": "event:polar-bear:qannik-birth",
+      "animal_id": "polar-bear:qannik-louisville",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "2011-01"
+      },
+      "institution_id": "institution:polar-bear:alaska-north-slope",
+      "source_ids": [
+        "source:polar-bear:louisville-polar-bears-2024"
+      ],
+      "notes": "Louisville Zoo reports Qannik was born in January 2011; exact day is not given."
+    },
+    {
+      "id": "event:polar-bear:qannik-rescue-arrival",
+      "animal_id": "polar-bear:qannik-louisville",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2011-06-28"
+      },
+      "institution_id": "institution:polar-bear:louisville-zoo",
+      "source_ids": [
+        "source:polar-bear:louisville-polar-bears-2024"
+      ],
+      "notes": "Louisville Zoo reports permanent arrival on June 28, 2011 after temporary care at Alaska Zoo.",
+      "from_institution_id": "institution:polar-bear:alaska-zoo",
+      "to_institution_id": "institution:polar-bear:louisville-zoo"
+    },
+    {
+      "id": "event:polar-bear:borealis-birth",
+      "animal_id": "polar-bear:borealis-louisville",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2018-12-09"
+      },
+      "institution_id": "institution:polar-bear:toledo-zoo",
+      "source_ids": [
+        "source:polar-bear:louisville-polar-bears-2024",
+        "source:polar-bear:louisville-our-polar-bears"
+      ],
+      "notes": "Louisville Zoo gives Borealis’s exact birth date and birthplace."
+    },
+    {
+      "id": "event:polar-bear:borealis-to-louisville",
+      "animal_id": "polar-bear:borealis-louisville",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2024-02"
+      },
+      "institution_id": "institution:polar-bear:louisville-zoo",
+      "source_ids": [
+        "source:polar-bear:louisville-polar-bears-2024"
+      ],
+      "notes": "Louisville Zoo reports a February 2024 arrival from Henry Vilas Zoo.",
+      "from_institution_id": "institution:polar-bear:henry-vilas-zoo",
+      "to_institution_id": "institution:polar-bear:louisville-zoo"
     }
   ],
   "institutions": [
@@ -4183,6 +4658,94 @@
       ],
       "country_code": "PL",
       "location": "Warsaw"
+    },
+    {
+      "id": "institution:polar-bear:toledo-zoo",
+      "names": [
+        {
+          "value": "Toledo Zoo & Aquarium",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Toledo, Ohio"
+    },
+    {
+      "id": "institution:polar-bear:saint-louis-zoo",
+      "names": [
+        {
+          "value": "Saint Louis Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "St. Louis, Missouri"
+    },
+    {
+      "id": "institution:polar-bear:oregon-zoo",
+      "names": [
+        {
+          "value": "Oregon Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Portland, Oregon"
+    },
+    {
+      "id": "institution:polar-bear:detroit-zoo",
+      "names": [
+        {
+          "value": "Detroit Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Royal Oak, Michigan"
+    },
+    {
+      "id": "institution:polar-bear:eindhoven-zoo",
+      "names": [
+        {
+          "value": "Eindhoven Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "NL",
+      "location": "Mierlo"
+    },
+    {
+      "id": "institution:polar-bear:henry-vilas-zoo",
+      "names": [
+        {
+          "value": "Henry Vilas Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Madison, Wisconsin"
+    },
+    {
+      "id": "institution:polar-bear:alaska-zoo",
+      "names": [
+        {
+          "value": "Alaska Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Anchorage, Alaska"
+    },
+    {
+      "id": "institution:polar-bear:alaska-north-slope",
+      "names": [
+        {
+          "value": "Alaska North Slope",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Alaska"
     }
   ],
   "media": [
@@ -4597,6 +5160,66 @@
       "source_type": "official_zoo_announcement",
       "notes": "Reports Gregor and Aleut arrived from Warsaw in May 2024, and confirms they were born in Nuremberg on 2010-12-02. Its caption names Felix and Vera as parents; the source-linked Nuremberg report is used for parent edges.",
       "data_use": "Use factual metadata and attribution only. Do not republish page text or copy its images; link to the original page.",
+      "tier": "B"
+    },
+    {
+      "id": "source:polar-bear:toledo-nuka-family-2026",
+      "title": "Toledo Zoo Welcomes Back Polar Bear Nuka",
+      "publisher": "Toledo Zoo & Aquarium",
+      "url": "https://www.toledozoo.org/press-releases/toledo-zoo-welcomes-back-polar-bear-nuka",
+      "publication_date": "2026-01-30",
+      "accessed_date": "2026-10-20",
+      "source_type": "official_zoo_announcement",
+      "notes": "Identifies Nuka and Crystal as parents of twins Kallik and Kallu, gives transfers, and reports their current zoo locations.",
+      "data_use": "Use factual identification, dates and relationships with attribution only. Do not republish source prose or copy images; link to the original page.",
+      "tier": "B"
+    },
+    {
+      "id": "source:polar-bear:oregon-kallik-2026",
+      "title": "He's beary welcome: Polar bear Kallik arrives at zoo",
+      "publisher": "Oregon Zoo",
+      "url": "https://www.oregonzoo.org/index.php/news/hes-beary-welcome-polar-bear-kallik-arrives-zoo",
+      "publication_date": "2026-01-20",
+      "accessed_date": "2026-10-20",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports Kallik born 2022-11-11 at Toledo, his twin Kallu, and Kallik’s arrival from Saint Louis Zoo.",
+      "data_use": "Use factual identification, dates and relationships with attribution only. Do not republish source prose or copy images; link to the original page.",
+      "tier": "B"
+    },
+    {
+      "id": "source:polar-bear:eindhoven-otis-2026",
+      "title": "Unique moment: polar bear cub Otis explores outdoor enclosure at Eindhoven Zoo",
+      "publisher": "Eindhoven Zoo",
+      "url": "https://www.eindhovenzoo.nl/en/news/polar-bear-cub-otis-explores-exteriors",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "official_zoo_announcement",
+      "notes": "Names male cub Otis and identifies mother Frimas. The page says late November and “last year”, but gives no publication date to anchor the relative year; no birth date is asserted.",
+      "data_use": "Use factual identification, dates and relationships with attribution only. Do not republish source prose or copy images; link to the original page.",
+      "tier": "B"
+    },
+    {
+      "id": "source:polar-bear:louisville-polar-bears-2024",
+      "title": "Star Polar Bear Qannik Finally Gets Her “Bo!”",
+      "publisher": "Louisville Zoo",
+      "url": "https://louisvillezoo.org/star-polar-bear-qannik-finally-gets-her-bo/",
+      "publication_date": "2024-02-16",
+      "accessed_date": "2026-10-20",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports Qannik’s January 2011 birth and rescue, Borealis (“Bo”) born at Toledo Zoo, their sexes and Louisville breeding-program history. It says Qannik has no relation to other managed bears; no parentage is inferred.",
+      "data_use": "Use factual identification, dates and relationships with attribution only. Do not republish source prose or copy images; link to the original page.",
+      "tier": "B"
+    },
+    {
+      "id": "source:polar-bear:louisville-our-polar-bears",
+      "title": "Our Polar Bears",
+      "publisher": "Louisville Zoo",
+      "url": "https://louisvillezoo.org/glacier-run/our-polar-bears/",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "official_zoo_profile",
+      "notes": "Louisville Zoo reports Borealis (“Bo”) was born at Toledo Zoo on 2018-12-09 and arrived from Henry Vilas Zoo in February 2024. The page identifies Qannik as a current resident but gives no parentage.",
+      "data_use": "Use factual identification, dates and relationships with attribution only. Do not republish source prose or copy images; link to the original page.",
       "tier": "B"
     }
   ]

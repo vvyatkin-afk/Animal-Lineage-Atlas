@@ -23,6 +23,13 @@ export interface GlobalOverviewMessages {
   familyAnimalsLabel: string;
 }
 
+export interface GenealogyViewController {
+  setView(patch: Partial<AtlasViewState>): void;
+  setVisibleAnimalIds?(animalIds: Set<string> | null): void;
+  fitAll?(): void;
+  zoomBy?(difference: number): void;
+}
+
 function svgElement<K extends keyof SVGElementTagNameMap>(name: K, attrs: Record<string, string> = {}) {
   const element = document.createElementNS(SVG_NS, name);
   for (const [key, value] of Object.entries(attrs)) element.setAttribute(key, value);
@@ -90,7 +97,7 @@ export function renderGenealogy(
   messages: GenealogyMessages,
   onSelect: (id: string) => void,
   onViewChange: (patch: Partial<AtlasViewState>) => void,
-) {
+): GenealogyViewController | null {
   container.replaceChildren();
   const wrapper = document.createElement('div');
   wrapper.className = 'genealogy-surface';
@@ -108,11 +115,18 @@ export function renderGenealogy(
     container.append(empty);
     return null;
   }
-  const minX = Math.min(...graph.nodes.map((node) => node.x)) - 150;
-  const maxX = Math.max(...graph.nodes.map((node) => node.x)) + 150;
-  const minY = Math.min(...graph.nodes.map((node) => node.y)) - 130;
-  const maxY = Math.max(...graph.nodes.map((node) => node.y)) + 140;
-  svg.setAttribute('viewBox', `${minX} ${minY} ${Math.max(480, maxX - minX)} ${Math.max(300, maxY - minY)}`);
+  const focusNode = graph.nodes.find((node) => node.id === view.focusId);
+  if (focusNode && window.matchMedia('(max-width: 560px)').matches) {
+    const viewWidth = Math.max(320, container.clientWidth || window.innerWidth - 32);
+    const viewHeight = Math.max(330, Math.round(window.innerHeight * 0.52));
+    svg.setAttribute('viewBox', `${focusNode.x - viewWidth / 2} ${focusNode.y - viewHeight / 2} ${viewWidth} ${viewHeight}`);
+  } else {
+    const minX = Math.min(...graph.nodes.map((node) => node.x)) - 150;
+    const maxX = Math.max(...graph.nodes.map((node) => node.x)) + 150;
+    const minY = Math.min(...graph.nodes.map((node) => node.y)) - 130;
+    const maxY = Math.max(...graph.nodes.map((node) => node.y)) + 140;
+    svg.setAttribute('viewBox', `${minX} ${minY} ${Math.max(480, maxX - minX)} ${Math.max(300, maxY - minY)}`);
+  }
   const viewport = svgElement('g', { class: 'genealogy-viewport', transform: `translate(${view.pan.x} ${view.pan.y}) scale(${view.zoom})` });
   const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
   const edges = svgElement('g', { class: 'genealogy-edges', 'aria-hidden': 'true' });
@@ -193,7 +207,7 @@ export function renderGenealogy(
   }
   wrapper.append(svg);
   container.append(wrapper);
-  return svg;
+  return { setView: applyViewChange };
 }
 
 /** Render a lightweight map of every connected family component before a focus is selected. */

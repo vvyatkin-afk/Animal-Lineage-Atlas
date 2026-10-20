@@ -1,11 +1,12 @@
-import { buildFocusedGenealogy, createGenealogyIndex, type GraphAnimal, type GraphRelationship } from '../../packages/genealogy/layout.ts';
+import { buildFocusedGenealogy, buildGlobalGenealogy, createGenealogyIndex, type GraphAnimal, type GraphGrouping, type GraphRelationship } from '../../packages/genealogy/layout.ts';
 import { createViewState } from '../../packages/genealogy/state.ts';
 import { getLocalizedCoverage, getUiMessages, type UiMessages } from '../../packages/i18n/index.ts';
 import { createLocalResolver, resolvePublicMedia, type LocalMediaManifest, type MediaReference, type MediaResult } from '../../packages/media/resolver.ts';
 import { buildAtlasSearchIndex } from '../../packages/search/atlas-index.ts';
 import { searchAnimals } from '../../packages/search/search.ts';
 import { getProfileIdFromSearch, buildProfileModel, renderProfileDialog, type AtlasDocument } from '../../packages/ui/profile-dialog.ts';
-import { renderGenealogy, renderGlobalOverview } from '../../packages/ui/genealogy-view.ts';
+import { renderGenealogy, type GenealogyViewController } from '../../packages/ui/genealogy-view.ts';
+import { renderGlobalGenealogy } from '../../packages/ui/global-genealogy-view.ts';
 import { renderSearchResults } from '../../packages/ui/search-controls.ts';
 
 type RuntimeAnimal = AtlasDocument['animals'][number] & {
@@ -13,6 +14,12 @@ type RuntimeAnimal = AtlasDocument['animals'][number] & {
   institution_names: string[];
   detail_chunk: string;
   population?: string;
+  photo_confirmed?: boolean;
+  photo_url?: string;
+  photo_source_url?: string;
+  birth_date_label?: string;
+  death_date_label?: string;
+  institution_label?: string;
 };
 
 type RuntimeAtlas = {
@@ -48,10 +55,16 @@ async function boot() {
   const countrySelect = requiredElement<HTMLSelectElement>('country-filter');
   const taxonSelect = requiredElement<HTMLSelectElement>('taxon-filter');
   const populationSelect = requiredElement<HTMLSelectElement>('population-filter');
+  const sexSelect = requiredElement<HTMLSelectElement>('sex-filter');
+  const statusSelect = requiredElement<HTMLSelectElement>('status-filter');
+  const photoSelect = requiredElement<HTMLSelectElement>('photo-filter');
+  const groupingSelect = requiredElement<HTMLSelectElement>('grouping-select');
+  const focusDepthSelect = requiredElement<HTMLSelectElement>('focus-depth');
   const resultCount = requiredElement<HTMLElement>('result-count');
   const searchResults = requiredElement<HTMLElement>('search-results');
   const graphContainer = requiredElement<HTMLElement>('genealogy-container');
   const dialog = requiredElement<HTMLDialogElement>('profile-dialog');
+  const fitAllButton = requiredElement<HTMLButtonElement>('fit-all');
   const profileContent = requiredElement<HTMLElement>('profile-dialog').querySelector<HTMLElement>('[data-profile-content]');
   if (!profileContent) throw new Error('The profile content container is missing');
   const profileContentElement = profileContent as HTMLElement;
@@ -96,6 +109,14 @@ async function boot() {
     id: animal.id,
     name: { canonical: animal.name.canonical },
     country_code: animal.country_code,
+    sex: animal.sex,
+    status: animal.status,
+    photo_confirmed: animal.photo_confirmed,
+    photo_url: animal.photo_url,
+    photo_source_url: animal.photo_source_url,
+    birth_date_label: animal.birth_date_label,
+    death_date_label: animal.death_date_label,
+    institution_label: animal.institution_label,
   }));
   const graphRelationships: GraphRelationship[] = atlas.relationships.map((relationship) => ({
     id: relationship.id,
@@ -113,9 +134,13 @@ async function boot() {
   const state = createViewState({
     focusId: initialFocusId,
     filters: { query: '', countryCode: '', taxon: '', population: '' },
+    grouping: 'family',
+    focusDepth: 3,
   });
   const detailCache = new Map<string, Promise<DetailChunk>>();
   let profileRequestVersion = 0;
+  let treeController: GenealogyViewController | null = null;
+  let fitLargestGlobalOnNextRender = initialFocusId === null;
   function labels(): UiMessages {
     const locale = languageSelect.value || 'en';
     return getUiMessages(locale);
@@ -157,6 +182,16 @@ async function boot() {
     other_managed: 'otherManagedPopulationLabel',
     unknown: 'unknownPopulationLabel',
   };
+  const sexLabelKeys: Record<string, keyof UiMessages> = {
+    female: 'femaleLabel',
+    male: 'maleLabel',
+    unknown: 'unknownValue',
+  };
+  const statusLabelKeys: Record<string, keyof UiMessages> = {
+    living: 'livingStatus',
+    deceased: 'deceasedStatus',
+    unknown: 'unknownValue',
+  };
 
   function localizedPopulationLabel(population: string): string {
     const key = populationLabelKeys[population];
@@ -174,9 +209,42 @@ async function boot() {
     for (const taxon of knownTaxa) taxonSelect.add(new Option(taxon, taxon));
     populationSelect.replaceChildren(new Option(labels().allPopulations, ''));
     for (const population of knownPopulations) populationSelect.add(new Option(localizedPopulationLabel(population), population));
+    const knownSexes = [...new Set(searchIndex.map((animal) => animal.sex ?? 'unknown'))].sort();
+    sexSelect.replaceChildren(new Option(labels().allSexes, ''));
+    for (const sex of knownSexes) sexSelect.add(new Option(labels()[sexLabelKeys[sex] ?? 'unknownValue'], sex));
+    const knownStatuses = [...new Set(searchIndex.map((animal) => animal.status ?? 'unknown'))].sort();
+    statusSelect.replaceChildren(new Option(labels().allStatuses, ''));
+    for (const status of knownStatuses) statusSelect.add(new Option(labels()[statusLabelKeys[status] ?? 'unknownValue'], status));
+    const photoAll = photoSelect.querySelector<HTMLOptionElement>('option[value=""]');
+    const photoConfirmed = photoSelect.querySelector<HTMLOptionElement>('option[value="confirmed"]');
+    const photoUnconfirmed = photoSelect.querySelector<HTMLOptionElement>('option[value="unconfirmed"]');
+    if (photoAll) photoAll.textContent = labels().allPhotoStatuses;
+    if (photoConfirmed) photoConfirmed.textContent = labels().photoConfirmedOption;
+    if (photoUnconfirmed) photoUnconfirmed.textContent = labels().photoUnconfirmedOption;
     countrySelect.value = String(state.get().filters.countryCode ?? '');
     taxonSelect.value = String(state.get().filters.taxon ?? '');
     populationSelect.value = String(state.get().filters.population ?? '');
+    sexSelect.value = String(state.get().filters.sex ?? '');
+    statusSelect.value = String(state.get().filters.status ?? '');
+    photoSelect.value = String(state.get().filters.photo ?? '');
+  }
+
+  function currentSearchFacets() {
+    const current = state.get();
+    return {
+      countryCode: String(current.filters.countryCode ?? ''),
+      taxon: String(current.filters.taxon ?? ''),
+      population: String(current.filters.population ?? ''),
+      sex: String(current.filters.sex ?? ''),
+      status: String(current.filters.status ?? ''),
+      photo: String(current.filters.photo ?? ''),
+    };
+  }
+
+  function applyGlobalGraphFacets() {
+    if (state.get().focusId) return;
+    const graphMatches = searchAnimals(searchIndex, '', currentSearchFacets());
+    treeController?.setVisibleAnimalIds?.(new Set(graphMatches.map((animal) => animal.id)));
   }
 
   function renderTree() {
@@ -185,28 +253,46 @@ async function boot() {
     const controls = requiredElement<HTMLElement>('graph-controls');
     const allFamilies = requiredElement<HTMLButtonElement>('all-families');
     if (!current.focusId) {
-      controls.hidden = true;
+      controls.hidden = false;
       allFamilies.hidden = true;
-      renderGlobalOverview(graphContainer, graphIndex, {
-        globalIndexSummary: labels().globalIndexSummary,
-        globalOverviewAriaLabel: labels().globalOverviewAriaLabel,
-        largestFamiliesLabel: labels().largestFamiliesLabel,
-        familyAnimalsLabel: labels().familyAnimalsLabel,
-      }, (animalId) => {
+      groupingSelect.closest('label')?.removeAttribute('hidden');
+      focusDepthSelect.closest('label')?.setAttribute('hidden', '');
+      fitAllButton.hidden = false;
+      groupingSelect.value = current.grouping;
+      const graph = buildGlobalGenealogy(graphIndex, { grouping: current.grouping as GraphGrouping });
+      graphContainer.dataset.layoutBuilds = String(Number(graphContainer.dataset.layoutBuilds ?? '0') + 1);
+      graphContainer.dataset.layoutMs = (performance.now() - renderStarted).toFixed(3);
+      treeController = renderGlobalGenealogy(
+        graphContainer,
+        graph,
+        current,
+        labels(),
+        basePath,
+        (animalId) => {
         state.update({ focusId: animalId, zoom: 1, pan: { x: 0, y: 0 } });
         renderTree();
-      });
+        },
+        (patch) => { state.update(patch); },
+        fitLargestGlobalOnNextRender,
+      );
+      applyGlobalGraphFacets();
+      fitLargestGlobalOnNextRender = false;
       graphContainer.dataset.graphRenderMs = (performance.now() - renderStarted).toFixed(3);
       return;
     }
     controls.hidden = false;
     allFamilies.hidden = false;
+    fitAllButton.hidden = true;
+    groupingSelect.closest('label')?.setAttribute('hidden', '');
+    focusDepthSelect.closest('label')?.removeAttribute('hidden');
+    focusDepthSelect.value = String(current.focusDepth);
     const mobile = window.matchMedia('(max-width: 560px)').matches;
     const graph = buildFocusedGenealogy(graphIndex, current.focusId, {
-      depth: mobile ? 2 : 3,
-      maxNodes: mobile ? 72 : 180,
+      depth: current.focusDepth,
+      maxNodes: current.focusDepth === 'all' ? graphIndex.animalById.size : mobile ? 150 : 300,
     });
-    renderGenealogy(graphContainer, graph, current, labels(), openProfile, (patch) => { state.update(patch); });
+    graphContainer.dataset.layoutBuilds = String(Number(graphContainer.dataset.layoutBuilds ?? '0') + 1);
+    treeController = renderGenealogy(graphContainer, graph, current, labels(), openProfile, (patch) => { state.update(patch); });
     graphContainer.dataset.graphRenderMs = (performance.now() - renderStarted).toFixed(3);
   }
 
@@ -214,13 +300,10 @@ async function boot() {
     const renderStarted = performance.now();
     const current = state.get();
     const copy = labels();
-    const matches = searchAnimals(searchIndex, String(current.filters.query ?? ''), {
-      countryCode: String(current.filters.countryCode ?? ''),
-      taxon: String(current.filters.taxon ?? ''),
-      population: String(current.filters.population ?? ''),
-    });
+    const matches = searchAnimals(searchIndex, String(current.filters.query ?? ''), currentSearchFacets());
     resultCount.textContent = String(matches.length);
     renderSearchResults(searchResults, matches, languageSelect.value || 'en', copy, jumpToAnimal);
+    applyGlobalGraphFacets();
     searchResults.dataset.searchRenderMs = (performance.now() - renderStarted).toFixed(3);
   }
 
@@ -383,19 +466,34 @@ async function boot() {
     state.update({ filters: { population: populationSelect.value } });
     renderResults();
   });
+  sexSelect.addEventListener('change', () => {
+    state.update({ filters: { sex: sexSelect.value } });
+    renderResults();
+  });
+  statusSelect.addEventListener('change', () => {
+    state.update({ filters: { status: statusSelect.value } });
+    renderResults();
+  });
+  photoSelect.addEventListener('change', () => {
+    state.update({ filters: { photo: photoSelect.value } });
+    renderResults();
+  });
   languageSelect.addEventListener('change', () => {
     try { localStorage.setItem(appStorageKey, languageSelect.value); } catch { /* storage may be disabled */ }
     renderAll();
   });
   const adjustPan = (x: number, y: number) => {
     const pan = state.get().pan;
-    state.update({ pan: { x: pan.x + x, y: pan.y + y } });
-    renderTree();
+    const patch = { pan: { x: pan.x + x, y: pan.y + y } };
+    if (treeController) treeController.setView(patch);
+    else state.update(patch);
   };
   const adjustZoom = (difference: number) => {
     const zoom = state.get().zoom;
-    state.update({ zoom: Math.max(0.45, Math.min(2.5, zoom + difference)) });
-    renderTree();
+    const patch = { zoom: Math.max(0.002, Math.min(2.5, zoom + difference)) };
+    if (treeController?.zoomBy) treeController.zoomBy(difference);
+    else if (treeController) treeController.setView(patch);
+    else state.update(patch);
   };
   requiredElement('pan-left').addEventListener('click', () => adjustPan(42, 0));
   requiredElement('pan-right').addEventListener('click', () => adjustPan(-42, 0));
@@ -404,7 +502,18 @@ async function boot() {
   requiredElement('zoom-in').addEventListener('click', () => adjustZoom(0.12));
   requiredElement('zoom-out').addEventListener('click', () => adjustZoom(-0.12));
   requiredElement('all-families').addEventListener('click', () => {
+    fitLargestGlobalOnNextRender = true;
     state.update({ focusId: null, zoom: 1, pan: { x: 0, y: 0 } });
+    renderTree();
+  });
+  fitAllButton.addEventListener('click', () => treeController?.fitAll?.());
+  groupingSelect.addEventListener('change', () => {
+    state.update({ grouping: groupingSelect.value === 'country' ? 'country' : 'family', zoom: 1, pan: { x: 0, y: 0 } });
+    renderTree();
+  });
+  focusDepthSelect.addEventListener('change', () => {
+    const rawDepth = focusDepthSelect.value;
+    state.update({ focusDepth: rawDepth === 'all' ? 'all' : Math.max(1, Number(rawDepth) || 3) });
     renderTree();
   });
   requiredElement('close-profile').addEventListener('click', closeProfile);
@@ -412,15 +521,6 @@ async function boot() {
   window.addEventListener('popstate', () => {
     void syncDialog(getProfileIdFromSearch(window.location.search));
   });
-  let resizeFrame = 0;
-  window.addEventListener('resize', () => {
-    if (!state.get().focusId || resizeFrame) return;
-    resizeFrame = window.requestAnimationFrame(() => {
-      resizeFrame = 0;
-      renderTree();
-    });
-  }, { passive: true });
-
   renderAll();
   if (requestedProfile) void syncDialog(requestedProfile);
 }

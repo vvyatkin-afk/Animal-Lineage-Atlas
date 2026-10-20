@@ -107,8 +107,10 @@ class SpeciesDataTests(unittest.TestCase):
         self.assertEqual(alternate["research_ids_imported"], [])
         self.assertEqual(
             report["populations"]["zoo_captive"]["atlas_animal_count"],
-            len(atlas["animals"]),
+            report["counts"]["baseline_before_this_change"]["animals"]
+            + report["counts"]["added_official_zoo_corpus"]["animals"],
         )
+        self.assertEqual(report["current_canonical_counts"]["animals"], len(atlas["animals"]))
         self.assertIn("zoo/captive", atlas["coverage"]["scope"].lower())
         self.assertFalse(
             any(
@@ -192,6 +194,33 @@ class SpeciesDataTests(unittest.TestCase):
         taxa_by_id = {animal["id"]: animal["taxon"] for animal in atlas["animals"]}
         self.assertTrue(all(taxa_by_id[edge["subject"]] == taxa_by_id[edge["object"]] for edge in atlas["relationships"]))
 
+    def test_phase3_zoo_lineages_are_source_linked_and_uncertain_dates_stay_unknown(self):
+        polar = load_atlas("polar-bear")
+        polar_pairs = relationships_by_pair(polar)
+        self.assertEqual((len(polar["animals"]), len(polar["relationships"])), (72, 63))
+        for pair in (
+            ("polar-bear:nuka-toledo", "polar-bear:kallik-toledo", "biological_father"),
+            ("polar-bear:crystal-toledo", "polar-bear:kallu-toledo", "biological_mother"),
+            ("polar-bear:frimas-eindhoven", "polar-bear:otis-eindhoven", "biological_mother"),
+        ):
+            self.assertIn(pair, polar_pairs)
+
+        hippos = load_atlas("hippopotamus")
+        self.assertEqual((len(hippos["animals"]), len(hippos["relationships"])), (96, 86))
+        counts_by_taxon = {}
+        for animal in hippos["animals"]:
+            counts_by_taxon[animal["taxon"]] = counts_by_taxon.get(animal["taxon"], 0) + 1
+        self.assertEqual(counts_by_taxon, {"Hippopotamus amphibius": 64, "Choeropsis liberiensis": 32})
+        hippo_pairs = relationships_by_pair(hippos)
+        self.assertIn(("hippopotamus-common-animal-abq-karen", "hippopotamus-common-animal-abq-maisy", "biological_mother"), hippo_pairs)
+        self.assertIn(("hippopotamus-pygmy-animal-basel-napoleon", "hippopotamus-pygmy-animal-basel-voobadee", "biological_father"), hippo_pairs)
+        sources = sources_by_id(hippos)
+        for edge in hippos["relationships"]:
+            self.assertTrue(all(source_id in sources for source_id in edge["source_ids"]), edge["id"])
+        taronga_birth = next(event for event in hippos["events"] if event["id"] == "hippopotamus-pygmy-event-taronga-lololi-birth")
+        self.assertEqual(taronga_birth["date"]["precision"], "unknown")
+        self.assertIn("conflicts internally", taronga_birth["date"]["notes"])
+
     def test_pygmy_hippo_known_sex_values_have_field_specific_citations(self):
         atlas = load_atlas("hippopotamus")
         pygmy_ids = {
@@ -220,7 +249,8 @@ class SpeciesDataTests(unittest.TestCase):
         atlas = load_atlas("hippopotamus")
         report_path = ROOT / "reports" / "hippopotamus-merged-import.json"
         report = json.loads(report_path.read_text(encoding="utf-8"))
-        self.assertEqual(report["counts"], {key: len(atlas[key]) for key in ("animals", "claims", "relationships", "events", "institutions", "media", "sources")})
+        self.assertEqual(report["counts"], {"animals": 85, "claims": 111, "relationships": 78, "events": 85, "institutions": 41, "media": 1, "sources": 69})
+        self.assertEqual(report["current_canonical_counts"], {key: len(atlas[key]) for key in ("animals", "claims", "relationships", "events", "institutions", "media", "sources")})
         self.assertEqual(len(report["animal_identity_crosswalk"]), 5)
         for item in report["imports"]:
             bundle_path = ROOT / item["bundle_path"]

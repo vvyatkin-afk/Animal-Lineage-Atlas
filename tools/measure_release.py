@@ -19,7 +19,7 @@ import { readFile } from 'node:fs/promises';
 import { performance } from 'node:perf_hooks';
 import { buildAtlasSearchIndex } from './packages/search/atlas-index.ts';
 import { searchAnimals } from './packages/search/search.ts';
-import { buildFocusedGenealogy, createGenealogyIndex } from './packages/genealogy/layout.ts';
+import { buildFocusedGenealogy, buildGlobalGenealogy, createGenealogyIndex } from './packages/genealogy/layout.ts';
 
 const atlas = JSON.parse(await readFile(process.argv[1], 'utf8'));
 if (globalThis.gc) globalThis.gc();
@@ -87,6 +87,27 @@ for (let run = 0; run < 30; run += 1) {
   layoutSamples.push(measured.elapsed);
   if (!representativeGraph) representativeGraph = measured.result;
 }
+const globalLayoutSamples = [];
+let globalGraph;
+for (let run = 0; run < 10; run += 1) {
+  const measured = timeCall(() => buildGlobalGenealogy(graphIndex));
+  globalLayoutSamples.push(measured.elapsed);
+  globalGraph ??= measured.result;
+}
+const largestComponent = [...graphIndex.components]
+  .sort((left, right) => right.animalIds.length - left.animalIds.length || left.id.localeCompare(right.id))[0];
+const largestComponentIds = new Set(largestComponent?.animalIds ?? []);
+const largestComponentIndex = createGenealogyIndex(
+  graphAnimals.filter((animal) => largestComponentIds.has(animal.id)),
+  graphRelationships.filter((relationship) => largestComponentIds.has(relationship.subject) && largestComponentIds.has(relationship.object)),
+);
+const largestComponentSamples = [];
+let largestComponentGraph;
+for (let run = 0; run < 10; run += 1) {
+  const measured = timeCall(() => buildGlobalGenealogy(largestComponentIndex));
+  largestComponentSamples.push(measured.elapsed);
+  largestComponentGraph ??= measured.result;
+}
 
 process.stdout.write(JSON.stringify({
   record_count: atlas.animals.length,
@@ -95,6 +116,18 @@ process.stdout.write(JSON.stringify({
   largest_component_size: graphIndex.components.reduce((largest, component) => Math.max(largest, component.animalIds.length), 0),
   derived_index_heap_bytes: derivedIndexHeapBytes,
   search: { ...summarize(searchSamples), query_cases: searchResults },
+  global_genealogy_layout: {
+    ...summarize(globalLayoutSamples),
+    animals: globalGraph?.nodes.length ?? 0,
+    relationships: globalGraph?.edges.length ?? 0,
+    truncated: globalGraph?.truncated ?? false,
+  },
+  largest_component_layout: {
+    ...summarize(largestComponentSamples),
+    animals: largestComponentGraph?.nodes.length ?? 0,
+    relationships: largestComponentGraph?.edges.length ?? 0,
+    truncated: largestComponentGraph?.truncated ?? false,
+  },
   genealogy_layout: {
     ...summarize(layoutSamples),
     representative_nodes: representativeGraph?.nodes.length ?? 0,
@@ -323,7 +356,7 @@ def main() -> int:
         ).stdout.strip()},
         "measurement_method": {
             "source_data": "Exact canonical atlases checked in at measurement time.",
-            "engine_runner": "Node.js with --expose-gc; 120 search timing samples and 30 focused graph samples per atlas, after index construction.",
+            "engine_runner": "Node.js with --expose-gc; after index construction, 120 search samples, 30 focused graph samples, and 10 global plus 10 largest-component layout samples per atlas.",
             "synthetic_scale_fixture": "Deterministic 5,000-record fixture with 250 disconnected components; kept separate from source-backed corpus numbers.",
             "browser_method": "Playwright Chromium local static release at 1440x1000 and 390x844 CSS pixel viewports; browser heap is reported only when Chromium exposes performance.memory.",
             "render_timing_scope": "Synchronous focused SVG DOM construction/attachment; excludes the following paint/composite frame.",
