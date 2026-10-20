@@ -101,8 +101,12 @@
 - Modify: apps/atlas/main.ts
 - Modify: packages/ui/profile-dialog.ts
 - Modify: packages/ui/global-genealogy-view.ts
+- Modify: packages/genealogy/layout.ts
+- Modify: atlases/red-panda/atlas.json
+- Modify: tools/validate_atlas.py
 - Modify: tools/build_atlases.py
 - Modify: packages/i18n/messages.json
+- Modify: docs/MEDIA_AND_RIGHTS_POLICY.md, docs/DATA_MODEL.md, docs/MISSION_AND_SCOPE.md, README.md, apps/hub/index.html
 - Test: tests/search-media.test.mjs
 - Test: tests/browser/atlas.spec.ts
 
@@ -111,11 +115,11 @@
 - The UI builds same-origin URLs from the Atlas base path and opaque ID; profile attribution links to the original page and license.
 - Futa's 2026 Commons image may be used only with CC BY 4.0 attribution; other items remain link-only until independently verified.
 
-- [ ] Add failing resolver and profile tests for approved relay IDs, attribution, multiple images, and honest link-only fallback.
-- [ ] Run the focused tests and confirm they fail for missing manifest behavior.
-- [ ] Implement the manifest load and same-origin image references; add a small avatar only to visible detail cards.
-- [ ] Run media and browser tests at desktop/mobile sizes.
-- [ ] Commit the metadata/UI change.
+- [x] Add failing resolver and profile-model tests for approved relay IDs, attribution, multiple images, and honest link-only fallback.
+- [x] Run the focused tests and confirm they fail for missing manifest behavior.
+- [x] Implement the full/private allowlist, attribution-only public projection, same-origin profile/gallery references, and small lazy card thumbnails with visible credit text.
+- [x] Run media tests (12/12), build tests (3/3), typecheck/build, schema/data validation, and the desktop/mobile browser attribution test. The browser test intercepts the relay with a non-animal SVG fixture; real HTTP image bytes are verified in Task 5.
+- [x] Commit the metadata/UI change.
 
 ### Task 5: Secure media relay and operational integration
 

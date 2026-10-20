@@ -1,0 +1,41 @@
+{
+  "format": "animal-lineage-atlas-approved-media-v1",
+  "version": 1,
+  "items": [
+    {
+      "id": "a426db98f35e4bc984275cc031467ac9",
+      "animal_id": "red-panda:futa",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg",
+      "creator": "Misei sen",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY 4.0",
+        "version": "4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and notice of changes."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes made; Wikimedia Commons pre-generated thumbnails are served as published.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/960px-Futa_20261004_3.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    }
+  ]
+}

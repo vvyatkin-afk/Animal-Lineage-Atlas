@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 11:48 UTC
+Updated: 2026-10-20 12:15 UTC
 
 ## Approved scope and baseline
 
@@ -26,7 +26,9 @@ The baseline has no node overlaps or generation-order violations. The full red-p
 
 ## Media rights investigation
 
-The production atlases contain zero media records, so the existing resolver has no image to display. A newly verified Futa image is available from Wikimedia Commons: File:Futa 20261004 3.jpg, by Misei sen, CC BY 4.0. The file page identifies the subject in Japanese as Chiba City Zoo's Futa, and Chiba Zoo's official 2026 page identifies Futa and says he will turn 23 on 2026-07-05. Required attribution is photographer credit, license link, and notice of changes. Sources: [Commons file/license](https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg) and [Chiba City Zoo 23rd-birthday page](https://www.city.chiba.jp/zoo/event/0705futabirthday.html). No image bytes have been downloaded or stored. Rights for additional red pandas, polar bears, and hippos remain under review; unverified records stay link-only.
+At the Phase 4 baseline, the production atlases contained zero media records, so the existing resolver had no image to display. A newly verified Futa image is available from Wikimedia Commons: File:Futa 20261004 3.jpg, by Misei sen, CC BY 4.0. The file page identifies the subject in Japanese as Chiba City Zoo's Futa, and Chiba Zoo's official 2026 page identifies Futa and says he will turn 23 on 2026-07-05. Required attribution is photographer credit, license link, and notice of changes. Sources: [Commons file/license](https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg) and [Chiba City Zoo 23rd-birthday page](https://www.city.chiba.jp/zoo/event/0705futabirthday.html). No image bytes have been downloaded or stored. Rights for additional red pandas, polar bears, and hippos remain under review; unverified records stay link-only.
+
+Phase 4 rechecked the Commons source on 2026-10-20 and confirmed the two published thumbnail variants respond as JPEG: 330×220 at 39,751 bytes and 960×640 at 247,773 bytes. The approved server manifest caps them at 65,536 and 393,216 bytes respectively. The client receives only an opaque ID, fixed variant names, and attribution metadata; direct fetch URLs remain out of static builds. The profile and visible genealogy cards display Misei sen and CC BY 4.0; the profile links the source page and license and states that no changes were made. The client browser test uses a generic non-animal SVG response; the real licensed JPEG will be verified through the service in Task 5. No image body was downloaded or persisted during source verification.
 
 ## Layout optimizer checkpoint
 
@@ -54,7 +56,8 @@ These measurements use 24-segment renderer curves, transverse-intersection rules
 - [x] Implement shared rendered-route metrics; 57/57 Node tests and TypeScript checks pass. The expected-red log and API-missing failure are recorded in the ignored SDD ledger.
 - [x] Implement deterministic focused/global layout optimization; 27/27 genealogy tests and TypeScript checks pass.
 - [x] Add focused-only parent ordering, regression fixtures, and opt-in diagnostics. The panel is hidden by default and enabled only with `layoutDiagnostics=1`; focused views show mother/father side violations, while global views say parent-side ordering is unconstrained. `npm run build`, the UI contract tests (11/11), and serial Playwright suite (18/18) pass. A mobile canvas test pixel probe was updated to tolerate antialiasing at the full-graph fit scale.
-- [ ] Add verified media metadata, same-origin UI references, and secure relay service.
+- [x] Add verified Futa media metadata and same-origin profile/gallery/tree-card references; profile tests support multiple approved images. The actual relay service and production path are Task 5.
+- Build output passes the no-local-photo scan. The whole-worktree scan currently reports only the 14 baseline `.png` screenshots required by this brief; Task 5 will allow screenshot files only when their SHA-256 matches an explicit screenshot manifest.
 - [ ] Run serial browser and full Node/Python/schema/lint/type checks; capture before/after comparisons.
 - [ ] Complete independent review and green GitHub CI; push and merge reviewed commits.
 - [ ] Back up release state, deploy the four Atlas paths and relay integration, verify image HTTP bytes and Chromium rendering, and record rollback evidence.

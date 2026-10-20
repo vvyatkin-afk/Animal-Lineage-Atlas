@@ -1,5 +1,6 @@
 export interface MediaReference {
   media_id: string;
+  animal_id?: string;
   source_page_url: string;
   direct_remote_url?: string;
   rights_status: string;
@@ -8,6 +9,10 @@ export interface MediaReference {
 
 export type MediaResult =
   | { kind: 'remote'; src: string; sourceUrl: string }
+  | {
+    kind: 'relay'; src: string; sourceUrl: string; credit: string;
+    licenseName: string; licenseVersion: string; licenseUrl: string; changes: string;
+  }
   | { kind: 'local'; src: string; sourceUrl: string; credit: string; rightsStatus: string; checksum: string; archiveStatus: string }
   | { kind: 'placeholder'; description: string; sourceUrl?: string };
 
@@ -28,11 +33,31 @@ export interface ResolverOptions {
   remoteFailed?: boolean;
 }
 
+export interface ApprovedMediaPublicItem {
+  id: string;
+  animal_id: string;
+  identity_confidence: string;
+  source_page_url: string;
+  creator: string;
+  credit: string;
+  rights_status: string;
+  embedding_status: 'allowed';
+  license: { name: string; version: string; url: string };
+  variants: Array<'thumb' | 'profile'>;
+  changes?: string;
+}
+
+export interface ApprovedMediaPublicManifest {
+  format: 'animal-lineage-atlas-public-media-v1';
+  items: ApprovedMediaPublicItem[];
+}
+
 const EMBEDDABLE_RIGHTS = new Set([
   'cc0',
   'public_domain',
   'permission_granted',
   'license_allows_embedding',
+  'cc-by-4.0',
 ]);
 
 function placeholder(description: string, sourceUrl?: string): MediaResult {
@@ -49,6 +74,45 @@ export function resolvePublicMedia(reference: MediaReference, options: ResolverO
     return { kind: 'remote', src: reference.direct_remote_url, sourceUrl: reference.source_page_url };
   }
   return placeholder('No public image is available under the recorded media terms.', reference.source_page_url);
+}
+
+export function createApprovedMediaResolver(
+  manifest: ApprovedMediaPublicManifest,
+  basePath: string,
+): (reference: MediaReference, variant?: 'thumb' | 'profile') => MediaResult {
+  const safeBasePath = basePath.endsWith('/') ? basePath : `${basePath}/`;
+  const validBasePath = /^\/(?:[A-Za-z0-9._-]+\/)*$/.test(safeBasePath) && !safeBasePath.includes('..');
+  const items = new Map((manifest?.format === 'animal-lineage-atlas-public-media-v1' && Array.isArray(manifest.items)
+    ? manifest.items
+    : [])
+    .filter((item) => /^[a-f0-9]{32}$/.test(item.id)
+      && item.identity_confidence === 'confirmed'
+      && item.embedding_status === 'allowed'
+      && typeof item.license?.url === 'string'
+      && item.license.url.startsWith('https://'))
+    .map((item) => [item.id, item]));
+
+  return (reference, variant = 'profile') => {
+    const item = items.get(reference.media_id);
+    if (!validBasePath || !item || !['thumb', 'profile'].includes(variant)
+      || !item.variants.includes(variant)
+      || (reference.animal_id && item.animal_id !== reference.animal_id)
+      || item.source_page_url !== reference.source_page_url
+      || item.rights_status !== reference.rights_status
+      || reference.embedding_status !== 'allowed') {
+      return placeholder('No public image is available under the recorded media terms.', reference.source_page_url);
+    }
+    return {
+      kind: 'relay',
+      src: `${safeBasePath}media/${item.id}/${variant}`,
+      sourceUrl: item.source_page_url,
+      credit: item.credit || item.creator,
+      licenseName: item.license.name,
+      licenseVersion: item.license.version,
+      licenseUrl: item.license.url,
+      changes: item.changes ?? 'No changes made.',
+    };
+  };
 }
 
 export function createLocalResolver(manifest: LocalMediaManifest): (reference: Pick<MediaReference, 'media_id'>) => MediaResult {

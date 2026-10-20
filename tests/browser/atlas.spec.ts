@@ -474,6 +474,32 @@ test('child coverage scope and limitations follow Japanese and Russian locale ch
   await expect(page.locator('#coverage-scope')).toContainText('Именованные карликовые бегемоты');
 });
 
+test('Futa profile uses a same-origin approved media URL with CC BY attribution on desktop and mobile', async ({ page }) => {
+  await blockRemoteImages(page);
+  await page.route('**/media/a426db98f35e4bc984275cc031467ac9/profile', (route) => route.fulfill({
+    status: 200,
+    contentType: 'image/svg+xml',
+    body: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="24"><rect width="32" height="24" fill="#789"/></svg>',
+  }));
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:futa')}`);
+    const image = page.locator('#profile-dialog .profile-media img');
+    await expect(image).toBeVisible();
+    await expect(image).toHaveAttribute('src', '/atlas.red-panda/media/a426db98f35e4bc984275cc031467ac9/profile');
+    await expect(image).toHaveJSProperty('naturalWidth', 32);
+    expect(await image.evaluate((element) => new URL((element as HTMLImageElement).src).origin)).toBe('http://127.0.0.1:4173');
+    const bounds = await image.boundingBox();
+    expect(bounds).not.toBeNull();
+    expect(bounds!.width).toBeLessThanOrEqual(viewport.width);
+    await expect(page.locator('#profile-dialog')).toContainText('Misei sen');
+    await expect(page.locator('#profile-dialog')).toContainText('CC BY 4.0');
+    await expect(page.locator('#profile-dialog')).toContainText('No changes made');
+    await expect(page.locator('#profile-dialog a[href="https://creativecommons.org/licenses/by/4.0/"]')).toBeVisible();
+    await expect(page.locator('#profile-dialog .profile-media > p > a[href="https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg"]')).toBeVisible();
+  }
+});
+
 test('optional local manifest renders a local media asset in the profile UI', async ({ page }) => {
   const errors = observeErrors(page);
   await interceptRedPandaDetails(page, (chunk) => {

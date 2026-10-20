@@ -26,8 +26,8 @@ CHILD_PATHS = {
 }
 OUTPUT_NAMES = ("atlas", "atlas.red-panda", "atlas.polar-bear", "atlas.hippopotamus")
 DETAIL_CHUNK_SIZE = 128
-EMBEDDABLE_MEDIA_RIGHTS = {"cc0", "public_domain", "permission_granted", "license_allows_embedding"}
 FLAG_ASSET_ROOT = REPO_ROOT / "packages" / "ui" / "flags"
+APPROVED_MEDIA_MANIFEST = REPO_ROOT / "packages" / "media" / "approved-media-v1.json"
 
 
 def _remove_recreatable_target(path: Path) -> None:
@@ -75,7 +75,61 @@ def _write_country_flag_assets(output_dir: Path, animals: list[dict]) -> None:
     shutil.copy2(FLAG_ASSET_ROOT / "LICENSE", flags_dir / "LICENSE")
 
 
-def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DETAIL_CHUNK_SIZE) -> None:
+def _approved_items_for_document(document: dict, manifest: dict) -> list[dict]:
+    """Match vetted relay entries to canonical records without exposing source URLs."""
+    records = {item.get("media_id"): item for item in document.get("media", [])}
+    approved: list[dict] = []
+    for item in manifest.get("items", []):
+        record = records.get(item.get("id"))
+        if record is None:
+            continue
+        if (
+            record.get("animal_id") != item.get("animal_id")
+            or record.get("source_page_url") != item.get("source_page_url")
+            or record.get("identity_confidence") != "confirmed"
+            or record.get("rights_status") != item.get("rights_status")
+            or record.get("embedding_status") != "allowed"
+            or record.get("direct_remote_url")
+            or item.get("identity_confidence") != "confirmed"
+            or item.get("embedding_status") != "allowed"
+        ):
+            raise RuntimeError(f"Approved media manifest does not match canonical record {item.get('id')}")
+        approved.append(item)
+    return approved
+
+
+def _write_public_media_manifest(output_dir: Path, items: list[dict]) -> None:
+    """Publish attribution metadata and opaque IDs, never upstream fetch URLs."""
+    public_items = [{
+        "id": item["id"],
+        "animal_id": item["animal_id"],
+        "identity_confidence": item["identity_confidence"],
+        "source_page_url": item["source_page_url"],
+        "creator": item["creator"],
+        "credit": item["credit"],
+        "rights_status": item["rights_status"],
+        "embedding_status": item["embedding_status"],
+        "license": {
+            "name": item["license"]["name"],
+            "version": item["license"]["version"],
+            "url": item["license"]["url"],
+        },
+        "changes": item["changes"],
+        "variants": ["thumb", "profile"],
+    } for item in items]
+    (output_dir / "media-manifest.json").write_text(
+        json.dumps({"format": "animal-lineage-atlas-public-media-v1", "items": public_items}, ensure_ascii=False, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
+
+
+def _write_runtime_index(
+    document: dict,
+    output_dir: Path,
+    base_path: str = "",
+    approved_items: list[dict] | None = None,
+    chunk_size: int = DETAIL_CHUNK_SIZE,
+) -> None:
     """Write a compact searchable/graph index plus lazily loaded profile chunks."""
     if chunk_size < 1:
         raise ValueError("Detail chunk size must be positive")
@@ -103,15 +157,16 @@ def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DET
     death_labels_by_animal: dict[str, set[str]] = defaultdict(set)
     photo_preview_by_animal: dict[str, dict] = {}
 
+    approved_by_id = {item["id"]: item for item in (approved_items or [])}
     for media in sorted(document.get("media", []), key=lambda item: (item.get("animal_id", ""), item.get("media_id", ""))):
-        direct_url = media.get("direct_remote_url", "")
-        rights = str(media.get("rights_status", "")).strip().lower()
+        approved = approved_by_id.get(media.get("media_id"))
         allowed = (
-            media.get("embedding_status") == "allowed"
-            and rights in EMBEDDABLE_MEDIA_RIGHTS
+            approved is not None
+            and media.get("embedding_status") == "allowed"
+            and media.get("rights_status") == approved.get("rights_status")
             and media.get("identity_confidence") == "confirmed"
-            and direct_url.startswith("https://")
-            and media.get("source_page_url", "").startswith("https://")
+            and media.get("source_page_url") == approved.get("source_page_url")
+            and "thumb" in approved.get("variants", {})
         )
         if allowed:
             photo_preview_by_animal.setdefault(media["animal_id"], media)
@@ -168,7 +223,11 @@ def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DET
         owner_id_order = [animal["id"] for animal in owner_animals]
         owner_events = [record for animal_id in owner_id_order for record in events_by_animal.get(animal_id, [])]
         owner_claims = [record for animal_id in owner_id_order for record in claims_by_animal.get(animal_id, [])]
-        owner_media = [record for animal_id in owner_id_order for record in media_by_animal.get(animal_id, [])]
+        owner_media = [
+            {key: value for key, value in record.items() if key != "direct_remote_url"}
+            for animal_id in owner_id_order
+            for record in media_by_animal.get(animal_id, [])
+        ]
         owner_relationships_by_id = {
             relationship_id: relationship
             for animal_id in owner_id_order
@@ -203,6 +262,8 @@ def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DET
         })
         for animal in owner_animals:
             name = animal.get("name", {})
+            preview = photo_preview_by_animal.get(animal["id"])
+            preview_rights = approved_by_id.get(preview.get("media_id", "")) if preview else None
             compact_animals.append({
                 "id": animal["id"],
                 "taxon": animal["taxon"],
@@ -222,9 +283,11 @@ def _write_runtime_index(document: dict, output_dir: Path, chunk_size: int = DET
                 "institution_label": institution_label_by_animal.get(animal["id"]),
                 "photo_confirmed": animal["id"] in photo_preview_by_animal,
                 **({
-                    "photo_url": photo_preview_by_animal[animal["id"]]["direct_remote_url"],
-                    "photo_source_url": photo_preview_by_animal[animal["id"]]["source_page_url"],
-                } if animal["id"] in photo_preview_by_animal else {}),
+                    "photo_url": f"{base_path}media/{preview['media_id']}/thumb",
+                    "photo_source_url": preview["source_page_url"],
+                    "photo_credit": preview_rights["credit"],
+                    "photo_license": preview_rights["license"]["name"],
+                } if preview and preview_rights else {}),
                 "detail_chunk": chunk_name,
             })
 
@@ -264,6 +327,11 @@ def build_atlases(output_root: Path) -> list[Path]:
     output_root = Path(output_root).expanduser()
     if output_root.is_symlink():
         raise RuntimeError(f"Refusing to use symlink build root: {output_root}")
+    approved_manifest = json.loads(APPROVED_MEDIA_MANIFEST.read_text(encoding="utf-8"))
+    if approved_manifest.get("format") != "animal-lineage-atlas-approved-media-v1" or approved_manifest.get("version") != 1:
+        raise RuntimeError("Approved media manifest has an unsupported format or version")
+    if not isinstance(approved_manifest.get("items"), list):
+        raise RuntimeError("Approved media manifest items must be a list")
     output_root = output_root.resolve()
     output_root.mkdir(parents=True, exist_ok=True)
     for name in OUTPUT_NAMES:
@@ -310,7 +378,9 @@ def build_atlases(output_root: Path) -> list[Path]:
             text=True,
         )
         source_document = json.loads((REPO_ROOT / "atlases" / species / "atlas.json").read_text(encoding="utf-8"))
-        _write_runtime_index(source_document, output_dir)
+        approved_items = _approved_items_for_document(source_document, approved_manifest)
+        _write_runtime_index(source_document, output_dir, base_path, approved_items)
+        _write_public_media_manifest(output_dir, approved_items)
         (output_dir / "local-media-manifest.json").write_text(
             json.dumps({"format": "animal-lineage-atlas-local-media-manifest-v1", "items": []}, separators=(",", ":")) + "\n",
             encoding="utf-8",

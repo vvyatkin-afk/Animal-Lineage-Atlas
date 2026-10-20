@@ -131,7 +131,10 @@ function makeNodeCard(node: GraphNode, basePath: string, messages: GlobalGenealo
   card.target = '_blank';
   card.rel = 'noopener';
   card.dataset.animalId = node.id;
-  card.setAttribute('aria-label', `${node.name}, ${node.countryCode ?? ''}. ${messages.generationLabel} ${node.generation}. ${sexLabel(node, messages)}. ${statusLabel(node, messages)}. ${messages.viewProfileLabel} in a new tab.`);
+  const photoAttribution = node.photoConfirmed && node.photoCredit
+    ? ` Photo by ${node.photoCredit}${node.photoLicense ? ` under ${node.photoLicense}` : ''}.`
+    : '';
+  card.setAttribute('aria-label', `${node.name}, ${node.countryCode ?? ''}. ${messages.generationLabel} ${node.generation}. ${sexLabel(node, messages)}. ${statusLabel(node, messages)}.${photoAttribution} ${messages.viewProfileLabel} in a new tab.`);
   card.style.left = `${node.x}px`;
   card.style.top = `${node.y}px`;
   card.style.transform = 'translate(-50%, -50%)';
@@ -158,6 +161,7 @@ function makeNodeCard(node: GraphNode, basePath: string, messages: GlobalGenealo
     image.loading = 'lazy';
     image.decoding = 'async';
     image.referrerPolicy = 'no-referrer';
+    if (node.photoCredit) image.title = `${node.photoCredit}${node.photoLicense ? ` · ${node.photoLicense}` : ''}`;
     image.addEventListener('error', () => image.remove(), { once: true });
     avatar.append(image);
   }
@@ -178,6 +182,13 @@ function makeNodeCard(node: GraphNode, basePath: string, messages: GlobalGenealo
     `${messages.generationLabel} ${node.generation}`,
   ].filter(Boolean).join(' · ');
   details.append(name, metadata, dates);
+  if (node.photoConfirmed && node.photoCredit) {
+    const attribution = document.createElement('small');
+    attribution.className = 'global-photo-attribution';
+    attribution.textContent = `${node.photoCredit}${node.photoLicense ? ` · ${node.photoLicense}` : ''}`;
+    attribution.title = `${node.photoCredit}${node.photoLicense ? ` · ${node.photoLicense}` : ''}`;
+    details.append(attribution);
+  }
   card.append(details);
 
   if (node.photoConfirmed) {

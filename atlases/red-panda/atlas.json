@@ -203983,6 +203983,22 @@
       "source_page_url": "https://redpanda-zukan.jp/animals/rp_000083"
     },
     {
+      "animal_id": "red-panda:futa",
+      "checked_date": "2026-10-20",
+      "credit": "Misei sen",
+      "embedding_status": "allowed",
+      "identity_confidence": "confirmed",
+      "media_id": "a426db98f35e4bc984275cc031467ac9",
+      "notes": "Wikimedia Commons identifies the depicted subject in its Japanese caption as Futa at Chiba City Zoo. The photographer uploaded the image as own work under CC BY 4.0. The licensed image is served only through the approved on-demand relay; no image bytes are stored in this repository or static build.",
+      "offline_archive_eligible": true,
+      "rights_status": "cc-by-4.0",
+      "source_ids": [
+        "source:red-panda:S22",
+        "source:red-panda:commons-futa-cc-by"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg"
+    },
+    {
       "animal_id": "red-panda:genta",
       "checked_date": "2026-07-20",
       "credit": null,
@@ -335052,6 +335068,18 @@
       "tier": "B",
       "title": "風太ストーリー — ちば市政だより 2023年6月号",
       "url": "https://www.city.chiba.jp/sogoseisaku/shichokoshitsu/kohokocho/dayori23/documents/0601_1.pdf"
+    },
+    {
+      "accessed_date": "2026-10-20",
+      "data_use": "Media identity, author, credit, and license metadata only; not evidence for animal relationships, dates, or status.",
+      "id": "source:red-panda:commons-futa-cc-by",
+      "notes": "The file caption identifies the subject as Futa at Chiba City Zoo; the page lists Misei sen as author and CC BY 4.0 as the file license. The official Chiba Zoo profile independently identifies Futa.",
+      "publication_date": "2026-10-04",
+      "publisher": "Wikimedia Commons",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "title": "File:Futa 20261004 3.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg"
     },
     {
       "accessed_date": "2026-10-08",

@@ -26,4 +26,4 @@ Births, deaths, transfers, releases, and observations are individual events. Tra
 
 Every source has a stable source ID, title, direct URL, publisher or source type where available, and access/review metadata. Animals, claims, relationships, events, and media can refer to one or more source IDs.
 
-Media records distinguish an original source page from a direct image URL. Embedding and rights states are explicit. Local media is resolved only through an injected manifest with source, credit, rights, path, checksum, and archive-status metadata; the public site does not fetch from a hidden proxy.
+Media records distinguish an original source page from a direct image URL. Embedding and rights states are explicit. A direct image URL alone never authorizes use: public image rendering requires a matching entry in the versioned approved-media manifest and returns a same-origin relay path built from its opaque ID and fixed variant. The public manifest contains attribution metadata but not upstream fetch URLs. Local media remains resolved only through an injected private-archive manifest with source, credit, rights, path, checksum, and archive-status metadata.

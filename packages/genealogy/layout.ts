@@ -13,6 +13,8 @@ export interface GraphAnimal {
   photo_confirmed?: boolean;
   photo_url?: string | null;
   photo_source_url?: string | null;
+  photo_credit?: string | null;
+  photo_license?: string | null;
   birth_date_label?: string | null;
   death_date_label?: string | null;
   institution_label?: string | null;
@@ -58,6 +60,8 @@ export interface GraphNode {
   photoConfirmed: boolean;
   photoUrl: string | null;
   photoSourceUrl: string | null;
+  photoCredit: string | null;
+  photoLicense: string | null;
   birthDateLabel: string | null;
   deathDateLabel: string | null;
   institutionLabel: string | null;
@@ -274,6 +278,8 @@ export function buildFocusedGenealogy(
         photoConfirmed: animal.photo_confirmed === true,
         photoUrl: animal.photo_url ?? null,
         photoSourceUrl: animal.photo_source_url ?? null,
+        photoCredit: animal.photo_credit ?? null,
+        photoLicense: animal.photo_license ?? null,
         birthDateLabel: animal.birth_date_label ?? null,
         deathDateLabel: animal.death_date_label ?? null,
         institutionLabel: animal.institution_label ?? null,
@@ -487,6 +493,8 @@ function makeGraphNode(animal: GraphAnimal, generation: number, x: number, y: nu
     photoConfirmed: animal.photo_confirmed === true,
     photoUrl: animal.photo_url ?? null,
     photoSourceUrl: animal.photo_source_url ?? null,
+    photoCredit: animal.photo_credit ?? null,
+    photoLicense: animal.photo_license ?? null,
     birthDateLabel: animal.birth_date_label ?? null,
     deathDateLabel: animal.death_date_label ?? null,
     institutionLabel: animal.institution_label ?? null,

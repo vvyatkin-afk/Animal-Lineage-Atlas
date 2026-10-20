@@ -19,7 +19,7 @@ REVIEW_STATUSES = {"reviewed", "needs_review", "unreviewed"}
 RELATION_TYPES = {"biological_mother", "biological_father", "foster", "adoptive", "social"}
 ANCESTRY_TYPES = {"biological_mother", "biological_father"}
 EVENT_TYPES = {"birth", "death", "move", "transfer", "release", "observation"}
-EMBEDDABLE_RIGHTS = {"cc0", "public_domain", "permission_granted", "license_allows_embedding"}
+EMBEDDABLE_RIGHTS = {"cc0", "public_domain", "permission_granted", "license_allows_embedding", "cc-by-4.0"}
 PARTIAL_DATE_RE = re.compile(r"^\d{4}(?:-\d{2}(?:-\d{2})?)?$")
 FULL_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 

@@ -3,7 +3,7 @@ import { createViewState } from '../../packages/genealogy/state.ts';
 import { measureGenealogyGraph, type LayoutMetrics } from '../../packages/genealogy/metrics.ts';
 import type { GenealogyRouteMode } from '../../packages/genealogy/edge-route.ts';
 import { getLocalizedCoverage, getUiMessages, type UiMessages } from '../../packages/i18n/index.ts';
-import { createLocalResolver, resolvePublicMedia, type LocalMediaManifest, type MediaReference, type MediaResult } from '../../packages/media/resolver.ts';
+import { createApprovedMediaResolver, createLocalResolver, resolvePublicMedia, type ApprovedMediaPublicManifest, type LocalMediaManifest, type MediaReference, type MediaResult } from '../../packages/media/resolver.ts';
 import { buildAtlasSearchIndex } from '../../packages/search/atlas-index.ts';
 import { searchAnimals } from '../../packages/search/search.ts';
 import { getProfileIdFromSearch, buildProfileModel, renderProfileDialog, type AtlasDocument } from '../../packages/ui/profile-dialog.ts';
@@ -77,6 +77,7 @@ async function boot() {
   if (!response.ok) throw new Error(`Could not load atlas data (${response.status})`);
   const atlas = await response.json() as RuntimeAtlas;
   let resolveLocalMedia: ((reference: Pick<MediaReference, 'media_id'>) => MediaResult) | null = null;
+  let resolveApprovedMedia: ((reference: MediaReference) => MediaResult) | null = null;
   try {
     const manifestResponse = await fetch(`${basePath}local-media-manifest.json`, { credentials: 'same-origin' });
     if (manifestResponse.ok) {
@@ -88,9 +89,30 @@ async function boot() {
   } catch {
     // A missing optional offline manifest leaves the public media resolver in use.
   }
+  try {
+    const manifestResponse = await fetch(`${basePath}media-manifest.json`, { credentials: 'same-origin' });
+    if (manifestResponse.ok) {
+      const manifest = await manifestResponse.json() as ApprovedMediaPublicManifest;
+      if (manifest.format === 'animal-lineage-atlas-public-media-v1' && Array.isArray(manifest.items)) {
+        resolveApprovedMedia = createApprovedMediaResolver(manifest, basePath);
+      }
+    }
+  } catch {
+    // The fixed public allowlist is optional for older static releases.
+  }
   const mediaResolver = (reference: MediaReference): MediaResult => {
     const local = resolveLocalMedia?.(reference);
-    return local?.kind === 'local' ? local : resolvePublicMedia(reference);
+    if (local?.kind === 'local') return local;
+    const approved = resolveApprovedMedia?.(reference);
+    if (approved?.kind === 'relay') return approved;
+    if (reference.embedding_status === 'allowed' || reference.direct_remote_url) {
+      return {
+        kind: 'placeholder',
+        description: 'This image is not available in the approved media list.',
+        sourceUrl: reference.source_page_url,
+      };
+    }
+    return resolvePublicMedia(reference);
   };
   const speciesNameKeyByTaxon: Record<string, keyof UiMessages> = {
     'Ailurus fulgens': 'redPandaSpeciesName',
