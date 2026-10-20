@@ -1,7 +1,7 @@
 {
   "schema_version": "phase5-layout-after-v3",
-  "captured_at": "2026-10-20T17:29:55.695Z",
-  "source_parent_revision": "9dbba74b75cd95ca2939b48085882d492e86eff0",
+  "captured_at": "2026-10-20T17:33:37.047Z",
+  "source_parent_revision": "42ada5f883f8950493a9d0215cb9254b24c95d60",
   "source_worktree_dirty": true,
   "baseline_release": "6dfdb34b26f8f8ee574e40cff6e9e661779a19a7",
   "method": {
@@ -27,7 +27,7 @@
     "all_animals": {
       "samples": [
         {
-          "build_ms": 1763.886,
+          "build_ms": 1469.294,
           "metrics": {
             "nodes": 1555,
             "edges": 2394,
@@ -47,7 +47,7 @@
           }
         },
         {
-          "build_ms": 1380.946,
+          "build_ms": 1204.92,
           "metrics": {
             "nodes": 1555,
             "edges": 2394,
@@ -72,7 +72,7 @@
     "largest_component": {
       "samples": [
         {
-          "build_ms": 888.369,
+          "build_ms": 766.832,
           "metrics": {
             "nodes": 823,
             "edges": 1468,
@@ -92,7 +92,7 @@
           }
         },
         {
-          "build_ms": 864.454,
+          "build_ms": 758.62,
           "metrics": {
             "nodes": 823,
             "edges": 1468,
@@ -117,7 +117,7 @@
     "futa_depth_3": {
       "samples": [
         {
-          "build_ms": 565.92,
+          "build_ms": 681.146,
           "metrics": {
             "nodes": 100,
             "edges": 100,
@@ -140,7 +140,7 @@
           "parent_pair_adjacent": 2
         },
         {
-          "build_ms": 397.373,
+          "build_ms": 310.808,
           "metrics": {
             "nodes": 100,
             "edges": 100,
@@ -171,7 +171,7 @@
     "futa_all_known": {
       "samples": [
         {
-          "build_ms": 417.242,
+          "build_ms": 377.013,
           "metrics": {
             "nodes": 121,
             "edges": 121,
@@ -194,7 +194,7 @@
           "parent_pair_adjacent": 2
         },
         {
-          "build_ms": 405.965,
+          "build_ms": 436.248,
           "metrics": {
             "nodes": 121,
             "edges": 121,
@@ -225,7 +225,7 @@
     "rakesh_depth_3": {
       "samples": [
         {
-          "build_ms": 13.314,
+          "build_ms": 18.045,
           "metrics": {
             "nodes": 14,
             "edges": 13,
@@ -248,7 +248,7 @@
           "parent_pair_adjacent": 6
         },
         {
-          "build_ms": 6.044,
+          "build_ms": 10.472,
           "metrics": {
             "nodes": 14,
             "edges": 13,
@@ -279,7 +279,7 @@
     "bandit_depth_3": {
       "samples": [
         {
-          "build_ms": 9.617,
+          "build_ms": 10.427,
           "metrics": {
             "nodes": 15,
             "edges": 15,
@@ -302,7 +302,7 @@
           "parent_pair_adjacent": 6
         },
         {
-          "build_ms": 7.31,
+          "build_ms": 21.714,
           "metrics": {
             "nodes": 15,
             "edges": 15,
@@ -333,7 +333,7 @@
     "bandit_all_known": {
       "samples": [
         {
-          "build_ms": 230.208,
+          "build_ms": 214.638,
           "metrics": {
             "nodes": 68,
             "edges": 89,
@@ -356,7 +356,7 @@
           "parent_pair_adjacent": 21
         },
         {
-          "build_ms": 253.392,
+          "build_ms": 188.512,
           "metrics": {
             "nodes": 68,
             "edges": 89,

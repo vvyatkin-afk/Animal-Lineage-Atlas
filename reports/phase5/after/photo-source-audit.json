@@ -1,7 +1,7 @@
 {
   "schema_version": "phase5-photo-source-audit-v1",
   "captured_at": "2026-10-20T17:31:49+00:00",
-  "source_revision_parent": "6ddcaf9995db87c08b56da0721f6c2ae5d8ca905",
+  "source_revision_parent": "42ada5f883f8950493a9d0215cb9254b24c95d60",
   "policy": {
     "identity_rule": "Embed only if the per-file source page identifies the same canonical individual; generic species images and name-only ambiguous matches stay link-only.",
     "browser_originals": "For the 12 approved records, profiles use the full-size Wikimedia Commons upload.wikimedia.org URL directly in the browser. Browser tests confirm naturalWidth > 0 for all ten Futa gallery records and both Simon records.",

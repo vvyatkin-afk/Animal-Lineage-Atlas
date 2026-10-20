@@ -29,6 +29,7 @@ const relationships = atlas.relationships.map((relationship) => ({
 }));
 const index = createGenealogyIndex(animals, relationships);
 const sourceRevision = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: repositoryRoot, encoding: 'utf8' }).trim();
+const sourceWorktreeDirty = execFileSync('git', ['status', '--porcelain'], { cwd: repositoryRoot, encoding: 'utf8' }).trim().length > 0;
 
 function summarize(graph, mode) {
   const metrics = measureGenealogyGraph(graph, mode);
@@ -154,7 +155,7 @@ const output = {
   schema_version: 'phase5-layout-after-v3',
   captured_at: new Date().toISOString(),
   source_parent_revision: sourceRevision,
-  source_worktree_dirty: true,
+  source_worktree_dirty: sourceWorktreeDirty,
   baseline_release: productionBaseline.production_revision,
   method: {
     route: 'Shared renderer route geometry; cubic Bezier curves sampled into 24 segments; route length sums complete rendered centerlines. Crossing candidate indexing uses a 256-world-unit spatial grid, then applies the unchanged bounding-box, segment-intersection, and opposite-side polyline tests. Shared-endpoint edge pairs are excluded; solid and dashed edges are included.',
