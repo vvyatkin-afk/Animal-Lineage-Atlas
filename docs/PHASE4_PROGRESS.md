@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 13:07 UTC
+Updated: 2026-10-20 13:15 UTC
 
 ## Approved scope and baseline
 
@@ -58,7 +58,11 @@ The static release was switched to the merged SHA. The Nginx relay manager rejec
 
 The startup guard and deployment health check are covered by regression tests: the relay process is invoked through a symlink and must reach the loopback listening state, and a service that exits during its one-second stability window must fail activation. The Nginx config test runs the actual parser against the deployed snippet, and CI installs Nginx so this check runs there.
 
-Independent hotfix review found that escaping the quantifier braces made the Nginx route match literal braces rather than a 32-character ID. This was reproduced with an actual local Nginx request, which returned 404 for a valid ID. The expression now quotes the full regex and keeps `{32}` unescaped. A request-level regression test starts Nginx with the production location expression, exercises all four public Atlas prefixes with both allowed variants and exact capture forwarding, and verifies a 31-character ID falls through to 404. The full local verification on this correction is green: Node 77/77, Python 102/102, Chromium 19/19, ESLint, TypeScript, all three data and schema validations, build, and source/build no-photo scans. Fresh CI and follow-up review for this correction are pending. Production remains in the partial state described above until the corrected hotfix is merged and redeployed.
+Independent hotfix review found that escaping the quantifier braces made the Nginx route match literal braces rather than a 32-character ID. This was reproduced with an actual local Nginx request, which returned 404 for a valid ID. The expression now quotes the full regex and keeps `{32}` unescaped. A request-level regression test starts Nginx with the production location expression, exercises all four public Atlas prefixes with both allowed variants and exact capture forwarding, and verifies a 31-character ID falls through to 404. The full local verification on this correction is green: Node 77/77, Python 102/102, Chromium 19/19, ESLint, TypeScript, all three data and schema validations, build, and source/build no-photo scans. Fresh CI on commit `0d0bbe5` passed as [run 39427735573](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/39427735573), and follow-up independent review found no Critical, Important, or Minor issues. The fix merged as `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7`.
+
+## Final production activation
+
+The merged release deployed at 13:10 UTC. All four `/atlas*` paths now point to the `6dfdb34…` immutable release; the enabled `animal-atlas-media.service` is active; and Nginx accepts the relay route. Nginx's hash-verified rollback snapshot is `/var/backups/animal-lineage-atlas/nginx/phase4-nginx-7cck0h97`. All four Atlas URLs and `/red-panda/` returned HTTP 200. Live profile and thumbnail relay requests returned the approved JPEGs at 960×640/247,773 bytes and 330×220/39,751 bytes; production Chromium loaded the profile image with the CC BY attribution and zero page errors. The 505-file legacy manifest matched before and after deployment with digest `28ac4d968723ddcc1f79367793f405c1b5702aafe1ca057e7a0e825abccb1927`. Full release checks and rollback steps are recorded in [PHASE4_RELEASE.md](PHASE4_RELEASE.md).
 
 ## Milestones
 
@@ -79,5 +83,5 @@ Independent hotfix review found that escaping the quantifier braces made the Ngi
 - [x] Capture reproducible after metrics and paired desktop/mobile screenshots; compute the seven-case comparison report. All seven cases reduce both crossings and route length.
 - [x] Push the reviewed fixes and pass fresh GitHub CI on e192033: lint, typecheck, 76 Node tests, 99 Python tests, data/schema validation, build, source/build no-photo scans, and 19 Chromium tests. Run: [39424821289](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/39424821289).
 - [x] Commit regenerated metric and screenshot evidence (`9688124`) and merge reviewed PR #8 as `ee48fbb10f3f35c1b35234fc3ee4aa8f84e7857f`.
-- [ ] Pass independent review and CI for the Nginx and relay-startup hotfixes, merge them, and redeploy using the merged SHA.
-- [ ] Verify all four Atlas routes, actual relayed image bytes and Chromium rendering; compare the legacy file manifest and record rollback evidence in docs/PHASE4_RELEASE.md.
+- [x] Pass independent review and CI for the Nginx and relay-startup hotfixes, merge them, and redeploy using the merged SHA.
+- [x] Verify all four Atlas routes, actual relayed image bytes and Chromium rendering; compare the legacy file manifest and record rollback evidence in docs/PHASE4_RELEASE.md.
