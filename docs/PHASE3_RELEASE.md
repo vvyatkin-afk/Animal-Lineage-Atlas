@@ -11,6 +11,14 @@ Status: **in progress; no Phase 3 production release**
 - Baseline checks: 45 Node tests, 79 Python tests, 10/10 serial browser tests, lint, typecheck, data/schema validation, build, and no-photo scan passed.
 - Current rollout rollback target is the Phase 2 manifest's recorded prior release `ad24b3bb51c08242c731189040d15241d56ab3b4`.
 
+## Pre-deployment production snapshot
+
+Read-only checks on 2026-10-20, before any Phase 3 production change:
+
+- Nginx on `127.0.0.1` returned HTTP 200 for `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, `/atlas.hippopotamus/`, and legacy `/red-panda/`.
+- All four Atlas symlinks resolved to `/var/www/html/_animal-lineage-releases/133f7a5324a4095aeb922f77c4dce3e4c2a50b5a/`. The Phase 2 manifest records all four prior targets under release `ad24b3bb51c08242c731189040d15241d56ab3b4`.
+- Legacy `/var/www/html/red-panda/` is a standalone directory with 505 files, 32 directories, 136,957,949 file bytes, and no symlinks. Its deterministic tree SHA-256 is `a32ae67433de89bca8067743dbb28581e9a4053965c96b46032a84720664fdf3`. The per-path, per-file digest manifest is saved at `/tmp/animal-lineage-atlas-phase3-legacy-red-panda-baseline.json` for an exact post-deploy comparison.
+
 ## Phase 3 results
 
 Current canonical data on the feature branch:
