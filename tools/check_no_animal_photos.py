@@ -25,11 +25,14 @@ CSS_IMAGE_RE = re.compile(
     r"url\(\s*(['\"]?)(?!https?://|//|data:)([^)'\"\s]+\.(?:jpe?g|png|webp)(?:[?#][^)'\"\s]*)?)\1\s*\)",
     re.IGNORECASE,
 )
-SCREENSHOT_MANIFESTS = {
-    "baseline": ("reports/phase4/baseline/screenshot-manifest.json", "phase4-baseline-screenshots-v1"),
-    "after": ("reports/phase4/after/screenshot-manifest.json", "phase4-after-screenshots-v1"),
-    "comparisons": ("reports/phase4/comparisons/screenshot-manifest.json", "phase4-comparison-screenshots-v1"),
-}
+SCREENSHOT_MANIFESTS = (
+    ("reports/phase4/baseline/screenshot-manifest.json", "phase4-baseline-screenshots-v1", ("reports", "phase4", "baseline")),
+    ("reports/phase4/after/screenshot-manifest.json", "phase4-after-screenshots-v1", ("reports", "phase4", "after")),
+    ("reports/phase4/comparisons/screenshot-manifest.json", "phase4-comparison-screenshots-v1", ("reports", "phase4", "comparisons")),
+    ("reports/phase5/baseline/screenshot-manifest.json", "phase5-baseline-screenshots-v1", ("reports", "phase5", "baseline")),
+    ("reports/phase5/after/screenshot-manifest.json", "phase5-after-screenshots-v1", ("reports", "phase5", "after")),
+    ("reports/phase5/comparisons/screenshot-manifest.json", "phase5-comparison-screenshots-v1", ("reports", "phase5", "comparisons")),
+)
 
 
 def _walk_files(root: Path):
@@ -63,9 +66,9 @@ def _media_references(document, relative_path: str, findings: list[str]) -> None
 
 
 def _verified_screenshot_paths(root: Path) -> set[str]:
-    """Allow only PNG captures under reports/phase4 with an exact manifest hash."""
+    """Allow only PNG captures in a registered report folder with an exact manifest hash."""
     allowed: set[str] = set()
-    for _, (manifest_relative, expected_schema) in SCREENSHOT_MANIFESTS.items():
+    for manifest_relative, expected_schema, expected_prefix in SCREENSHOT_MANIFESTS:
         manifest_path = root / manifest_relative
         if manifest_path.is_symlink() or not manifest_path.is_file():
             continue
@@ -87,13 +90,9 @@ def _verified_screenshot_paths(root: Path) -> set[str]:
                 relative.is_absolute()
                 or ".." in relative.parts
                 or len(relative.parts) < 4
-                or relative.parts[:2] != ("reports", "phase4")
-                or relative.parts[2] not in {"baseline", "after", "comparisons"}
+                or relative.parts[:len(expected_prefix)] != expected_prefix
                 or relative.suffix.lower() != ".png"
             ):
-                continue
-            category_manifest = SCREENSHOT_MANIFESTS.get(relative.parts[2])
-            if not category_manifest or manifest_relative != category_manifest[0]:
                 continue
             screenshot = root.joinpath(*relative.parts)
             if screenshot.is_symlink() or not screenshot.is_file():

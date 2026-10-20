@@ -176,47 +176,54 @@ test('local resolver reads manifest contract without animal photo bytes', async 
   assert.match(fixtureContent, /svg/i);
 });
 
-test('approved media manifest exposes only verified CC BY source and fixed bounded variants', async () => {
+test('approved media manifest contains individually identified image originals and bounded derivatives', async () => {
   const manifest = JSON.parse(await readFile(approvedManifestUrl, 'utf8'));
   assert.equal(manifest.format, 'animal-lineage-atlas-approved-media-v1');
-  assert.equal(manifest.items.length, 1);
-  const item = manifest.items[0];
-  assert.match(item.id, /^[a-f0-9]{32}$/);
-  assert.equal(item.animal_id, 'red-panda:futa');
-  assert.equal(item.identity_confidence, 'confirmed');
-  assert.equal(item.rights_status, 'cc-by-4.0');
-  assert.equal(item.creator, 'Misei sen');
-  assert.equal(item.license.url, 'https://creativecommons.org/licenses/by/4.0/');
-  assert.equal(item.source_page_url, 'https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg');
-  assert.deepEqual(Object.keys(item.variants).sort(), ['profile', 'thumb']);
-  for (const variant of Object.values(item.variants)) {
-    assert.equal(new URL(variant.url).hostname, 'thumb.wikimedia.org');
-    assert.equal(variant.mime_type, 'image/jpeg');
-    assert.ok(variant.max_bytes > 0 && variant.max_bytes <= 400_000);
+  assert.equal(manifest.items.length, 12);
+  assert.ok(manifest.items.some((item) => item.animal_id === 'red-panda:futa'));
+  assert.ok(manifest.items.some((item) => item.animal_id === 'red-panda:simon-jerusalem-zoo'));
+  for (const item of manifest.items) {
+    assert.match(item.id, /^[a-f0-9]{32}$/);
+    assert.equal(item.identity_confidence, 'confirmed');
+    assert.equal(item.embedding_status, 'allowed');
+    assert.match(item.original_url, /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//);
+    assert.match(item.source_page_url, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+    assert.deepEqual(Object.keys(item.variants).sort(), ['profile', 'thumb']);
+    assert.equal(new URL(item.variants.thumb.url).hostname, 'thumb.wikimedia.org');
+    assert.equal(item.variants.thumb.mime_type, 'image/jpeg');
+    assert.ok(item.variants.thumb.max_bytes > 0 && item.variants.thumb.max_bytes <= 400_000);
+    for (const variant of Object.values(item.variants)) {
+      assert.equal(new URL(variant.url).hostname, 'thumb.wikimedia.org');
+      assert.equal(variant.mime_type, 'image/jpeg');
+      assert.ok(variant.max_bytes > 0 && variant.max_bytes <= 400_000);
+    }
   }
 });
 
-test('approved relay resolver creates same-origin URLs with attribution and link-only fallback', async () => {
+test('approved image resolver returns browser-direct original and thumb plus bounded relay fallback', async () => {
   const media = await loadMedia();
   assert.ok(media, 'media resolver package should load');
   assert.equal(typeof media.createApprovedMediaResolver, 'function');
   const manifest = JSON.parse(await readFile(approvedManifestUrl, 'utf8'));
-  const item = manifest.items[0];
+  const item = manifest.items.find((candidate) => candidate.id === 'a426db98f35e4bc984275cc031467ac9');
+  const publicItems = manifest.items.map((candidate) => ({
+    id: candidate.id,
+    animal_id: candidate.animal_id,
+    identity_confidence: candidate.identity_confidence,
+    source_page_url: candidate.source_page_url,
+    creator: candidate.creator,
+    credit: candidate.credit,
+    rights_status: candidate.rights_status,
+    embedding_status: candidate.embedding_status,
+    license: candidate.license,
+    changes: candidate.changes,
+    original_url: candidate.original_url,
+    thumbnail_url: candidate.variants.thumb.url,
+    variants: Object.keys(candidate.variants),
+  }));
   const publicManifest = {
     format: 'animal-lineage-atlas-public-media-v1',
-    items: [{
-      id: item.id,
-      animal_id: item.animal_id,
-      identity_confidence: item.identity_confidence,
-      source_page_url: item.source_page_url,
-      creator: item.creator,
-      credit: item.credit,
-      rights_status: item.rights_status,
-      embedding_status: item.embedding_status,
-      license: item.license,
-      changes: item.changes,
-      variants: Object.keys(item.variants),
-    }],
+    items: publicItems,
   };
   const resolve = media.createApprovedMediaResolver(publicManifest, '/atlas.red-panda/');
   const result = resolve({
@@ -226,8 +233,10 @@ test('approved relay resolver creates same-origin URLs with attribution and link
     embedding_status: 'allowed',
     animal_id: item.animal_id,
   });
-  assert.equal(result.kind, 'relay');
-  assert.equal(result.src, `/atlas.red-panda/media/${item.id}/profile`);
+  assert.equal(result.kind, 'licensed');
+  assert.equal(result.src, item.original_url);
+  assert.equal(result.thumbnailSrc, item.variants.thumb.url);
+  assert.equal(result.fallbackSrc, `/atlas.red-panda/media/${item.id}/profile`);
   assert.equal(result.sourceUrl, item.source_page_url);
   assert.equal(result.credit, 'Misei sen');
   assert.equal(result.licenseName, 'CC BY 4.0');
@@ -239,7 +248,17 @@ test('approved relay resolver creates same-origin URLs with attribution and link
     rights_status: item.rights_status,
     embedding_status: 'allowed',
     animal_id: item.animal_id,
-  }, 'thumb').src, `/atlas.red-panda/media/${item.id}/thumb`);
+  }, 'thumb').src, item.variants.thumb.url);
+
+  const simon = manifest.items.find((candidate) => candidate.animal_id === 'red-panda:simon-jerusalem-zoo');
+  assert.ok(simon);
+  assert.equal(resolve({
+    media_id: simon.id,
+    source_page_url: simon.source_page_url,
+    rights_status: simon.rights_status,
+    embedding_status: 'allowed',
+    animal_id: simon.animal_id,
+  }).licenseName, simon.license.name);
 
   const unlisted = resolve({
     media_id: 'd'.repeat(32),
@@ -256,20 +275,15 @@ test('profile model keeps multiple approved images as separate gallery entries',
   const media = await loadMedia();
   const profiles = await import('../packages/ui/profile-dialog.ts');
   const manifest = JSON.parse(await readFile(approvedManifestUrl, 'utf8'));
-  const first = manifest.items[0];
-  const secondId = 'c'.repeat(32);
-  const secondPage = 'https://example.org/second-photo-page';
+  const first = manifest.items.find((item) => item.animal_id === 'red-panda:futa');
+  const second = manifest.items.find((item) => item.animal_id === 'red-panda:simon-jerusalem-zoo');
+  const secondId = second.id;
+  const secondPage = second.source_page_url;
   const fixtureFirst = { ...first, animal_id: 'fixture:animal' };
+  const fixtureSecond = { ...second, animal_id: 'fixture:animal' };
   const publicManifest = {
     format: 'animal-lineage-atlas-public-media-v1',
-    items: [fixtureFirst, {
-      ...fixtureFirst,
-      id: secondId,
-      animal_id: 'fixture:animal',
-      source_page_url: secondPage,
-      creator: 'Test Photographer',
-      credit: 'Test Photographer',
-    }].map((item) => ({
+    items: [fixtureFirst, fixtureSecond].map((item) => ({
       id: item.id,
       animal_id: item.animal_id,
       identity_confidence: item.identity_confidence,
@@ -280,6 +294,8 @@ test('profile model keeps multiple approved images as separate gallery entries',
       embedding_status: item.embedding_status,
       license: item.license,
       changes: item.changes,
+      original_url: item.original_url,
+      thumbnail_url: item.variants.thumb.url,
       variants: Object.keys(item.variants ?? { thumb: {}, profile: {} }),
     })),
   };
@@ -289,11 +305,11 @@ test('profile model keeps multiple approved images as separate gallery entries',
     relationships: [], events: [], claims: [], sources: [],
     media: [
       { media_id: first.id, animal_id: 'fixture:animal', source_page_url: first.source_page_url, rights_status: first.rights_status, embedding_status: 'allowed' },
-      { media_id: secondId, animal_id: 'fixture:animal', source_page_url: secondPage, rights_status: first.rights_status, embedding_status: 'allowed' },
+      { media_id: secondId, animal_id: 'fixture:animal', source_page_url: secondPage, rights_status: second.rights_status, embedding_status: 'allowed' },
     ],
   }, 'fixture:animal', { mediaResolver: resolve });
 
   assert.equal(model.media.length, 2);
-  assert.deepEqual(model.media.map(({ presentation }) => presentation.kind), ['relay', 'relay']);
-  assert.equal(model.media[1].presentation.src, `/atlas.fixture/media/${secondId}/profile`);
+  assert.deepEqual(model.media.map(({ presentation }) => presentation.kind), ['licensed', 'licensed']);
+  assert.equal(model.media[1].presentation.src, second.original_url);
 });

@@ -1351,10 +1351,17 @@ def merge_red_panda(upstream, curated, snapshot):
     merged_count = sum(item["status"] == "matched" for item in mappings)
     near_match_count = len(near_match_mappings) + len(incomplete_near_match_mappings) + len(required_field_mismatch_mappings)
     canonical_animal_count = len(atlas["animals"])
+    has_jerusalem_simon = any(animal.get("id") == "red-panda:simon-jerusalem-zoo" for animal in atlas["animals"])
+    simon_scope = (
+        " The curated records include the cited Futa-family genealogy and Simon, separately identified at Jerusalem Biblical Zoo; "
+        "Simon's sex, life status, dates, and parentage are unknown."
+        if has_jerusalem_simon else ""
+    )
     coverage["scope"] = (
         f"The pinned global wwoast/redpanda-lineage export contributes {len(pandas)} named profiles. "
-        f"It is merged with {curated_animal_count} curated Futa-family records using {merged_count} reviewed identity overlaps, "
-        f"yielding {canonical_animal_count} canonical animals. This combines global community profiles with a curated family layer; "
+        f"It is merged with {curated_animal_count} curated individual records using {merged_count} reviewed identity overlaps, "
+        f"yielding {canonical_animal_count} canonical animals.{simon_scope} "
+        "This combines a global community dataset with source-backed curated records; "
         "it is not a complete or official studbook."
     )
     coverage["source_categories"] = sorted(set(coverage.get("source_categories", [])) | {"community_dataset"})
@@ -1376,13 +1383,17 @@ def merge_red_panda(upstream, curated, snapshot):
     translated_scopes = {
         "ja": (
             f"固定したwwoast/redpanda-lineageの世界規模エクスポートから名前のある個体プロフィール{len(pandas)}件を取り込み、"
-            f"Futa家の編纂済み記録{curated_animal_count}件と本人確認済みの重複{merged_count}件を統合し、"
-            f"標準個体記録{canonical_animal_count}件にまとめています。世界規模のコミュニティ記録と編纂済み家系層であり、完全または公式な血統登録簿ではありません。"
+            f"編纂済み個体記録{curated_animal_count}件と本人確認済みの重複{merged_count}件を統合し、"
+            f"標準個体記録{canonical_animal_count}件にまとめています。"
+            + ("編纂済み記録には、出典で確認されたFuta家の系譜と、エルサレム聖書動物園のSimonが別個体として含まれます。Simonの性別、生死、日付、親子関係は不明です。" if has_jerusalem_simon else "")
+            + "コミュニティのデータと出典付き編纂記録であり、完全または公式な血統登録簿ではありません。"
         ),
         "ru": (
             f"В закреплённый глобальный экспорт wwoast/redpanda-lineage входят {len(pandas)} именных профилей. "
-            f"Они объединены с {curated_animal_count} кураторскими записями семейства Futa и {merged_count} подтверждёнными совпадениями личности, "
-            f"всего получается {canonical_animal_count} канонических записей животных. Это глобальный набор сообщества с кураторским семейным слоем, а не полная или официальная племенная книга."
+            f"Они объединены с {curated_animal_count} кураторскими записями отдельных животных и {merged_count} подтверждёнными совпадениями личности, "
+            f"всего получается {canonical_animal_count} канонических записей животных."
+            + (" Кураторские записи включают документированную родословную Futa и отдельную запись Simon из Иерусалимского библейского зоопарка; пол, жизненный статус, даты и родственные связи Simon неизвестны." if has_jerusalem_simon else "")
+            + " Это данные сообщества и кураторские записи с источниками, а не полная или официальная племенная книга."
         ),
     }
     for lang, scope in translated_scopes.items():

@@ -3,10 +3,47 @@
   "version": 1,
   "items": [
     {
-      "id": "a426db98f35e4bc984275cc031467ac9",
+      "id": "0d5fefd1008bde032eae21eb4c225a77",
       "animal_id": "red-panda:futa",
       "identity_confidence": "confirmed",
-      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
+      "creator": "KQuhen",
+      "credit": "KQuhen",
+      "rights_status": "cc-by-sa-4.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "version": "4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and indication of changes; adaptations use the same license."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg/960px-Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "240ee0c66fc6c07d92122ddbae5b39a5",
+      "animal_id": "red-panda:futa",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_2.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Futa_20261004_2.jpg",
       "creator": "Misei sen",
       "credit": "Misei sen",
       "rights_status": "cc-by-4.0",
@@ -19,7 +56,223 @@
       },
       "checked_date": "2026-10-20",
       "mime_type": "image/jpeg",
-      "changes": "No changes made; Wikimedia Commons pre-generated thumbnails are served as published.",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Futa_20261004_2.jpg/330px-Futa_20261004_2.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Futa_20261004_2.jpg/960px-Futa_20261004_2.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "327c2434dd7d8bec2623f1563a3ad7e4",
+      "animal_id": "red-panda:futa",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa20260321.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Futa20260321.jpg",
+      "creator": "Misei sen",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY 4.0",
+        "version": "4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and notice of changes."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Futa20260321.jpg/330px-Futa20260321.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Futa20260321.jpg/960px-Futa20260321.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "4d2a81bcd5ff39500ed924064d6d0b7f",
+      "animal_id": "red-panda:futa",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_5.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/03/Futa_20261004_5.jpg",
+      "creator": "Misei sen",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY 4.0",
+        "version": "4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and notice of changes."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Futa_20261004_5.jpg/330px-Futa_20261004_5.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Futa_20261004_5.jpg/960px-Futa_20261004_5.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "60a77a71b3b45c94a0d98a66898d9d2e",
+      "animal_id": "red-panda:futa",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
+      "creator": "KQuhen",
+      "credit": "KQuhen",
+      "rights_status": "cc-by-sa-4.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "version": "4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and indication of changes; adaptations use the same license."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg/960px-Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "724ed8db7776be9270eadcc48c594822",
+      "animal_id": "red-panda:futa",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_1.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Futa_20261004_1.jpg",
+      "creator": "Misei sen",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY 4.0",
+        "version": "4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and notice of changes."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Futa_20261004_1.jpg/330px-Futa_20261004_1.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Futa_20261004_1.jpg/960px-Futa_20261004_1.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "73d3141f550c9dac1900adda924cec88",
+      "animal_id": "red-panda:futa",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/df/Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
+      "creator": "KQuhen",
+      "credit": "KQuhen",
+      "rights_status": "cc-by-sa-4.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "version": "4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and indication of changes; adaptations use the same license."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg/960px-Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "a426db98f35e4bc984275cc031467ac9",
+      "animal_id": "red-panda:futa",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Futa_20261004_3.jpg",
+      "creator": "Misei sen",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY 4.0",
+        "version": "4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and notice of changes."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
       "variants": {
         "thumb": {
           "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg",
@@ -30,6 +283,150 @@
         },
         "profile": {
           "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/960px-Futa_20261004_3.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "d6f849f9e592f14b86d41cafe802b301",
+      "animal_id": "red-panda:futa",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
+      "creator": "KQuhen",
+      "credit": "KQuhen",
+      "rights_status": "cc-by-sa-4.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "version": "4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and indication of changes; adaptations use the same license."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg/960px-Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "d766c076a8a1d959784e769bab02d65d",
+      "animal_id": "red-panda:futa",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_4.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Futa_20261004_4.jpg",
+      "creator": "Misei sen",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY 4.0",
+        "version": "4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and notice of changes."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Futa_20261004_4.jpg/330px-Futa_20261004_4.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Futa_20261004_4.jpg/960px-Futa_20261004_4.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "e674cc38e610c5115281a8de2d862593",
+      "animal_id": "red-panda:simon-jerusalem-zoo",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Red_Panda_Simon_01.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Red_Panda_Simon_01.jpg",
+      "creator": "SuperJew",
+      "credit": "SuperJew",
+      "rights_status": "cc-by-sa-3.0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC BY-SA 3.0",
+        "version": "3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "terms": "Share and adapt with appropriate credit, a link to the license, and indication of changes; adaptations use the same license."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Red_Panda_Simon_01.jpg/330px-Red_Panda_Simon_01.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Red_Panda_Simon_01.jpg/960px-Red_Panda_Simon_01.jpg",
+          "mime_type": "image/jpeg",
+          "max_bytes": 393216,
+          "max_width": 960,
+          "max_height": 640
+        }
+      }
+    },
+    {
+      "id": "fef7308372861e1dab7ecf08270eba7c",
+      "animal_id": "red-panda:simon-jerusalem-zoo",
+      "identity_confidence": "confirmed",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:SIMON_RED_PANDA.JPG",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/SIMON_RED_PANDA.JPG",
+      "creator": "Masha Gutman",
+      "credit": "Masha Gutman",
+      "rights_status": "cc0",
+      "embedding_status": "allowed",
+      "license": {
+        "name": "CC0 1.0",
+        "version": "1.0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "terms": "The creator waives copyright and related rights to the extent permitted by law."
+      },
+      "checked_date": "2026-10-20",
+      "mime_type": "image/jpeg",
+      "changes": "No changes by Atlas; Commons-generated previews are used when a thumbnail is required.",
+      "variants": {
+        "thumb": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/SIMON_RED_PANDA.JPG/330px-SIMON_RED_PANDA.JPG",
+          "mime_type": "image/jpeg",
+          "max_bytes": 65536,
+          "max_width": 330,
+          "max_height": 220
+        },
+        "profile": {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/SIMON_RED_PANDA.JPG/960px-SIMON_RED_PANDA.JPG",
           "mime_type": "image/jpeg",
           "max_bytes": 393216,
           "max_width": 960,

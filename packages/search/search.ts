@@ -25,7 +25,11 @@ export interface AnimalSummary {
   detail_chunk?: string;
   photo_confirmed?: boolean;
   photo_url?: string;
+  photo_fallback_url?: string;
   photo_source_url?: string;
+  photo_credit?: string;
+  photo_license?: string;
+  photo_license_url?: string;
   birth_date_label?: string | null;
   death_date_label?: string | null;
   institution_label?: string | null;

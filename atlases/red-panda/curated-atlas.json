@@ -1,20 +1,21 @@
 {
   "release": {
     "schema_version": "1.0.0",
-    "data_version": "2026.10.07",
+    "data_version": "2026.10.20",
     "engine_version": "1.0.0",
-    "build_date": "2026-10-07",
-    "provenance": "Migrated from the cited, curated Futa-family tree; see migration_report.json."
+    "build_date": "2026-10-20",
+    "provenance": "Curated red-panda genealogy plus pinned upstream metadata and individually identified, rights-cleared Wikimedia Commons photo supplements; see source records and Phase 5 photo audit."
   },
   "coverage": {
     "taxon": "Ailurus fulgens",
-    "scope": "The cited Futa-family layer: named individuals, cited parent links, documented events, and explicitly reported unnamed outcomes.",
+    "scope": "The cited Futa-family layer: named individuals, cited parent links, documented events, and explicitly reported unnamed outcomes. The curated records also include Simon, separately identified at Jerusalem Biblical Zoo; his sex, life status, dates, and parentage remain unknown.",
     "limitations": [
       "This is a curated family layer, not a complete red-panda studbook.",
       "Unresolved co-parent names remain claims and are not converted into animal records.",
       "The independent global profile snapshot has no declared reuse license and was excluded.",
       "Names are retained in Japanese where the cited source provides no verified transliteration.",
-      "Media is link-only; no animal photos or direct image URLs are bundled."
+      "Only individually identified images with per-file reuse licenses are displayed; other photo references remain link-only.",
+      "Licensed originals load directly from Wikimedia Commons in the browser; Atlas stores no full-size animal photos."
     ],
     "last_reviewed": "2026-07-20",
     "translations": {
@@ -25,7 +26,8 @@
           "未解決の共同親の名前は主張として扱い、動物の記録には変換しません。",
           "独立した世界規模のプロフィールのスナップショットには再利用許諾が明示されていないため、除外しました。",
           "引用元に検証済みの音訳がない場合、名前は日本語表記のまま保持しています。",
-          "メディアはリンクのみです。動物の写真や画像への直接URLは同梱していません。"
+          "個体を特定でき、ファイルごとの再利用許諾が確認できた画像のみを表示します。それ以外の写真参照はリンクのみです。",
+          "許諾済みの原画像はブラウザーからWikimedia Commonsへ直接読み込みます。Atlasサーバーには動物のフルサイズ写真を保存しません。"
         ]
       },
       "ru": {
@@ -35,7 +37,8 @@
           "Имена неустановленных вторых родителей остаются утверждениями и не преобразуются в записи об отдельных животных.",
           "Независимый снимок глобального профиля был исключён, поскольку в нём не указана лицензия на повторное использование.",
           "Если в цитируемом источнике нет подтверждённой транслитерации, имена сохраняются в японском написании.",
-          "Медиа представлены только ссылками; фотографии животных и прямые URL изображений не включены."
+          "Показываются только фотографии с подтверждённой идентичностью и лицензией на каждый файл; остальные остаются ссылками.",
+          "Лицензированные оригиналы браузер загружает напрямую с Wikimedia Commons; сервер Atlas не хранит полноразмерные фотографии животных."
         ]
       }
     }
@@ -2273,6 +2276,28 @@
         "status": "needs_review",
         "reviewed_on": "2026-10-07",
         "notes": "Imported from the curated Futa family tree. Legacy data grade: B; its definition is not reinterpreted here."
+      }
+    },
+    {
+      "id": "red-panda:simon-jerusalem-zoo",
+      "taxon": "Ailurus fulgens",
+      "sex": "unknown",
+      "status": "unknown",
+      "name": {
+        "canonical": "Simon",
+        "language": "en",
+        "source_ids": [
+          "source:red-panda:commons-red-panda-simon-01",
+          "source:red-panda:commons-simon-red-panda"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Wikimedia Commons file descriptions independently name a red panda Simon at the Jerusalem Biblical Zoo. The record contains no inferred sex, life status, dates, or relationships."
       }
     }
   ],
@@ -7318,8 +7343,8 @@
       "id": "place:311a839503c54580",
       "names": [
         {
-        "value": "Zoológico Nacional de Chile",
-        "language": "es"
+          "value": "Zoológico Nacional de Chile",
+          "language": "es"
         }
       ],
       "country_code": null,
@@ -8865,6 +8890,234 @@
       "source_ids": [
         "source:red-panda:media:0eecadbe361b0d4c"
       ]
+    },
+    {
+      "media_id": "724ed8db7776be9270eadcc48c594822",
+      "animal_id": "red-panda:futa",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_1.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Futa_20261004_1.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Futa_20261004_1.jpg/330px-Futa_20261004_1.jpg",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "license_name": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies 千葉市動物公園の風太 The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-futa-20261004-1"
+      ]
+    },
+    {
+      "media_id": "240ee0c66fc6c07d92122ddbae5b39a5",
+      "animal_id": "red-panda:futa",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_2.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Futa_20261004_2.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Futa_20261004_2.jpg/330px-Futa_20261004_2.jpg",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "license_name": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies 千葉市動物公園の風太 The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-futa-20261004-2"
+      ]
+    },
+    {
+      "media_id": "a426db98f35e4bc984275cc031467ac9",
+      "animal_id": "red-panda:futa",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Futa_20261004_3.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "license_name": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies 千葉市動物公園の風太 The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-futa-cc-by"
+      ]
+    },
+    {
+      "media_id": "d766c076a8a1d959784e769bab02d65d",
+      "animal_id": "red-panda:futa",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_4.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Futa_20261004_4.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Futa_20261004_4.jpg/330px-Futa_20261004_4.jpg",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "license_name": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies 千葉市動物公園の風太 The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-futa-20261004-4"
+      ]
+    },
+    {
+      "media_id": "4d2a81bcd5ff39500ed924064d6d0b7f",
+      "animal_id": "red-panda:futa",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_5.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/0/03/Futa_20261004_5.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Futa_20261004_5.jpg/330px-Futa_20261004_5.jpg",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "license_name": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies 千葉市動物公園の風太 The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-futa-20261004-5"
+      ]
+    },
+    {
+      "media_id": "d6f849f9e592f14b86d41cafe802b301",
+      "animal_id": "red-panda:futa",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
+      "credit": "KQuhen",
+      "rights_status": "cc-by-sa-4.0",
+      "license_name": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies Red pandas Futa and his offspring standing in Chiba Zoological Park, Chiba, Japan. The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-futa-red-panda-chiba-zoological-park-2010-01"
+      ]
+    },
+    {
+      "media_id": "73d3141f550c9dac1900adda924cec88",
+      "animal_id": "red-panda:futa",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/d/df/Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
+      "credit": "KQuhen",
+      "rights_status": "cc-by-sa-4.0",
+      "license_name": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies Futa, a red panda, standing in Chiba Zoological Park, Chiba, Japan. The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-futa-red-panda-chiba-zoological-park-2010-02"
+      ]
+    },
+    {
+      "media_id": "0d5fefd1008bde032eae21eb4c225a77",
+      "animal_id": "red-panda:futa",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
+      "credit": "KQuhen",
+      "rights_status": "cc-by-sa-4.0",
+      "license_name": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies Futa, a red panda, standing in Chiba Zoological Park, Chiba, Japan. The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-futa-red-panda-chiba-zoological-park-2010-03"
+      ]
+    },
+    {
+      "media_id": "60a77a71b3b45c94a0d98a66898d9d2e",
+      "animal_id": "red-panda:futa",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg/330px-Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
+      "credit": "KQuhen",
+      "rights_status": "cc-by-sa-4.0",
+      "license_name": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies Futa, a red panda, standing in Chiba Zoological Park, Chiba, Japan. The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-futa-red-panda-chiba-zoological-park-2010-04"
+      ]
+    },
+    {
+      "media_id": "327c2434dd7d8bec2623f1563a3ad7e4",
+      "animal_id": "red-panda:futa",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Futa20260321.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Futa20260321.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Futa20260321.jpg/330px-Futa20260321.jpg",
+      "credit": "Misei sen",
+      "rights_status": "cc-by-4.0",
+      "license_name": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies 千葉市動物公園のレッサーパンダ、風太 The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-futa20260321"
+      ]
+    },
+    {
+      "media_id": "e674cc38e610c5115281a8de2d862593",
+      "animal_id": "red-panda:simon-jerusalem-zoo",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Red_Panda_Simon_01.jpg",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Red_Panda_Simon_01.jpg",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Red_Panda_Simon_01.jpg/330px-Red_Panda_Simon_01.jpg",
+      "credit": "SuperJew",
+      "rights_status": "cc-by-sa-3.0",
+      "license_name": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies A red panda named Simon at the Jerusalem Biblical Zoo. The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-red-panda-simon-01"
+      ]
+    },
+    {
+      "media_id": "fef7308372861e1dab7ecf08270eba7c",
+      "animal_id": "red-panda:simon-jerusalem-zoo",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:SIMON_RED_PANDA.JPG",
+      "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/SIMON_RED_PANDA.JPG",
+      "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/SIMON_RED_PANDA.JPG/330px-SIMON_RED_PANDA.JPG",
+      "credit": "Masha Gutman",
+      "rights_status": "cc0",
+      "license_name": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "embedding_status": "allowed",
+      "offline_archive_eligible": false,
+      "identity_confidence": "confirmed",
+      "checked_date": "2026-10-20",
+      "notes": "Commons file description identifies Simon the red panda; credit line names Jerusalem Biblical Zoo. The licensed original is loaded directly from Wikimedia Commons in the browser. The profile preview is a Commons-generated 960×640 maximum derivative; cards use a Commons-generated 330×220 maximum derivative. Atlas does not store image bytes.",
+      "source_ids": [
+        "source:red-panda:commons-simon-red-panda"
+      ]
     }
   ],
   "sources": [
@@ -10055,6 +10308,150 @@
       "notes": "本文で風菜を明示。別アングルの写真あり。\n作者の許可なく転載しない。\nLegacy media source type: 個人ブログ.\nLink disposition and metadata are inherited from the curated dataset cutoff; the page was not independently revalidated during migration.",
       "data_use": "Link only. No image embedding, downloading, archiving, or redistribution permission is implied.",
       "tier": "discovery_only"
+    },
+    {
+      "id": "source:red-panda:commons-futa-20261004-1",
+      "title": "File:Futa 20261004 1.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_1.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies 千葉市動物公園の風太 The page lists Misei sen and CC BY 4.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-futa-20261004-2",
+      "title": "File:Futa 20261004 2.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_2.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies 千葉市動物公園の風太 The page lists Misei sen and CC BY 4.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-futa-cc-by",
+      "title": "File:Futa 20261004 3.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies 千葉市動物公園の風太 The page lists Misei sen and CC BY 4.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-futa-20261004-4",
+      "title": "File:Futa 20261004 4.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_4.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies 千葉市動物公園の風太 The page lists Misei sen and CC BY 4.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-futa-20261004-5",
+      "title": "File:Futa 20261004 5.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa_20261004_5.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies 千葉市動物公園の風太 The page lists Misei sen and CC BY 4.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-futa-red-panda-chiba-zoological-park-2010-01",
+      "title": "File:Futa red panda Chiba Zoological Park 2010 01.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_01.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies Red pandas Futa and his offspring standing in Chiba Zoological Park, Chiba, Japan. The page lists KQuhen and CC BY-SA 4.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-futa-red-panda-chiba-zoological-park-2010-02",
+      "title": "File:Futa red panda Chiba Zoological Park 2010 02.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_02.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies Futa, a red panda, standing in Chiba Zoological Park, Chiba, Japan. The page lists KQuhen and CC BY-SA 4.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-futa-red-panda-chiba-zoological-park-2010-03",
+      "title": "File:Futa red panda Chiba Zoological Park 2010 03.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_03.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies Futa, a red panda, standing in Chiba Zoological Park, Chiba, Japan. The page lists KQuhen and CC BY-SA 4.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-futa-red-panda-chiba-zoological-park-2010-04",
+      "title": "File:Futa red panda Chiba Zoological Park 2010 04.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa_red_panda_Chiba_Zoological_Park_2010_04.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies Futa, a red panda, standing in Chiba Zoological Park, Chiba, Japan. The page lists KQuhen and CC BY-SA 4.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-futa20260321",
+      "title": "File:Futa20260321.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Futa20260321.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies 千葉市動物公園のレッサーパンダ、風太 The page lists Misei sen and CC BY 4.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-red-panda-simon-01",
+      "title": "File:Red Panda Simon 01.jpg",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Red_Panda_Simon_01.jpg",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies A red panda named Simon at the Jerusalem Biblical Zoo. The page lists SuperJew and CC BY-SA 3.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
+    },
+    {
+      "id": "source:red-panda:commons-simon-red-panda",
+      "title": "File:SIMON RED PANDA.JPG",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:SIMON_RED_PANDA.JPG",
+      "publication_date": null,
+      "accessed_date": "2026-10-20",
+      "source_type": "media_rights_source",
+      "tier": "D",
+      "notes": "The Commons file description identifies Simon the red panda; credit line names Jerusalem Biblical Zoo. The page lists Masha Gutman and CC0 1.0; this source is used only for individual-photo identity and media-rights metadata.",
+      "data_use": "Media identity, creator, credit, and file-license metadata only; not evidence for genealogy, sex, status, or dates."
     }
   ]
 }

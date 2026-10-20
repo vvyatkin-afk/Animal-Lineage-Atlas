@@ -76,7 +76,7 @@ def _write_country_flag_assets(output_dir: Path, animals: list[dict]) -> None:
 
 
 def _approved_items_for_document(document: dict, manifest: dict) -> list[dict]:
-    """Match vetted relay entries to canonical records without exposing source URLs."""
+    """Match individually cleared browser-direct sources to canonical records."""
     records = {item.get("media_id"): item for item in document.get("media", [])}
     approved: list[dict] = []
     for item in manifest.get("items", []):
@@ -88,8 +88,11 @@ def _approved_items_for_document(document: dict, manifest: dict) -> list[dict]:
             or record.get("source_page_url") != item.get("source_page_url")
             or record.get("identity_confidence") != "confirmed"
             or record.get("rights_status") != item.get("rights_status")
+            or record.get("direct_remote_url") != item.get("original_url")
+            or record.get("direct_thumbnail_url") != item.get("variants", {}).get("thumb", {}).get("url")
+            or record.get("license_name") != item.get("license", {}).get("name")
+            or record.get("license_url") != item.get("license", {}).get("url")
             or record.get("embedding_status") != "allowed"
-            or record.get("direct_remote_url")
             or item.get("identity_confidence") != "confirmed"
             or item.get("embedding_status") != "allowed"
         ):
@@ -99,12 +102,14 @@ def _approved_items_for_document(document: dict, manifest: dict) -> list[dict]:
 
 
 def _write_public_media_manifest(output_dir: Path, items: list[dict]) -> None:
-    """Publish attribution metadata and opaque IDs, never upstream fetch URLs."""
+    """Publish cleared source URLs, bounded previews, and attribution metadata."""
     public_items = [{
         "id": item["id"],
         "animal_id": item["animal_id"],
         "identity_confidence": item["identity_confidence"],
         "source_page_url": item["source_page_url"],
+        "original_url": item["original_url"],
+        "thumbnail_url": item["variants"]["thumb"]["url"],
         "creator": item["creator"],
         "credit": item["credit"],
         "rights_status": item["rights_status"],
@@ -166,6 +171,8 @@ def _write_runtime_index(
             and media.get("rights_status") == approved.get("rights_status")
             and media.get("identity_confidence") == "confirmed"
             and media.get("source_page_url") == approved.get("source_page_url")
+            and media.get("direct_remote_url") == approved.get("original_url")
+            and media.get("direct_thumbnail_url") == approved.get("variants", {}).get("thumb", {}).get("url")
             and "thumb" in approved.get("variants", {})
         )
         if allowed:
@@ -224,7 +231,7 @@ def _write_runtime_index(
         owner_events = [record for animal_id in owner_id_order for record in events_by_animal.get(animal_id, [])]
         owner_claims = [record for animal_id in owner_id_order for record in claims_by_animal.get(animal_id, [])]
         owner_media = [
-            {key: value for key, value in record.items() if key != "direct_remote_url"}
+            {key: value for key, value in record.items() if key not in {"direct_remote_url", "direct_thumbnail_url"}}
             for animal_id in owner_id_order
             for record in media_by_animal.get(animal_id, [])
         ]
@@ -283,10 +290,12 @@ def _write_runtime_index(
                 "institution_label": institution_label_by_animal.get(animal["id"]),
                 "photo_confirmed": animal["id"] in photo_preview_by_animal,
                 **({
-                    "photo_url": f"{base_path}media/{preview['media_id']}/thumb",
+                    "photo_url": preview["direct_thumbnail_url"],
+                    "photo_fallback_url": f"{base_path}media/{preview['media_id']}/thumb",
                     "photo_source_url": preview["source_page_url"],
                     "photo_credit": preview_rights["credit"],
                     "photo_license": preview_rights["license"]["name"],
+                    "photo_license_url": preview_rights["license"]["url"],
                 } if preview and preview_rights else {}),
                 "detail_chunk": chunk_name,
             })

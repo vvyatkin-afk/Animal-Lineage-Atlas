@@ -19,7 +19,10 @@ REVIEW_STATUSES = {"reviewed", "needs_review", "unreviewed"}
 RELATION_TYPES = {"biological_mother", "biological_father", "foster", "adoptive", "social"}
 ANCESTRY_TYPES = {"biological_mother", "biological_father"}
 EVENT_TYPES = {"birth", "death", "move", "transfer", "release", "observation"}
-EMBEDDABLE_RIGHTS = {"cc0", "public_domain", "permission_granted", "license_allows_embedding", "cc-by-4.0"}
+EMBEDDABLE_RIGHTS = {
+    "cc0", "public_domain", "permission_granted", "license_allows_embedding",
+    "cc-by-4.0", "cc-by-sa-3.0", "cc-by-sa-4.0",
+}
 PARTIAL_DATE_RE = re.compile(r"^\d{4}(?:-\d{2}(?:-\d{2})?)?$")
 FULL_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
@@ -342,6 +345,10 @@ def validate_atlas(document: dict[str, Any]) -> list[Issue]:
             _issue(issues, "invalid_media_source", f"{path}.source_page_url", "Media source must be an HTTP(S) source page URL.")
         if media.get("direct_remote_url") is not None and not _check_uri(media.get("direct_remote_url")):
             _issue(issues, "invalid_direct_media_url", f"{path}.direct_remote_url", "Direct media metadata must be an HTTP(S) URL.")
+        if media.get("direct_thumbnail_url") is not None and not _check_uri(media.get("direct_thumbnail_url")):
+            _issue(issues, "invalid_direct_media_url", f"{path}.direct_thumbnail_url", "Direct thumbnail metadata must be an HTTP(S) URL.")
+        if media.get("license_url") is not None and not _check_uri(media.get("license_url")):
+            _issue(issues, "invalid_media_license_url", f"{path}.license_url", "Media license URL must be an HTTP(S) URL.")
         if media.get("embedding_status") == "allowed" and str(media.get("rights_status", "")).lower() not in EMBEDDABLE_RIGHTS:
             _issue(issues, "unlicensed_embedding", f"{path}.embedding_status", "Embedding is allowed only when the recorded rights status explicitly permits it.")
         if media.get("embedding_status") not in {"allowed", "link_only", "denied", "unknown"}:

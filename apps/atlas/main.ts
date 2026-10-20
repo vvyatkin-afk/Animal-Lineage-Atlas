@@ -18,7 +18,11 @@ type RuntimeAnimal = AtlasDocument['animals'][number] & {
   population?: string;
   photo_confirmed?: boolean;
   photo_url?: string;
+  photo_fallback_url?: string;
   photo_source_url?: string;
+  photo_credit?: string;
+  photo_license?: string;
+  photo_license_url?: string;
   birth_date_label?: string;
   death_date_label?: string;
   institution_label?: string;
@@ -104,7 +108,7 @@ async function boot() {
     const local = resolveLocalMedia?.(reference);
     if (local?.kind === 'local') return local;
     const approved = resolveApprovedMedia?.(reference);
-    if (approved?.kind === 'relay') return approved;
+    if (approved?.kind === 'licensed') return approved;
     if (reference.embedding_status === 'allowed' || reference.direct_remote_url) {
       return {
         kind: 'placeholder',
@@ -141,7 +145,11 @@ async function boot() {
     status: animal.status,
     photo_confirmed: animal.photo_confirmed,
     photo_url: animal.photo_url,
+    photo_fallback_url: animal.photo_fallback_url,
     photo_source_url: animal.photo_source_url,
+    photo_credit: animal.photo_credit,
+    photo_license: animal.photo_license,
+    photo_license_url: animal.photo_license_url,
     birth_date_label: animal.birth_date_label,
     death_date_label: animal.death_date_label,
     institution_label: animal.institution_label,
@@ -168,7 +176,6 @@ async function boot() {
   const detailCache = new Map<string, Promise<DetailChunk>>();
   let profileRequestVersion = 0;
   let treeController: GenealogyViewController | null = null;
-  let fitLargestGlobalOnNextRender = initialFocusId === null;
   let lastLayoutMetrics: LayoutMetrics | null = null;
   let lastLayoutMode: GenealogyRouteMode | null = null;
   function labels(): UiMessages {
@@ -334,10 +341,8 @@ async function boot() {
         renderTree();
         },
         (patch) => { state.update(patch); },
-        fitLargestGlobalOnNextRender,
       );
       applyGlobalGraphFacets();
-      fitLargestGlobalOnNextRender = false;
       graphContainer.dataset.graphRenderMs = (performance.now() - renderStarted).toFixed(3);
       return;
     }
@@ -564,7 +569,6 @@ async function boot() {
   requiredElement('zoom-in').addEventListener('click', () => adjustZoom(0.12));
   requiredElement('zoom-out').addEventListener('click', () => adjustZoom(-0.12));
   requiredElement('all-families').addEventListener('click', () => {
-    fitLargestGlobalOnNextRender = true;
     state.update({ focusId: null, zoom: 1, pan: { x: 0, y: 0 } });
     renderTree();
   });
@@ -582,6 +586,14 @@ async function boot() {
   dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeProfile(); });
   window.addEventListener('popstate', () => {
     void syncDialog(getProfileIdFromSearch(window.location.search));
+  });
+  let focusedViewResizeFrame = 0;
+  window.addEventListener('resize', () => {
+    if (focusedViewResizeFrame) window.cancelAnimationFrame(focusedViewResizeFrame);
+    focusedViewResizeFrame = window.requestAnimationFrame(() => {
+      focusedViewResizeFrame = 0;
+      treeController?.resize?.();
+    });
   });
   renderAll();
   if (requestedProfile) void syncDialog(requestedProfile);

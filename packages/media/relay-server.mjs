@@ -22,6 +22,12 @@ const RATE_LIMIT_OVERFLOW_KEY = Symbol('overflow rate bucket');
 const DEFAULT_MAX_CONCURRENT = 12;
 const TOTAL_MAX_BYTES = 393_216;
 const PUBLIC_MEDIA_FORMAT = 'animal-lineage-atlas-approved-media-v1';
+const ALLOWED_LICENSES = new Map([
+  ['cc0', { name: 'CC0 1.0', version: '1.0', url: 'https://creativecommons.org/publicdomain/zero/1.0/' }],
+  ['cc-by-4.0', { name: 'CC BY 4.0', version: '4.0', url: 'https://creativecommons.org/licenses/by/4.0/' }],
+  ['cc-by-sa-3.0', { name: 'CC BY-SA 3.0', version: '3.0', url: 'https://creativecommons.org/licenses/by-sa/3.0/' }],
+  ['cc-by-sa-4.0', { name: 'CC BY-SA 4.0', version: '4.0', url: 'https://creativecommons.org/licenses/by-sa/4.0/' }],
+]);
 const ID_PATTERN = /^[a-f0-9]{32}$/;
 const VARIANT_PATTERN = /^(thumb|profile)$/;
 const ALLOWED_MIME_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -112,6 +118,20 @@ export function validateUpstreamUrl(value) {
   return url;
 }
 
+function validateOriginalUrl(value) {
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    throw new Error('Approved original URL is invalid');
+  }
+  if (url.protocol !== 'https:' || url.hostname !== 'upload.wikimedia.org' || !url.pathname.startsWith('/wikipedia/commons/')
+    || url.port || url.username || url.password || url.search || url.hash) {
+    throw new Error('Approved original URL is outside the Wikimedia Commons allowlist');
+  }
+  return url;
+}
+
 export function validateApprovedMediaManifest(manifest) {
   if (!manifest || manifest.format !== PUBLIC_MEDIA_FORMAT || manifest.version !== 1 || !Array.isArray(manifest.items)) {
     throw new Error('Unsupported approved media manifest format');
@@ -123,18 +143,20 @@ export function validateApprovedMediaManifest(manifest) {
     }
     ids.add(item.id);
     if (typeof item.animal_id !== 'string' || item.identity_confidence !== 'confirmed'
-      || item.embedding_status !== 'allowed' || item.rights_status !== 'cc-by-4.0') {
+      || item.embedding_status !== 'allowed' || !ALLOWED_LICENSES.has(item.rights_status)) {
       throw new Error(`Approved media ${item.id} is missing verified identity or reuse rights`);
     }
-    if (typeof item.source_page_url !== 'string' || !item.source_page_url.startsWith('https://')
+    if (typeof item.source_page_url !== 'string' || !item.source_page_url.startsWith('https://commons.wikimedia.org/wiki/File:')
       || typeof item.creator !== 'string' || !item.creator.trim()
       || typeof item.credit !== 'string' || !item.credit.trim()
       || typeof item.checked_date !== 'string') {
       throw new Error(`Approved media ${item.id} is missing source or attribution metadata`);
     }
+    item.original_url = validateOriginalUrl(item.original_url).href;
     const license = item.license;
-    if (!license || license.name !== 'CC BY 4.0' || license.version !== '4.0'
-      || license.url !== 'https://creativecommons.org/licenses/by/4.0/'
+    const expectedLicense = ALLOWED_LICENSES.get(item.rights_status);
+    if (!license || license.name !== expectedLicense.name || license.version !== expectedLicense.version
+      || license.url !== expectedLicense.url
       || typeof license.terms !== 'string' || !license.terms.trim()) {
       throw new Error(`Approved media ${item.id} has an unsupported license record`);
     }

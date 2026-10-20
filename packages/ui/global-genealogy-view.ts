@@ -1,4 +1,4 @@
-import type { GenealogyGraph, GraphEdge, GraphNode } from '../genealogy/layout.ts';
+import { advanceFamilyTileIndex, layoutFamilyOverview, type GenealogyFamilyTile, type GenealogyGraph, type GraphEdge, type GraphNode } from '../genealogy/layout.ts';
 import type { AtlasViewState } from '../genealogy/state.ts';
 import { relationshipEdgeStyle } from '../genealogy/edge-style.ts';
 import type { GenealogyMessages, GenealogyViewController } from './genealogy-view.ts';
@@ -12,6 +12,7 @@ import {
 
 const SPATIAL_CELL = 512;
 const CARD_ZOOM = 0.6;
+const FAMILY_SUMMARY_ZOOM = 0.085;
 const MAX_VISIBLE_CARDS = 180;
 
 export interface GlobalGenealogyMessages extends GenealogyMessages {
@@ -25,6 +26,8 @@ export interface GlobalGenealogyMessages extends GenealogyMessages {
   livingStatus: string;
   deceasedStatus: string;
   photoConfirmedLabel: string;
+  familyAnimalsLabel: string;
+  lineageLabel: string;
   graphFilterSummary: string;
   allAnimalsLabel: string;
   fitAllLabel: string;
@@ -124,17 +127,15 @@ function statusLabel(node: GraphNode, messages: GlobalGenealogyMessages): string
   return messages.unknownValue;
 }
 
-function makeNodeCard(node: GraphNode, basePath: string, messages: GlobalGenealogyMessages): HTMLAnchorElement {
-  const card = document.createElement('a');
+function makeNodeCard(node: GraphNode, basePath: string, messages: GlobalGenealogyMessages): HTMLDivElement {
+  const card = document.createElement('div');
   card.className = 'global-node-card';
-  card.href = `${basePath}?animal=${encodeURIComponent(node.id)}`;
-  card.target = '_blank';
-  card.rel = 'noopener';
+  card.setAttribute('role', 'group');
   card.dataset.animalId = node.id;
   const photoAttribution = node.photoConfirmed && node.photoCredit
-    ? ` Photo by ${node.photoCredit}${node.photoLicense ? ` under ${node.photoLicense}` : ''}.`
+    ? ` Photo by ${node.photoCredit}${node.photoLicense ? ` under ${node.photoLicense}` : ''}; source and license links follow.`
     : '';
-  card.setAttribute('aria-label', `${node.name}, ${node.countryCode ?? ''}. ${messages.generationLabel} ${node.generation}. ${sexLabel(node, messages)}. ${statusLabel(node, messages)}.${photoAttribution} ${messages.viewProfileLabel} in a new tab.`);
+  card.setAttribute('aria-label', `${node.name}, ${node.countryCode ?? ''}. ${messages.generationLabel} ${node.generation}. ${sexLabel(node, messages)}. ${statusLabel(node, messages)}.${photoAttribution}`);
   card.style.left = `${node.x}px`;
   card.style.top = `${node.y}px`;
   card.style.transform = 'translate(-50%, -50%)';
@@ -160,15 +161,39 @@ function makeNodeCard(node: GraphNode, basePath: string, messages: GlobalGenealo
     image.alt = '';
     image.loading = 'lazy';
     image.decoding = 'async';
-    image.referrerPolicy = 'no-referrer';
+    image.referrerPolicy = 'strict-origin-when-cross-origin';
+    if (node.photoFallbackUrl) image.dataset.fallbackUrl = node.photoFallbackUrl;
     if (node.photoCredit) image.title = `${node.photoCredit}${node.photoLicense ? ` · ${node.photoLicense}` : ''}`;
-    image.addEventListener('error', () => image.remove(), { once: true });
-    avatar.append(image);
+    image.addEventListener('error', () => {
+      const fallback = image.dataset.fallbackUrl;
+      if (fallback && image.dataset.fallbackAttempted !== 'true') {
+        image.dataset.fallbackAttempted = 'true';
+        image.src = fallback;
+        return;
+      }
+      image.remove();
+    });
+    const sourceUrl = safePhotoAttributionUrl(node.photoSourceUrl, 'commons.wikimedia.org');
+    if (sourceUrl) {
+      const photoSource = document.createElement('a');
+      photoSource.className = 'global-node-photo-source';
+      photoSource.href = sourceUrl;
+      photoSource.target = '_blank';
+      photoSource.rel = 'noopener noreferrer';
+      photoSource.setAttribute('aria-label', `Open the photo source for ${node.name}`);
+      photoSource.append(image);
+      avatar.append(photoSource);
+    } else avatar.append(image);
   }
   card.append(avatar);
 
   const details = document.createElement('span');
   details.className = 'global-node-details';
+  const profileLink = document.createElement('a');
+  profileLink.className = 'global-node-profile-link';
+  profileLink.href = `${basePath}?animal=${encodeURIComponent(node.id)}`;
+  profileLink.target = '_blank';
+  profileLink.rel = 'noopener';
   const name = document.createElement('strong');
   name.textContent = node.name;
   const metadata = document.createElement('small');
@@ -181,12 +206,36 @@ function makeNodeCard(node: GraphNode, basePath: string, messages: GlobalGenealo
     node.institutionLabel ?? '',
     `${messages.generationLabel} ${node.generation}`,
   ].filter(Boolean).join(' · ');
-  details.append(name, metadata, dates);
+  profileLink.append(name, metadata, dates);
+  details.append(profileLink);
   if (node.photoConfirmed && node.photoCredit) {
     const attribution = document.createElement('small');
     attribution.className = 'global-photo-attribution';
-    attribution.textContent = `${node.photoCredit}${node.photoLicense ? ` · ${node.photoLicense}` : ''}`;
     attribution.title = `${node.photoCredit}${node.photoLicense ? ` · ${node.photoLicense}` : ''}`;
+    const sourceUrl = safePhotoAttributionUrl(node.photoSourceUrl, 'commons.wikimedia.org');
+    if (sourceUrl) {
+      const sourceLink = document.createElement('a');
+      sourceLink.className = 'global-photo-source-link';
+      sourceLink.href = sourceUrl;
+      sourceLink.target = '_blank';
+      sourceLink.rel = 'noopener noreferrer';
+      sourceLink.textContent = node.photoCredit;
+      sourceLink.setAttribute('aria-label', `Photo source and credit: ${node.photoCredit}`);
+      attribution.append(sourceLink);
+    } else attribution.append(document.createTextNode(node.photoCredit));
+    if (node.photoLicense) {
+      attribution.append(document.createTextNode(' · '));
+      const licenseUrl = safePhotoAttributionUrl(node.photoLicenseUrl, 'creativecommons.org');
+      if (licenseUrl) {
+        const licenseLink = document.createElement('a');
+        licenseLink.className = 'global-photo-license-link';
+        licenseLink.href = licenseUrl;
+        licenseLink.target = '_blank';
+        licenseLink.rel = 'noopener noreferrer';
+        licenseLink.textContent = node.photoLicense;
+        attribution.append(licenseLink);
+      } else attribution.append(document.createTextNode(node.photoLicense));
+    }
     details.append(attribution);
   }
   card.append(details);
@@ -200,6 +249,21 @@ function makeNodeCard(node: GraphNode, basePath: string, messages: GlobalGenealo
     card.append(check);
   }
   return card;
+}
+
+function safePhotoAttributionUrl(value: string | null, hostname: string): string | null {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    if (url.protocol !== 'https:' || url.hostname !== hostname || url.username || url.password) return null;
+    if (hostname === 'commons.wikimedia.org' && !url.pathname.startsWith('/wiki/File:')) return null;
+    if (hostname === 'creativecommons.org'
+      && !(/^\/licenses\/[a-z-]+\/\d(?:\.\d)?\/$/.test(url.pathname)
+        || /^\/publicdomain\/zero\/\d(?:\.\d)?\/$/.test(url.pathname))) return null;
+    return url.href;
+  } catch {
+    return null;
+  }
 }
 
 function makeLegend(messages: GlobalGenealogyMessages): HTMLElement {
@@ -253,7 +317,6 @@ export function renderGlobalGenealogy(
   basePath: string,
   onFocus: (animalId: string) => void,
   onViewChange: (patch: Partial<AtlasViewState>) => void,
-  fitLargestOnMount = false,
 ): GenealogyViewController {
   container.replaceChildren();
   const wrapper = document.createElement('div');
@@ -300,23 +363,61 @@ export function renderGlobalGenealogy(
 
   const context = canvas.getContext('2d');
   const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const familyTiles = graph.familyTiles ?? [];
+  let overviewLayout = layoutFamilyOverview(familyTiles, 1.4);
+  let overviewTileBounds = new Map(overviewLayout.tileBounds.map((tile) => [tile.id, tile.bounds]));
+  const nodeIdsByTile = new Map<string, string[]>();
+  for (const node of graph.nodes) {
+    if (!node.tileId) continue;
+    const ids = nodeIdsByTile.get(node.tileId) ?? [];
+    ids.push(node.id);
+    nodeIdsByTile.set(node.tileId, ids);
+  }
   const routes = graph.edges.flatMap((edge) => {
     const route = routeForEdge(edge, nodeById);
     return route ? [route] : [];
   });
   const nodeIndex = new SpatialIndex(graph.nodes, nodeBounds);
   const edgeIndex = new SpatialIndex(routes, (route) => route.bounds);
-  const cardById = new Map<string, HTMLAnchorElement>();
+  const cardById = new Map<string, HTMLDivElement>();
+  const familyPreviewById = new Map<string, HTMLSpanElement>();
   let visibleAnimalIds: Set<string> | null = null;
   let activeView = { ...view, pan: { ...view.pan } };
   let selectedId: string | null = null;
+  let selectedTileId: string | null = null;
+  let focusedTileId: string | null = null;
   let pixelRatio = 1;
   let frame = 0;
   let dragStart: { x: number; y: number; panX: number; panY: number; pointerId: number } | null = null;
   let dragMoved = false;
   let viewportWidth = 0;
   let viewportHeight = 0;
+  let previousOverviewAspect = 1.4;
+  let initialFitPending = activeView.zoom === 1 && activeView.pan.x === 0 && activeView.pan.y === 0;
   const flagImages = new Map<string, HTMLImageElement | null>();
+
+  const overviewBoundsFor = (tile: GenealogyFamilyTile): Bounds => overviewTileBounds.get(tile.id) ?? tile.bounds;
+  const isSummaryOverview = () => familyTiles.length > 0 && focusedTileId === null;
+  const updateOverviewGeometry = (): boolean => {
+    if (!familyTiles.length || !viewportWidth || !viewportHeight) return false;
+    const aspect = viewportWidth / viewportHeight;
+    if (Math.abs(aspect - previousOverviewAspect) < 0.02) return false;
+    previousOverviewAspect = aspect;
+    overviewLayout = layoutFamilyOverview(familyTiles, aspect);
+    overviewTileBounds = new Map(overviewLayout.tileBounds.map((tile) => [tile.id, tile.bounds]));
+    return true;
+  };
+
+  const overviewBoundsForTiles = (tiles: GenealogyFamilyTile[]): Bounds | null => {
+    const rectangles = tiles.map(overviewBoundsFor);
+    if (!rectangles.length) return null;
+    return rectangles.reduce<Bounds>((bounds, rectangle) => ({
+      left: Math.min(bounds.left, rectangle.left),
+      top: Math.min(bounds.top, rectangle.top),
+      right: Math.max(bounds.right, rectangle.right),
+      bottom: Math.max(bounds.bottom, rectangle.bottom),
+    }), { left: Number.POSITIVE_INFINITY, top: Number.POSITIVE_INFINITY, right: Number.NEGATIVE_INFINITY, bottom: Number.NEGATIVE_INFINITY });
+  };
 
   const scheduleDraw = () => {
     if (frame) return;
@@ -351,14 +452,14 @@ export function renderGlobalGenealogy(
     scheduleDraw();
   };
 
-  const fitBounds = (bounds: Bounds) => {
+  const fitBounds = (bounds: Bounds, minimumZoom = 0) => {
     if (!viewportWidth || !viewportHeight || !Number.isFinite(bounds.left)) return;
     const width = Math.max(1, bounds.right - bounds.left);
     const height = Math.max(1, bounds.bottom - bounds.top);
-    const zoom = Math.max(0.002, Math.min(1.4,
+    const zoom = Math.max(minimumZoom, Math.max(0.002, Math.min(1.4,
       (viewportWidth - 48) / width,
       (viewportHeight - 48) / height,
-    ));
+    )));
     const centerX = (bounds.left + bounds.right) / 2;
     const centerY = (bounds.top + bounds.bottom) / 2;
     applyView({
@@ -377,13 +478,31 @@ export function renderGlobalGenealogy(
     for (const node of visibleNodes) counts.set(node.componentId, (counts.get(node.componentId) ?? 0) + 1);
     const largestId = [...counts.entries()].sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))[0]?.[0];
     const nodes = largestId ? visibleNodes.filter((node) => node.componentId === largestId) : visibleNodes;
-    if (nodes.length) fitBounds(componentBounds(nodes));
+    const tile = nodes[0]?.tileId ? familyTiles.find((item) => item.id === nodes[0]?.tileId) : undefined;
+    if (tile) {
+      focusedTileId = tile.id;
+      selectedTileId = tile.id;
+      fitBounds(tile.bounds, FAMILY_SUMMARY_ZOOM * 1.15);
+    } else if (nodes.length) fitBounds(componentBounds(nodes));
   };
 
   const fitAll = () => {
     const nodes = currentlyVisibleNodes();
-    if (!visibleAnimalIds) fitBounds(globalBounds(graph));
+    focusedTileId = null;
+    selectedTileId = null;
+    if (familyTiles.length) {
+      const visibleTileIds = visibleAnimalIds ? new Set(nodes.flatMap((node) => node.tileId ? [node.tileId] : [])) : null;
+      const tiles = visibleTileIds ? familyTiles.filter((tile) => visibleTileIds.has(tile.id)) : familyTiles;
+      const bounds = visibleTileIds ? overviewBoundsForTiles(tiles) : overviewLayout.bounds;
+      if (bounds) fitBounds(bounds);
+    } else if (!visibleAnimalIds) fitBounds(globalBounds(graph));
     else if (nodes.length) fitBounds(componentBounds(nodes));
+  };
+
+  const focusFamilyTile = (tile: GenealogyFamilyTile) => {
+    focusedTileId = tile.id;
+    selectedTileId = tile.id;
+    fitBounds(tile.bounds, FAMILY_SUMMARY_ZOOM * 1.15);
   };
 
   const zoomBy = (difference: number) => {
@@ -393,6 +512,13 @@ export function renderGlobalGenealogy(
     const zoom = Math.max(0.002, Math.min(2.5, oldZoom + difference));
     const worldX = (centerX - activeView.pan.x) / oldZoom;
     const worldY = (centerY - activeView.pan.y) / oldZoom;
+    if (isSummaryOverview() && zoom >= FAMILY_SUMMARY_ZOOM) {
+      const tile = hitFamilyTile(worldX, worldY) ?? nearestFamilyTile(worldX, worldY);
+      if (tile) {
+        focusFamilyTile(tile);
+        return;
+      }
+    }
     applyView({ zoom, pan: { x: centerX - worldX * zoom, y: centerY - worldY * zoom } });
   };
 
@@ -414,10 +540,12 @@ export function renderGlobalGenealogy(
       canvas.width = width;
       canvas.height = height;
     }
-    if (fitLargestOnMount) {
-      fitLargestOnMount = false;
-      fitLargest();
-    } else scheduleDraw();
+    const overviewChanged = updateOverviewGeometry();
+    if (initialFitPending) {
+      initialFitPending = false;
+      fitAll();
+    } else if (overviewChanged && isSummaryOverview()) fitAll();
+    else scheduleDraw();
   };
 
   const drawEdge = (route: EdgeRoute, zoom: number) => {
@@ -485,6 +613,128 @@ export function renderGlobalGenealogy(
     }
   };
 
+  const visibleNodesInTile = (tile: GenealogyFamilyTile): GraphNode[] =>
+    (nodeIdsByTile.get(tile.id) ?? []).flatMap((id) => {
+      const node = nodeById.get(id);
+      return node && (!visibleAnimalIds || visibleAnimalIds.has(id)) ? [node] : [];
+    });
+
+  const tileHasVisibleAnimals = (tile: GenealogyFamilyTile): boolean =>
+    tile.animalCount === 0 || visibleNodesInTile(tile).length > 0;
+
+  const visibleFamilyGroupCount = (tile: GenealogyFamilyTile): number =>
+    new Set(visibleNodesInTile(tile).map((node) => node.componentId)).size;
+
+  const visibleAnimalCount = (tile: GenealogyFamilyTile): number => visibleNodesInTile(tile).length;
+
+  const tileAriaLabel = (tile: GenealogyFamilyTile): string =>
+    `${tile.label}; ${visibleAnimalCount(tile)} ${messages.familyAnimalsLabel}; ${visibleFamilyGroupCount(tile)} ${messages.lineageLabel}`;
+
+  const drawFamilyTiles = (visibleTiles: GenealogyFamilyTile[], zoom: number, summaryOnly: boolean) => {
+    if (!context) return;
+    for (const tile of visibleTiles) {
+      const bounds = summaryOnly ? overviewBoundsFor(tile) : tile.bounds;
+      const width = bounds.right - bounds.left;
+      const height = bounds.bottom - bounds.top;
+      context.beginPath();
+      context.rect(bounds.left, bounds.top, width, height);
+      context.fillStyle = summaryOnly ? '#eef3ed' : 'rgba(241, 244, 237, 0.25)';
+      context.fill();
+      context.strokeStyle = selectedTileId === tile.id ? '#b47733' : 'rgba(91, 115, 99, 0.36)';
+      context.lineWidth = selectedTileId === tile.id ? 3 / zoom : 1 / zoom;
+      context.setLineDash([]);
+      context.stroke();
+      if (!summaryOnly) continue;
+
+      const screenLeft = bounds.left * zoom + activeView.pan.x;
+      const screenTop = bounds.top * zoom + activeView.pan.y;
+      const screenWidth = width * zoom;
+      const screenHeight = height * zoom;
+      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      context.fillStyle = '#29483a';
+      context.textBaseline = 'top';
+      if (screenWidth >= 90 && screenHeight >= 34) {
+        context.font = '600 12px system-ui, sans-serif';
+        context.fillText(tile.label, screenLeft + 8, screenTop + 6, screenWidth - 16);
+        context.font = '11px system-ui, sans-serif';
+        context.fillStyle = '#5e6c62';
+        context.fillText(tileAriaLabel(tile), screenLeft + 8, screenTop + 22, screenWidth - 16);
+      } else if (screenWidth >= 30 && screenHeight >= 16) {
+        context.font = '600 10px system-ui, sans-serif';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillText(String(visibleAnimalCount(tile)), screenLeft + screenWidth / 2, screenTop + screenHeight / 2, screenWidth - 4);
+        context.textAlign = 'start';
+      }
+      context.setTransform(
+        pixelRatio * zoom, 0, 0, pixelRatio * zoom,
+        pixelRatio * activeView.pan.x, pixelRatio * activeView.pan.y,
+      );
+    }
+  };
+
+  const drawFamilyGenerationGuides = (visibleTiles: GenealogyFamilyTile[]) => {
+    if (!context) return;
+    for (const tile of visibleTiles) {
+      for (const row of tile.generationRows) {
+        context.beginPath();
+        context.moveTo(row.left, row.y);
+        context.lineTo(row.right, row.y);
+        context.strokeStyle = 'rgba(93, 112, 101, 0.13)';
+        context.lineWidth = 1 / activeView.zoom;
+        context.setLineDash([]);
+        context.stroke();
+        if (activeView.zoom < 0.07 || (row.right - row.left) * activeView.zoom < 170) continue;
+        context.save();
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        context.font = '10px system-ui, sans-serif';
+        context.fillStyle = '#738077';
+        context.textBaseline = 'middle';
+        const x = row.left * activeView.zoom + activeView.pan.x + 4;
+        const y = row.y * activeView.zoom + activeView.pan.y - 7;
+        if (y >= 0 && y <= viewportHeight) context.fillText(`${messages.generationLabel} ${row.generation}`, x, y);
+        context.restore();
+        context.setTransform(
+          pixelRatio * activeView.zoom, 0, 0, pixelRatio * activeView.zoom,
+          pixelRatio * activeView.pan.x, pixelRatio * activeView.pan.y,
+        );
+      }
+    }
+  };
+
+  const hitFamilyTile = (worldX: number, worldY: number): GenealogyFamilyTile | null => {
+    let closest: GenealogyFamilyTile | null = null;
+    let closestArea = Number.POSITIVE_INFINITY;
+    for (const tile of familyTiles) {
+      if (!tileHasVisibleAnimals(tile)) continue;
+      const bounds = isSummaryOverview() ? overviewBoundsFor(tile) : tile.bounds;
+      if (worldX < bounds.left || worldX > bounds.right || worldY < bounds.top || worldY > bounds.bottom) continue;
+      const area = (bounds.right - bounds.left) * (bounds.bottom - bounds.top);
+      if (area < closestArea) {
+        closest = tile;
+        closestArea = area;
+      }
+    }
+    return closest;
+  };
+
+  const nearestFamilyTile = (worldX: number, worldY: number): GenealogyFamilyTile | null => {
+    let closest: GenealogyFamilyTile | null = null;
+    let closestDistance = Number.POSITIVE_INFINITY;
+    for (const tile of familyTiles) {
+      if (!tileHasVisibleAnimals(tile)) continue;
+      const bounds = overviewBoundsFor(tile);
+      const dx = Math.max(bounds.left - worldX, 0, worldX - bounds.right);
+      const dy = Math.max(bounds.top - worldY, 0, worldY - bounds.bottom);
+      const distance = Math.hypot(dx, dy);
+      if (distance < closestDistance || (distance === closestDistance && tile.id.localeCompare(closest?.id ?? '') < 0)) {
+        closest = tile;
+        closestDistance = distance;
+      }
+    }
+    return closest;
+  };
+
   const syncVisibleCards = (visibleNodes: GraphNode[], worldBounds: Bounds) => {
     nodeLayer.style.transform = `translate(${activeView.pan.x}px, ${activeView.pan.y}px) scale(${activeView.zoom})`;
     const shouldShowCards = activeView.zoom >= CARD_ZOOM;
@@ -511,6 +761,65 @@ export function renderGlobalGenealogy(
     }
   };
 
+  const syncFamilyPreviews = (visibleTiles: GenealogyFamilyTile[], summaryOnly: boolean) => {
+    const wanted = new Set<string>();
+    if (summaryOnly) {
+      for (const tile of visibleTiles) {
+        if (!tile.previewPhotoUrl) continue;
+        const bounds = overviewBoundsFor(tile);
+        const screenWidth = (bounds.right - bounds.left) * activeView.zoom;
+        const screenHeight = (bounds.bottom - bounds.top) * activeView.zoom;
+        if (screenWidth < 64 || screenHeight < 34) continue;
+        const size = Math.min(48, screenWidth * 0.28, screenHeight - 10);
+        if (size < 18) continue;
+        wanted.add(tile.id);
+        let preview = familyPreviewById.get(tile.id);
+        if (!preview) {
+          preview = document.createElement('span');
+          preview.className = 'global-family-preview';
+          preview.dataset.familyPreviewId = tile.id;
+          const image = document.createElement('img');
+          image.className = 'global-family-preview-image';
+          image.alt = '';
+          image.loading = 'lazy';
+          image.decoding = 'async';
+          image.referrerPolicy = 'strict-origin-when-cross-origin';
+          image.addEventListener('error', () => {
+            const fallback = image.dataset.fallbackUrl;
+            if (fallback && image.dataset.fallbackAttempted !== 'true') {
+              image.dataset.fallbackAttempted = 'true';
+              image.src = fallback;
+              return;
+            }
+            preview?.remove();
+            familyPreviewById.delete(tile.id);
+          });
+          preview.append(image);
+          nodeLayer.append(preview);
+          familyPreviewById.set(tile.id, preview);
+        }
+        const image = preview.querySelector<HTMLImageElement>('img');
+        if (image && image.src !== tile.previewPhotoUrl) {
+          image.src = tile.previewPhotoUrl;
+          image.dataset.fallbackAttempted = 'false';
+          if (tile.previewFallbackUrl) image.dataset.fallbackUrl = tile.previewFallbackUrl;
+          else delete image.dataset.fallbackUrl;
+        }
+        preview.title = `${tile.previewAnimalName ?? tile.label}${tile.previewCredit ? ` · ${tile.previewCredit}` : ''}${tile.previewLicense ? ` · ${tile.previewLicense}` : ''}`;
+        preview.style.width = `${size / activeView.zoom}px`;
+        preview.style.height = `${size / activeView.zoom}px`;
+        preview.style.left = `${bounds.right - 6 / activeView.zoom - size / activeView.zoom}px`;
+        preview.style.top = `${bounds.top + (bounds.bottom - bounds.top - size / activeView.zoom) / 2}px`;
+      }
+    }
+    for (const [id, preview] of familyPreviewById) {
+      if (wanted.has(id)) continue;
+      preview.remove();
+      familyPreviewById.delete(id);
+    }
+    canvas.dataset.visibleSummaryPreviewCount = String(wanted.size);
+  };
+
   function draw() {
     if (!context || !viewportWidth || !viewportHeight) return;
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
@@ -518,10 +827,17 @@ export function renderGlobalGenealogy(
     context.fillStyle = '#fbfaf5';
     context.fillRect(0, 0, viewportWidth, viewportHeight);
     const bounds = viewBounds();
-    const visibleNodes = nodeIndex.query(bounds).filter((node) =>
-      (!visibleAnimalIds || visibleAnimalIds.has(node.id)) && intersects(nodeBounds(node), bounds));
-    const visibleEdges = edgeIndex.query(bounds).filter((route) =>
-      (!visibleAnimalIds || (visibleAnimalIds.has(route.edge.from) && visibleAnimalIds.has(route.edge.to)))
+    const summaryOnly = isSummaryOverview();
+    const visibleTiles = familyTiles.filter((tile) => {
+      const tileBounds = summaryOnly ? overviewBoundsFor(tile) : tile.bounds;
+      return tileHasVisibleAnimals(tile) && (!focusedTileId || tile.id === focusedTileId) && intersects(tileBounds, bounds);
+    });
+    const visibleNodes = summaryOnly ? [] : nodeIndex.query(bounds).filter((node) =>
+      (!focusedTileId || node.tileId === focusedTileId)
+      && (!visibleAnimalIds || visibleAnimalIds.has(node.id)) && intersects(nodeBounds(node), bounds));
+    const visibleEdges = summaryOnly ? [] : edgeIndex.query(bounds).filter((route) =>
+      (!focusedTileId || nodeById.get(route.edge.from)?.tileId === focusedTileId)
+      && (!visibleAnimalIds || (visibleAnimalIds.has(route.edge.from) && visibleAnimalIds.has(route.edge.to)))
       && intersects(route.bounds, bounds));
 
     context.setTransform(
@@ -530,48 +846,40 @@ export function renderGlobalGenealogy(
     );
     context.lineCap = 'round';
     context.lineJoin = 'round';
-    const generationLabelThreshold = 0.025;
-    const generationPositions = graph.generationRows.flatMap((row) => {
-      const first = nodeById.get(row.animalIds[0] ?? '');
-      return first ? [first.y] : [];
-    }).sort((left, right) => left - right);
-    const minimumGenerationGap = generationPositions.length > 1
-      ? Math.min(...generationPositions.slice(1).map((position, index) => position - generationPositions[index]!))
-      : Number.POSITIVE_INFINITY;
-    const showGenerationLabels = activeView.zoom >= generationLabelThreshold
-      && minimumGenerationGap * activeView.zoom >= 16;
-    if (activeView.zoom >= generationLabelThreshold) {
-      for (const row of graph.generationRows) {
-        const first = nodeById.get(row.animalIds[0] ?? '');
-        if (!first) continue;
-        context.beginPath();
-        context.moveTo(bounds.left, first.y);
-        context.lineTo(bounds.right, first.y);
-        context.strokeStyle = 'rgba(93, 112, 101, 0.08)';
-        context.lineWidth = 1 / activeView.zoom;
-        context.setLineDash([]);
-        context.stroke();
+    const showGenerationLabels = !summaryOnly && activeView.zoom >= (familyTiles.length ? 0.07 : 0.025);
+    drawFamilyTiles(visibleTiles, activeView.zoom, summaryOnly);
+    if (!summaryOnly) {
+      if (familyTiles.length) drawFamilyGenerationGuides(visibleTiles);
+      else if (showGenerationLabels) {
+        for (const row of graph.generationRows) {
+          const first = nodeById.get(row.animalIds[0] ?? '');
+          if (!first) continue;
+          context.beginPath();
+          context.moveTo(bounds.left, first.y);
+          context.lineTo(bounds.right, first.y);
+          context.strokeStyle = 'rgba(93, 112, 101, 0.08)';
+          context.lineWidth = 1 / activeView.zoom;
+          context.setLineDash([]);
+          context.stroke();
+        }
       }
+      for (const route of visibleEdges) drawEdge(route, activeView.zoom);
+      drawNodes(visibleNodes);
     }
-    for (const route of visibleEdges) drawEdge(route, activeView.zoom);
-    drawNodes(visibleNodes);
-
-    if (showGenerationLabels) {
-      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-      context.font = '11px system-ui, sans-serif';
-      context.fillStyle = '#6a766e';
-      context.textBaseline = 'middle';
-      for (const row of graph.generationRows) {
-        const first = nodeById.get(row.animalIds[0] ?? '');
-        if (!first) continue;
-        const y = first.y * activeView.zoom + activeView.pan.y;
-        if (y < 4 || y > viewportHeight - 4) continue;
-        context.fillText(`${messages.generationLabel} ${row.generation}`, 8, y - 8);
-      }
-    }
-    syncVisibleCards(visibleNodes, bounds);
-    canvas.dataset.visibleNodeCount = String(visibleNodes.length);
-    canvas.dataset.visibleEdgeCount = String(visibleEdges.length);
+    if (summaryOnly) syncVisibleCards([], bounds);
+    else syncVisibleCards(visibleNodes, bounds);
+    syncFamilyPreviews(visibleTiles, summaryOnly);
+    const summaryTileIds = new Set(visibleTiles.map((tile) => tile.id));
+    const representedNodeCount = summaryOnly
+      ? visibleTiles.reduce((count, tile) => count + visibleAnimalCount(tile), 0)
+      : visibleNodes.length;
+    const representedEdgeCount = summaryOnly
+      ? graph.edges.filter((edge) => summaryTileIds.has(nodeById.get(edge.from)?.tileId ?? '')
+        && summaryTileIds.has(nodeById.get(edge.to)?.tileId ?? '')
+        && (!visibleAnimalIds || (visibleAnimalIds.has(edge.from) && visibleAnimalIds.has(edge.to)))).length
+      : visibleEdges.length;
+    canvas.dataset.visibleNodeCount = String(representedNodeCount);
+    canvas.dataset.visibleEdgeCount = String(representedEdgeCount);
     const activeVisibleIds = visibleAnimalIds;
     canvas.dataset.filteredNodeCount = String(activeVisibleIds?.size ?? graph.nodes.length);
     canvas.dataset.filteredEdgeCount = String(activeVisibleIds
@@ -582,7 +890,12 @@ export function renderGlobalGenealogy(
     canvas.dataset.panX = String(activeView.pan.x);
     canvas.dataset.panY = String(activeView.pan.y);
     canvas.dataset.generationLabelsVisible = String(showGenerationLabels);
-    canvas.dataset.layoutBounds = `${graph.bounds?.left ?? 0},${graph.bounds?.top ?? 0},${graph.bounds?.right ?? 0},${graph.bounds?.bottom ?? 0}`;
+    canvas.dataset.layoutLevel = summaryOnly ? 'family-summary' : activeView.zoom >= CARD_ZOOM ? 'cards' : 'families';
+    canvas.dataset.visibleSummaryTileCount = String(summaryOnly ? visibleTiles.length : 0);
+    canvas.dataset.selectedSummaryTile = selectedTileId ?? '';
+    const selectedTile = focusedTileId ? familyTiles.find((tile) => tile.id === focusedTileId) : null;
+    const layoutBounds = summaryOnly ? overviewLayout.bounds : selectedTile?.bounds ?? graph.bounds ?? { left: 0, top: 0, right: 1, bottom: 1 };
+    canvas.dataset.layoutBounds = `${layoutBounds.left},${layoutBounds.top},${layoutBounds.right},${layoutBounds.bottom}`;
   }
 
   const worldPoint = (event: PointerEvent | WheelEvent) => {
@@ -627,6 +940,13 @@ export function renderGlobalGenealogy(
     const zoom = Math.max(0.002, Math.min(2.5, oldZoom * factor));
     const worldX = (screenX - activeView.pan.x) / oldZoom;
     const worldY = (screenY - activeView.pan.y) / oldZoom;
+    if (isSummaryOverview() && zoom >= FAMILY_SUMMARY_ZOOM) {
+      const tile = hitFamilyTile(worldX, worldY) ?? nearestFamilyTile(worldX, worldY);
+      if (tile) {
+        focusFamilyTile(tile);
+        return;
+      }
+    }
     applyView({ zoom, pan: { x: screenX - worldX * zoom, y: screenY - worldY * zoom } });
   };
 
@@ -652,6 +972,13 @@ export function renderGlobalGenealogy(
     const moved = dragMoved;
     dragStart = null;
     if (!moved) {
+      if (isSummaryOverview()) {
+        const tile = hitFamilyTile(point.worldX, point.worldY);
+        if (tile) {
+          focusFamilyTile(tile);
+          return;
+        }
+      }
       const node = hitNode(point.worldX, point.worldY);
       if (node) {
         selectedId = node.id;
@@ -669,6 +996,25 @@ export function renderGlobalGenealogy(
     zoomAt(event.clientX - rect.left, event.clientY - rect.top, event.deltaY < 0 ? 1.12 : 1 / 1.12);
   }, { passive: false });
   canvas.addEventListener('keydown', (event) => {
+    if (isSummaryOverview()
+      && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+      const visibleTiles = familyTiles.filter(tileHasVisibleAnimals);
+      if (visibleTiles.length) {
+        const currentIndex = visibleTiles.findIndex((tile) => tile.id === selectedTileId);
+        const step = event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : 1;
+        const nextIndex = advanceFamilyTileIndex(currentIndex, step, visibleTiles.length);
+        selectedTileId = visibleTiles[nextIndex]?.id ?? null;
+        event.preventDefault();
+        scheduleDraw();
+        return;
+      }
+    }
+    if (event.key === 'Enter' && selectedTileId && isSummaryOverview()) {
+      event.preventDefault();
+      const tile = familyTiles.find((item) => item.id === selectedTileId);
+      if (tile) focusFamilyTile(tile);
+      return;
+    }
     if (event.key === '+' || event.key === '=') {
       event.preventDefault();
       zoomAt(viewportWidth / 2, viewportHeight / 2, 1.15);
@@ -695,12 +1041,13 @@ export function renderGlobalGenealogy(
   const observer = new ResizeObserver(resizeCanvas);
   observer.observe(viewport);
   resizeCanvas();
-  if (!fitLargestOnMount && activeView.zoom === 1 && activeView.pan.x === 0 && activeView.pan.y === 0) fitLargest();
 
   return {
     setView: applyView,
     setVisibleAnimalIds(animalIds) {
       visibleAnimalIds = animalIds;
+      focusedTileId = null;
+      selectedTileId = null;
       const filteredEdges = animalIds
         ? graph.edges.filter((edge) => animalIds.has(edge.from) && animalIds.has(edge.to)).length
         : graph.edges.length;

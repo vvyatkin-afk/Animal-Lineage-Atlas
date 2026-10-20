@@ -12,6 +12,7 @@ import type { GenealogyGraph, GraphNode } from './layout.ts';
 
 const GENERATION_EDGE_TYPES = new Set(['biological_mother', 'biological_father', 'foster', 'adoptive']);
 const EPSILON = 1e-8;
+const CROSSING_GRID_CELL_SIZE = 256;
 
 export interface LayoutMetrics {
   nodeCount: number;
@@ -194,35 +195,51 @@ export function countGenealogyRouteCrossings(graph: GenealogyGraph, mode: Geneal
       if (start && end) segments.push({ routeIndex, segmentIndex, start, end, bounds: segmentBounds(start, end) });
     }
   });
-  segments.sort((left, right) => left.bounds.left - right.bounds.left
-    || left.bounds.top - right.bounds.top
-    || left.routeIndex - right.routeIndex
-    || left.segmentIndex - right.segmentIndex);
-
   const crossedRoutePairs = new Set<number>();
-  const active: typeof segments = [];
-  for (const current of segments) {
-    let activeWrite = 0;
-    for (const prior of active) {
-      if (prior.bounds.right + EPSILON < current.bounds.left) continue;
-      active[activeWrite] = prior;
-      activeWrite += 1;
-      if (prior.routeIndex === current.routeIndex || !boxesOverlap(prior.bounds, current.bounds)) continue;
-      const leftRoute = routes[current.routeIndex];
-      const rightRoute = routes[prior.routeIndex];
-      if (!leftRoute || !rightRoute) continue;
-      if (leftRoute.edge.from === rightRoute.edge.from || leftRoute.edge.from === rightRoute.edge.to
-        || leftRoute.edge.to === rightRoute.edge.from || leftRoute.edge.to === rightRoute.edge.to) continue;
-      const pairKey = Math.min(current.routeIndex, prior.routeIndex) * routes.length + Math.max(current.routeIndex, prior.routeIndex);
-      if (crossedRoutePairs.has(pairKey)) continue;
-      const intersection = segmentIntersection(current.start, current.end, prior.start, prior.end);
-      if (!intersection) continue;
-      const currentPosition = current.segmentIndex - 1 + intersection.alongA;
-      const priorPosition = prior.segmentIndex - 1 + intersection.alongB;
-      if (pathCrossesAt(leftRoute, currentPosition, rightRoute, priorPosition)) crossedRoutePairs.add(pairKey);
+  const grid = new Map<number, Map<number, number[]>>();
+  const cell = (coordinate: number) => Math.floor(coordinate / CROSSING_GRID_CELL_SIZE);
+  for (let currentIndex = 0; currentIndex < segments.length; currentIndex += 1) {
+    const current = segments[currentIndex];
+    if (!current) continue;
+    const minCellX = cell(current.bounds.left);
+    const maxCellX = cell(current.bounds.right);
+    const minCellY = cell(current.bounds.top);
+    const maxCellY = cell(current.bounds.bottom);
+    for (let cellX = minCellX; cellX <= maxCellX; cellX += 1) {
+      let column = grid.get(cellX);
+      if (!column) {
+        column = new Map<number, number[]>();
+        grid.set(cellX, column);
+      }
+      for (let cellY = minCellY; cellY <= maxCellY; cellY += 1) {
+        let bucket = column.get(cellY);
+        if (!bucket) {
+          bucket = [];
+          column.set(cellY, bucket);
+        }
+        for (const priorIndex of bucket) {
+          const prior = segments[priorIndex];
+          if (!prior || prior.routeIndex === current.routeIndex || !boxesOverlap(prior.bounds, current.bounds)) continue;
+          // A segment pair may share several occupied cells. Test it in only
+          // the cell at the top-left of their common bounds, with no dedupe set.
+          if (cellX !== cell(Math.max(current.bounds.left, prior.bounds.left))
+            || cellY !== cell(Math.max(current.bounds.top, prior.bounds.top))) continue;
+          const leftRoute = routes[current.routeIndex];
+          const rightRoute = routes[prior.routeIndex];
+          if (!leftRoute || !rightRoute) continue;
+          if (leftRoute.edge.from === rightRoute.edge.from || leftRoute.edge.from === rightRoute.edge.to
+            || leftRoute.edge.to === rightRoute.edge.from || leftRoute.edge.to === rightRoute.edge.to) continue;
+          const pairKey = Math.min(current.routeIndex, prior.routeIndex) * routes.length + Math.max(current.routeIndex, prior.routeIndex);
+          if (crossedRoutePairs.has(pairKey)) continue;
+          const intersection = segmentIntersection(current.start, current.end, prior.start, prior.end);
+          if (!intersection) continue;
+          const currentPosition = current.segmentIndex - 1 + intersection.alongA;
+          const priorPosition = prior.segmentIndex - 1 + intersection.alongB;
+          if (pathCrossesAt(leftRoute, currentPosition, rightRoute, priorPosition)) crossedRoutePairs.add(pairKey);
+        }
+        bucket.push(currentIndex);
+      }
     }
-    active.length = activeWrite;
-    active.push(current);
   }
   return crossedRoutePairs.size;
 }
@@ -264,18 +281,22 @@ export function measureGenealogyGraph(graph: GenealogyGraph, mode: GenealogyRout
 
   let parentOrderViolations = 0;
   if (mode === 'focused') {
-    const parentsByChild = new Map<string, { mother?: GraphNode; father?: GraphNode }>();
+    const parentsByChild = new Map<string, { mothers: Set<GraphNode>; fathers: Set<GraphNode> }>();
     for (const edge of graph.edges) {
       if (edge.type !== 'biological_mother' && edge.type !== 'biological_father') continue;
       const parent = nodesById.get(edge.from);
       if (!parent) continue;
-      const parents = parentsByChild.get(edge.to) ?? {};
-      if (edge.type === 'biological_mother') parents.mother = parent;
-      else parents.father = parent;
+      const parents = parentsByChild.get(edge.to) ?? { mothers: new Set<GraphNode>(), fathers: new Set<GraphNode>() };
+      if (edge.type === 'biological_mother') parents.mothers.add(parent);
+      else parents.fathers.add(parent);
       parentsByChild.set(edge.to, parents);
     }
     for (const parents of parentsByChild.values()) {
-      if (parents.mother && parents.father && parents.mother.x >= parents.father.x) parentOrderViolations += 1;
+      for (const mother of parents.mothers) {
+        for (const father of parents.fathers) {
+          if (mother.id !== father.id && mother.generation === father.generation && mother.x >= father.x) parentOrderViolations += 1;
+        }
+      }
     }
   }
 
