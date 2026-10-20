@@ -1,6 +1,7 @@
 import type { GenealogyComponent, GenealogyGraph, GenealogyIndex, GraphEdge, GraphNode } from '../genealogy/layout.ts';
 import type { AtlasViewState } from '../genealogy/state.ts';
 import { relationshipEdgeStyle } from '../genealogy/edge-style.ts';
+import { routeGenealogyEdge } from '../genealogy/edge-route.ts';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -38,18 +39,12 @@ function svgElement<K extends keyof SVGElementTagNameMap>(name: K, attrs: Record
 }
 
 function createEdge(edge: GraphEdge, nodeById: Map<string, GraphNode>) {
-  const parent = nodeById.get(edge.from);
-  const child = nodeById.get(edge.to);
-  if (!parent || !child) return null;
+  const route = routeGenealogyEdge(edge, nodeById, 'focused');
+  if (!route) return null;
   const style = relationshipEdgeStyle(edge.type, edge.status);
-  const pathData = edge.type === 'social'
-    ? `M ${parent.x} ${parent.y} L ${child.x} ${child.y}`
-    : (() => {
-      const startY = parent.y + 38;
-      const endY = child.y - 38;
-      const midY = (startY + endY) / 2;
-      return `M ${parent.x} ${startY} C ${parent.x} ${midY}, ${child.x} ${midY}, ${child.x} ${endY}`;
-    })();
+  const pathData = route.pathType === 'line'
+    ? `M ${route.start.x} ${route.start.y} L ${route.end.x} ${route.end.y}`
+    : `M ${route.start.x} ${route.start.y} C ${route.control1.x} ${route.control1.y}, ${route.control2.x} ${route.control2.y}, ${route.end.x} ${route.end.y}`;
   const path = svgElement('path', {
     d: pathData,
     class: `genealogy-edge edge-${edge.type.replaceAll('_', '-')} status-${edge.status}`,

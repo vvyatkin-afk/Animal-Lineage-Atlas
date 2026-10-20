@@ -4,6 +4,8 @@ import test from 'node:test';
 
 const loadGenealogy = () => import('../packages/genealogy/layout.ts').catch(() => null);
 const loadState = () => import('../packages/genealogy/state.ts').catch(() => null);
+const loadLayoutMetrics = () => import('../packages/genealogy/metrics.ts').catch(() => null);
+const loadEdgeRoutes = () => import('../packages/genealogy/edge-route.ts').catch(() => null);
 
 const animal = (id, countryCode = 'JP') => ({
   id,
@@ -20,6 +22,50 @@ const relation = (id, subject, object, status = 'confirmed', type = 'biological_
   status,
   source_ids: ['source:test'],
 });
+
+const metricNode = (id, x, y, generation, sex = null) => ({
+  id,
+  name: id,
+  generation,
+  x,
+  y,
+  countryCode: null,
+  sex,
+  lifeStatus: null,
+  photoConfirmed: false,
+  photoUrl: null,
+  photoSourceUrl: null,
+  birthDateLabel: null,
+  deathDateLabel: null,
+  institutionLabel: null,
+  componentId: 'fixture',
+});
+
+const metricEdge = (id, from, to, type = 'biological_mother', status = 'confirmed') => ({
+  id,
+  from,
+  to,
+  type,
+  status,
+  sourceIds: ['source:test'],
+});
+
+function metricGraph(nodes, edges) {
+  const rows = new Map();
+  for (const node of nodes) {
+    const ids = rows.get(node.generation) ?? [];
+    ids.push(node.id);
+    rows.set(node.generation, ids);
+  }
+  return {
+    nodes,
+    edges,
+    generationRows: [...rows.entries()]
+      .sort(([left], [right]) => left - right)
+      .map(([generation, animalIds]) => ({ generation, animalIds })),
+    truncated: false,
+  };
+}
 
 test('simple family has parent-child edges', async () => {
   const genealogy = await loadGenealogy();
@@ -432,4 +478,78 @@ test('profile close restores tree state', async () => {
     focusDepth: 'all',
     activeProfileId: null,
   });
+});
+
+test('shared route geometry matches global and focused renderer paths', async () => {
+  const routes = await loadEdgeRoutes();
+  assert.ok(routes, 'shared genealogy edge routes should load');
+  const nodes = new Map([
+    ['parent', metricNode('parent', 0, 0, -1)],
+    ['child', metricNode('child', 100, 220, 0)],
+  ]);
+  const parentEdge = metricEdge('parent-child', 'parent', 'child');
+  const globalRoute = routes.routeGenealogyEdge(parentEdge, nodes, 'global');
+  assert.equal(globalRoute.pathType, 'cubic');
+  assert.deepEqual(globalRoute.start, { x: 0, y: 37 });
+  assert.deepEqual(globalRoute.control1, { x: 0, y: 110 });
+  assert.deepEqual(globalRoute.control2, { x: 100, y: 110 });
+  assert.deepEqual(globalRoute.end, { x: 100, y: 183 });
+
+  const socialEdge = metricEdge('social', 'parent', 'child', 'social');
+  const focusedSocialRoute = routes.routeGenealogyEdge(socialEdge, nodes, 'focused');
+  const globalSocialRoute = routes.routeGenealogyEdge(socialEdge, nodes, 'global');
+  assert.equal(focusedSocialRoute.pathType, 'line');
+  assert.equal(globalSocialRoute.pathType, 'cubic');
+  assert.ok(globalSocialRoute.length > Math.hypot(100, 220));
+});
+
+test('layout metrics count real curve crossings, exclude shared endpoints, and include dashed edges', async () => {
+  const metricsModule = await loadLayoutMetrics();
+  assert.ok(metricsModule, 'genealogy layout metrics should load');
+  const crossingGraph = metricGraph([
+    metricNode('left-parent', -80, 0, -1),
+    metricNode('right-parent', 80, 0, -1),
+    metricNode('left-child', -80, 220, 0),
+    metricNode('right-child', 80, 220, 0),
+  ], [
+    metricEdge('left-to-right', 'left-parent', 'right-child', 'biological_mother', 'probable'),
+    metricEdge('right-to-left', 'right-parent', 'left-child', 'biological_father', 'disputed'),
+  ]);
+  const crossings = metricsModule.measureGenealogyGraph(crossingGraph, 'global');
+  assert.equal(crossings.crossingPairs, 1);
+  assert.equal(crossings.edgeCount, 2);
+  assert.ok(crossings.totalRouteLength > 400);
+
+  const sharedEndpointGraph = metricGraph([
+    metricNode('parent', 0, 0, -1),
+    metricNode('child-left', -80, 220, 0),
+    metricNode('child-right', 80, 220, 0),
+  ], [
+    metricEdge('parent-to-left', 'parent', 'child-left'),
+    metricEdge('parent-to-right', 'parent', 'child-right'),
+  ]);
+  assert.equal(metricsModule.measureGenealogyGraph(sharedEndpointGraph, 'global').crossingPairs, 0);
+});
+
+test('layout metrics report overlapping nodes, edge-card collisions, row violations, and focused parent-side violations', async () => {
+  const metricsModule = await loadLayoutMetrics();
+  assert.ok(metricsModule, 'genealogy layout metrics should load');
+  const graph = metricGraph([
+    metricNode('mother', 100, -200, -1, 'female'),
+    metricNode('father', -100, -200, -1, 'male'),
+    metricNode('child', 0, 0, 0),
+    metricNode('middle', 0, -100, -1),
+    metricNode('overlap-a', 300, 0, 0),
+    metricNode('overlap-b', 400, 0, 0),
+  ], [
+    metricEdge('mother-child', 'mother', 'child', 'biological_mother'),
+    metricEdge('father-child', 'father', 'child', 'biological_father'),
+    metricEdge('skip-generation', 'mother', 'middle', 'biological_father'),
+  ]);
+  const focused = metricsModule.measureGenealogyGraph(graph, 'focused');
+  assert.equal(focused.nodeOverlapPairs, 1);
+  assert.ok(focused.edgeNodeCollisionPairs >= 1);
+  assert.equal(focused.generationOrderViolations, 1);
+  assert.equal(focused.parentOrderViolations, 1);
+  assert.equal(metricsModule.measureGenealogyGraph(graph, 'global').parentOrderViolations, 0);
 });

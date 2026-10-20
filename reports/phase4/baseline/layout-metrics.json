@@ -3,8 +3,8 @@
   "captured_at": "2026-10-20",
   "production_revision": "5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed",
   "method": {
-    "route": "Renderer cubic paths sampled into 24 segments; route length sums sampled pieces. Proper polyline intersections count once per edge pair; pairs sharing an animal endpoint excluded. Dash patterns do not alter centerline length/crossing counts.",
-    "node_rect": "176x74 world-unit node bounds; edge-node collision excludes each edge endpoint node."
+    "route": "Shared renderer route geometry; cubic Beziers sampled into 24 segments; route length sums the rendered centerline. A crossing requires both polylines to pass from opposite sides of each other; tangencies and edge pairs sharing an animal endpoint do not count. Dashed and solid routes are both measured; dash gaps do not alter centerline totals.",
+    "node_rect": "176x74 world-unit bounds. Edge-node collision pairs exclude each edge endpoint."
   },
   "atlases": {
     "red-panda": {
@@ -18,9 +18,7 @@
         "generations": 14,
         "truncated": false,
         "crossings": {
-          "edge_pairs": 47473,
-          "candidate_pairs": 107761,
-          "segment_tests": 99696,
+          "edge_pairs": 48041,
           "samples_per_curve": 24
         },
         "total_route_length": 5472576.87,
@@ -37,9 +35,7 @@
         "generations": 14,
         "truncated": false,
         "crossings": {
-          "edge_pairs": 34888,
-          "candidate_pairs": 76765,
-          "segment_tests": 69902,
+          "edge_pairs": 35210,
           "samples_per_curve": 24
         },
         "total_route_length": 3428194.25,
@@ -57,9 +53,7 @@
           "generations": 7,
           "truncated": false,
           "crossings": {
-            "edge_pairs": 256,
-            "candidate_pairs": 412,
-            "segment_tests": 1011,
+            "edge_pairs": 277,
             "samples_per_curve": 24
           },
           "total_route_length": 126772.03,
@@ -76,9 +70,7 @@
           "generations": 9,
           "truncated": false,
           "crossings": {
-            "edge_pairs": 265,
-            "candidate_pairs": 435,
-            "segment_tests": 1033,
+            "edge_pairs": 286,
             "samples_per_curve": 24
           },
           "total_route_length": 142595.56,
@@ -95,9 +87,7 @@
           "generations": 4,
           "truncated": false,
           "crossings": {
-            "edge_pairs": 8,
-            "candidate_pairs": 12,
-            "segment_tests": 21,
+            "edge_pairs": 10,
             "samples_per_curve": 24
           },
           "total_route_length": 4049.75,
@@ -121,9 +111,7 @@
         "generations": 3,
         "truncated": false,
         "crossings": {
-          "edge_pairs": 20,
-          "candidate_pairs": 39,
-          "segment_tests": 92,
+          "edge_pairs": 33,
           "samples_per_curve": 24
         },
         "total_route_length": 16217.28,
@@ -140,9 +128,7 @@
         "generations": 2,
         "truncated": false,
         "crossings": {
-          "edge_pairs": 3,
-          "candidate_pairs": 9,
-          "segment_tests": 26,
+          "edge_pairs": 7,
           "samples_per_curve": 24
         },
         "total_route_length": 3015.72,
@@ -165,9 +151,7 @@
         "generations": 5,
         "truncated": false,
         "crossings": {
-          "edge_pairs": 33,
-          "candidate_pairs": 91,
-          "segment_tests": 86,
+          "edge_pairs": 39,
           "samples_per_curve": 24
         },
         "total_route_length": 27100.89,
@@ -185,8 +169,6 @@
         "truncated": false,
         "crossings": {
           "edge_pairs": 31,
-          "candidate_pairs": 80,
-          "segment_tests": 56,
           "samples_per_curve": 24
         },
         "total_route_length": 14603.7,

@@ -2,9 +2,14 @@ import type { GenealogyGraph, GraphEdge, GraphNode } from '../genealogy/layout.t
 import type { AtlasViewState } from '../genealogy/state.ts';
 import { relationshipEdgeStyle } from '../genealogy/edge-style.ts';
 import type { GenealogyMessages, GenealogyViewController } from './genealogy-view.ts';
+import {
+  GENEALOGY_NODE_HEIGHT as NODE_HEIGHT,
+  GENEALOGY_NODE_WIDTH as NODE_WIDTH,
+  routeGenealogyEdge,
+  type GenealogyEdgeRoute as EdgeRoute,
+  type RouteBounds as Bounds,
+} from '../genealogy/edge-route.ts';
 
-const NODE_WIDTH = 176;
-const NODE_HEIGHT = 74;
 const SPATIAL_CELL = 512;
 const CARD_ZOOM = 0.6;
 const MAX_VISIBLE_CARDS = 180;
@@ -33,17 +38,6 @@ export interface GlobalGenealogyMessages extends GenealogyMessages {
   probableLabel: string;
   disputedLabel: string;
 }
-
-type Bounds = { left: number; top: number; right: number; bottom: number };
-type EdgeRoute = {
-  id: string;
-  edge: GraphEdge;
-  start: { x: number; y: number };
-  control1: { x: number; y: number };
-  control2: { x: number; y: number };
-  end: { x: number; y: number };
-  bounds: Bounds;
-};
 
 class SpatialIndex<T extends { id: string }> {
   private readonly items = new Map<string, T>();
@@ -106,43 +100,7 @@ function nodeBounds(node: GraphNode): Bounds {
 }
 
 function routeForEdge(edge: GraphEdge, nodeById: Map<string, GraphNode>): EdgeRoute | null {
-  const parent = nodeById.get(edge.from);
-  const child = nodeById.get(edge.to);
-  if (!parent || !child) return null;
-  let start: EdgeRoute['start'];
-  let end: EdgeRoute['end'];
-  let control1: EdgeRoute['control1'];
-  let control2: EdgeRoute['control2'];
-  if (edge.type === 'social') {
-    start = { x: parent.x, y: parent.y };
-    end = { x: child.x, y: child.y };
-    const midpointX = (parent.x + child.x) / 2;
-    const midpointY = (parent.y + child.y) / 2;
-    const lift = Math.max(NODE_HEIGHT, Math.abs(child.x - parent.x) * 0.08);
-    control1 = { x: midpointX, y: midpointY - lift };
-    control2 = { x: midpointX, y: midpointY - lift };
-  } else {
-    start = { x: parent.x, y: parent.y + NODE_HEIGHT / 2 };
-    end = { x: child.x, y: child.y - NODE_HEIGHT / 2 };
-    const midpointY = (start.y + end.y) / 2;
-    control1 = { x: start.x, y: midpointY };
-    control2 = { x: end.x, y: midpointY };
-  }
-  const points = [start, control1, control2, end];
-  return {
-    id: edge.id,
-    edge,
-    start,
-    control1,
-    control2,
-    end,
-    bounds: {
-      left: Math.min(...points.map((point) => point.x)) - 4,
-      top: Math.min(...points.map((point) => point.y)) - 4,
-      right: Math.max(...points.map((point) => point.x)) + 4,
-      bottom: Math.max(...points.map((point) => point.y)) + 4,
-    },
-  };
+  return routeGenealogyEdge(edge, nodeById, 'global');
 }
 
 function intersects(left: Bounds, right: Bounds): boolean {

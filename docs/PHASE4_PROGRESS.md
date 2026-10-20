@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 11:18 UTC
+Updated: 2026-10-20 11:23 UTC
 
 ## Approved scope and baseline
 
@@ -10,17 +10,17 @@ All four approved production URLs returned HTTP 200 before changes: [hub](http:/
 
 Baseline Chromium screenshots were captured from production at 1440×900 and 390×844 in reports/phase4/baseline/. The set includes Futa and Rakesh focused trees, Futa's current profile fallback, the largest-family initial view and fit-all red-panda graph, and the polar-bear and hippo graphs. There were zero browser page errors. Screenshot hashes and capture details are in baseline/screenshot-manifest.json.
 
-The initial geometry report is reports/phase4/baseline/layout-metrics.json. It samples the cubic routes used by the live renderer into 24 segments and counts proper curve crossings once per edge pair, excluding pairs with a shared animal endpoint. Solid and dashed routes are both included. Baseline:
+The initial geometry report is reports/phase4/baseline/layout-metrics.json. It samples the cubic routes used by the live renderer into 24 segments and counts transverse curve crossings once per edge pair, excluding tangencies and pairs with a shared animal endpoint. Solid and dashed routes are both included. Baseline:
 
 | View | Nodes | Edges | Crossing pairs | Rendered route length |
 |---|---:|---:|---:|---:|
-| Futa focused, 3 generations | 100 | 100 | 256 | 126,772.03 |
-| Futa focused, all known | 121 | 121 | 265 | 142,595.56 |
-| Rakesh focused, 3 generations | 14 | 13 | 8 | 4,049.75 |
-| Red panda largest component | 823 | 1,468 | 34,888 | 3,428,194.25 |
-| Red panda all animals | 1,554 | 2,394 | 47,473 | 5,472,576.87 |
-| Polar bear all animals | 72 | 63 | 20 | 16,217.28 |
-| Hippo all animals | 96 | 86 | 33 | 27,100.89 |
+| Futa focused, 3 generations | 100 | 100 | 277 | 126,772.03 |
+| Futa focused, all known | 121 | 121 | 286 | 142,595.56 |
+| Rakesh focused, 3 generations | 14 | 13 | 10 | 4,049.75 |
+| Red panda largest component | 823 | 1,468 | 35,210 | 3,428,194.25 |
+| Red panda all animals | 1,554 | 2,394 | 48,041 | 5,472,576.87 |
+| Polar bear all animals | 72 | 63 | 33 | 16,217.28 |
+| Hippo all animals | 96 | 86 | 39 | 27,100.89 |
 
 The baseline has no node overlaps or generation-order violations. The full red-panda graph has 4,080 edge/node collision pairs. Measurements use world-coordinate centerlines; dash gaps do not alter crossing or length totals. This report is a bounded heuristic baseline, not a claim of exact global optimality.
 
@@ -33,7 +33,8 @@ The production atlases contain zero media records, so the existing resolver has 
 - [x] Read the full approved brief and media-rights policy.
 - [x] Capture production baseline screenshots and graph metrics before implementation.
 - [x] Prepare bounded architecture and test-first implementation tasks in docs/superpowers/plans/2026-10-20-phase4-layout-media.md.
-- [ ] Implement shared rendered-route metrics and deterministic focused/global layout optimization.
+- [x] Implement shared rendered-route metrics; 57/57 Node tests and TypeScript checks pass. The expected-red log and API-missing failure are recorded in the ignored SDD ledger.
+- [ ] Implement deterministic focused/global layout optimization.
 - [ ] Add focused-only parent ordering, regression fixtures, and opt-in diagnostics.
 - [ ] Add verified media metadata, same-origin UI references, and secure relay service.
 - [ ] Run serial browser and full Node/Python/schema/lint/type checks; capture before/after comparisons.

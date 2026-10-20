@@ -45,11 +45,11 @@
 - Produce routeGenealogyEdge(edge, nodesById, mode), returning the renderer's control points and sampled polyline or null.
 - Produce measureGenealogyGraph(graph, mode), reporting route crossings, sampled route length, node overlaps, edge-node collisions, generation violations, parent-order violations, and bounds.
 
-- [ ] Add tests for cubic and social routes, shared-endpoint exclusions, dashed-edge inclusion, node collisions, and mother/father ordering.
-- [ ] Run the focused tests and confirm the missing metric API fails for the expected reason.
-- [ ] Implement shared route construction and measurements, then use the same route function in both renderers.
-- [ ] Run the focused tests and current UI contract tests.
-- [ ] Commit the metric/route change.
+- [x] Add tests for cubic and social routes, shared-endpoint exclusions, dashed-edge inclusion, node collisions, and mother/father ordering.
+- [x] Run the focused tests and confirm the missing metric API fails for the expected reason.
+- [x] Implement shared route construction and measurements, then use the same route function in both renderers.
+- [x] Run the focused tests and current UI contract tests.
+- [x] Commit the metric/route change.
 
 ### Task 2: Deterministic layered layout optimizer
 
