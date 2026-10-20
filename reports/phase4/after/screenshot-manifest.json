@@ -1,6 +1,6 @@
 {
   "schema_version": "phase4-after-screenshots-v1",
-  "source_revision": "6da15136cea1d640c8d293b7d74a0dd1d7b6ce57",
+  "source_revision": "e1920337fdda82f9449dadc6d11d8420168a26db",
   "viewports_css_pixels": [
     "1440x900",
     "390x844"
@@ -34,8 +34,8 @@
     },
     {
       "path": "reports/phase4/after/red-panda-largest-component-1440x900.png",
-      "sha256": "41462641615987553f2da2aa8826bee0abf2f802749dfcf33bd04dcf7a467c04",
-      "bytes": 256045,
+      "sha256": "9756d4b1789e17f58caa0c97baee3eec96da3cbc52f2a9a7f578e39323ea72c4",
+      "bytes": 256157,
       "view": "red-panda-largest-component",
       "viewport": "1440x900",
       "nodes": 1554,
@@ -44,8 +44,8 @@
     },
     {
       "path": "reports/phase4/after/red-panda-all-1440x900.png",
-      "sha256": "48466832ab31f49caf0d68affde9cede10425cad2653b24a6f4d13f5bddd9e89",
-      "bytes": 117208,
+      "sha256": "59369f2f8edc03a1a809cb44c8680a0d41496943ff7a08eb99bfd5b1787d4d94",
+      "bytes": 117282,
       "view": "red-panda-all",
       "viewport": "1440x900",
       "nodes": 1554,
@@ -100,8 +100,8 @@
     },
     {
       "path": "reports/phase4/after/red-panda-largest-component-390x844.png",
-      "sha256": "30ba891ceac0ccc70311eaf1b0b7dc76b7550c2b99cd36fa39806528516f4d79",
-      "bytes": 52484,
+      "sha256": "a70c7a96675cde13f3c4e8a02c7351aef3fcdef11a808e724fdce570995a6824",
+      "bytes": 52519,
       "view": "red-panda-largest-component",
       "viewport": "390x844",
       "nodes": 1554,
@@ -110,8 +110,8 @@
     },
     {
       "path": "reports/phase4/after/red-panda-all-390x844.png",
-      "sha256": "c0ea0bbb9bd1fbea740b551f6f67521f44628796ddf2a655f784528fa21f4fcc",
-      "bytes": 40242,
+      "sha256": "f7698a53bced6b3a207439e2e442c8ef6e9511b002d2cb9d78668eea68531eda",
+      "bytes": 40246,
       "view": "red-panda-all",
       "viewport": "390x844",
       "nodes": 1554,

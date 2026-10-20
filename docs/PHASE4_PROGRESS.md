@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 12:44 UTC
+Updated: 2026-10-20 12:48 UTC
 
 ## Approved scope and baseline
 
@@ -65,8 +65,9 @@ The after capture pairs the same 14 desktop and mobile views with baseline scree
 - [x] Add a reversible Nginx manager. It inserts one include into the existing Atlas server block, saves a mode-0700 backup, validates and reloads, and restores only when installed file hashes still match. It does not rewrite any `/red-panda/` location.
 - [x] Focused relay tests pass (9/9), including a hard cap on rate-limit client state with an aggregate overflow bucket; deploy/rollback, Nginx manager, and screenshot-scanner Python tests pass (29/29); ESLint passes. Live in-memory service verification returned 330×220 JPEG (39,751 bytes) and 960×640 JPEG (247,773 bytes). Production Nginx/service installation remains for the release phase.
 - [x] Full local validation after review fixes is green: Node 76/76, Python 99/99, Playwright Chromium 19/19 serially, ESLint, TypeScript, all three data/schema validations, build, and worktree/build no-photo scans. The local browser suite used a persistent static server after the Playwright-managed server exited during an earlier run.
-- [x] Independent read-only review completed on 82304d2. Its two Important findings were fixed with regression tests: mixed-generation-span crossings are represented by virtual layered segments, and unique client addresses share a bounded overflow bucket after the rate table reaches its cap. Follow-up review and CI for these fixes are pending.
+- [x] Independent read-only review completed on 82304d2. Its two Important findings were fixed with regression tests: mixed-generation-span crossings are represented by virtual layered segments, and unique client addresses share a bounded overflow bucket after the rate table reaches its cap. Follow-up review of e192033 found no Critical or Important findings. The reviewer requested that regenerated measurements be committed with this progress update; the artifacts now record source revision e192033.
 - [x] Capture reproducible after metrics and paired desktop/mobile screenshots; compute the seven-case comparison report. All seven cases reduce both crossings and route length.
-- [ ] Complete follow-up review and green GitHub CI; push and merge the reviewed fixes.
+- [x] Push the reviewed fixes and pass fresh GitHub CI on e192033: lint, typecheck, 76 Node tests, 99 Python tests, data/schema validation, build, source/build no-photo scans, and 19 Chromium tests. Run: [39424821289](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/39424821289).
+- [ ] Commit regenerated metric and screenshot evidence, then merge the reviewed PR.
 - [ ] Back up release state, deploy the four Atlas paths and relay integration, verify image HTTP bytes and Chromium rendering, and record rollback evidence.
 - [ ] Confirm legacy /red-panda/ unchanged and publish docs/PHASE4_RELEASE.md.

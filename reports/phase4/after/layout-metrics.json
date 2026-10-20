@@ -1,7 +1,7 @@
 {
   "schema_version": "phase4-layout-after-v1",
-  "captured_at": "2026-10-20T12:27:09.419Z",
-  "source_revision": "6da15136cea1d640c8d293b7d74a0dd1d7b6ce57",
+  "captured_at": "2026-10-20T12:46:03.961Z",
+  "source_revision": "e1920337fdda82f9449dadc6d11d8420168a26db",
   "baseline_revision": "5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed",
   "method": {
     "route": "Shared renderer route geometry; cubic Beziers sampled into 24 segments; route length sums the rendered centerline. A crossing requires both polylines to pass from opposite sides of each other; tangencies and edge pairs sharing an animal endpoint do not count. Dashed and solid routes are both measured; dash gaps do not alter centerline totals.",
@@ -19,12 +19,12 @@
         "generations": 14,
         "truncated": false,
         "crossings": {
-          "edge_pairs": 43050,
+          "edge_pairs": 42931,
           "samples_per_curve": 24
         },
-        "total_route_length": 4657060.61,
+        "total_route_length": 4662636.83,
         "node_overlap_pairs": 0,
-        "edge_node_collision_pairs": 3884,
+        "edge_node_collision_pairs": 3896,
         "generation_order_violations": 0,
         "parent_order_violations": 0,
         "width": 98418,
