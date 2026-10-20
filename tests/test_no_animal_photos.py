@@ -58,6 +58,24 @@ class NoAnimalPhotosTests(unittest.TestCase):
 
             self.assertEqual(scan_tree(root), [])
 
+    def test_allows_phase5_screenshots_only_when_the_phase5_manifest_hash_matches(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            capture_dir = root / "reports" / "phase5" / "baseline"
+            capture_dir.mkdir(parents=True)
+            screenshot = capture_dir / "bandit.png"
+            screenshot.write_bytes(b"Phase 5 QA screenshot bytes")
+            manifest = {
+                "schema_version": "phase5-baseline-screenshots-v1",
+                "screenshots": [{
+                    "path": "reports/phase5/baseline/bandit.png",
+                    "sha256": hashlib.sha256(screenshot.read_bytes()).hexdigest(),
+                }],
+            }
+            (capture_dir / "screenshot-manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+            self.assertEqual(scan_tree(root), [])
+
     def test_rejects_unlisted_tampered_or_out_of_scope_screenshot_files(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

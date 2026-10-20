@@ -41,6 +41,7 @@ interface Candidate {
   layeredCrossingEstimate: number;
   crossingPairs?: number;
   totalRouteLength: number;
+  parentPairSeparation: number;
   width: number;
   movement: number;
   signature: string;
@@ -65,9 +66,9 @@ export function optimizeGenerationRows(
 ): OptimizedGenerationRows {
   const nodeSpacing = Math.max(GENEALOGY_NODE_WIDTH, finiteOption(options.nodeSpacing, 200));
   const largeGlobalGraph = mode === 'global' && nodesById.size > 500;
-  const maxSweeps = boundedInteger(options.maxSweeps, mode === 'focused' ? 6 : 4, 0, 16);
-  const maxSwapEvaluations = boundedInteger(options.maxSwapEvaluations, mode === 'focused' ? 48 : largeGlobalGraph ? 0 : 20, 0, 1024);
-  const maxExactCandidates = boundedInteger(options.maxExactCandidates, mode === 'focused' ? 4 : largeGlobalGraph ? 0 : 3, 0, 8);
+  const maxSweeps = boundedInteger(options.maxSweeps, mode === 'focused' ? 10 : largeGlobalGraph ? 5 : 4, 0, 16);
+  const maxSwapEvaluations = boundedInteger(options.maxSwapEvaluations, mode === 'focused' ? 160 : largeGlobalGraph ? 8 : 20, 0, 1024);
+  const maxExactCandidates = boundedInteger(options.maxExactCandidates, mode === 'focused' ? 8 : largeGlobalGraph ? 2 : 3, 0, 8);
   const initialRows = copyRows(rows);
   const initialX = new Map([...nodesById].map(([id, node]) => [id, node.x]));
   const parents = getFocusedParentPairs(edges, nodesById);
@@ -91,6 +92,10 @@ export function optimizeGenerationRows(
   addCandidate(initialRows);
   let workingRows = normalizeFocusedRows(initialRows, constraints);
   addCandidate(workingRows);
+  const adjacentParentRows = mode === 'focused'
+    ? packFeasibleParentPairs(workingRows, parents, rowGenerationById, constraints)
+    : null;
+  if (adjacentParentRows) addCandidate(adjacentParentRows);
 
   for (let pass = 0; pass < maxSweeps; pass += 1) {
     const ascending = pass % 2 === 0;
@@ -167,12 +172,16 @@ export function optimizeGenerationRows(
     if (exactSet.length < maxExactCandidates) exactSet.push(candidate);
   };
   if (maxExactCandidates > 0) {
-    if (maxExactCandidates === 1) include(approximateCandidates[0]);
+    if (maxExactCandidates === 1) {
+      if (adjacentParentRows) include(candidateBySignature.get(rowsSignature(adjacentParentRows)));
+      include(approximateCandidates[0]);
+    }
     else {
       include(candidateBySignature.get(rowsSignature(initialRows)));
       include([...candidateBySignature.values()].sort((left, right) =>
         left.parentOrderViolations - right.parentOrderViolations
           || compareApproximate(left, right))[0]);
+      if (adjacentParentRows) include(candidateBySignature.get(rowsSignature(adjacentParentRows)));
       for (const candidate of approximateCandidates) include(candidate);
     }
   }
@@ -232,6 +241,7 @@ function scoreCandidate(
     parentOrderViolations: mode === 'focused' ? countParentOrderViolations(parents, candidateNodesById) : 0,
     layeredCrossingEstimate: countLayeredCrossings(candidateRows, edges, candidateNodesById),
     totalRouteLength,
+    parentPairSeparation: measureParentPairSeparation(parents, candidateNodesById, nodeSpacing),
     width,
     movement,
     signature: rowsSignature(candidateRows),
@@ -239,19 +249,19 @@ function scoreCandidate(
 }
 
 function getFocusedParentPairs(edges: GraphEdge[], nodesById: ReadonlyMap<string, GraphNode>): ParentPair[] {
-  const parentsByChild = new Map<string, { motherId?: string; fatherId?: string }>();
+  const parentsByChild = new Map<string, { mothers: Set<string>; fathers: Set<string> }>();
   for (const edge of edges) {
     if (edge.type !== 'biological_mother' && edge.type !== 'biological_father') continue;
     if (!nodesById.has(edge.from) || !nodesById.has(edge.to)) continue;
-    const parents = parentsByChild.get(edge.to) ?? {};
-    if (edge.type === 'biological_mother') parents.motherId = edge.from;
-    else parents.fatherId = edge.from;
+    const parents = parentsByChild.get(edge.to) ?? { mothers: new Set<string>(), fathers: new Set<string>() };
+    if (edge.type === 'biological_mother') parents.mothers.add(edge.from);
+    else parents.fathers.add(edge.from);
     parentsByChild.set(edge.to, parents);
   }
-  return [...parentsByChild.entries()].flatMap(([childId, pair]) =>
-    pair.motherId && pair.fatherId && pair.motherId !== pair.fatherId
-      ? [{ childId, motherId: pair.motherId, fatherId: pair.fatherId }]
-      : []);
+  return [...parentsByChild.entries()].sort(([left], [right]) => left.localeCompare(right)).flatMap(([childId, parents]) =>
+    [...parents.mothers].sort().flatMap((motherId) => [...parents.fathers].sort()
+      .filter((fatherId) => motherId !== fatherId)
+      .map((fatherId) => ({ childId, motherId, fatherId }))));
 }
 
 function getSameRowConstraints(parents: ParentPair[], generationById: ReadonlyMap<string, number>): Map<number, Array<[string, string]>> {
@@ -271,7 +281,17 @@ function countParentOrderViolations(parents: ParentPair[], nodesById: ReadonlyMa
   return parents.reduce((count, pair) => {
     const mother = nodesById.get(pair.motherId);
     const father = nodesById.get(pair.fatherId);
-    return count + (mother && father && mother.x >= father.x ? 1 : 0);
+    return count + (mother && father && mother.generation === father.generation && mother.x >= father.x ? 1 : 0);
+  }, 0);
+}
+
+/** Couple proximity is a readability tie-break after crossings and route length. */
+function measureParentPairSeparation(parents: ParentPair[], nodesById: ReadonlyMap<string, GraphNode>, nodeSpacing: number): number {
+  return parents.reduce((total, pair) => {
+    const mother = nodesById.get(pair.motherId);
+    const father = nodesById.get(pair.fatherId);
+    if (!mother || !father || mother.generation !== father.generation) return total;
+    return total + Math.max(0, Math.abs(father.x - mother.x) - nodeSpacing);
   }, 0);
 }
 
@@ -283,6 +303,49 @@ function normalizeFocusedRows(rows: GenerationRow[], constraints: Map<number, Ar
       ? stableTopologicalOrder(row.animalIds, constraints.get(row.generation) ?? [])
       : row.animalIds,
   }));
+}
+
+/** Propose a focused ordering that places each feasible, disjoint parent pair in adjacent slots. */
+function packFeasibleParentPairs(
+  rows: GenerationRow[],
+  parents: ParentPair[],
+  generationById: ReadonlyMap<string, number>,
+  constraints: Map<number, Array<[string, string]>>,
+): GenerationRow[] {
+  let packedRows = copyRows(rows);
+  const accepted: ParentPair[] = [];
+  for (const pair of parents) {
+    const generation = generationById.get(pair.motherId);
+    if (generation === undefined || generation !== generationById.get(pair.fatherId)) continue;
+    const row = packedRows.find((candidate) => candidate.generation === generation);
+    const motherIndex = row?.animalIds.indexOf(pair.motherId) ?? -1;
+    const fatherIndex = row?.animalIds.indexOf(pair.fatherId) ?? -1;
+    if (!row || motherIndex < 0 || fatherIndex < 0) continue;
+    if (fatherIndex === motherIndex + 1) {
+      accepted.push(pair);
+      continue;
+    }
+
+    const trialRows = copyRows(packedRows);
+    const trialRow = trialRows.find((candidate) => candidate.generation === generation);
+    if (!trialRow) continue;
+    const insertionIndex = Math.min(motherIndex, fatherIndex);
+    trialRow.animalIds = trialRow.animalIds.filter((id) => id !== pair.motherId && id !== pair.fatherId);
+    trialRow.animalIds.splice(insertionIndex, 0, pair.motherId, pair.fatherId);
+    const normalizedTrial = normalizeFocusedRows(trialRows, constraints);
+    const stillAdjacent = [...accepted, pair].every((acceptedPair) => {
+      const acceptedGeneration = generationById.get(acceptedPair.motherId);
+      const acceptedRow = normalizedTrial.find((candidate) => candidate.generation === acceptedGeneration);
+      const acceptedMotherIndex = acceptedRow?.animalIds.indexOf(acceptedPair.motherId) ?? -1;
+      const acceptedFatherIndex = acceptedRow?.animalIds.indexOf(acceptedPair.fatherId) ?? -1;
+      return acceptedFatherIndex === acceptedMotherIndex + 1;
+    });
+    if (stillAdjacent) {
+      packedRows = normalizedTrial;
+      accepted.push(pair);
+    }
+  }
+  return packedRows;
 }
 
 function stableTopologicalOrder(ids: string[], constraints: Array<[string, string]>): string[] {
@@ -472,6 +535,7 @@ function compareApproximate(left: Candidate, right: Candidate): number {
   return left.parentOrderViolations - right.parentOrderViolations
     || left.layeredCrossingEstimate - right.layeredCrossingEstimate
     || compareNumber(left.totalRouteLength, right.totalRouteLength)
+    || compareNumber(left.parentPairSeparation, right.parentPairSeparation)
     || compareNumber(left.width, right.width)
     || compareNumber(left.movement, right.movement)
     || left.signature.localeCompare(right.signature);
@@ -481,6 +545,7 @@ function compareExact(left: Candidate, right: Candidate): number {
   return left.parentOrderViolations - right.parentOrderViolations
     || (left.crossingPairs ?? Number.MAX_SAFE_INTEGER) - (right.crossingPairs ?? Number.MAX_SAFE_INTEGER)
     || compareNumber(left.totalRouteLength, right.totalRouteLength)
+    || compareNumber(left.parentPairSeparation, right.parentPairSeparation)
     || compareNumber(left.width, right.width)
     || compareNumber(left.movement, right.movement)
     || left.signature.localeCompare(right.signature);

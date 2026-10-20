@@ -41,8 +41,8 @@ test('README and release notes list the four exact production paths', async () =
   }
 });
 
-test('release record and relationship counts match canonical datasets', async () => {
-  const release = await readFile(new URL('docs/PHASE3_RELEASE.md', root), 'utf8');
+test('current Phase 5 record and relationship counts match canonical datasets', async () => {
+  const release = (await readFile(new URL('docs/PHASE5_PROGRESS.md', root), 'utf8')).replaceAll(',', '');
   for (const species of ['red-panda', 'polar-bear', 'hippopotamus']) {
     const atlas = JSON.parse(await readFile(new URL(`atlases/${species}/atlas.json`, root), 'utf8'));
     assert.match(release, new RegExp(`${atlas.animals.length}\\s+animals`, 'i'), `${species} animal count`);

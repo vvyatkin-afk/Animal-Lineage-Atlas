@@ -12,9 +12,11 @@ export interface GraphAnimal {
   status?: string | null;
   photo_confirmed?: boolean;
   photo_url?: string | null;
+  photo_fallback_url?: string | null;
   photo_source_url?: string | null;
   photo_credit?: string | null;
   photo_license?: string | null;
+  photo_license_url?: string | null;
   birth_date_label?: string | null;
   death_date_label?: string | null;
   institution_label?: string | null;
@@ -59,13 +61,16 @@ export interface GraphNode {
   lifeStatus: string | null;
   photoConfirmed: boolean;
   photoUrl: string | null;
+  photoFallbackUrl: string | null;
   photoSourceUrl: string | null;
   photoCredit: string | null;
   photoLicense: string | null;
+  photoLicenseUrl: string | null;
   birthDateLabel: string | null;
   deathDateLabel: string | null;
   institutionLabel: string | null;
   componentId: string;
+  tileId?: string | null;
 }
 
 export interface GraphEdge {
@@ -90,6 +95,77 @@ export interface GenealogyGraph {
   bounds?: { left: number; top: number; right: number; bottom: number };
   grouping?: GraphGrouping;
   componentCount?: number;
+  familyTiles?: GenealogyFamilyTile[];
+}
+
+export interface GenealogyFamilyTile {
+  id: string;
+  representativeId: string;
+  label: string;
+  previewAnimalName?: string;
+  previewPhotoUrl?: string;
+  previewFallbackUrl?: string;
+  previewCredit?: string;
+  previewLicense?: string;
+  animalCount: number;
+  familyGroupCount: number;
+  countryCount: number;
+  generationRows: Array<{ generation: number; y: number; left: number; right: number }>;
+  bounds: { left: number; top: number; right: number; bottom: number };
+}
+
+export interface FamilyOverviewTileBounds {
+  id: string;
+  bounds: { left: number; top: number; right: number; bottom: number };
+}
+
+export interface FamilyOverviewLayout {
+  tileBounds: FamilyOverviewTileBounds[];
+  bounds: { left: number; top: number; right: number; bottom: number };
+}
+
+/** Move the active keyboard selection across the ordered family overview tiles. */
+export function advanceFamilyTileIndex(currentIndex: number, direction: -1 | 1, count: number): number {
+  if (count <= 0) return -1;
+  if (currentIndex < 0 || currentIndex >= count) return direction > 0 ? 0 : count - 1;
+  return (currentIndex + direction + count) % count;
+}
+
+/** Pack one summary tile per real family component into a viewport-shaped overview. */
+export function layoutFamilyOverview(
+  tiles: Array<Pick<GenealogyFamilyTile, 'id' | 'animalCount'>>,
+  targetAspectRatio: number,
+): FamilyOverviewLayout {
+  if (!tiles.length) return { tileBounds: [], bounds: { left: 0, top: 0, right: 1, bottom: 1 } };
+  const aspect = Number.isFinite(targetAspectRatio) ? Math.max(0.35, Math.min(2.8, targetAspectRatio)) : 1.4;
+  const tileAspect = Math.max(0.65, Math.min(1.5, aspect));
+  const unit = 1000;
+  const gap = 48;
+  const layouts = tiles.map((tile) => {
+    const weight = 1 + Math.sqrt(Math.max(1, tile.animalCount));
+    const area = unit * unit * weight;
+    const width = Math.sqrt(area * tileAspect);
+    return { id: tile.id, width, height: area / width, area };
+  }).sort((left, right) => right.area - left.area || left.id.localeCompare(right.id));
+  const totalArea = layouts.reduce((total, tile) => total + tile.area, 0);
+  const targetWidth = Math.sqrt(totalArea * aspect);
+  const placed: FamilyOverviewTileBounds[] = [];
+  let x = 0;
+  let y = 0;
+  let rowHeight = 0;
+  for (const tile of layouts) {
+    if (x > 0 && x + tile.width > targetWidth) {
+      x = 0;
+      y += rowHeight + gap;
+      rowHeight = 0;
+    }
+    placed.push({ id: tile.id, bounds: { left: x, top: y, right: x + tile.width, bottom: y + tile.height } });
+    x += tile.width + gap;
+    rowHeight = Math.max(rowHeight, tile.height);
+  }
+  const right = Math.max(...placed.map((tile) => tile.bounds.right));
+  const bottom = Math.max(...placed.map((tile) => tile.bounds.bottom));
+  return { tileBounds: placed, bounds: { left: 0, top: 0, right, bottom } };
 }
 
 export interface GenealogyComponent {
@@ -277,9 +353,11 @@ export function buildFocusedGenealogy(
         lifeStatus: animal.status ?? null,
         photoConfirmed: animal.photo_confirmed === true,
         photoUrl: animal.photo_url ?? null,
+        photoFallbackUrl: animal.photo_fallback_url ?? null,
         photoSourceUrl: animal.photo_source_url ?? null,
         photoCredit: animal.photo_credit ?? null,
         photoLicense: animal.photo_license ?? null,
+        photoLicenseUrl: animal.photo_license_url ?? null,
         birthDateLabel: animal.birth_date_label ?? null,
         deathDateLabel: animal.death_date_label ?? null,
         institutionLabel: animal.institution_label ?? null,
@@ -360,26 +438,7 @@ export function buildGlobalGenealogy(index: GenealogyIndex, options: GlobalGraph
 
   let nodes: GraphNode[] = [];
   if (grouping === 'family') {
-    const displayDegree = new Set<string>();
-    for (const relationship of index.relationships) {
-      if (!DISPLAY_RELATION_TYPES.has(relationship.type)) continue;
-      displayDegree.add(relationship.subject);
-      displayDegree.add(relationship.object);
-    }
-    const isolated = new Set(index.components
-      .filter((component) => component.animalIds.length === 1 && !displayDegree.has(component.animalIds[0] ?? ''))
-      .map((component) => component.id));
-    const groups = index.components.filter((component) => !isolated.has(component.id));
-    groups.sort((left, right) => right.animalIds.length - left.animalIds.length || left.id.localeCompare(right.id));
-    if (isolated.size) {
-      groups.push({
-        id: '__unconnected__',
-        representativeId: '__unconnected__',
-        animalIds: [...isolated].flatMap((id) => index.componentByAnimal.get(id)?.animalIds ?? []).sort(),
-      });
-    }
-
-    let groupLeft = margin;
+    const groups = [...index.components].sort((left, right) => right.animalIds.length - left.animalIds.length || left.id.localeCompare(right.id));
     for (const component of groups) {
       const componentRows = [...new Set(component.animalIds.map((id) => generationById.get(id) ?? 0))]
         .sort((left, right) => left - right)
@@ -389,7 +448,7 @@ export function buildGlobalGenealogy(index: GenealogyIndex, options: GlobalGraph
       const groupWidth = widest * nodeWidth + Math.max(0, widest - 1) * columnGap;
       for (const [generation, ids] of componentRows) {
         const rowWidth = ids.length * nodeWidth + Math.max(0, ids.length - 1) * columnGap;
-        const rowLeft = groupLeft + (groupWidth - rowWidth) / 2;
+        const rowLeft = margin + (groupWidth - rowWidth) / 2;
         ids.forEach((animalId, position) => {
           const animal = index.animalById.get(animalId);
           if (!animal) return;
@@ -399,10 +458,10 @@ export function buildGlobalGenealogy(index: GenealogyIndex, options: GlobalGraph
             rowLeft + nodeWidth / 2 + position * (nodeWidth + columnGap),
             margin + generation * rowGap,
             index.familyComponentByAnimal.get(animalId)?.id ?? animalId,
+            component.id,
           ));
         });
       }
-      groupLeft += groupWidth + familyGap;
     }
   } else {
     let generationLeft = margin;
@@ -451,8 +510,12 @@ export function buildGlobalGenealogy(index: GenealogyIndex, options: GlobalGraph
   }));
 
   let generationRows: GenerationRow[];
+  let familyTiles: GenealogyFamilyTile[] | undefined;
   if (grouping === 'family') {
-    nodes = optimizeFamilyGroups(nodes, edges, index, nodeWidth + columnGap, options.optimizer);
+    const localNodes = optimizeFamilyGroups(nodes, edges, index, nodeWidth + columnGap, options.optimizer);
+    const packed = packFamilyComponents(localNodes, index, margin, familyGap);
+    nodes = packed.nodes;
+    familyTiles = packed.tiles;
     generationRows = rowsFromNodes(nodes);
   } else {
     generationRows = rowsFromNodes(nodes);
@@ -463,7 +526,12 @@ export function buildGlobalGenealogy(index: GenealogyIndex, options: GlobalGraph
     nodes = optimized.nodes;
     generationRows = optimized.generationRows;
   }
-  const bounds = nodes.length ? {
+  const bounds = familyTiles?.length ? {
+    left: Math.min(...familyTiles.map((tile) => tile.bounds.left)),
+    top: Math.min(...familyTiles.map((tile) => tile.bounds.top)),
+    right: Math.max(...familyTiles.map((tile) => tile.bounds.right)),
+    bottom: Math.max(...familyTiles.map((tile) => tile.bounds.bottom)),
+  } : nodes.length ? {
     left: Math.min(...nodes.map((node) => node.x - nodeWidth / 2)),
     top: Math.min(...nodes.map((node) => node.y - nodeHeight / 2)),
     right: Math.max(...nodes.map((node) => node.x + nodeWidth / 2)),
@@ -477,10 +545,11 @@ export function buildGlobalGenealogy(index: GenealogyIndex, options: GlobalGraph
     bounds,
     grouping,
     componentCount: index.familyComponents.length,
+    familyTiles,
   };
 }
 
-function makeGraphNode(animal: GraphAnimal, generation: number, x: number, y: number, componentId: string): GraphNode {
+function makeGraphNode(animal: GraphAnimal, generation: number, x: number, y: number, componentId: string, tileId: string | null = null): GraphNode {
   return {
     id: animal.id,
     name: animal.name?.canonical ?? animal.id,
@@ -492,13 +561,16 @@ function makeGraphNode(animal: GraphAnimal, generation: number, x: number, y: nu
     lifeStatus: animal.status ?? null,
     photoConfirmed: animal.photo_confirmed === true,
     photoUrl: animal.photo_url ?? null,
+    photoFallbackUrl: animal.photo_fallback_url ?? null,
     photoSourceUrl: animal.photo_source_url ?? null,
     photoCredit: animal.photo_credit ?? null,
     photoLicense: animal.photo_license ?? null,
+    photoLicenseUrl: animal.photo_license_url ?? null,
     birthDateLabel: animal.birth_date_label ?? null,
     deathDateLabel: animal.death_date_label ?? null,
     institutionLabel: animal.institution_label ?? null,
     componentId,
+    tileId,
   };
 }
 
@@ -511,9 +583,6 @@ function optimizeFamilyGroups(
 ): GraphNode[] {
   const nodeById = new Map(nodes.map((node) => [node.id, node]));
   const optimizedById = new Map<string, GraphNode>();
-  const largeCorpusBounds: LayoutOptimizerOptions = index.animalById.size > 500
-    ? { maxSwapEvaluations: 0, maxExactCandidates: 0 }
-    : {};
   for (const component of index.components) {
     const componentNodes = component.animalIds.flatMap((id) => {
       const node = nodeById.get(id);
@@ -525,17 +594,111 @@ function optimizeFamilyGroups(
     }
     const componentIds = new Set(componentNodes.map((node) => node.id));
     const componentEdges = edges.filter((edge) => componentIds.has(edge.from) && componentIds.has(edge.to));
-    const center = (Math.min(...componentNodes.map((node) => node.x)) + Math.max(...componentNodes.map((node) => node.x))) / 2;
     const componentRows = rowsFromNodes(componentNodes);
+    const componentSearch: LayoutOptimizerOptions = componentNodes.length > 500
+      ? { maxSweeps: 5, maxSwapEvaluations: 1, maxExactCandidates: 2 }
+      : componentNodes.length > 100
+        ? { maxSweeps: 3, maxSwapEvaluations: 2, maxExactCandidates: 1 }
+        : componentNodes.length > 20
+          ? { maxSweeps: 2, maxSwapEvaluations: 2, maxExactCandidates: 1 }
+          : componentNodes.length > 1
+            ? { maxSweeps: 2, maxSwapEvaluations: 2, maxExactCandidates: 1 }
+            : {};
     const optimized = optimizeGenerationRows(componentRows, componentEdges,
       new Map(componentNodes.map((node) => [node.id, node])), 'global', {
         nodeSpacing,
-        ...largeCorpusBounds,
+        ...componentSearch,
         ...optimizerOptions,
       });
-    for (const node of optimized.nodes) optimizedById.set(node.id, { ...node, x: node.x + center });
+    for (const node of optimized.nodes) optimizedById.set(node.id, node);
   }
   return nodes.map((node) => optimizedById.get(node.id) ?? node);
+}
+
+function packFamilyComponents(
+  nodes: GraphNode[],
+  index: GenealogyIndex,
+  margin: number,
+  requestedGap: number,
+): { nodes: GraphNode[]; tiles: GenealogyFamilyTile[] } {
+  const tilePadding = 40;
+  const gap = Math.max(72, requestedGap);
+  const nodeById = new Map(nodes.map((node) => [node.id, node]));
+  const layouts = index.components.flatMap((component) => {
+    const componentNodes = component.animalIds.flatMap((id) => {
+      const node = nodeById.get(id);
+      return node ? [node] : [];
+    });
+    if (!componentNodes.length) return [];
+    const left = Math.min(...componentNodes.map((node) => node.x - 88));
+    const top = Math.min(...componentNodes.map((node) => node.y - 37));
+    const right = Math.max(...componentNodes.map((node) => node.x + 88));
+    const bottom = Math.max(...componentNodes.map((node) => node.y + 37));
+    const width = right - left + tilePadding * 2;
+    const height = bottom - top + tilePadding * 2;
+    return [{ component, componentNodes, left, top, right, bottom, width, height }];
+  }).sort((left, right) => right.width * right.height - left.width * left.height
+    || right.height - left.height
+    || right.width - left.width
+    || left.component.id.localeCompare(right.component.id));
+  const totalArea = layouts.reduce((sum, item) => sum + item.width * item.height, 0);
+  const targetWidth = Math.max(...layouts.map((item) => item.width), Math.sqrt(Math.max(1, totalArea) * 1.45));
+  const packedNodes = new Map<string, GraphNode>();
+  const tiles: GenealogyFamilyTile[] = [];
+  let cursorX = margin;
+  let cursorY = margin;
+  let rowHeight = 0;
+  for (const item of layouts) {
+    if (cursorX > margin && cursorX + item.width > margin + targetWidth) {
+      cursorX = margin;
+      cursorY += rowHeight + gap;
+      rowHeight = 0;
+    }
+    const left = cursorX;
+    const top = cursorY;
+    const right = left + item.width;
+    const bottom = top + item.height;
+    const offsetX = left + tilePadding - item.left;
+    const offsetY = top + tilePadding - item.top;
+    for (const node of item.componentNodes) packedNodes.set(node.id, { ...node, x: node.x + offsetX, y: node.y + offsetY });
+
+    const generationBuckets = new Map<number, GraphNode[]>();
+    for (const node of item.componentNodes) {
+      const bucket = generationBuckets.get(node.generation) ?? [];
+      bucket.push(node);
+      generationBuckets.set(node.generation, bucket);
+    }
+    const generationRows = [...generationBuckets.entries()].map(([generation, row]) => ({
+      generation,
+      y: (row[0]?.y ?? 0) + offsetY,
+      left: Math.min(...row.map((node) => node.x - 88)) + offsetX,
+      right: Math.max(...row.map((node) => node.x + 88)) + offsetX,
+    })).sort((leftRow, rightRow) => leftRow.generation - rightRow.generation);
+    const representative = index.animalById.get(item.component.representativeId);
+    const preview = item.componentNodes
+      .filter((node) => node.photoConfirmed && node.photoUrl)
+      .sort((leftNode, rightNode) => leftNode.name.localeCompare(rightNode.name) || leftNode.id.localeCompare(rightNode.id))[0];
+    tiles.push({
+      id: item.component.id,
+      representativeId: item.component.representativeId,
+      label: representative?.name?.canonical ?? item.component.representativeId,
+      ...(preview ? {
+        previewAnimalName: preview.name,
+        previewPhotoUrl: preview.photoUrl ?? undefined,
+        previewFallbackUrl: preview.photoFallbackUrl ?? undefined,
+        previewCredit: preview.photoCredit ?? undefined,
+        previewLicense: preview.photoLicense ?? undefined,
+      } : {}),
+      animalCount: item.component.animalIds.length,
+      familyGroupCount: new Set(item.component.animalIds.map((id) => index.familyComponentByAnimal.get(id)?.id ?? id)).size,
+      countryCount: new Set(item.component.animalIds.map((id) => index.animalById.get(id)?.country_code).filter((code): code is string => Boolean(code))).size,
+      generationRows,
+      bounds: { left, top, right, bottom },
+    });
+    cursorX = right + gap;
+    rowHeight = Math.max(rowHeight, item.height);
+  }
+  return { nodes: nodes.map((node) => packedNodes.get(node.id) ?? node), tiles };
 }
 
 function rowsFromNodes(nodes: GraphNode[]): GenerationRow[] {

@@ -2,58 +2,69 @@
 
 Updated: 2026-10-20 UTC
 
-## Scope and baseline
+## Scope and production baseline
 
-Execution follows the user-authorized [Phase 5 brief](PHASE5_PHOTO_LAYOUT_BRIEF_20261021.md) on branch `phase5/legible-tree-and-identified-photo-20261021` in this isolated worktree. Production is Phase 4 release `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7`. The worktree starts at `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`, a docs-only scope commit after that release. No production paths, `/red-panda/` files, or other project worktrees have been changed.
+Execution follows the user-authorized [Phase 5 brief](PHASE5_PHOTO_LAYOUT_BRIEF_20261021.md) on isolated branch `phase5/legible-tree-and-identified-photo-20261021`. Production remains on Phase 4 release `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7`; its four Atlas routes and legacy `/red-panda/` were not changed during local implementation. The starting branch commit was `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`.
 
-The current production-layout screenshots are the Phase 4 after captures, whose rendered UI source was `e1920337fdda82f9449dadc6d11d8420168a26db`; the only code difference from that source to deployed release `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7` is a relay startup fix in `packages/media/relay-server.mjs`. They provide exact desktop/mobile captures and SHA-256 values in `reports/phase4/after/screenshot-manifest.json`. The 1440×900 all-red-panda screenshot confirms the reported thin ribbon. All four production Atlas URLs and `/red-panda/` returned HTTP 200 on 2026-10-20. Bandit's production page was captured at 1440×900 and 390×844; both captures contain 15 nodes and 15 relationships with no browser errors. Reproducible rendered-route measurements for Bandit depth-3 and all-known views were repeated twice. Full baseline records, capture hashes, method, and production revisions are in `reports/phase5/baseline/`.
+Phase 4 desktop/mobile captures and the live Bandit baseline are preserved with hashes in `reports/phase5/baseline/`. They show the original all-animal ribbon and record the prior rendered crossing and route-length measurements. The current Phase 5 local screenshots and hashes are in `reports/phase5/after/screenshot-manifest.json`.
 
-| View | Animals | Relationships | Generations | Crossings | Rendered route length | Bounds |
-|---|---:|---:|---:|---:|---:|---:|
-| Red panda, all | 1,554 | 2,394 | 14 | 42,931 | 4,662,636.83 | 98,418 × 2,934 |
-| Largest family component | 823 | 1,468 | 14 | 31,352 | 3,163,209.23 | 23,502 × 2,934 |
-| Futa focused, depth 3 | 100 | 100 | 7 | 6 | 102,548.13 | 8,376 × 1,034 |
-| Futa focused, all known | 121 | 121 | 9 | 18 | 121,431.54 | 8,376 × 1,354 |
-| Rakesh focused, depth 3 | 14 | 13 | 4 | 4 | 2,908.52 | 1,376 × 554 |
-| Bandit focused, depth 3 | 15 | 15 | 4 | 2 | 3,960.49 | 1,576 × 554 |
-| Bandit focused, all known | 68 | 89 | 10 | 181 | 57,769.02 | 2,976 × 1,514 |
+## Delivered in the Phase 5 candidate
 
-Measurements use the rendered cubic routes sampled into 24 segments; solid and dashed edges are included, shared-endpoint pairs are excluded, and lengths use complete centerlines. These bounded heuristic measurements do not claim a global optimum. The existing all-animal fit is about 33.5:1 wide-to-tall, explaining the ribbon at fit-all scale. Bandit's known mother is Kora (`red-panda:upstream-999`) and father is Gen Tso (`red-panda:upstream-394`); both upstream relationship records say `probable`. Their rendered positions already satisfy the local mother-left-of-father direction, while the depth-3 tree still has two crossings and the all-known graph has 181.
+- The red-panda Atlas has 1,555 animals and 2,394 relationships. Simon is a separate Commons-identified Jerusalem Biblical Zoo individual; unsupported sex, status, dates and parentage remain unknown. Polar bear remains 72 animals/63 relationships; hippopotamus remains 96 animals/86 relationships.
+- The global fit-all view is a two-dimensional family mosaic. It labels named families with animal counts, uses count-only tiles for small components, and shows a thumbnail only for an identified, rights-cleared animal. Selecting a tile opens that full connected component; zooming further shows the actual cards and relationships. Pan, zoom, country grouping, filters, keyboard selection, and mobile resize behavior are retained. All 1,555 red pandas and all 2,394 recorded relationships remain in the graph.
+- Focused genealogies preserve their generation rows and exact IDs/edges. Every feasible biological mother/father candidate is ordered mother-left-of-father within its own child's family. Couple adjacency is a preference after exact rendered crossing count and route length; the optimizer does not create a global female-left/male-right split. The global optimizer has no sex-side restriction.
+- The bounded deterministic optimizer scores actual renderer routes. Cubic routes are sampled into 24 segments; the exact segment/intersection and opposite-side polyline checks now use a 256-world-unit spatial grid to avoid testing disjoint segment boxes. Shared-endpoint edge pairs are excluded; solid and dashed relationships are included; route lengths use complete rendered centerlines. Node spacing and readable component bounds are retained. Search remains heuristic and does not claim a mathematical optimum.
+- A 1,555-animal graph build measured 1,764 ms and 1,381 ms in two repeated Node samples on this VPS. The full Node suite also passed the existing under-2-second global-layout assertion. Chromium measured a 1,083 ms layout and 1,200 ms first render in its desktop full-graph performance case.
 
-## Photo and provenance audit
+## Rendered-layout comparison
 
-Current canonical coverage: 1,554 red pandas, 2,394 relationships, 5,918 photo/media references attached to 866 animals; 5,917 references are `link_only`, and one is rights-cleared. Five polar-bear references and one hippopotamus reference are also link-only. Across red-panda references, 5,721 source pages are Instagram; the remaining references span 50 other hosts. Existing media policy and the resolver correctly reject direct URLs without explicit rights/embedding permission.
+The current exact results and comparison to the Phase 4 production baseline are reproducible with `node --import tsx tools/measure_layout_phase5.mjs`. Full two-run samples and the measurement method are in `reports/phase5/after/layout-metrics.json`.
 
-The pinned upstream audit in `docs/RED_PANDA_UPSTREAM_SYNC.md` records 54,004 upstream photo references, 17,740 retained URL references, 425 direct image URLs, no declared upstream reuse license, and no image payloads imported. A metadata-only recheck on 2026-10-20 found the current export at `https://redpandafinder.com/export/redpanda.json`, last modified `2026-10-19T07:14:00Z`, with SHA-256 `a5c85ebab73d6742f88b1af4f27b7c7a382b185dbd3ad1b7d7048f83f02a83c7`, export commit `3bb4d45d7d1d04bc18110d41f52b944c40cd6514`, and GitHub repository commit `7b3c4510e795368941cd5133e3b2e8afaf62a6ef`. The live repository still has no license metadata and no `LICENSE`, `COPYING`, or `COPYRIGHT` file. Its 54,004 photo references include 428 HTTP(S) direct URL fields and 18,188 HTTP(S) source fields; the direct URL count spans zoo/other vertices as well as animals. Four manually reviewed external-ID crosswalks remain documented in `docs/RED_PANDA_UPSTREAM_SYNC.md`. Upstream direct URLs remain link-only because these metadata do not grant photo reuse or embedding rights.
+| Case | Animals / relationships | Crossings before → after | Route length before → after | Notes |
+|---|---:|---:|---:|---|
+| Red-panda all-animal graph | 1,554→1,555 / 2,394 | 42,931→42,570 (−361) | 4,662,636.83→4,607,479.37 (−55,157.46) | Fit-all is now a family mosaic; dimensions 23,502×6,924 world units |
+| Largest family component | 823 / 1,468 | 31,352→30,872 (−480) | 3,163,209.23→3,113,627.99 (−49,581.24) | All records and edges kept |
+| Futa focused, depth 3 | 100 / 100 | 6→5 (−1) | 102,548.13→102,207.86 (−340.27) | Four parent-pair candidates ordered 4/4; adjacent 2/4 |
+| Futa focused, all known | 121 / 121 | 18→9 (−9) | 121,431.54→128,285.83 (+6,854.29) | Crossing-first objective accepts longer routes to remove nine crossings |
+| Rakesh focused, depth 3 | 14 / 13 | 4→4 | 2,908.52→2,908.52 | Unchanged exact graph |
+| Bandit focused, depth 3 | 15 / 15 | 2→2 | 3,960.49→3,960.49 | Seven parent-pair candidates ordered 7/7 and adjacent 6/7 |
+| Bandit focused, all known | 68 / 89 | 181→96 (−85) | 57,769.02→45,487.25 (−12,281.77) | Thirty-six parent-pair candidates ordered 36/36 and adjacent 21/36 |
 
-One positive-control image is fully verified: Chiba City Zoo's red panda Futa in Misei sen's Wikimedia Commons photo, CC BY 4.0, with source and creator recorded in `packages/media/approved-media-v1.json`. A metadata-only Commons audit found eight additional actual Futa photos with captions naming Futa and per-file CC BY 4.0 or CC BY-SA 4.0; a statue image was excluded. Commons also has a photograph whose file description explicitly identifies the pictured red panda as Simon at Jerusalem Biblical Zoo, licensed CC BY-SA 3.0 by SuperJew. The import ruling is to preserve this as an isolated source-backed record, with only the name, taxon and photo set and unsupported traits unknown. Other generic zoo red panda photos are not mapped to canonical individuals. No image bytes were fetched or stored during this audit.
+The one non-adjacent Bandit depth-3 candidate remains ordered correctly; adjacency is not forced if conflicting lineage geometry makes it infeasible. The mobile screenshot shows the selected descendant and its nearest generations at useful card size; wider ancestor rows remain available by pan/zoom.
 
-## Acceptance checklist
+## Photo identity, rights, and delivery
 
-- [x] Record exact Phase 5 desktop/mobile production baselines, including Bandit, Futa, Rakesh, largest family, and all animals.
-- [ ] Focused ordering keeps each feasible biological mother immediately left of her own biological father; no sex-wide split; stable under input order and truthful on conflicting constraints.
-- [ ] Minimize measured crossings first and rendered route length second, with readable minimum spacing; preserve every canonical ID and edge.
-- [ ] Global graph is no longer a fit-all ribbon: 2D family/clan overview, clear levels and family separation, useful responsive framing, no dropped records, and usable pan/zoom and filters.
-- [ ] At far zoom, render family summaries instead of a cluttered field of dots/lines; at medium zoom show family/generation structure; at close zoom show animal cards and edges.
-- [ ] Only show identified photos when identity and embedding/reuse permission are evidenced. Browser loads approved original images directly; attribution, license and source link stay visible; source-only links remain available otherwise. No full-size image files or unapproved thumbnail binaries enter the server or release.
-- [ ] Deterministic unit/data tests, full-dataset benchmarks, build/type/lint/data validation, serial desktop/mobile Chromium checks, direct-photo natural dimensions, screenshots, and independent review pass.
-- [ ] GitHub CI passes on the exact reviewed merge tree; release manifest and rollback steps are recorded; live Atlas endpoints and legacy `/red-panda/` remain healthy and unchanged.
-- [ ] Commit, push, open/review/merge PR, deploy atomically only after green checks, and verify live behavior before documenting release.
+`reports/phase5/after/photo-source-audit.json` inventories every media record, per-species coverage, all 12 approved files, original and thumbnail URLs, creator credits, licenses, and identity decisions.
 
-## Milestones
+| Species | Animals | Media references | Rights-cleared photo records / named individuals | Link-only references |
+|---|---:|---:|---:|---:|
+| Red panda | 1,555 | 5,929 | 12 / 2 (Futa 10, Simon 2) | 5,917 |
+| Polar bear | 72 | 5 | 0 / 0 | 5 |
+| Hippopotamus | 96 | 1 | 0 / 0 | 1 |
 
-- [x] Read the complete Phase 5 brief and Phase 4 release/rollback/media-rights records.
-- [x] Confirm isolated branch/worktree and clean starting state.
-- [x] Inspect current desktop/mobile screenshot evidence and record source coverage counts.
-- [x] Recheck current external-source version and license state using metadata only; confirm all five production routes return HTTP 200.
-- [x] Add Bandit desktop/mobile live captures and current renderer metrics.
-- [ ] Implement and benchmark focused pair constraints and 2D global overview.
-- [ ] Implement direct-source photo rendering only for individually verified, permitted media; record remaining link-only coverage.
-- [ ] Complete local and independent QA, CI, PR and production release/rollback verification.
+Futa's ten photos are individually described as Futa at Chiba Zoological Park. Six are CC BY 4.0 by Misei sen and four are CC BY-SA 4.0 by KQuhen. Simon's two separately sourced Jerusalem Biblical Zoo images are CC BY-SA 3.0 by SuperJew and CC0 1.0 by Masha Gutman. The Commons file pages retain the evidence and clickable source/license links. Other named upstream records have no evidenced image reuse permission and stay source-page links/placeholders; generic red-panda photos are not mapped to individuals.
 
-## Release tracking
+The browser requests each approved full-size original directly from `upload.wikimedia.org`; the Atlas server never fetches, relays, or caches a full-size image. Cards and family previews use Commons thumbnails directly. The optional relay accepts only explicitly approved Commons-generated 330×220 or 960×640 JPEG variants and caches them in process memory for five minutes, with a 32-entry/5 MiB cap; it writes no thumbnail files. No animal-photo binary is in Git or the static release; local-media manifests are empty. Chromium confirmed nonzero `naturalWidth` for all ten Futa originals, both Simon originals, and the verified Commons thumbnail previews.
 
-- First Phase 5 branch commit: `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`.
-- Baseline evidence commit: pending in this milestone.
-- Last Phase 5 commit: `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905` before this baseline evidence milestone.
-- Production remains on Phase 4 `6dfdb34b26f8f8ee574e40cff6e9e661779a19a7` until a reviewed Phase 5 release passes CI and smoke checks.
+## Local verification
+
+- `npm test`: **86/86 passed**, including the full 1,555-animal/2,394-relationship layout-budget case, focused pair constraints, and exact crossing metric fixtures.
+- `npm run test:python`: **105/105 passed**.
+- `npm run validate:data`, `npm run validate:schema`, `npm run check:no-photos`, `npm run lint`, `npm run typecheck`, and `npm run build`: passed. The build emitted all four configured static paths.
+- `npm run test:browser -- --workers=1`: **22/22 passed** in serial Chromium. Coverage includes the 1,555-record overview, mobile full-graph pan/zoom, Bandit desktop/mobile, all four Atlas routes, Futa's ten direct-loaded originals, Simon's direct-loaded images, rights/source links, failure fallback, and viewport/memory measurements.
+- Independent layout and source reviews found and resolved two issues before this run: mobile focused graphs now recompute their frame on resize, and pair adjacency candidates are restricted to focused mode so global order remains sex-unconstrained.
+- Nine hash-registered after screenshots are in `reports/phase5/after/`, including desktop/mobile overview, a selected global component at card zoom, Bandit focus, Futa's profile, and Simon's profile.
+
+## Acceptance and release tracking
+
+- [x] Preserve Phase 4 baseline captures/metrics; add Phase 5 desktop/mobile captures with hashes.
+- [x] Keep every canonical red-panda node/relationship, preserve the other species totals, and provide a 2D all-family overview with true component/card zoom levels.
+- [x] Enforce focused mother-left-of-father precedence per feasible child pair without globally separating sexes; retain true IDs/edges and report measured crossings.
+- [x] Reduce exact rendered crossings in the full red-panda graph, largest component, Futa focused cases, and Bandit all-known case; publish lengths including the Futa all-known increase.
+- [x] Embed only individually identified/rights-cleared photos, load originals directly in Chromium, expose per-file credits/licenses/sources, and keep all unverified records link-only.
+- [x] Pass full local data, Python, Node, lint, type, build, no-photo, and serial browser checks; complete independent reviews.
+- [ ] Push branch, open PR, review green CI on the exact merge tree, and merge.
+- [ ] Deploy all four Atlas routes atomically with a recorded rollback manifest; smoke-test them and confirm `/red-panda/` and unrelated projects remain unchanged.
+- [ ] Write final production SHA, public route URLs, CI evidence, deployment manifest, and verified rollback commands to `docs/PHASE5_RELEASE.md`.
+
+Production is still on Phase 4 until the remaining CI, merge, deploy and live-smoke steps are complete. First Phase 5 branch commit: `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`. Phase 5 implementation commit: pending.

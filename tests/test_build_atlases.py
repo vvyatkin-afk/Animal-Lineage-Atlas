@@ -94,7 +94,7 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
         self.assertNotIn("photo_source_url", summary)
         self.assertFalse((output / "flags").exists())
 
-    def test_approved_photo_uses_fixed_same_origin_thumbnail_and_public_manifest_hides_fetch_urls(self):
+    def test_approved_photo_uses_browser_direct_thumbnail_and_original_with_thumbnail_relay_fallback(self):
         media_id = "a426db98f35e4bc984275cc031467ac9"
         source_url = "https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg"
         document = {
@@ -103,15 +103,19 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
                          "name": {"canonical": "Futa"}}],
             "relationships": [], "events": [], "claims": [], "sources": [], "institutions": [],
             "media": [{"media_id": media_id, "animal_id": "red-panda:futa", "embedding_status": "allowed",
-                       "rights_status": "cc-by-4.0", "identity_confidence": "confirmed", "source_page_url": source_url}],
+                       "rights_status": "cc-by-4.0", "identity_confidence": "confirmed", "source_page_url": source_url,
+                       "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Futa_20261004_3.jpg",
+                       "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg",
+                       "license_name": "CC BY 4.0", "license_url": "https://creativecommons.org/licenses/by/4.0/"}],
         }
         approved = [{
             "id": media_id, "animal_id": "red-panda:futa", "identity_confidence": "confirmed",
             "source_page_url": source_url, "creator": "Misei sen", "credit": "Misei sen",
             "rights_status": "cc-by-4.0", "embedding_status": "allowed",
             "license": {"name": "CC BY 4.0", "version": "4.0", "url": "https://creativecommons.org/licenses/by/4.0/"},
+            "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Futa_20261004_3.jpg",
             "changes": "No changes made.",
-            "variants": {"thumb": {"url": "https://thumb.wikimedia.org/example.jpg", "max_bytes": 65536},
+            "variants": {"thumb": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg", "max_bytes": 65536},
                          "profile": {"url": "https://thumb.wikimedia.org/example-large.jpg", "max_bytes": 393216}},
         }]
         with tempfile.TemporaryDirectory() as temporary:
@@ -125,12 +129,15 @@ class RuntimeGraphSummaryTests(unittest.TestCase):
 
         summary = runtime["animals"][0]
         self.assertTrue(summary["photo_confirmed"])
-        self.assertEqual(summary["photo_url"], f"/atlas.red-panda/media/{media_id}/thumb")
+        self.assertEqual(summary["photo_url"], "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Futa_20261004_3.jpg/330px-Futa_20261004_3.jpg")
+        self.assertEqual(summary["photo_fallback_url"], f"/atlas.red-panda/media/{media_id}/thumb")
         self.assertEqual(summary["photo_credit"], "Misei sen")
         self.assertEqual(summary["photo_license"], "CC BY 4.0")
         self.assertEqual(chunk["media"][0]["media_id"], media_id)
         self.assertNotIn("direct_remote_url", chunk["media"][0])
-        self.assertNotIn("thumb.wikimedia.org", public_manifest_text)
+        self.assertNotIn("direct_thumbnail_url", chunk["media"][0])
+        self.assertIn("upload.wikimedia.org", public_manifest_text)
+        self.assertIn("thumb.wikimedia.org", public_manifest_text)
         self.assertIn(source_url, public_manifest_text)
 
 

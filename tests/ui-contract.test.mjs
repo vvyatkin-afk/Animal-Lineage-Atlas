@@ -172,14 +172,21 @@ test('layout diagnostics have translated accessible labels in every interface lo
   }
 });
 
-test('upstream direct photo URLs remain link-only metadata and cannot be embedded', async () => {
+test('only individually approved direct photo URLs may be embedded; upstream metadata stays link-only', async () => {
   const app = await readFile(new URL('../apps/atlas/main.ts', import.meta.url), 'utf8');
   const graph = await readFile(new URL('../packages/ui/genealogy-view.ts', import.meta.url), 'utf8');
   const atlas = JSON.parse(await readFile(new URL('../atlases/red-panda/atlas.json', import.meta.url), 'utf8'));
+  const approved = JSON.parse(await readFile(new URL('../packages/media/approved-media-v1.json', import.meta.url), 'utf8'));
+  const approvedById = new Map(approved.items.map((item) => [item.id, item]));
   const source = `${app}\n${graph}`;
   assert.doesNotMatch(source, /data:image\/(?:jpeg|png|webp)/i);
   const directMetadata = atlas.media.filter((item) => item.direct_remote_url);
   assert.ok(directMetadata.length > 0);
-  assert.equal(directMetadata.every((item) => item.embedding_status === 'link_only' && item.rights_status === 'unknown'), true);
-  assert.equal(directMetadata.some((item) => item.embedding_status === 'allowed'), false);
+  const upstream = directMetadata.filter((item) => !approvedById.has(item.media_id));
+  const cleared = directMetadata.filter((item) => approvedById.has(item.media_id));
+  assert.equal(upstream.every((item) => item.embedding_status === 'link_only' && item.rights_status === 'unknown'), true);
+  assert.equal(cleared.length, approved.items.length);
+  assert.equal(cleared.every((item) => item.embedding_status === 'allowed' && item.identity_confidence === 'confirmed'), true);
+  assert.equal(cleared.every((item) => item.direct_remote_url.startsWith('https://upload.wikimedia.org/wikipedia/commons/')), true);
+  assert.equal(cleared.every((item) => item.direct_thumbnail_url.startsWith('https://thumb.wikimedia.org/wikipedia/commons/thumb/')), true);
 });

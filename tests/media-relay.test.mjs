@@ -179,6 +179,7 @@ test('bogus IDs, query URLs, and unsupported methods cannot select upstream reso
   const { origin } = await makeRelay(t, { requestUpstream: async () => { upstreamRequests += 1; throw new Error('unexpected upstream request'); } });
   assert.equal((await get(origin, `/media/${'b'.repeat(32)}/profile`)).status, 404);
   assert.equal((await get(origin, `/media/${mediaId}/profile?url=https://127.0.0.1/`)).status, 404);
+  assert.equal((await get(origin, `/media/${mediaId}/original`)).status, 404);
   assert.equal((await get(origin, `/media/${mediaId}/profile`, {}, 'POST')).status, 405);
   assert.equal(upstreamRequests, 0);
 });
@@ -189,6 +190,10 @@ test('manifest hosts and resolved addresses reject SSRF destinations', async (t)
   const changed = structuredClone(manifest);
   changed.items[0].variants.thumb.url = 'https://127.0.0.1/private.jpg';
   assert.throws(() => relayModule.validateApprovedMediaManifest(changed), /host|URL/i);
+
+  const unapprovedOriginal = structuredClone(manifest);
+  unapprovedOriginal.items[0].original_url = 'https://images.example.org/full.jpg';
+  assert.throws(() => relayModule.validateApprovedMediaManifest(unapprovedOriginal), /original URL/i);
 
   let upstreamRequests = 0;
   const { origin } = await makeRelay(t, {

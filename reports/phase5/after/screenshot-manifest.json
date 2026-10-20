@@ -1,0 +1,93 @@
+{
+  "schema_version": "phase5-after-screenshots-v1",
+  "captured_at": "2026-10-20T17:31:49+00:00",
+  "source": "Playwright Chromium local static build, plus one selected-family local-browser capture after the serial browser suite",
+  "production_baseline_revision": "6dfdb34b26f8f8ee574e40cff6e9e661779a19a7",
+  "viewport_css_pixels": [
+    "1440x900",
+    "390x844"
+  ],
+  "screenshots": [
+    {
+      "path": "reports/phase5/after/red-panda-family-overview-desktop-1440x900.png",
+      "sha256": "64e535563c0623d676ff2d855e6335c20baf78945016fea0b82212529d71b9a9",
+      "bytes": 59759,
+      "view": "family overview",
+      "viewport": "1440x900",
+      "subjects": "1555 nodes, 2394 relationships; 172 family tiles; one 823-animal family tile includes one verified Commons preview",
+      "note": "overview at Fit all; zoom or select a tile to open the corresponding graph"
+    },
+    {
+      "path": "reports/phase5/after/red-panda-family-overview-mobile-390x844.png",
+      "sha256": "26c8a746820df1819c5f4c3ae5c4cac3bc3ca19136fa2e5b3ad5de532ec2d7eb",
+      "bytes": 14747,
+      "view": "family overview",
+      "viewport": "390x844",
+      "subjects": "1555 nodes, 2394 relationships; all 172 family tiles",
+      "note": "mobile Fit all; scroll width stayed within 390 CSS px"
+    },
+    {
+      "path": "reports/phase5/after/futa-component-global-cards-desktop-1440x900.png",
+      "sha256": "2b732ec6f6c1c413daff49fa2b1e27b1011a15b85e892ec3180c6d3d91dd2159",
+      "bytes": 196138,
+      "view": "selected global component",
+      "viewport": "1440x900",
+      "subjects": "Selected Futa family component; 533 visible nodes at component level and 8 cards in viewport at card zoom",
+      "note": "component selected from the all-family overview; distant nodes are navigable by pan/zoom"
+    },
+    {
+      "path": "reports/phase5/after/bandit-focused-genealogy-desktop-1440x900.png",
+      "sha256": "4f1967f2e9fe93c87d68b148e47582c6a113d6391df37cbd4a5e0d107fb4e7dc",
+      "bytes": 41917,
+      "view": "focused genealogy",
+      "viewport": "1440x900",
+      "subjects": "Bandit; 15 nodes, 15 relationships",
+      "note": "focused Bandit family tree; local mother/father ordering"
+    },
+    {
+      "path": "reports/phase5/after/bandit-focused-genealogy-mobile-390x844.png",
+      "sha256": "f38acd936efe1cc839c0bc91f4fcb08482963b83b449ae0c5c230c6ae7e432fa",
+      "bytes": 25864,
+      "view": "focused genealogy",
+      "viewport": "390x844",
+      "subjects": "Bandit; 15 nodes, 15 relationships",
+      "note": "responsive view after desktop-to-mobile resize; pan/zoom navigates wide ancestor rows"
+    },
+    {
+      "path": "reports/phase5/after/futa-profile-desktop-1440x900.png",
+      "sha256": "9d29d268a7af93390e6b8afe99ebd5d337ec5cede2db643a2852f0432e759153",
+      "bytes": 186643,
+      "view": "identified animal profile",
+      "viewport": "1440x900",
+      "subjects": "Futa; 10 Commons gallery records; browser-loaded image naturalWidth verified > 0",
+      "note": "Commons original/gallery, creator, source, and license visible"
+    },
+    {
+      "path": "reports/phase5/after/futa-profile-mobile-390x844.png",
+      "sha256": "7e8f8c1e6b0cc34bca537f45ba6ab18953e5b1d9f57feaa6020add10c7c76a7f",
+      "bytes": 154038,
+      "view": "identified animal profile",
+      "viewport": "390x844",
+      "subjects": "Futa; 10 Commons gallery records",
+      "note": "mobile image and attribution displayed"
+    },
+    {
+      "path": "reports/phase5/after/simon-profile-desktop-1440x900.png",
+      "sha256": "3daa1a699b86ff5de2d3627cf98780fef4961de7299047bd82e35de02fde872b",
+      "bytes": 146826,
+      "view": "identified animal profile",
+      "viewport": "1440x900",
+      "subjects": "Simon; 2 Commons gallery records; separate red-panda:simon-jerusalem-zoo identity",
+      "note": "both CC BY-SA 3.0 and CC0 1.0 source/license links visible"
+    },
+    {
+      "path": "reports/phase5/after/verified-family-photo-preview-desktop.png",
+      "sha256": "afcb59318bde6336a69da8f954f74b80eb3a8fb7e0c8c2e4ce384e154bae1297",
+      "bytes": 17969,
+      "view": "verified photo family preview",
+      "viewport": "1440x900",
+      "subjects": "Futa and Simon are the only confirmed-photo family previews",
+      "note": "both preview sources browser-loaded from Wikimedia Commons thumbnails"
+    }
+  ]
+}

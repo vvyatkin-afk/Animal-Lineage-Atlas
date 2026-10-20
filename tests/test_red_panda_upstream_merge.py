@@ -686,19 +686,19 @@ class RedPandaUpstreamMergeTests(unittest.TestCase):
         coverage = atlas["coverage"]
         scope = coverage["scope"]
         self.assertIn("4 named profiles", scope)
-        self.assertIn("4 curated Futa-family records", scope)
+        self.assertIn("4 curated individual records", scope)
         self.assertIn("2 reviewed identity overlaps", scope)
         self.assertIn("6 canonical animals", scope)
         self.assertIn("not a complete or official studbook", scope)
         self.assertTrue(any("0 near-match profiles remain unmerged" in item for item in coverage["limitations"]))
         ja_scope = coverage["translations"]["ja"]["scope"]
         self.assertIn("プロフィール4件", ja_scope)
-        self.assertIn("記録4件", ja_scope)
+        self.assertIn("個体記録4件", ja_scope)
         self.assertIn("重複2件", ja_scope)
         self.assertIn("記録6件", ja_scope)
         ru_scope = coverage["translations"]["ru"]["scope"]
         self.assertIn("4 именных профилей", ru_scope)
-        self.assertIn("4 кураторскими записями", ru_scope)
+        self.assertIn("4 кураторскими записями отдельных животных", ru_scope)
         self.assertIn("2 подтверждёнными совпадениями", ru_scope)
         self.assertIn("6 канонических записей", ru_scope)
         for language in ("ja", "ru"):

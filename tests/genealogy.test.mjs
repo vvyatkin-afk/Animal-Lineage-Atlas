@@ -80,6 +80,16 @@ test('simple family has parent-child edges', async () => {
   assert.deepEqual(new Set(graph.nodes.map((node) => node.id)), new Set(['parent', 'child']));
 });
 
+test('family tile keyboard selection starts at the first tile and wraps at both ends', async () => {
+  const genealogy = await loadGenealogy();
+  assert.ok(genealogy, 'genealogy layout package should load');
+  assert.equal(genealogy.advanceFamilyTileIndex(-1, 1, 4), 0);
+  assert.equal(genealogy.advanceFamilyTileIndex(-1, -1, 4), 3);
+  assert.equal(genealogy.advanceFamilyTileIndex(0, -1, 4), 3);
+  assert.equal(genealogy.advanceFamilyTileIndex(3, 1, 4), 0);
+  assert.equal(genealogy.advanceFamilyTileIndex(-1, 1, 0), -1);
+});
+
 test('multi-generation family receives generation rows', async () => {
   const genealogy = await loadGenealogy();
   assert.ok(genealogy, 'genealogy layout package should load');
@@ -362,6 +372,95 @@ test('global layout is deterministic regardless of input order', async () => {
   assert.deepEqual(first.edges.map((edge) => edge.id), second.edges.map((edge) => edge.id));
 });
 
+test('global family layout packs relationship components in two dimensions without overlaps', async () => {
+  const genealogy = await loadGenealogy();
+  assert.ok(genealogy, 'genealogy layout package should load');
+  const animals = [];
+  const relationships = [];
+  for (let family = 0; family < 18; family += 1) {
+    const parent = `family-${family}-parent`;
+    const child = `family-${family}-child`;
+    animals.push(animal(parent), animal(child));
+    relationships.push(relation(`family-${family}-edge`, parent, child));
+  }
+  const graph = genealogy.buildGlobalGenealogy(genealogy.createGenealogyIndex(animals, relationships));
+  const tiles = graph.familyTiles;
+  assert.ok(tiles, 'global family layout exposes summary geometry for each packed component');
+  assert.equal(tiles.length, 18);
+  assert.deepEqual(new Set(graph.nodes.map((node) => node.id)), new Set(animals.map((item) => item.id)));
+  assert.deepEqual(new Set(graph.edges.map((edge) => edge.id)), new Set(relationships.map((item) => item.id)));
+  assert.ok(new Set(tiles.map((tile) => tile.bounds.top)).size > 1, 'components occupy multiple tile rows');
+  for (let leftIndex = 0; leftIndex < tiles.length; leftIndex += 1) {
+    const left = tiles[leftIndex];
+    assert.ok(left);
+    for (let rightIndex = leftIndex + 1; rightIndex < tiles.length; rightIndex += 1) {
+      const right = tiles[rightIndex];
+      assert.ok(right);
+      const overlaps = left.bounds.left < right.bounds.right && left.bounds.right > right.bounds.left
+        && left.bounds.top < right.bounds.bottom && left.bounds.bottom > right.bounds.top;
+      assert.equal(overlaps, false, `${left.id} must not overlap ${right.id}`);
+    }
+  }
+});
+
+test('family overview carries only authorized photo previews from identified nodes', async () => {
+  const genealogy = await loadGenealogy();
+  assert.ok(genealogy, 'genealogy layout package should load');
+  const parent = {
+    ...animal('parent'),
+    photo_confirmed: true,
+    photo_url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Parent.jpg/330px-Parent.jpg',
+    photo_fallback_url: '/atlas.red-panda/media/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/thumb',
+    photo_credit: 'Named photographer',
+    photo_license: 'CC BY 4.0',
+  };
+  const isolated = animal('isolated');
+  const graph = genealogy.buildGlobalGenealogy(genealogy.createGenealogyIndex(
+    [parent, animal('child'), isolated],
+    [relation('parent-child', 'parent', 'child')],
+  ));
+  const familyTile = graph.familyTiles.find((tile) => tile.id === 'child');
+  assert.ok(familyTile);
+  assert.equal(familyTile.previewAnimalName, 'parent');
+  assert.equal(familyTile.previewPhotoUrl, parent.photo_url);
+  assert.equal(familyTile.previewCredit, 'Named photographer');
+  assert.equal(familyTile.previewLicense, 'CC BY 4.0');
+  const isolatedTile = graph.familyTiles.find((tile) => tile.id === 'isolated');
+  assert.ok(isolatedTile);
+  assert.equal(isolatedTile.previewPhotoUrl, undefined);
+});
+
+test('family summary map fits portrait and landscape viewports without overlaps', async () => {
+  const genealogy = await loadGenealogy();
+  assert.ok(genealogy, 'genealogy layout package should load');
+  const tiles = Array.from({ length: 80 }, (_, index) => ({
+    id: `component-${index}`,
+    animalCount: index === 0 ? 823 : index === 1 ? 356 : 1 + (index % 9),
+  }));
+  assert.equal(typeof genealogy.layoutFamilyOverview, 'function', 'global summaries need a viewport-shaped packing layout');
+
+  for (const aspectRatio of [0.7, 1.8]) {
+    const layout = genealogy.layoutFamilyOverview(tiles, aspectRatio);
+    assert.equal(layout.tileBounds.length, tiles.length);
+    const width = layout.bounds.right - layout.bounds.left;
+    const height = layout.bounds.bottom - layout.bounds.top;
+    const actualAspectRatio = width / height;
+    assert.ok(actualAspectRatio > aspectRatio * 0.55 && actualAspectRatio < aspectRatio * 1.8,
+      `${actualAspectRatio.toFixed(2)} should use the ${aspectRatio.toFixed(2)} viewport shape`);
+    for (let leftIndex = 0; leftIndex < layout.tileBounds.length; leftIndex += 1) {
+      const left = layout.tileBounds[leftIndex];
+      assert.ok(left);
+      for (let rightIndex = leftIndex + 1; rightIndex < layout.tileBounds.length; rightIndex += 1) {
+        const right = layout.tileBounds[rightIndex];
+        assert.ok(right);
+        const overlaps = left.bounds.left < right.bounds.right && left.bounds.right > right.bounds.left
+          && left.bounds.top < right.bounds.bottom && left.bounds.bottom > right.bounds.top;
+        assert.equal(overlaps, false, `${left.id} must not overlap ${right.id}`);
+      }
+    }
+  }
+});
+
 test('focus all-depth includes the complete known parent and descendant lineage without a node cap', async () => {
   const genealogy = await loadGenealogy();
   assert.ok(genealogy, 'genealogy layout package should load');
@@ -385,7 +484,7 @@ test('focus all-depth includes the complete known parent and descendant lineage 
   assert.deepEqual(graph.generationRows.map((row) => row.generation), [-3, -2, -1, 0, 1, 2]);
 });
 
-test('global graph includes all 1554 red pandas and all 2394 canonical relationships within the layout budget', async () => {
+test('global graph includes all 1555 red pandas and all 2394 canonical relationships within the layout budget', async () => {
   const genealogy = await loadGenealogy();
   assert.ok(genealogy, 'genealogy layout package should load');
   const atlas = JSON.parse(readFileSync(new URL('../atlases/red-panda/atlas.json', import.meta.url), 'utf8'));
@@ -400,9 +499,9 @@ test('global graph includes all 1554 red pandas and all 2394 canonical relations
   const started = performance.now();
   const graph = genealogy.buildGlobalGenealogy(index);
   const elapsed = performance.now() - started;
-  assert.equal(graph.nodes.length, 1554);
+  assert.equal(graph.nodes.length, 1555);
   assert.equal(graph.edges.length, 2394);
-  assert.equal(new Set(graph.nodes.map((node) => node.id)).size, 1554);
+  assert.equal(new Set(graph.nodes.map((node) => node.id)).size, 1555);
   assert.equal(new Set(graph.edges.map((edge) => edge.id)).size, 2394);
   assert.equal(graph.truncated, false);
   assert.ok(elapsed < 2000, `1,554-node global layout took ${elapsed.toFixed(1)} ms`);
@@ -527,6 +626,28 @@ test('layout metrics count real curve crossings, exclude shared endpoints, and i
   assert.equal(metricsModule.measureGenealogyGraph(sharedEndpointGraph, 'global').crossingPairs, 0);
 });
 
+test('rendered crossing metrics count separated route pairs exactly once across spatial regions', async () => {
+  const metricsModule = await loadLayoutMetrics();
+  assert.ok(metricsModule, 'genealogy layout metrics should load');
+  const nodes = [];
+  const edges = [];
+  const pairs = 96;
+  for (let index = 0; index < pairs; index += 1) {
+    const center = index * 1000;
+    nodes.push(
+      metricNode(`pair-${index}-left-parent`, center - 80, 0, -1),
+      metricNode(`pair-${index}-right-parent`, center + 80, 0, -1),
+      metricNode(`pair-${index}-left-child`, center - 80, 220, 0),
+      metricNode(`pair-${index}-right-child`, center + 80, 220, 0),
+    );
+    edges.push(
+      metricEdge(`pair-${index}-left-to-right`, `pair-${index}-left-parent`, `pair-${index}-right-child`, 'biological_mother', 'probable'),
+      metricEdge(`pair-${index}-right-to-left`, `pair-${index}-right-parent`, `pair-${index}-left-child`, 'biological_father', 'disputed'),
+    );
+  }
+  assert.equal(metricsModule.countGenealogyRouteCrossings(metricGraph(nodes, edges), 'global'), pairs);
+});
+
 test('layout metrics report overlapping nodes, edge-card collisions, row violations, and focused parent-side violations', async () => {
   const metricsModule = await loadLayoutMetrics();
   assert.ok(metricsModule, 'genealogy layout metrics should load');
@@ -615,6 +736,41 @@ test('large-graph optimizer detects and removes crossings between edges with dif
   assert.equal(crossings(optimized), 0, 'the span-aware candidate score accepts the crossing-free adjacent swap');
 });
 
+test('default large-global optimization evaluates rendered crossings and improves the row order', async () => {
+  const optimizer = await loadLayoutOptimizer();
+  const metricsModule = await loadLayoutMetrics();
+  assert.ok(optimizer, 'generation-row optimizer should load');
+  assert.ok(metricsModule, 'layout metrics should load');
+  const rows = [
+    { generation: 0, animalIds: ['a'] },
+    { generation: 1, animalIds: ['other-1', 'b'] },
+    { generation: 2, animalIds: ['other-2', 'd'] },
+    { generation: 3, animalIds: ['c'] },
+    { generation: 10, animalIds: Array.from({ length: 501 }, (_, index) => `isolated-${index}`) },
+  ];
+  const nodes = rows.flatMap((row) => row.animalIds.map((id, index) => metricNode(
+    id,
+    (index - (row.animalIds.length - 1) / 2) * 200,
+    row.generation * 200,
+    row.generation,
+  )));
+  const edges = [metricEdge('long-edge', 'a', 'd'), metricEdge('offset-edge', 'b', 'c')];
+  const result = optimizer.optimizeGenerationRows(
+    rows,
+    edges,
+    new Map(nodes.map((node) => [node.id, node])),
+    'global',
+  );
+  const metrics = metricsModule.measureGenealogyGraph({
+    nodes: result.nodes,
+    edges,
+    generationRows: result.generationRows,
+    truncated: false,
+  }, 'global');
+  assert.equal(metrics.crossingPairs, 0, 'the default large-graph budget should choose a crossing-free candidate');
+  assert.ok(result.metrics.exactCandidatesEvaluated > 0, 'large global layouts must compare actual rendered crossings');
+});
+
 test('layout optimizer preserves one shared ancestor and every pedigree-collapse edge', async () => {
   const optimizer = await loadLayoutOptimizer();
   assert.ok(optimizer, 'generation-row optimizer should load');
@@ -670,6 +826,81 @@ test('focused optimizer terminates with one reported violation for contradictory
   assert.deepEqual(result.generationRows.flatMap((row) => row.animalIds).sort(), nodes.map((node) => node.id).sort());
 });
 
+test('focused layout orders every candidate mother before every candidate father independent of edge order', async () => {
+  const optimizer = await loadLayoutOptimizer();
+  const metricsModule = await loadLayoutMetrics();
+  assert.ok(optimizer, 'generation-row optimizer should load');
+  assert.ok(metricsModule, 'layout metrics should load');
+  const nodes = [
+    metricNode('mother-a', 160, -160, -1, 'female'),
+    metricNode('mother-b', 240, -160, -1, 'female'),
+    metricNode('father-a', -240, -160, -1, 'male'),
+    metricNode('father-b', -160, -160, -1, 'male'),
+    metricNode('child', 0, 0, 0),
+  ];
+  const edges = [
+    metricEdge('mother-a-child', 'mother-a', 'child', 'biological_mother'),
+    metricEdge('mother-b-child', 'mother-b', 'child', 'biological_mother'),
+    metricEdge('father-a-child', 'father-a', 'child', 'biological_father'),
+    metricEdge('father-b-child', 'father-b', 'child', 'biological_father'),
+  ];
+  const rows = [
+    { generation: -1, animalIds: ['father-b', 'mother-a', 'father-a', 'mother-b'] },
+    { generation: 0, animalIds: ['child'] },
+  ];
+  const initialGraph = { nodes, edges, generationRows: rows, truncated: false };
+  assert.equal(metricsModule.measureGenealogyGraph(initialGraph, 'focused').parentOrderViolations, 4,
+    'all four candidate mother/father combinations are measured');
+  const run = (inputEdges) => optimizer.optimizeGenerationRows(
+    rows,
+    inputEdges,
+    new Map(nodes.map((node) => [node.id, node])),
+    'focused',
+  );
+  const first = run(edges);
+  const second = run([...edges].reverse());
+  assert.deepEqual(first.generationRows, second.generationRows);
+  const positions = new Map(first.nodes.map((node) => [node.id, node.x]));
+  for (const mother of ['mother-a', 'mother-b']) {
+    for (const father of ['father-a', 'father-b']) {
+      assert.ok(positions.get(mother) < positions.get(father), `${mother} stays left of ${father} for the child`);
+    }
+  }
+  assert.equal(first.metrics.parentOrderViolations, 0);
+});
+
+test('focused layout keeps distinct feasible mother-father couples together without grouping all mothers', async () => {
+  const optimizer = await loadLayoutOptimizer();
+  assert.ok(optimizer, 'generation-row optimizer should load');
+  const nodes = [
+    metricNode('mother-a', -400, -160, -1, 'female'),
+    metricNode('father-a', -200, -160, -1, 'male'),
+    metricNode('mother-b', 0, -160, -1, 'female'),
+    metricNode('father-b', 200, -160, -1, 'male'),
+    metricNode('unrelated', 400, -160, -1),
+    metricNode('child-a', -100, 0, 0),
+    metricNode('child-b', 100, 0, 0),
+  ];
+  const edges = [
+    metricEdge('mother-a-child-a', 'mother-a', 'child-a', 'biological_mother'),
+    metricEdge('father-a-child-a', 'father-a', 'child-a', 'biological_father'),
+    metricEdge('mother-b-child-b', 'mother-b', 'child-b', 'biological_mother'),
+    metricEdge('father-b-child-b', 'father-b', 'child-b', 'biological_father'),
+  ];
+  const rows = [
+    { generation: -1, animalIds: ['father-a', 'unrelated', 'mother-b', 'father-b', 'mother-a'] },
+    { generation: 0, animalIds: ['child-a', 'child-b'] },
+  ];
+  const result = optimizer.optimizeGenerationRows(rows, edges, new Map(nodes.map((node) => [node.id, node])), 'focused');
+  const parentRow = result.generationRows.find((row) => row.generation === -1)?.animalIds ?? [];
+  const positions = new Map(parentRow.map((id, index) => [id, index]));
+  assert.equal(positions.get('father-a'), positions.get('mother-a') + 1);
+  assert.equal(positions.get('father-b'), positions.get('mother-b') + 1);
+  assert.ok(positions.get('mother-a') < positions.get('mother-b') || positions.get('mother-b') < positions.get('mother-a'));
+  assert.equal(parentRow.includes('unrelated'), true, 'unrelated animals remain in the same generation row');
+  assert.equal(result.metrics.parentOrderViolations, 0);
+});
+
 test('layout optimizer is deterministic and applies no parent-sex order in global mode', async () => {
   const optimizer = await loadLayoutOptimizer();
   assert.ok(optimizer, 'generation-row optimizer should load');
@@ -692,6 +923,35 @@ test('layout optimizer is deterministic and applies no parent-sex order in globa
   assert.deepEqual(first, second);
   const positions = new Map(first.nodes.map((node) => [node.id, node.x]));
   assert.ok(positions.get('father') < positions.get('mother'));
+});
+
+test('global route optimization can place a father before a mother when that removes a crossing', async () => {
+  const optimizer = await loadLayoutOptimizer();
+  const metricsModule = await loadLayoutMetrics();
+  assert.ok(optimizer, 'generation-row optimizer should load');
+  assert.ok(metricsModule, 'layout metrics should load');
+  const nodes = [
+    metricNode('mother', -100, -160, -1, 'female'),
+    metricNode('father', 100, -160, -1, 'male'),
+    metricNode('child-a', -100, 0, 0),
+    metricNode('child-b', 100, 0, 0),
+  ];
+  const edges = [
+    metricEdge('father-to-left-child', 'father', 'child-a', 'biological_father'),
+    metricEdge('mother-to-right-child', 'mother', 'child-b', 'biological_mother'),
+  ];
+  const rows = [
+    { generation: -1, animalIds: ['mother', 'father'] },
+    { generation: 0, animalIds: ['child-a', 'child-b'] },
+  ];
+  const result = optimizer.optimizeGenerationRows(rows, edges, new Map(nodes.map((node) => [node.id, node])), 'global', {
+    maxSweeps: 0,
+    maxSwapEvaluations: 20,
+    maxExactCandidates: 3,
+  });
+  const positions = new Map(result.nodes.map((node) => [node.id, node.x]));
+  assert.ok(positions.get('father') < positions.get('mother'));
+  assert.equal(metricsModule.measureGenealogyGraph({ nodes: result.nodes, edges, generationRows: result.generationRows, truncated: false }, 'global').crossingPairs, 0);
 });
 
 test('layout optimizer handles a 5000-animal row within bounded work', async () => {

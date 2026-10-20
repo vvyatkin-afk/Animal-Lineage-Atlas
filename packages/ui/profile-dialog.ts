@@ -35,6 +35,7 @@ export type AtlasDocument = {
 
 type ProfileMessages = {
   appTitle: string; noMedia: string; mediaUnavailable: string; localMediaUnavailable: string; sourceLabel: string; sourcesLabel: string;
+  previousPhotoLabel: string; nextPhotoLabel: string;
   eventsLabel: string; relationshipsLabel: string; claimsLabel: string; dateLabel: string;
   sexLabel: string; statusLabel: string; institutionLabel: string; fromInstitutionLabel: string;
   toInstitutionLabel: string; unknownValue: string;
@@ -166,25 +167,47 @@ function mediaMarkup(
   messages: ProfileMessages,
 ): string {
   if (!media.length) return `<div class="media-placeholder" role="img" aria-label="${escapeHtml(messages.noMedia)}">${escapeHtml(messages.noMedia)}</div>`;
-  const hasImage = media.some(({ presentation }) => presentation.kind !== 'placeholder');
-  return `<div class="profile-media-gallery">${media.map(({ item, presentation, sources }) => {
-    if (presentation.kind === 'placeholder' && hasImage) {
+  const imageMedia = media.filter(({ presentation }) => presentation.kind !== 'placeholder');
+  const sourceOnly = media.filter(({ presentation }) => presentation.kind === 'placeholder');
+  if (!imageMedia.length) {
+    return `<div class="profile-media-gallery"><div class="media-placeholder" role="img" aria-label="${escapeHtml(messages.noMedia)}">${escapeHtml(messages.noMedia)}</div>${media.map(({ presentation, sources }) => {
       const sourceUrl = presentation.sourceUrl;
       const link = sourceUrl ? `<p><a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(messages.sourceLabel)}</a></p>` : '';
-      return `<figure class="profile-media profile-media-source-only">${link}${sourceLinks(sources, messages.sourceLabel)}</figure>`;
-    }
-    const isImage = presentation.kind === 'remote' || presentation.kind === 'local' || presentation.kind === 'relay';
-    const image = isImage
-      ? `<img class="profile-image" src="${escapeHtml(presentation.src)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-image-fallback="${escapeHtml(presentation.kind === 'local' ? messages.localMediaUnavailable : messages.mediaUnavailable)}">`
+      return `<div class="profile-media-source-only">${link}${sourceLinks(sources, messages.sourceLabel)}</div>`;
+    }).join('')}</div>`;
+  }
+  const slides = imageMedia.map(({ item, presentation, sources }, index) => {
+    const hidden = index === 0 ? '' : ' hidden';
+    const isImage = presentation.kind === 'remote' || presentation.kind === 'licensed' || presentation.kind === 'local' || presentation.kind === 'relay';
+    const fallbackData = presentation.kind === 'licensed'
+      ? ` data-fallback-url="${escapeHtml(presentation.fallbackSrc)}"`
+      : '';
+    const imageContent = isImage
+      ? `<img class="profile-image" src="${escapeHtml(presentation.src)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin" data-image-fallback="${escapeHtml(presentation.kind === 'local' ? messages.localMediaUnavailable : messages.mediaUnavailable)}"${fallbackData}>`
       : `<div class="media-placeholder" role="img" aria-label="${escapeHtml(presentation.description)}">${escapeHtml(presentation.description)}</div>`;
+    const image = presentation.kind === 'licensed'
+      ? `<a class="profile-original-image" href="${escapeHtml(presentation.src)}" target="_blank" rel="noopener">${imageContent}</a>`
+      : imageContent;
     const sourceUrl = presentation.sourceUrl;
     const link = sourceUrl ? `<p><a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(messages.sourceLabel)}</a></p>` : '';
-    const creditText = item.credit ?? (presentation.kind === 'local' || presentation.kind === 'relay' ? presentation.credit : null);
-    const credit = presentation.kind === 'relay'
+    const creditText = item.credit ?? (presentation.kind === 'local' || presentation.kind === 'relay' || presentation.kind === 'licensed' ? presentation.credit : null);
+    const credit = presentation.kind === 'relay' || presentation.kind === 'licensed'
       ? `<p class="media-credit">${escapeHtml(creditText ?? presentation.credit)} · <a href="${escapeHtml(presentation.licenseUrl)}" target="_blank" rel="noreferrer">${escapeHtml(presentation.licenseName)}</a><span>${escapeHtml(presentation.changes)}</span></p>`
       : creditText ? `<p class="media-credit">${escapeHtml(creditText)}</p>` : '';
-    return `<figure class="profile-media">${image}${credit}${link}${sourceLinks(sources, messages.sourceLabel)}</figure>`;
-  }).join('')}</div>`;
+    const otherSources = sources.filter((source) => source.url !== sourceUrl);
+    return `<figure class="profile-media" data-gallery-slide="${index}"${hidden}>${image}${credit}${link}${sourceLinks(otherSources, messages.sourceLabel)}</figure>`;
+  });
+  const controls = imageMedia.length > 1
+    ? `<div class="profile-gallery-controls"><button type="button" data-gallery-previous aria-label="${escapeHtml(messages.previousPhotoLabel)}">‹</button><span data-gallery-position aria-live="polite">1 / ${imageMedia.length}</span><button type="button" data-gallery-next aria-label="${escapeHtml(messages.nextPhotoLabel)}">›</button></div>`
+    : '';
+  const sourceListMarkup = sourceOnly.length
+    ? `<details class="profile-media-source-list"><summary>${escapeHtml(messages.sourcesLabel)} (${sourceOnly.length})</summary>${sourceOnly.map(({ presentation, sources }) => {
+      const sourceUrl = presentation.sourceUrl;
+      const link = sourceUrl ? `<p><a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(messages.sourceLabel)}</a></p>` : '';
+      return `${link}${sourceLinks(sources.filter((source) => source.url !== sourceUrl), messages.sourceLabel)}`;
+    }).join('')}</details>`
+    : '';
+  return `<div class="profile-media-gallery" data-photo-gallery>${slides.join('')}${controls}${sourceListMarkup}</div>`;
 }
 
 export function renderProfileDialog(
@@ -217,15 +240,34 @@ export function renderProfileDialog(
       if (id) onRelatedAnimal(id);
     });
   }
+  const gallery = content.querySelector<HTMLElement>('[data-photo-gallery]');
+  if (gallery) {
+    const slides = [...gallery.querySelectorAll<HTMLElement>('[data-gallery-slide]')];
+    const position = gallery.querySelector<HTMLElement>('[data-gallery-position]');
+    let activeSlide = 0;
+    const showSlide = (nextSlide: number) => {
+      activeSlide = (nextSlide + slides.length) % slides.length;
+      for (const [index, slide] of slides.entries()) slide.hidden = index !== activeSlide;
+      if (position) position.textContent = `${activeSlide + 1} / ${slides.length}`;
+    };
+    gallery.querySelector<HTMLButtonElement>('[data-gallery-previous]')?.addEventListener('click', () => showSlide(activeSlide - 1));
+    gallery.querySelector<HTMLButtonElement>('[data-gallery-next]')?.addEventListener('click', () => showSlide(activeSlide + 1));
+  }
   for (const image of content.querySelectorAll<HTMLImageElement>('[data-image-fallback]')) {
     image.addEventListener('error', () => {
+      const fallbackUrl = image.dataset.fallbackUrl;
+      if (fallbackUrl && image.dataset.fallbackAttempted !== 'true') {
+        image.dataset.fallbackAttempted = 'true';
+        image.src = fallbackUrl;
+        return;
+      }
       const fallback = document.createElement('div');
       fallback.className = 'media-placeholder';
       fallback.setAttribute('role', 'img');
       fallback.setAttribute('aria-label', image.dataset.imageFallback ?? messages.noMedia);
       fallback.textContent = image.dataset.imageFallback ?? messages.noMedia;
       image.replaceWith(fallback);
-    }, { once: true });
+    });
   }
   const profileTitle = content.querySelector<HTMLElement>('[data-profile-title]');
   if (dialog.open) profileTitle?.focus({ preventScroll: true });

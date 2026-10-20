@@ -194,6 +194,8 @@
       "properties": {
         "media_id": {"$ref": "#/$defs/id"}, "animal_id": {"$ref": "#/$defs/id"},
         "source_page_url": {"type": "string", "format": "uri"}, "direct_remote_url": {"type": "string", "format": "uri"},
+        "direct_thumbnail_url": {"type": "string", "format": "uri"},
+        "license_name": {"type": "string", "minLength": 1}, "license_url": {"type": "string", "format": "uri"},
         "credit": {"type": ["string", "null"]}, "rights_status": {"type": "string", "minLength": 1},
         "embedding_status": {"enum": ["allowed", "link_only", "denied", "unknown"]},
         "offline_archive_eligible": {"type": "boolean"}, "identity_confidence": {"$ref": "#/$defs/status"},

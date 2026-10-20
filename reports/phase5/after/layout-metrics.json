@@ -1,0 +1,509 @@
+{
+  "schema_version": "phase5-layout-after-v3",
+  "captured_at": "2026-10-20T17:29:55.695Z",
+  "source_parent_revision": "9dbba74b75cd95ca2939b48085882d492e86eff0",
+  "source_worktree_dirty": true,
+  "baseline_release": "6dfdb34b26f8f8ee574e40cff6e9e661779a19a7",
+  "method": {
+    "route": "Shared renderer route geometry; cubic Bezier curves sampled into 24 segments; route length sums complete rendered centerlines. Crossing candidate indexing uses a 256-world-unit spatial grid, then applies the unchanged bounding-box, segment-intersection, and opposite-side polyline tests. Shared-endpoint edge pairs are excluded; solid and dashed edges are included.",
+    "node_rect": "176x74 world-unit bounds; edge-node collision pairs exclude each edge endpoint.",
+    "repeatability": "Global and focused layouts and exact route metrics are repeated twice against identical canonical records and deterministic optimizer settings.",
+    "objective": "Exact rendered crossings first, complete rendered route length second; focused mode enforces feasible mother-left-of-father constraints and proposes adjacent couples. Global mode has no sex-based candidate or ordering constraint. Later tie-breaks preserve readable spacing. Search is bounded and deterministic; it does not claim global optimality.",
+    "performance_budget_ms": 2000
+  },
+  "runtime": {
+    "node": "v20.19.2",
+    "platform": "linux",
+    "architecture": "x64"
+  },
+  "dataset": {
+    "species": "red-panda",
+    "animals": 1555,
+    "relationships": 2394,
+    "media_references": 5929,
+    "relationship_components": 172
+  },
+  "cases": {
+    "all_animals": {
+      "samples": [
+        {
+          "build_ms": 1763.886,
+          "metrics": {
+            "nodes": 1555,
+            "edges": 2394,
+            "generations": 14,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 42570,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 4607479.37,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 3875,
+            "generation_order_violations": 0,
+            "parent_order_violations": 0,
+            "width": 23502,
+            "height": 6924
+          }
+        },
+        {
+          "build_ms": 1380.946,
+          "metrics": {
+            "nodes": 1555,
+            "edges": 2394,
+            "generations": 14,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 42570,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 4607479.37,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 3875,
+            "generation_order_violations": 0,
+            "parent_order_violations": 0,
+            "width": 23502,
+            "height": 6924
+          }
+        }
+      ],
+      "measurement_repeatable_across_two_runs": true
+    },
+    "largest_component": {
+      "samples": [
+        {
+          "build_ms": 888.369,
+          "metrics": {
+            "nodes": 823,
+            "edges": 1468,
+            "generations": 14,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 30872,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 3113627.99,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 2925,
+            "generation_order_violations": 0,
+            "parent_order_violations": 0,
+            "width": 23502,
+            "height": 2934
+          }
+        },
+        {
+          "build_ms": 864.454,
+          "metrics": {
+            "nodes": 823,
+            "edges": 1468,
+            "generations": 14,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 30872,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 3113627.99,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 2925,
+            "generation_order_violations": 0,
+            "parent_order_violations": 0,
+            "width": 23502,
+            "height": 2934
+          }
+        }
+      ],
+      "measurement_repeatable_across_two_runs": true
+    },
+    "futa_depth_3": {
+      "samples": [
+        {
+          "build_ms": 565.92,
+          "metrics": {
+            "nodes": 100,
+            "edges": 100,
+            "generations": 7,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 5,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 102207.86,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 0,
+            "generation_order_violations": 0,
+            "parent_order_violations": 0,
+            "width": 8376,
+            "height": 1034
+          },
+          "parent_pair_candidates": 4,
+          "parent_pair_ordered": 4,
+          "parent_pair_adjacent": 2
+        },
+        {
+          "build_ms": 397.373,
+          "metrics": {
+            "nodes": 100,
+            "edges": 100,
+            "generations": 7,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 5,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 102207.86,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 0,
+            "generation_order_violations": 0,
+            "parent_order_violations": 0,
+            "width": 8376,
+            "height": 1034
+          },
+          "parent_pair_candidates": 4,
+          "parent_pair_ordered": 4,
+          "parent_pair_adjacent": 2
+        }
+      ],
+      "measurement_repeatable_across_two_runs": true,
+      "parent_pair_candidates": 4,
+      "parent_pair_ordered": 4,
+      "parent_pair_adjacent": 2
+    },
+    "futa_all_known": {
+      "samples": [
+        {
+          "build_ms": 417.242,
+          "metrics": {
+            "nodes": 121,
+            "edges": 121,
+            "generations": 9,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 9,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 128285.83,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 0,
+            "generation_order_violations": 0,
+            "parent_order_violations": 0,
+            "width": 8376,
+            "height": 1354
+          },
+          "parent_pair_candidates": 4,
+          "parent_pair_ordered": 4,
+          "parent_pair_adjacent": 2
+        },
+        {
+          "build_ms": 405.965,
+          "metrics": {
+            "nodes": 121,
+            "edges": 121,
+            "generations": 9,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 9,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 128285.83,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 0,
+            "generation_order_violations": 0,
+            "parent_order_violations": 0,
+            "width": 8376,
+            "height": 1354
+          },
+          "parent_pair_candidates": 4,
+          "parent_pair_ordered": 4,
+          "parent_pair_adjacent": 2
+        }
+      ],
+      "measurement_repeatable_across_two_runs": true,
+      "parent_pair_candidates": 4,
+      "parent_pair_ordered": 4,
+      "parent_pair_adjacent": 2
+    },
+    "rakesh_depth_3": {
+      "samples": [
+        {
+          "build_ms": 13.314,
+          "metrics": {
+            "nodes": 14,
+            "edges": 13,
+            "generations": 4,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 4,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 2908.52,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 0,
+            "generation_order_violations": 0,
+            "parent_order_violations": 0,
+            "width": 1376,
+            "height": 554
+          },
+          "parent_pair_candidates": 6,
+          "parent_pair_ordered": 6,
+          "parent_pair_adjacent": 6
+        },
+        {
+          "build_ms": 6.044,
+          "metrics": {
+            "nodes": 14,
+            "edges": 13,
+            "generations": 4,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 4,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 2908.52,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 0,
+            "generation_order_violations": 0,
+            "parent_order_violations": 0,
+            "width": 1376,
+            "height": 554
+          },
+          "parent_pair_candidates": 6,
+          "parent_pair_ordered": 6,
+          "parent_pair_adjacent": 6
+        }
+      ],
+      "measurement_repeatable_across_two_runs": true,
+      "parent_pair_candidates": 6,
+      "parent_pair_ordered": 6,
+      "parent_pair_adjacent": 6
+    },
+    "bandit_depth_3": {
+      "samples": [
+        {
+          "build_ms": 9.617,
+          "metrics": {
+            "nodes": 15,
+            "edges": 15,
+            "generations": 4,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 2,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 3960.49,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 3,
+            "generation_order_violations": 1,
+            "parent_order_violations": 0,
+            "width": 1576,
+            "height": 554
+          },
+          "parent_pair_candidates": 7,
+          "parent_pair_ordered": 7,
+          "parent_pair_adjacent": 6
+        },
+        {
+          "build_ms": 7.31,
+          "metrics": {
+            "nodes": 15,
+            "edges": 15,
+            "generations": 4,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 2,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 3960.49,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 3,
+            "generation_order_violations": 1,
+            "parent_order_violations": 0,
+            "width": 1576,
+            "height": 554
+          },
+          "parent_pair_candidates": 7,
+          "parent_pair_ordered": 7,
+          "parent_pair_adjacent": 6
+        }
+      ],
+      "measurement_repeatable_across_two_runs": true,
+      "parent_pair_candidates": 7,
+      "parent_pair_ordered": 7,
+      "parent_pair_adjacent": 6
+    },
+    "bandit_all_known": {
+      "samples": [
+        {
+          "build_ms": 230.208,
+          "metrics": {
+            "nodes": 68,
+            "edges": 89,
+            "generations": 10,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 96,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 45487.25,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 34,
+            "generation_order_violations": 19,
+            "parent_order_violations": 0,
+            "width": 2976,
+            "height": 1514
+          },
+          "parent_pair_candidates": 36,
+          "parent_pair_ordered": 36,
+          "parent_pair_adjacent": 21
+        },
+        {
+          "build_ms": 253.392,
+          "metrics": {
+            "nodes": 68,
+            "edges": 89,
+            "generations": 10,
+            "truncated": false,
+            "crossings": {
+              "edge_pairs": 96,
+              "samples_per_curve": 24
+            },
+            "total_route_length": 45487.25,
+            "node_overlap_pairs": 0,
+            "edge_node_collision_pairs": 34,
+            "generation_order_violations": 19,
+            "parent_order_violations": 0,
+            "width": 2976,
+            "height": 1514
+          },
+          "parent_pair_candidates": 36,
+          "parent_pair_ordered": 36,
+          "parent_pair_adjacent": 21
+        }
+      ],
+      "measurement_repeatable_across_two_runs": true,
+      "parent_pair_candidates": 36,
+      "parent_pair_ordered": 36,
+      "parent_pair_adjacent": 21
+    }
+  },
+  "comparisons": {
+    "all_animals": {
+      "before": {
+        "nodes": 1554,
+        "edges": 2394,
+        "crossings": 42931,
+        "total_route_length": 4662636.83
+      },
+      "after": {
+        "nodes": 1555,
+        "edges": 2394,
+        "crossings": 42570,
+        "total_route_length": 4607479.37
+      },
+      "crossings_delta": -361,
+      "route_length_delta": -55157.46
+    },
+    "largest_component": {
+      "before": {
+        "nodes": 823,
+        "edges": 1468,
+        "crossings": 31352,
+        "total_route_length": 3163209.23
+      },
+      "after": {
+        "nodes": 823,
+        "edges": 1468,
+        "crossings": 30872,
+        "total_route_length": 3113627.99
+      },
+      "crossings_delta": -480,
+      "route_length_delta": -49581.24
+    },
+    "futa_depth_3": {
+      "before": {
+        "nodes": 100,
+        "edges": 100,
+        "crossings": 6,
+        "total_route_length": 102548.13
+      },
+      "after": {
+        "nodes": 100,
+        "edges": 100,
+        "crossings": 5,
+        "total_route_length": 102207.86
+      },
+      "crossings_delta": -1,
+      "route_length_delta": -340.27
+    },
+    "futa_all_known": {
+      "before": {
+        "nodes": 121,
+        "edges": 121,
+        "crossings": 18,
+        "total_route_length": 121431.54
+      },
+      "after": {
+        "nodes": 121,
+        "edges": 121,
+        "crossings": 9,
+        "total_route_length": 128285.83
+      },
+      "crossings_delta": -9,
+      "route_length_delta": 6854.29
+    },
+    "rakesh_depth_3": {
+      "before": {
+        "nodes": 14,
+        "edges": 13,
+        "crossings": 4,
+        "total_route_length": 2908.52
+      },
+      "after": {
+        "nodes": 14,
+        "edges": 13,
+        "crossings": 4,
+        "total_route_length": 2908.52
+      },
+      "crossings_delta": 0,
+      "route_length_delta": 0
+    },
+    "bandit_depth_3": {
+      "before": {
+        "nodes": 15,
+        "edges": 15,
+        "crossings": 2,
+        "total_route_length": 3960.49
+      },
+      "after": {
+        "nodes": 15,
+        "edges": 15,
+        "crossings": 2,
+        "total_route_length": 3960.49
+      },
+      "crossings_delta": 0,
+      "route_length_delta": 0
+    },
+    "bandit_all_known": {
+      "before": {
+        "nodes": 68,
+        "edges": 89,
+        "crossings": 181,
+        "total_route_length": 57769.02
+      },
+      "after": {
+        "nodes": 68,
+        "edges": 89,
+        "crossings": 96,
+        "total_route_length": 45487.25
+      },
+      "crossings_delta": -85,
+      "route_length_delta": -12281.77
+    }
+  },
+  "bandit_identity": {
+    "canonical_id": "red-panda:upstream-1186",
+    "name": "Bandit",
+    "biological_mother": "red-panda:upstream-999",
+    "biological_father": "red-panda:upstream-394",
+    "relationship_status": "probable"
+  }
+}

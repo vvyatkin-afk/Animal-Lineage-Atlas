@@ -129,6 +129,45 @@ class ValidateAtlasTests(unittest.TestCase):
         )
         self.assertIn("unlicensed_embedding", issue_codes(self.validator.validate_atlas(atlas)))
 
+    def test_accepts_explicit_cc_by_sa_browser_image_and_thumbnail_metadata(self):
+        atlas = minimal_atlas()
+        atlas["media"].append({
+            "media_id": "media:test:cc-by-sa",
+            "animal_id": "test:fiona",
+            "source_page_url": "https://commons.wikimedia.org/wiki/File:Fiona.jpg",
+            "direct_remote_url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Fiona.jpg",
+            "direct_thumbnail_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Fiona.jpg/330px-Fiona.jpg",
+            "license_name": "CC BY-SA 4.0",
+            "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "credit": "Example Photographer",
+            "rights_status": "cc-by-sa-4.0",
+            "embedding_status": "allowed",
+            "offline_archive_eligible": False,
+            "identity_confidence": "confirmed",
+            "checked_date": "2026-10-20",
+            "notes": "Fixture only.",
+            "source_ids": ["source:zoo"],
+        })
+        self.assertEqual(self.validator.validate_atlas(atlas), [])
+
+    def test_rejects_malformed_browser_direct_thumbnail_url(self):
+        atlas = minimal_atlas()
+        atlas["media"].append({
+            "media_id": "media:test:bad-thumb",
+            "animal_id": "test:fiona",
+            "source_page_url": "https://example.org/fiona-photo-source",
+            "direct_thumbnail_url": "file:///tmp/fiona.jpg",
+            "credit": None,
+            "rights_status": "unknown",
+            "embedding_status": "link_only",
+            "offline_archive_eligible": False,
+            "identity_confidence": "probable",
+            "checked_date": "2026-10-07",
+            "notes": "Fixture only.",
+            "source_ids": ["source:zoo"],
+        })
+        self.assertIn("invalid_direct_media_url", issue_codes(self.validator.validate_atlas(atlas)))
+
     def test_rejects_incomplete_coverage_translation(self):
         atlas = minimal_atlas()
         atlas["coverage"]["translations"]["ja"]["limitations"] = []

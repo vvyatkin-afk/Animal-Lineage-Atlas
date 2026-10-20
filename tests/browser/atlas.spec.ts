@@ -20,7 +20,9 @@ function observeErrors(page: Page, expectedFailedImages: string[] = []) {
     }
   });
   page.on('requestfailed', (request) => {
-    if (expectedFailures.has(new URL(request.url()).pathname)) return;
+    const pathname = new URL(request.url()).pathname;
+    if (expectedFailures.has(pathname)
+      || (expectedFailures.has(futaRelayPath) && /^\/atlas\.red-panda\/media\/[a-f0-9]{32}\/(?:thumb|profile)$/.test(pathname))) return;
     const isExpectedBlockedImage = request.resourceType() === 'image'
       && new URL(request.url()).origin !== 'http://127.0.0.1:4173';
     if (!isExpectedBlockedImage) errors.push(`request failed: ${request.url()}`);
@@ -29,11 +31,11 @@ function observeErrors(page: Page, expectedFailedImages: string[] = []) {
 }
 
 async function failApprovedRelay(page: Page) {
-  await page.route('**/media/a426db98f35e4bc984275cc031467ac9/profile', (route) => route.abort('failed'));
+  await page.route('**/atlas.red-panda/media/*/*', (route) => route.abort('failed'));
 }
 
 async function fulfillApprovedRelayFixture(page: Page) {
-  await page.route('**/media/a426db98f35e4bc984275cc031467ac9/profile', (route) => route.fulfill({
+  await page.route('**/atlas.red-panda/media/*/*', (route) => route.fulfill({
     status: 200,
     contentType: 'image/svg+xml',
     body: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="24"><rect width="32" height="24" fill="#789"/></svg>',
@@ -61,6 +63,7 @@ async function interceptRedPandaDetails(page: Page, change: (chunk: Record<strin
 }
 
 test('all-animal view draws the complete red-panda genealogy and defers full details until profile open', async ({ page }) => {
+  await fulfillApprovedRelayFixture(page);
   const detailRequests: string[] = [];
   page.on('request', (request) => {
     if (new URL(request.url()).pathname.includes('/details/')) detailRequests.push(request.url());
@@ -70,7 +73,7 @@ test('all-animal view draws the complete red-panda genealogy and defers full det
   await expect(page.locator('[data-global-overview="true"]')).toBeVisible();
   const globalCanvas = page.locator('canvas[data-global-graph-canvas="true"]');
   await expect(globalCanvas).toBeVisible();
-  await expect(globalCanvas).toHaveAttribute('data-node-count', '1554');
+  await expect(globalCanvas).toHaveAttribute('data-node-count', '1555');
   await expect(globalCanvas).toHaveAttribute('data-edge-count', '2394');
   const count = await page.locator('#animal-count').textContent();
   await expect(page.locator('.global-index-summary')).toContainText(`${count} animals`);
@@ -79,7 +82,7 @@ test('all-animal view draws the complete red-panda genealogy and defers full det
 
   const familyLayoutBuilds = Number(await page.locator('#genealogy-container').getAttribute('data-layout-builds'));
   await page.getByLabel('Arrange rows by').selectOption('country');
-  await expect(globalCanvas).toHaveAttribute('data-node-count', '1554');
+  await expect(globalCanvas).toHaveAttribute('data-node-count', '1555');
   await page.getByLabel('Arrange rows by').selectOption('family');
   const layoutBuildsBeforeZoom = Number(await page.locator('#genealogy-container').getAttribute('data-layout-builds'));
   expect(layoutBuildsBeforeZoom).toBeGreaterThan(familyLayoutBuilds);
@@ -89,7 +92,7 @@ test('all-animal view draws the complete red-panda genealogy and defers full det
   await expect(globalCanvas).toHaveAttribute('data-generation-labels-visible', 'true');
   expect(Number(await page.locator('#genealogy-container').getAttribute('data-layout-builds'))).toBe(layoutBuildsBeforeZoom);
   await page.getByRole('button', { name: 'Fit all' }).click();
-  await page.locator('[data-global-graph-viewport="true"]').screenshot({ path: `${screenshotDir}/phase3-red-panda-global-desktop-1440x900.png` });
+  await page.locator('[data-global-graph-viewport="true"]').screenshot({ path: `${screenshotDir}/phase5-all-animals-desktop-1440x900.png` });
 
   await page.getByLabel('Search animals').fill('Futa');
   await page.getByRole('button', { name: 'Open profile: Futa' }).click();
@@ -133,22 +136,23 @@ test('global graph keeps its camera open while high-detail animal cards open exa
   await page.locator('[data-global-graph-viewport="true"]').screenshot({ path: `${screenshotDir}/phase3-red-panda-global-detail-desktop-1440x900.png` });
   const animalId = await firstCard.getAttribute('data-animal-id');
   expect(animalId).toBeTruthy();
-  expect(await firstCard.getAttribute('target')).toBe('_blank');
-  expect(await firstCard.getAttribute('href')).toContain(`animal=${encodeURIComponent(animalId!)}`);
+  const profileLink = firstCard.locator('.global-node-profile-link');
+  expect(await profileLink.getAttribute('target')).toBe('_blank');
+  expect(await profileLink.getAttribute('href')).toContain(`animal=${encodeURIComponent(animalId!)}`);
   const popupPromise = page.waitForEvent('popup');
-  await firstCard.click();
+  await profileLink.click();
   const profileTab = await popupPromise;
   await expect(profileTab.locator('#profile-title')).toBeVisible();
   await expect.poll(() => new URL(profileTab.url()).searchParams.get('animal')).toBe(animalId);
   await expect(page).toHaveURL(/\/atlas\.red-panda\/$/);
   expect(Number(await page.locator('#genealogy-container').getAttribute('data-layout-builds'))).toBe(layoutBuilds);
-  expect(Number(await canvas.getAttribute('data-node-count'))).toBe(1554);
+  expect(Number(await canvas.getAttribute('data-node-count'))).toBe(1555);
   expect(Number(await canvas.getAttribute('data-zoom'))).toBeGreaterThan(0.5);
 });
 
 test('global graph includes every species index and keeps hippo taxa within their own records', async ({ page }) => {
   const atlases = [
-    { id: 'red-panda', animals: 1554, relationships: 2394 },
+    { id: 'red-panda', animals: 1555, relationships: 2394 },
     { id: 'polar-bear', animals: 72, relationships: 63 },
     { id: 'hippopotamus', animals: 96, relationships: 86 },
   ];
@@ -262,6 +266,46 @@ test('focused Futa parents are ordered and layout diagnostics stay hidden by def
   expect(await xPosition(parents.mother!)).toBeLessThan(await xPosition(parents.father!));
 });
 
+test('Bandit focused mother and father remain a local pair at desktop and mobile sizes', async ({ page }) => {
+  const errors = observeErrors(page);
+  await blockRemoteImages(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:upstream-1186')}`);
+  await expect(page.locator('#profile-title')).toHaveText('Bandit');
+  await page.getByRole('button', { name: 'Close profile' }).click();
+  const tree = page.locator('svg[data-genealogy="true"]');
+  await expect(tree).toBeVisible();
+  const parents = await page.evaluate(async () => {
+    const atlas = await (await fetch('./runtime.json')).json() as {
+      relationships: Array<{ subject: string; object: string; type: string }>;
+    };
+    return {
+      mother: atlas.relationships.find((edge) => edge.object === 'red-panda:upstream-1186' && edge.type === 'biological_mother')?.subject,
+      father: atlas.relationships.find((edge) => edge.object === 'red-panda:upstream-1186' && edge.type === 'biological_father')?.subject,
+    };
+  });
+  expect(parents.mother).toBe('red-panda:upstream-999');
+  expect(parents.father).toBe('red-panda:upstream-394');
+  const xPosition = async (animalId: string) => page.locator(`.genealogy-node[data-animal-id="${animalId}"]`).getAttribute('transform')
+    .then((transform) => Number(transform?.match(/translate\(([-\d.]+)/)?.[1]));
+  const motherX = await xPosition(parents.mother!);
+  const fatherX = await xPosition(parents.father!);
+  expect(motherX).toBeLessThan(fatherX);
+  expect(fatherX - motherX).toBeLessThanOrEqual(200);
+  await expect(page.locator('.genealogy-node')).toHaveCount(15);
+  await page.locator('#genealogy-container').screenshot({ path: `${screenshotDir}/phase5-bandit-focus-1440x900.png` });
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const mobileBanditCard = page.locator('.genealogy-node[data-animal-id="red-panda:upstream-1186"] rect');
+  await expect.poll(async () => (await mobileBanditCard.boundingBox())?.width ?? 0).toBeGreaterThan(120);
+  const mobileViewBoxWidth = await tree.evaluate((element) => Number(element.getAttribute('viewBox')?.split(/\s+/)[2]));
+  expect(mobileViewBoxWidth).toBeLessThan(500);
+  await page.locator('#genealogy-container').screenshot({ path: `${screenshotDir}/phase5-bandit-focus-390x844.png` });
+  const width = await page.evaluate(() => document.documentElement.scrollWidth);
+  expect(width).toBeLessThanOrEqual(390);
+  expect(errors).toEqual([]);
+});
+
 test('layoutDiagnostics=1 displays measured global metrics and leaves parent sex ordering unconstrained', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/atlas.red-panda/?layoutDiagnostics=1');
@@ -324,18 +368,34 @@ test('sex, life-status, and photo filters update visible graph nodes and only re
   await page.getByLabel('Sex').selectOption('');
   await page.getByLabel('Life status').selectOption('');
   await page.getByLabel('Photo match').selectOption('');
-  await expect(canvas).toHaveAttribute('data-filtered-node-count', '1554');
+  await expect(canvas).toHaveAttribute('data-filtered-node-count', '1555');
   await expect(page.locator('.global-filter-summary')).toBeHidden();
 });
 
 test('mobile full graph fits all rows, remains within the viewport, and supports pan and zoom', async ({ page }) => {
   const errors = observeErrors(page);
+  await fulfillApprovedRelayFixture(page);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/atlas.red-panda/');
   const canvas = page.locator('canvas[data-global-graph-canvas="true"]');
-  await expect(canvas).toHaveAttribute('data-node-count', '1554');
+  await expect(canvas).toHaveAttribute('data-node-count', '1555');
   await page.getByRole('button', { name: 'Fit all' }).click();
-  await expect(canvas).toHaveAttribute('data-visible-node-count', '1554');
+  await expect(canvas).toHaveAttribute('data-visible-node-count', '1555');
+  await expect(canvas).toHaveAttribute('data-layout-level', 'family-summary');
+  const overviewViewport = await page.locator('[data-global-graph-viewport="true"]').boundingBox();
+  const overviewOccupancy = await canvas.evaluate((element) => {
+    const canvasElement = element as HTMLCanvasElement;
+    const values = (canvasElement.dataset.layoutBounds ?? '').split(',').map(Number);
+    const [left, top, right, bottom] = values;
+    const zoom = Number(canvasElement.dataset.zoom);
+    return {
+      width: ((right ?? 0) - (left ?? 0)) * zoom,
+      height: ((bottom ?? 0) - (top ?? 0)) * zoom,
+    };
+  });
+  expect(overviewViewport).not.toBeNull();
+  expect(overviewOccupancy.width / overviewViewport!.width).toBeGreaterThan(0.65);
+  expect(overviewOccupancy.height / overviewViewport!.height).toBeGreaterThan(0.65);
   const width = await page.evaluate(() => document.documentElement.scrollWidth);
   expect(width).toBeLessThanOrEqual(390);
   await page.locator('[data-global-graph-viewport="true"]').screenshot({ path: `${screenshotDir}/phase3-red-panda-global-mobile-390x844.png` });
@@ -356,31 +416,72 @@ test('mobile full graph fits all rows, remains within the viewport, and supports
   const panAfterDrag = Number(await canvas.getAttribute('data-pan-x'));
   await page.getByRole('button', { name: 'Fit all' }).click();
   await expect.poll(async () => Number(await canvas.getAttribute('data-pan-x'))).not.toBe(panAfterDrag);
-  const nodePoint = await canvas.evaluate((element) => {
-    const canvasElement = element as HTMLCanvasElement;
-    const context = canvasElement.getContext('2d');
-    if (!context) return null;
-    const pixels = context.getImageData(0, 0, canvasElement.width, canvasElement.height).data;
-    const nodeColors = [[71, 119, 92], [120, 131, 125], [176, 147, 94], [135, 76, 133], [63, 111, 145]];
-    for (let index = 0; index < pixels.length; index += 4) {
-      const matchesNodeColor = nodeColors.some(([red, green, blue]) =>
-        Math.abs((pixels[index] ?? 0) - red) <= 8
-        && Math.abs((pixels[index + 1] ?? 0) - green) <= 8
-        && Math.abs((pixels[index + 2] ?? 0) - blue) <= 8);
-      if (matchesNodeColor) {
-        const pixelIndex = index / 4;
-        const ratio = canvasElement.width / canvasElement.clientWidth;
-        return { x: (pixelIndex % canvasElement.width) / ratio, y: Math.floor(pixelIndex / canvasElement.width) / ratio };
-      }
-    }
-    return null;
-  });
-  expect(nodePoint).not.toBeNull();
-  const fitAllBox = await page.locator('[data-global-graph-viewport="true"]').boundingBox();
-  expect(fitAllBox).not.toBeNull();
-  await page.mouse.click(fitAllBox!.x + nodePoint!.x, fitAllBox!.y + nodePoint!.y);
-  await expect(page.locator('svg[data-genealogy]')).toBeVisible();
+  await canvas.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(canvas).not.toHaveAttribute('data-selected-summary-tile', '');
+  await page.keyboard.press('Enter');
+  await expect(canvas).toHaveAttribute('data-layout-level', 'families');
+  for (let step = 0; step < 16; step += 1) {
+    await page.keyboard.press('+');
+  }
+  await expect(canvas).toHaveAttribute('data-layout-level', 'cards');
+  await expect(page.locator('.global-node-card').first()).toBeVisible();
   expect(errors).toEqual([]);
+});
+
+test('all-animal overview changes levels and shows only verified family preview photos', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/atlas.red-panda/');
+  const canvas = page.locator('canvas[data-global-graph-canvas="true"]');
+  await expect(canvas).toHaveAttribute('data-node-count', '1555');
+  await expect(canvas).toHaveAttribute('data-edge-count', '2394');
+  await page.getByRole('button', { name: 'Fit all' }).click();
+  await expect(canvas).toHaveAttribute('data-layout-level', 'family-summary');
+  await expect(canvas).toHaveAttribute('data-visible-summary-tile-count', /[1-9]/);
+  await page.locator('[data-global-graph-viewport="true"]').screenshot({ path: `${screenshotDir}/phase5-all-families-desktop-1440x900.png` });
+
+  await page.getByLabel('Photo match').selectOption('confirmed');
+  await page.getByRole('button', { name: 'Fit all' }).click();
+  await expect(canvas).toHaveAttribute('data-filtered-node-count', '2');
+  await canvas.focus();
+  await expect(canvas).toHaveAttribute('data-layout-level', 'family-summary');
+  await expect.poll(async () => Number(await canvas.getAttribute('data-visible-summary-preview-count'))).toBeGreaterThan(0);
+  const preview = page.locator('.global-family-preview-image').first();
+  await expect(preview).toHaveAttribute('src', /^https:\/\/thumb\.wikimedia\.org\/wikipedia\/commons\/thumb\//);
+  await expect.poll(() => preview.evaluate((element) => (element as HTMLImageElement).naturalWidth), { timeout: 20_000 }).toBeGreaterThan(0);
+  await expect.poll(() => preview.evaluate((element) => (element as HTMLImageElement).currentSrc)).toMatch(/^https:\/\/thumb\.wikimedia\.org\//);
+  await canvas.screenshot({ path: `${screenshotDir}/phase5-verified-family-preview.png` });
+
+  const futaPreview = page.locator('.global-family-preview[title^="風太"]');
+  await expect(futaPreview).toBeVisible();
+  const futaPreviewBounds = await futaPreview.boundingBox();
+  expect(futaPreviewBounds).not.toBeNull();
+  await page.mouse.click(futaPreviewBounds!.x + futaPreviewBounds!.width / 2, futaPreviewBounds!.y + futaPreviewBounds!.height / 2);
+  await expect(canvas).toHaveAttribute('data-layout-level', 'families');
+  await expect(canvas).not.toHaveAttribute('data-selected-summary-tile', '');
+  await expect(canvas).toHaveAttribute('data-generation-labels-visible', 'true');
+  await expect(canvas).toHaveAttribute('data-visible-node-count', '1');
+
+  await page.getByRole('button', { name: 'Fit all' }).click();
+  const simonPreview = page.locator('.global-family-preview[title^="Simon"]');
+  await expect(simonPreview).toBeVisible();
+  const simonPreviewBounds = await simonPreview.boundingBox();
+  expect(simonPreviewBounds).not.toBeNull();
+  await page.mouse.click(simonPreviewBounds!.x + simonPreviewBounds!.width / 2, simonPreviewBounds!.y + simonPreviewBounds!.height / 2);
+  await expect(canvas).toHaveAttribute('data-layout-level', 'cards');
+  await canvas.focus();
+  const simonCard = page.locator('.global-node-card[data-animal-id="red-panda:simon-jerusalem-zoo"]');
+  await expect(simonCard).toBeVisible();
+  const photoSourceLink = simonCard.locator('.global-photo-source-link');
+  await expect(photoSourceLink).toBeVisible();
+  await expect(photoSourceLink).toHaveAttribute('href', /^https:\/\/commons\.wikimedia\.org\/wiki\/File:Red_Panda_Simon_/);
+  const photoLicenseLink = simonCard.locator('.global-photo-license-link');
+  await expect(photoLicenseLink).toBeVisible();
+  await expect(photoLicenseLink).toHaveAttribute('href', /^https:\/\/creativecommons\.org\/licenses\//);
+  const cardImage = page.locator('.global-node-photo').first();
+  await expect(cardImage).toHaveAttribute('src', /^https:\/\/thumb\.wikimedia\.org\/wikipedia\/commons\/thumb\//);
+  await expect.poll(() => cardImage.evaluate((element) => (element as HTMLImageElement).naturalWidth), { timeout: 20_000 }).toBeGreaterThan(0);
+  await expect.poll(() => cardImage.evaluate((element) => (element as HTMLImageElement).currentSrc)).toMatch(/^https:\/\/thumb\.wikimedia\.org\//);
 });
 
 test('hub renders all atlas cards, changes locale, and works at desktop size', async ({ page }) => {
@@ -388,7 +489,7 @@ test('hub renders all atlas cards, changes locale, and works at desktop size', a
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/atlas/');
   await expect(page.locator('[data-atlas-id]')).toHaveCount(3);
-  await expect(page.locator('[data-atlas-id="red-panda"] .atlas-counts')).toContainText('1554');
+  await expect(page.locator('[data-atlas-id="red-panda"] .atlas-counts')).toContainText('1555');
   await expect(page.locator('[data-atlas-id="polar-bear"] .atlas-counts')).toContainText('72');
   await expect(page.locator('[data-atlas-id="hippopotamus"] .atlas-counts')).toContainText('96');
   await page.screenshot({ path: `${screenshotDir}/hub-desktop.png`, fullPage: true });
@@ -490,30 +591,62 @@ test('child coverage scope and limitations follow Japanese and Russian locale ch
   await expect(page.locator('#coverage-scope')).toContainText('Именованные карликовые бегемоты');
 });
 
-test('Futa profile uses a same-origin approved media URL with CC BY attribution on desktop and mobile', async ({ page }) => {
-  await blockRemoteImages(page);
-  await page.route('**/media/a426db98f35e4bc984275cc031467ac9/profile', (route) => route.fulfill({
-    status: 200,
-    contentType: 'image/svg+xml',
-    body: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="24"><rect width="32" height="24" fill="#789"/></svg>',
-  }));
+test('Futa profile loads Commons originals directly and navigates ten attributed photos on desktop and mobile', async ({ page }) => {
   for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
     await page.setViewportSize(viewport);
     await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:futa')}`);
-    const image = page.locator('#profile-dialog .profile-media img');
+    const image = page.locator('#profile-dialog .profile-media:not([hidden]) .profile-image');
     await expect(image).toBeVisible();
-    await expect(image).toHaveAttribute('src', '/atlas.red-panda/media/a426db98f35e4bc984275cc031467ac9/profile');
-    await expect(image).toHaveJSProperty('naturalWidth', 32);
-    expect(await image.evaluate((element) => new URL((element as HTMLImageElement).src).origin)).toBe('http://127.0.0.1:4173');
+    await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth), { timeout: 20_000 }).toBeGreaterThan(0);
+    const firstSrc = await image.getAttribute('src');
+    expect(firstSrc).toMatch(/^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//);
+    expect(await image.evaluate((element) => new URL((element as HTMLImageElement).src).origin)).toBe('https://upload.wikimedia.org');
     const bounds = await image.boundingBox();
     expect(bounds).not.toBeNull();
     expect(bounds!.width).toBeLessThanOrEqual(viewport.width);
+    await expect(page.locator('#profile-dialog [data-gallery-position]')).toHaveText('1 / 10');
+    await expect(page.locator('#profile-dialog .profile-media:not([hidden]) .profile-original-image')).toHaveAttribute('href', firstSrc!);
+    await expect(page.locator('#profile-dialog')).toContainText('KQuhen');
+    await expect(page.locator('#profile-dialog')).toContainText('CC BY-SA 4.0');
+    await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).currentSrc)).toMatch(/^https:\/\/upload\.wikimedia\.org\//);
+    await page.getByRole('button', { name: 'Next photo' }).click();
+    await expect(page.locator('#profile-dialog [data-gallery-position]')).toHaveText('2 / 10');
+    await expect(page.locator('#profile-dialog .profile-media:not([hidden]) .profile-image')).not.toHaveAttribute('src', firstSrc!);
+    const futaThreeImage = page.locator('#profile-dialog .profile-media:not([hidden]) .profile-image');
+    for (let step = 0; step < 10; step += 1) {
+      if ((await futaThreeImage.getAttribute('src'))?.endsWith('Futa_20261004_3.jpg')) break;
+      await page.getByRole('button', { name: 'Next photo' }).click();
+    }
+    await expect(futaThreeImage).toHaveAttribute('src', /Futa_20261004_3\.jpg$/);
+    await expect.poll(() => futaThreeImage.evaluate((element) => (element as HTMLImageElement).naturalWidth), { timeout: 20_000 }).toBeGreaterThan(0);
+    await expect.poll(() => futaThreeImage.evaluate((element) => (element as HTMLImageElement).currentSrc)).toMatch(/^https:\/\/upload\.wikimedia\.org\//);
     await expect(page.locator('#profile-dialog')).toContainText('Misei sen');
     await expect(page.locator('#profile-dialog')).toContainText('CC BY 4.0');
-    await expect(page.locator('#profile-dialog')).toContainText('No changes made');
-    await expect(page.locator('#profile-dialog a[href="https://creativecommons.org/licenses/by/4.0/"]')).toBeVisible();
+    await expect(page.locator('#profile-dialog .profile-media:not([hidden]) a[href="https://creativecommons.org/licenses/by/4.0/"]')).toBeVisible();
     await expect(page.locator('#profile-dialog .profile-media > p > a[href="https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg"]')).toBeVisible();
+    await page.locator('#profile-dialog').screenshot({ path: `${screenshotDir}/phase5-futa-profile-${viewport.width}x${viewport.height}.png` });
   }
+});
+
+test('Simon is a separate verified individual with browser-direct CC0 and CC BY-SA images only', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:simon-jerusalem-zoo')}`);
+  await expect(page.locator('#profile-title')).toHaveText('Simon');
+  await expect(page.locator('#profile-dialog')).toContainText(/unknown/i);
+  await expect(page.locator('#profile-dialog [data-gallery-position]')).toHaveText('1 / 2');
+  const image = page.locator('#profile-dialog .profile-media:not([hidden]) .profile-image');
+  await expect(image).toHaveAttribute('src', /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//);
+  await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth), { timeout: 20_000 }).toBeGreaterThan(0);
+  await expect(page.locator('#profile-dialog .profile-media:not([hidden]) .profile-original-image')).toHaveAttribute('href', /upload\.wikimedia\.org/);
+  await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).currentSrc)).toMatch(/^https:\/\/upload\.wikimedia\.org\//);
+  await expect(page.locator('#profile-dialog')).toContainText('CC BY-SA 3.0');
+  await page.getByRole('button', { name: 'Next photo' }).click();
+  await expect(page.locator('#profile-dialog [data-gallery-position]')).toHaveText('2 / 2');
+  await expect(page.locator('#profile-dialog .profile-media:not([hidden]) .profile-image')).toHaveAttribute('src', /SIMON_RED_PANDA\.JPG$/);
+  await expect.poll(() => page.locator('#profile-dialog .profile-media:not([hidden]) .profile-image').evaluate((element) => (element as HTMLImageElement).naturalWidth), { timeout: 20_000 }).toBeGreaterThan(0);
+  await expect(page.locator('#profile-dialog')).toContainText('CC0 1.0');
+  await expect(page.locator('#profile-dialog a[href="https://creativecommons.org/publicdomain/zero/1.0/"]')).toBeVisible();
+  await page.locator('#profile-dialog').screenshot({ path: `${screenshotDir}/phase5-simon-profile-desktop.png` });
 });
 
 test('optional local manifest renders a local media asset in the profile UI', async ({ page }) => {
@@ -547,6 +680,7 @@ test('optional local manifest renders a local media asset in the profile UI', as
   }));
   await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:futa')}`);
   const localImage = page.locator('#profile-dialog img[src="./local-media-swatch.svg"]');
+  for (let step = 0; step < 10; step += 1) await page.getByRole('button', { name: 'Next photo' }).click();
   await expect(localImage).toBeVisible();
   await expect(localImage).toHaveJSProperty('naturalWidth', 32);
   await expect(page.locator('#profile-dialog')).toContainText('Offline archive fixture');
@@ -571,9 +705,11 @@ test('failed remote image falls back while search and genealogy remain usable', 
     });
   });
   await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:futa')}`);
-  await expect(page.locator('#profile-dialog .media-placeholder')).toHaveCount(1);
-  await expect(page.locator('#profile-dialog .profile-image')).toHaveCount(0);
-  await expect(page.locator('#profile-dialog a[href="https://example.org/animal-record"]')).toBeVisible();
+  await expect(page.locator('#profile-dialog .profile-media:not([hidden]) .media-placeholder')).toHaveCount(1);
+  await expect(page.locator('#profile-dialog .profile-media:not([hidden]) .profile-image')).toHaveCount(0);
+  const sourceList = page.locator('#profile-dialog .profile-media-source-list');
+  await sourceList.locator('summary').click();
+  await expect(sourceList.locator('a[href="https://example.org/animal-record"]')).toBeVisible();
   await expect(page.locator('#search-results .result-card').first()).toBeVisible();
   await expect(page.locator('svg[data-genealogy]')).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });

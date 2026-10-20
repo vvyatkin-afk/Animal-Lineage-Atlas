@@ -623,6 +623,8 @@ def migrate_red_panda(
                 "The independent global profile snapshot has no declared reuse license and was excluded.",
                 "Names are retained in Japanese where the cited source provides no verified transliteration.",
                 "Media is link-only; no animal photos or direct image URLs are bundled.",
+                "Only individually identified images with per-file reuse licenses are displayed; other photo references remain link-only.",
+                "Licensed originals load directly from Wikimedia Commons in the browser; Atlas stores no full-size animal photos.",
             ],
             "translations": _canonical_red_panda_coverage_translations(),
             "last_reviewed": accessed_date,
