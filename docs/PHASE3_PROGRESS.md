@@ -55,7 +55,7 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 
 1. **Shared graph foundation — verified locally.** Deterministic global generation alignment, exact edge IDs, family/country grouping, relation and confidence styling, and finite/all-depth focus use the shared genealogy engine.
 2. **Scalable view and interaction — verified locally.** Canvas rendering uses spatial culling and hit testing; high-detail cards are capped and lazy; pan/zoom preserves layout; profile cards open exact URLs in a new tab. Sex, life-status, photo, country, species, and population facets narrow the global graph without changing canonical records.
-3. **Regression coverage — verified locally.** 53 Node tests pass, including shared ancestors, multi-generation partner branches across countries, disconnected lineages, exact Futa family connectivity, full 1,554 / 2,394 graph counts, and lazy detail/media behavior. The latest serial browser run passes 15/15 at desktop/mobile.
+3. **Regression coverage — verified locally.** 54 Node tests pass, including shared ancestors, multi-generation partner branches across countries, disconnected lineages, exact Futa family connectivity, full 1,554 / 2,394 graph counts, lazy detail/media behavior, and every relationship-type/confidence combination. The latest serial browser run passes 15/15 at desktop/mobile.
 4. **Data/source pass — additions and review complete for this pass.** Polar bears grew to 72 animals / 63 relationships and hippos to 96 / 86 (64 common, 32 pygmy). Red pandas remain 1,554 / 2,394; candidate additions were withheld where identity could not be resolved. Dryad remains unimported because the published file endpoint returned 403.
 5. **Performance, review, and release — locally verified; review/release pending.** The final-code benchmark is pinned to clean revision `ba9a3f0`; branch `phase3/rich-trees-media-data-20261020` is pushed and draft PR #6 is open. GitHub CI is pending and independent review is running; merge, atomic deployment, production browser checks, and rollback evidence remain outstanding.
 
@@ -89,6 +89,13 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 - Production preflight confirmed all four Atlas routes and legacy `/red-panda/` return HTTP 200 through local Nginx. The four Atlas symlinks still target Phase 2; the standalone legacy tree has been snapshotted for exact post-deploy comparison in [the release record](PHASE3_RELEASE.md).
 - Production remains on Phase 2. No merge, deployment, or legacy `/red-panda/` change has occurred.
 
+### Independent review correction — 2026-10-20 09:53 UTC
+
+- The independent audit of `c667489` withheld approval on one P2 finding: relation colors and confidence patterns were mixed in the global canvas, and focused SVG styles could render unknown biological edges as solid. This was a real visual semantics defect; the review found no other blockers.
+- Added a shared relationship edge-style mapping: relation type controls stroke color, while confidence controls dash pattern. Global canvas and focused SVG now use the same mapping. The legend's relation samples are solid and its confidence samples show confirmed, probable, disputed, and unknown patterns independently.
+- Added a 20-case type-by-status fixture and a browser assertion over focused Futa edges. Verification passed: 54 Node tests, 82 Python tests, lint, typecheck, data/schema validation, four-path build, no-photo scan, and 15/15 serial browser tests at desktop and mobile viewports.
+- The previous GitHub required check passed on the prior `c5affac` PR head. The edge-style correction has not yet been pushed; new CI and independent re-review are pending. Production remains on the Phase 2 symlinks, and legacy `/red-panda/` remains untouched.
+
 ### Verified Phase 3 milestone — 2026-10-20 09:12 UTC
 
 - Shared global and focused graph implementation is in place across all three canonical species indexes. The all-animal graph includes all canonical nodes and edges; disconnected family components start at generation 0, and family/country grouping does not change generation assignments or relationships.
@@ -101,7 +108,7 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 
 ## NEXT_ACTIONS
 
-1. Wait for the independent review of `c667489` and required GitHub CI; resolve any findings in small commits and rerun affected plus full release checks.
+1. Commit and push the edge-style correction, then wait for required GitHub CI and the independent reviewer to recheck the new head; resolve any remaining findings and rerun affected plus full release checks.
 2. Keep PR #6 in draft until review is clean and CI is green, then mark it ready and merge.
 3. After merge and green CI, deploy only `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/`; verify all four plus legacy `/red-panda/`, capture screenshots and manifest, and record rollback evidence.
 

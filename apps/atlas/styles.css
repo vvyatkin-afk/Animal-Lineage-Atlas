@@ -106,12 +106,7 @@ input[type="search"], select {
 .is-compact .genealogy-node rect { x: -20px; y: -20px; width: 40px; height: 40px; rx: 20px; }
 .is-compact .node-name, .is-compact .node-metadata { display: none; }
 .is-compact .node-compact-name { display: block; }
-.genealogy-edge { stroke: #87978d; stroke-width: 1.8; }
-.edge-biological-mother { stroke: #9b6f55; }
-.edge-biological-father { stroke: #53768a; }
-.edge-foster, .edge-adoptive, .edge-social { stroke: #7c6695; stroke-dasharray: 5 4; }
-.status-probable, .status-disputed { stroke-dasharray: 5 5; }
-.status-disputed { stroke: #9a4c45; }
+.genealogy-edge { stroke-width: 1.8; }
 .graph-note { margin: 0; padding: 0.7rem 1rem; background: #fbf0dc; color: #745329; font-size: 0.8rem; }
 .global-graph-shell { padding: 0 1rem 1rem; }
 .global-index-summary { max-width: 78ch; margin: 0 0 0.85rem; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
@@ -140,12 +135,12 @@ input[type="search"], select {
 .graph-legend-mark { display: inline-block; width: 1.4rem; height: 0; border-top: 2px solid #87978d; }
 .graph-legend-mark.edge-biological-mother { border-color: #9b6f55; }
 .graph-legend-mark.edge-biological-father { border-color: #53768a; }
-.graph-legend-mark.edge-foster, .graph-legend-mark.edge-adoptive { border-color: #7c6695; border-top-style: dashed; }
-.graph-legend-mark.edge-social { border-color: #87978d; border-top-style: dotted; }
-.graph-legend-mark.status-probable { border-color: #87978d; border-top-style: dashed; }
-.graph-legend-mark.status-disputed { border-color: #9a4c45; border-top-style: dashed; }
+.graph-legend-mark.edge-foster, .graph-legend-mark.edge-adoptive { border-color: #7c6695; }
+.graph-legend-mark.edge-social { border-color: #87978d; }
+.graph-legend-mark.status-probable { border: 0; height: 2px; background: repeating-linear-gradient(to right, #87978d 0 5px, transparent 5px 9px); }
+.graph-legend-mark.status-disputed { border: 0; height: 2px; background: repeating-linear-gradient(to right, #87978d 0 8px, transparent 8px 12px); }
 .graph-legend-mark.status-confirmed { border-color: #87978d; border-top-style: solid; }
-.graph-legend-mark.status-unknown { border-color: #87978d; border-top-style: dotted; }
+.graph-legend-mark.status-unknown { border: 0; height: 2px; background: repeating-linear-gradient(to right, #87978d 0 2px, transparent 2px 6px); }
 .graph-controls[hidden], .all-families-button[hidden], .fit-all-button[hidden] { display: none; }
 .all-families-button { min-height: 2.4rem; padding: 0.3rem 0.65rem; border: 1px solid var(--line); border-radius: 0.6rem; background: white; cursor: pointer; }
 .all-families-button:hover { background: var(--accent-soft); border-color: #aec5b7; }

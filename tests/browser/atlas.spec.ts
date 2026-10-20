@@ -85,6 +85,21 @@ test('all-animal view draws the complete red-panda genealogy and defers full det
   await page.getByLabel('Focus depth').selectOption('all');
   const allDepthCount = await page.locator('#genealogy-container .genealogy-node').count();
   expect(allDepthCount).toBeGreaterThanOrEqual(focusDepth3Count);
+  const focusedEdgeStyles = await page.locator('#genealogy-container .genealogy-edge').evaluateAll((paths) => paths.map((path) => ({
+    type: path.getAttribute('data-edge-type'),
+    status: path.getAttribute('data-edge-status'),
+    stroke: path.getAttribute('stroke'),
+    dash: path.getAttribute('stroke-dasharray') ?? '',
+  })));
+  const relationshipColors: Record<string, string> = {
+    biological_mother: '#9b6f55', biological_father: '#53768a', foster: '#7c6695', adoptive: '#7c6695', social: '#87978d',
+  };
+  const confidenceDashes: Record<string, string> = { confirmed: '', probable: '5 4', disputed: '8 4', unknown: '2 4' };
+  expect(focusedEdgeStyles.length).toBeGreaterThan(0);
+  for (const edge of focusedEdgeStyles) {
+    expect(edge.stroke).toBe(relationshipColors[edge.type ?? '']);
+    expect(edge.dash).toBe(confidenceDashes[edge.status ?? '']);
+  }
   await page.getByRole('button', { name: 'Close profile' }).click();
   await page.getByRole('button', { name: 'All animals' }).click();
   await expect(page.locator('[data-global-overview="true"]')).toBeVisible();

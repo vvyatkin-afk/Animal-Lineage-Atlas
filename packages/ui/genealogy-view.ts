@@ -1,5 +1,6 @@
 import type { GenealogyComponent, GenealogyGraph, GenealogyIndex, GraphEdge, GraphNode } from '../genealogy/layout.ts';
 import type { AtlasViewState } from '../genealogy/state.ts';
+import { relationshipEdgeStyle } from '../genealogy/edge-style.ts';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -40,6 +41,7 @@ function createEdge(edge: GraphEdge, nodeById: Map<string, GraphNode>) {
   const parent = nodeById.get(edge.from);
   const child = nodeById.get(edge.to);
   if (!parent || !child) return null;
+  const style = relationshipEdgeStyle(edge.type, edge.status);
   const pathData = edge.type === 'social'
     ? `M ${parent.x} ${parent.y} L ${child.x} ${child.y}`
     : (() => {
@@ -54,6 +56,8 @@ function createEdge(edge: GraphEdge, nodeById: Map<string, GraphNode>) {
     'data-edge-id': edge.id,
     'data-edge-status': edge.status,
     'data-edge-type': edge.type,
+    stroke: style.stroke,
+    ...(style.dashArray.length ? { 'stroke-dasharray': style.dashArray.join(' ') } : {}),
     fill: 'none',
     'aria-label': `${edge.type.replaceAll('_', ' ')}; ${edge.status}`,
   });

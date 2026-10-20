@@ -88,6 +88,35 @@ test('probable edge style is distinct in the graph model', async () => {
   assert.equal(graph.edges[0].type, 'biological_mother');
 });
 
+test('relationship edge style keeps type color independent from confidence pattern', async () => {
+  const styling = await import('../packages/genealogy/edge-style.ts');
+  const types = ['biological_mother', 'biological_father', 'foster', 'adoptive', 'social'];
+  const statuses = ['confirmed', 'probable', 'disputed', 'unknown'];
+  const expectedColors = {
+    biological_mother: '#9b6f55',
+    biological_father: '#53768a',
+    foster: '#7c6695',
+    adoptive: '#7c6695',
+    social: '#87978d',
+  };
+  const expectedDashes = {
+    confirmed: [],
+    probable: [5, 4],
+    disputed: [8, 4],
+    unknown: [2, 4],
+  };
+  const combinationFixture = types.flatMap((type) => statuses.map((status) => ({ type, status })));
+
+  assert.equal(combinationFixture.length, 20);
+  for (const { type, status } of combinationFixture) {
+    assert.deepEqual(styling.relationshipEdgeStyle(type, status), {
+      stroke: expectedColors[type],
+      dashArray: expectedDashes[status],
+    }, `${type} / ${status}`);
+  }
+  assert.deepEqual(styling.relationshipEdgeStyle('biological_mother', 'probable', 2).dashArray, [10, 8]);
+});
+
 test('social partner links do not create ancestry generations', async () => {
   const genealogy = await loadGenealogy();
   assert.ok(genealogy, 'genealogy layout package should load');

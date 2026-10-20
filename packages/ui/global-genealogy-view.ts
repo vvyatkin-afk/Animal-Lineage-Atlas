@@ -1,5 +1,6 @@
-import type { GenealogyGraph, GraphEdge, GraphNode, RelationshipStatus, RelationshipType } from '../genealogy/layout.ts';
+import type { GenealogyGraph, GraphEdge, GraphNode } from '../genealogy/layout.ts';
 import type { AtlasViewState } from '../genealogy/state.ts';
+import { relationshipEdgeStyle } from '../genealogy/edge-style.ts';
 import type { GenealogyMessages, GenealogyViewController } from './genealogy-view.ts';
 
 const NODE_WIDTH = 176;
@@ -147,14 +148,6 @@ function routeForEdge(edge: GraphEdge, nodeById: Map<string, GraphNode>): EdgeRo
 function intersects(left: Bounds, right: Bounds): boolean {
   return left.left <= right.right && left.right >= right.left
     && left.top <= right.bottom && left.bottom >= right.top;
-}
-
-function edgeColor(type: RelationshipType, status: RelationshipStatus): string {
-  if (status === 'disputed') return '#9a4c45';
-  if (type === 'biological_mother') return '#9b6f55';
-  if (type === 'biological_father') return '#53768a';
-  if (type === 'foster' || type === 'adoptive') return '#7c6695';
-  return '#87978d';
 }
 
 function normalizedCountryCode(countryCode: string | null): string | null {
@@ -459,18 +452,13 @@ export function renderGlobalGenealogy(
   const drawEdge = (route: EdgeRoute, zoom: number) => {
     if (!context) return;
     const { edge } = route;
+    const style = relationshipEdgeStyle(edge.type, edge.status, 1 / zoom);
     context.beginPath();
     context.moveTo(route.start.x, route.start.y);
     context.bezierCurveTo(route.control1.x, route.control1.y, route.control2.x, route.control2.y, route.end.x, route.end.y);
-    context.strokeStyle = edgeColor(edge.type, edge.status);
+    context.strokeStyle = style.stroke;
     context.lineWidth = Math.max(0.7 / zoom, 0.25);
-    if (edge.status === 'probable' || edge.status === 'disputed' || edge.status === 'unknown'
-      || edge.type === 'foster' || edge.type === 'adoptive' || edge.type === 'social') {
-      const dash = edge.status === 'disputed'
-        ? [7 / zoom, 4 / zoom]
-        : edge.status === 'unknown' ? [2 / zoom, 4 / zoom] : [5 / zoom, 4 / zoom];
-      context.setLineDash(dash);
-    } else context.setLineDash([]);
+    context.setLineDash(style.dashArray);
     context.stroke();
   };
 
