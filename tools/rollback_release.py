@@ -21,6 +21,7 @@ try:
         public_target,
         remove_media_symlink,
         remove_public_link,
+        restart_systemd_service,
         validate_public_target,
     )
 except ImportError:  # Direct script execution places tools/ on sys.path.
@@ -34,12 +35,13 @@ except ImportError:  # Direct script execution places tools/ on sys.path.
         public_target,
         remove_media_symlink,
         remove_public_link,
+        restart_systemd_service,
         validate_public_target,
     )
 
 
 def _restart_media_service() -> None:
-    subprocess.run(["systemctl", "restart", "animal-atlas-media.service"], check=True)
+    restart_systemd_service("animal-atlas-media.service")
 
 
 def _stop_media_service() -> None:

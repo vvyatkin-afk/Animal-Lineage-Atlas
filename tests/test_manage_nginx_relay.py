@@ -1,9 +1,12 @@
+import shutil
 import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 
 from tools.manage_nginx_relay import NginxPaths, install_nginx_relay, rollback_nginx_relay
+
+NGINX_BINARY = shutil.which("nginx") or ("/usr/sbin/nginx" if Path("/usr/sbin/nginx").is_file() else None)
 
 
 class NginxRelayManagementTests(unittest.TestCase):
@@ -30,6 +33,32 @@ class NginxRelayManagementTests(unittest.TestCase):
         ).encode()
         self.main.write_bytes(self.original_main)
         self.snippet_bytes = b"location ~ ^/atlas/media/([a-f0-9]{32})/(thumb|profile)$ { return 404; }\n"
+
+    @unittest.skipUnless(NGINX_BINARY, "Nginx is required to validate the deployed route snippet")
+    def test_production_media_route_snippet_passes_nginx_config_test(self):
+        repo_snippet = Path(__file__).parents[1] / "deploy/nginx/atlas-media-relay.conf"
+        config = Path(self.temporary.name) / "nginx-test.conf"
+        config.write_text(
+            f"pid {Path(self.temporary.name) / 'nginx.pid'};\n"
+            f"error_log {Path(self.temporary.name) / 'error.log'} notice;\n"
+            "events {}\n"
+            "http {\n"
+            "    access_log off;\n"
+            "    server {\n"
+            "        listen 127.0.0.1:18081;\n"
+            f'        include "{repo_snippet}";\n'
+            "        location / { return 404; }\n"
+            "    }\n"
+            "}\n",
+            encoding="utf-8",
+        )
+        result = subprocess.run(
+            [NGINX_BINARY, "-t", "-c", str(config)],
+            capture_output=True,
+            check=False,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def runner(self, calls, failure=None):
         def run(command, *, check):

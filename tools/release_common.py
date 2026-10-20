@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import os
 import re
+import subprocess
+import time
 import uuid
 from pathlib import Path
 
@@ -12,6 +14,24 @@ EXPECTED_PATHS = ("atlas", "atlas.red-panda", "atlas.polar-bear", "atlas.hippopo
 RELEASES_DIRECTORY = "_animal-lineage-releases"
 MEDIA_CURRENT_LINK = "media-current"
 MEDIA_SERVICE_TARGET_RE = re.compile(r"^[0-9a-fA-F]{40}/media-service$")
+
+
+def restart_systemd_service(unit: str, *, run=None, sleep=None) -> None:
+    """Restart a service and require it to remain active through startup."""
+    runner = run or subprocess.run
+    pause = sleep or time.sleep
+    runner(["systemctl", "restart", unit], check=True)
+    for attempt in range(30):
+        active = runner(["systemctl", "is-active", "--quiet", unit], check=False)
+        if active.returncode == 0:
+            pause(1.0)
+            stable = runner(["systemctl", "is-active", "--quiet", unit], check=False)
+            if stable.returncode == 0:
+                return
+            raise RuntimeError(f"Systemd service did not remain active after restart: {unit}")
+        if attempt < 29:
+            pause(0.1)
+    raise RuntimeError(f"Systemd service did not become active after restart: {unit}")
 
 
 def validate_public_name(name: str) -> None:

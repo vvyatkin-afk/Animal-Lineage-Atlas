@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 12:48 UTC
+Updated: 2026-10-20 13:00 UTC
 
 ## Approved scope and baseline
 
@@ -50,6 +50,14 @@ These measurements use 24-segment renderer curves, transverse-intersection rules
 
 The after capture pairs the same 14 desktop and mobile views with baseline screenshots. Hashes, viewport, visible node counts, and capture revision are recorded in [screenshot-manifest.json](../reports/phase4/after/screenshot-manifest.json). The Futa profile screenshots include the 960×640 licensed relay image and its photographer/license attribution; the capture serves the image through the actual relay code in memory. The no-photo scanner accepts these PNGs only by their listed hashes. The resulting fit-all views show all 1,554 red-panda nodes, 72 polar bears, and 96 hippos; the largest-component view reports 826 visible nodes at desktop fit scale.
 
+## Release attempt and Nginx correction
+
+PR #8 merged on 2026-10-20 as `ee48fbb10f3f35c1b35234fc3ee4aa8f84e7857f`. Before activation, the four approved Atlas URLs and `/red-panda/` all returned HTTP 200. A 505-file manifest for `/var/www/html/red-panda/` was captured at 12:51:31 UTC in [legacy-red-panda-before.json](../reports/phase4/legacy-red-panda-before.json); its sorted path/content manifest digest is `28ac4d968723ddcc1f79367793f405c1b5702aafe1ca057e7a0e825abccb1927`.
+
+The static release was switched to the merged SHA. The Nginx relay manager rejected the generated location regex because Nginx treats unescaped `{32}` as a configuration block delimiter. It automatically restored the prior Nginx configuration, so the public media route is not installed. The service unit was enabled, but its process exited with status 0: Node resolves the `media-current/relay-server.mjs` symlink before setting `import.meta.url`, while `process.argv[1]` retains the symlink path, causing the entry-point guard to skip startup. The deploy helper trusted the successful `systemctl restart` command and did not check that the service stayed active. Four Atlas pages and `/red-panda/` still return HTTP 200; the service is currently inactive and the media route remains unavailable.
+
+All three causes are now covered by regression tests. The Nginx test runs the actual parser against the deployed snippet, and CI installs Nginx so the test runs there. The relay process test invokes the service through a symlink and verifies that it reaches the loopback listening state. The Nginx quantifier is escaped, the entry-point guard canonicalizes the invoked path, and deployment now polls for active state then verifies it remains active after one second. A failed health check triggers the existing activation rollback before public path switches. Full local verification is green: Node 77/77, Python 101/101, ESLint, TypeScript, all three data and schema validations, build, and worktree/build no-photo scans. Fresh GitHub CI (including Chromium) and independent hotfix review are pending.
+
 ## Milestones
 
 - [x] Read the full approved brief and media-rights policy.
@@ -68,6 +76,6 @@ The after capture pairs the same 14 desktop and mobile views with baseline scree
 - [x] Independent read-only review completed on 82304d2. Its two Important findings were fixed with regression tests: mixed-generation-span crossings are represented by virtual layered segments, and unique client addresses share a bounded overflow bucket after the rate table reaches its cap. Follow-up review of e192033 found no Critical or Important findings. The reviewer requested that regenerated measurements be committed with this progress update; the artifacts now record source revision e192033.
 - [x] Capture reproducible after metrics and paired desktop/mobile screenshots; compute the seven-case comparison report. All seven cases reduce both crossings and route length.
 - [x] Push the reviewed fixes and pass fresh GitHub CI on e192033: lint, typecheck, 76 Node tests, 99 Python tests, data/schema validation, build, source/build no-photo scans, and 19 Chromium tests. Run: [39424821289](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/39424821289).
-- [ ] Commit regenerated metric and screenshot evidence, then merge the reviewed PR.
-- [ ] Back up release state, deploy the four Atlas paths and relay integration, verify image HTTP bytes and Chromium rendering, and record rollback evidence.
-- [ ] Confirm legacy /red-panda/ unchanged and publish docs/PHASE4_RELEASE.md.
+- [x] Commit regenerated metric and screenshot evidence (`9688124`) and merge reviewed PR #8 as `ee48fbb10f3f35c1b35234fc3ee4aa8f84e7857f`.
+- [ ] Pass independent review and CI for the Nginx and relay-startup hotfixes, merge them, and redeploy using the merged SHA.
+- [ ] Verify all four Atlas routes, actual relayed image bytes and Chromium rendering; compare the legacy file manifest and record rollback evidence in docs/PHASE4_RELEASE.md.

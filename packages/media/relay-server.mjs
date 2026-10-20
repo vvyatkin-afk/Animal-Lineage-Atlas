@@ -1,10 +1,10 @@
 import { createHash } from 'node:crypto';
 import { lookup as dnsLookup } from 'node:dns/promises';
+import { realpathSync } from 'node:fs';
 import { createServer } from 'node:http';
 import https from 'node:https';
 import { isIP } from 'node:net';
 import { readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 export const ALLOWED_SOURCE_HOSTS = new Set(['thumb.wikimedia.org']);
@@ -582,7 +582,7 @@ async function start() {
   process.on('SIGINT', shutdown);
 }
 
-const invokedPath = process.argv[1] ? pathToFileURL(resolve(process.argv[1])).href : '';
+const invokedPath = process.argv[1] ? pathToFileURL(realpathSync(process.argv[1])).href : '';
 if (import.meta.url === invokedPath) {
   start().catch(() => {
     process.stderr.write('Atlas media relay could not start; check its allowlist and service configuration.\n');

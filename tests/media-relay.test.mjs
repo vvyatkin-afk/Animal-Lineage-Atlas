@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
+import { once } from 'node:events';
 import { request } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, symlink } from 'node:fs/promises';
+import { createServer as createTcpServer } from 'node:net';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
 const manifestUrl = new URL('../packages/media/approved-media-v1.json', import.meta.url);
@@ -51,6 +57,63 @@ function get(origin, path, headers = {}, method = 'GET') {
     outgoing.end();
   });
 }
+
+test('relay starts when invoked through the active media symlink', async (t) => {
+  const temporary = await mkdtemp(join(tmpdir(), 'atlas-media-symlink-'));
+  const source = fileURLToPath(new URL('../packages/media/relay-server.mjs', import.meta.url));
+  const linkedEntry = join(temporary, 'media-current.mjs');
+  await symlink(source, linkedEntry);
+
+  const portProbe = createTcpServer();
+  await new Promise((resolve, reject) => {
+    portProbe.once('error', reject);
+    portProbe.listen(0, '127.0.0.1', resolve);
+  });
+  const { port } = portProbe.address();
+  await new Promise((resolve, reject) => portProbe.close((error) => error ? reject(error) : resolve()));
+
+  const child = spawn(process.execPath, [linkedEntry], {
+    env: {
+      ATLAS_MEDIA_HOST: '127.0.0.1',
+      ATLAS_MEDIA_PORT: String(port),
+      ATLAS_MEDIA_MANIFEST: fileURLToPath(manifestUrl),
+    },
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  t.after(async () => {
+    if (child.exitCode === null && child.signalCode === null) {
+      child.kill('SIGTERM');
+      await once(child, 'exit');
+    }
+    await rm(temporary, { recursive: true, force: true });
+  });
+
+  let stdout = '';
+  let stderr = '';
+  child.stdout.setEncoding('utf8');
+  child.stderr.setEncoding('utf8');
+  const started = await new Promise((resolve) => {
+    const timeout = setTimeout(() => resolve({ listening: false, code: null }), 3000);
+    child.stdout.on('data', (chunk) => {
+      stdout += chunk;
+      if (stdout.includes('Atlas media relay listening on 127.0.0.1:')) {
+        clearTimeout(timeout);
+        resolve({ listening: true, code: null });
+      }
+    });
+    child.stderr.on('data', (chunk) => { stderr += chunk; });
+    child.once('error', (error) => {
+      clearTimeout(timeout);
+      resolve({ listening: false, code: null, error: error.message });
+    });
+    child.once('exit', (code) => {
+      clearTimeout(timeout);
+      resolve({ listening: false, code });
+    });
+  });
+
+  assert.equal(started.listening, true, `exit=${started.code}; ${started.error ?? ''}; stdout=${stdout}; stderr=${stderr}`);
+});
 
 test('approved media endpoint relays bounded image bytes with ETag and memory caching', async (t) => {
   let upstreamRequests = 0;
