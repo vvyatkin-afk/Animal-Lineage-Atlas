@@ -11,6 +11,8 @@ export interface SearchAlias {
 export interface AnimalSummary {
   id: string;
   taxon: string;
+  sex?: string;
+  status?: string;
   population?: string;
   name: SearchName;
   aliases?: SearchAlias[];
@@ -21,12 +23,21 @@ export interface AnimalSummary {
   search_key?: string;
   /** Relative URL for the full canonical details, present in the runtime index only. */
   detail_chunk?: string;
+  photo_confirmed?: boolean;
+  photo_url?: string;
+  photo_source_url?: string;
+  birth_date_label?: string | null;
+  death_date_label?: string | null;
+  institution_label?: string | null;
 }
 
 export interface SearchFacets {
   countryCode?: string;
   taxon?: string;
   population?: string;
+  sex?: string;
+  status?: string;
+  photo?: 'confirmed' | 'unconfirmed' | string;
 }
 
 /** Normalize only the search key; the source display string is never rewritten. */
@@ -65,11 +76,18 @@ export function searchAnimals<T extends AnimalSummary>(
   const country = normalizeSearchKey(facets.countryCode ?? '');
   const taxon = normalizeSearchKey(facets.taxon ?? '');
   const population = normalizeSearchKey(facets.population ?? '');
+  const sex = normalizeSearchKey(facets.sex ?? '');
+  const status = normalizeSearchKey(facets.status ?? '');
+  const photo = normalizeSearchKey(facets.photo ?? '');
 
   return index.filter((animal) => {
     if (country && normalizeSearchKey(animal.country_code ?? '') !== country) return false;
     if (taxon && normalizeSearchKey(animal.taxon) !== taxon) return false;
     if (population && normalizeSearchKey(animal.population ?? '') !== population) return false;
+    if (sex && normalizeSearchKey(animal.sex ?? 'unknown') !== sex) return false;
+    if (status && normalizeSearchKey(animal.status ?? 'unknown') !== status) return false;
+    if (photo === 'confirmed' && animal.photo_confirmed !== true) return false;
+    if (photo === 'unconfirmed' && animal.photo_confirmed === true) return false;
     if (!normalizedQuery) return true;
     const matchesExternalId = animal.external_ids?.some((item) =>
       normalizeSearchKey(`${item.namespace}:${item.value}`) === normalizedQuery,

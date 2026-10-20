@@ -47,6 +47,16 @@
             <select id="taxon-filter"><option value="" data-i18n="allTaxa">All species</option></select>
             <label for="population-filter" data-i18n="populationLabel">Population</label>
             <select id="population-filter"><option value="" data-i18n="allPopulations">All populations</option></select>
+            <label for="sex-filter" data-i18n="sexFilterLabel">Sex</label>
+            <select id="sex-filter"><option value="" data-i18n="allSexes">All sexes</option></select>
+            <label for="status-filter" data-i18n="statusFilterLabel">Life status</label>
+            <select id="status-filter"><option value="" data-i18n="allStatuses">All statuses</option></select>
+            <label for="photo-filter" data-i18n="photoFilterLabel">Photo match</label>
+            <select id="photo-filter">
+              <option value="" data-i18n="allPhotoStatuses">Any photo status</option>
+              <option value="confirmed" data-i18n="photoConfirmedOption">Identity confirmed</option>
+              <option value="unconfirmed" data-i18n="photoUnconfirmedOption">No confirmed photo</option>
+            </select>
           </form>
           <div class="results-heading"><h2 data-i18n="resultsLabel">Matching animals</h2><span id="result-count" aria-live="polite"></span></div>
           <div id="search-results" class="search-results"></div>
@@ -62,8 +72,25 @@
               <button id="pan-right" type="button" aria-label="Pan right" title="Pan right">→</button>
               <button id="zoom-out" type="button" aria-label="Zoom out" title="Zoom out">−</button>
               <button id="zoom-in" type="button" aria-label="Zoom in" title="Zoom in">+</button>
-              <button id="all-families" class="all-families-button" type="button" data-i18n="allFamiliesLabel" hidden>All families</button>
+              <button id="fit-all" class="fit-all-button" type="button" data-i18n="fitAllLabel" hidden>Fit all</button>
+              <button id="all-families" class="all-families-button" type="button" data-i18n="allFamiliesLabel" hidden>All animals</button>
             </div>
+          </div>
+          <div class="graph-view-options">
+            <label class="graph-control-select" for="grouping-select"><span data-i18n="groupingLabel">Arrange rows by</span>
+              <select id="grouping-select" aria-label="Arrange rows by">
+                <option value="family" data-i18n="familyGroupingLabel">Family</option>
+                <option value="country" data-i18n="countryGroupingLabel">Country</option>
+              </select>
+            </label>
+            <label class="graph-control-select" for="focus-depth" hidden><span data-i18n="focusDepthLabel">Focus depth</span>
+              <select id="focus-depth" aria-label="Focus depth">
+                <option value="2" data-i18n="depth2Label">2 generations</option>
+                <option value="3" data-i18n="depth3Label">3 generations</option>
+                <option value="5" data-i18n="depth5Label">5 generations</option>
+                <option value="all" data-i18n="allGenerationsLabel">All known generations</option>
+              </select>
+            </label>
           </div>
           <p class="graph-help" data-i18n="graphHelpText">Select a name to open its profile. Drag the tree or use arrow keys to move; + and − change zoom.</p>
           <div id="genealogy-container" class="genealogy-container"></div>

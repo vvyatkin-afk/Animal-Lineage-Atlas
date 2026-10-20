@@ -4,6 +4,8 @@ export interface AtlasViewState {
   zoom: number;
   pan: { x: number; y: number };
   selectedGroup: string | null;
+  grouping: 'family' | 'country';
+  focusDepth: number | 'all';
   activeProfileId: string | null;
 }
 
@@ -24,6 +26,8 @@ export function createViewState(initial: ViewStateInput = {}) {
     zoom: initial.zoom ?? 1,
     pan: { x: initial.pan?.x ?? 0, y: initial.pan?.y ?? 0 },
     selectedGroup: initial.selectedGroup ?? null,
+    grouping: initial.grouping === 'country' ? 'country' : 'family',
+    focusDepth: initial.focusDepth ?? 3,
     activeProfileId: initial.activeProfileId ?? null,
   };
 

@@ -470,5 +470,30 @@
     "path": "/tmp/hippopotamus-phase1.json",
     "sha256": "6733409407eb1b6806d75d0826ada95468fdff247ef87c6d05ef775e5f17ebcc",
     "revision": "279c722"
+  },
+  "current_canonical_counts": {
+    "animals": 96,
+    "claims": 122,
+    "relationships": 86,
+    "events": 95,
+    "institutions": 47,
+    "media": 1,
+    "sources": 73
+  },
+  "phase3_supplement": {
+    "animals": 11,
+    "claims": 11,
+    "relationships": 8,
+    "events": 10,
+    "institutions": 6,
+    "media": 0,
+    "sources": 4,
+    "sources_used": [
+      "hippopotamus-common-source-abq-maisy-birth",
+      "hippopotamus-common-source-abq-maisy-name",
+      "hippopotamus-pygmy-source-basel-voobadee-family",
+      "hippopotamus-pygmy-source-taronga-lololi-birth"
+    ],
+    "note": "The counts above describe the Phase 2 bundle merge. Current canonical counts include this Phase 3 supplement; the separate common and pygmy taxa remain unchanged."
   }
 }

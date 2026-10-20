@@ -1,14 +1,14 @@
 {
   "release": {
     "schema_version": "1.0.0",
-    "data_version": "2026.10.08-phase2",
+    "data_version": "2026.10.20",
     "engine_version": "1.0.0",
-    "build_date": "2026-10-08",
-    "provenance": "Unified common and pygmy hippopotamus data from cited public institutional records; see HIPPOPOTAMUS_SOURCES.md and the reproducible import reports."
+    "build_date": "2026-10-20",
+    "provenance": "Unified common and pygmy hippopotamus data from cited public institutional records; see HIPPOPOTAMUS_SOURCES.md and the reproducible import reports. Phase 3 adds named common- and pygmy-hippo families from ABQ BioPark, Basel Zoo and Taronga Zoo; source date conflicts are preserved as unknown rather than resolved by inference."
   },
   "coverage": {
     "taxon": "Hippopotamus amphibius and Choeropsis liberiensis",
-    "scope": "Selected individually named common hippos and directly documented parentage across Cincinnati, San Diego, Prague, Budapest, Ostrava, Japanese zoos, Berlin and London. Named pygmy hippopotamuses with source-backed parentage from official zoo records in the United Kingdom, Japan, Canada, the United States, and Thailand. Includes a three-generation Toronto Zoo–John Ball Zoo family thread and additional families across institutions.",
+    "scope": "Selected individually named common hippos and directly documented parentage across Cincinnati, San Diego, Prague, Budapest, Ostrava, Japanese zoos, Berlin and London. Named pygmy hippopotamuses with source-backed parentage from official zoo records in the United Kingdom, Japan, Canada, the United States, and Thailand. Includes a three-generation Toronto Zoo–John Ball Zoo family thread and additional families across institutions. Phase 3 adds an ABQ BioPark common-hippo family and Basel and Taronga Zoo pygmy-hippo lineages, with the two taxa kept separate.",
     "limitations": [
       "Selected named Hippopotamus amphibius from public zoo, conservation and research publications; not a complete census or pedigree.",
       "Parentage is included only where a cited source directly identifies the parent. Unknown fathers, unnamed calves, cohabitation and ambiguous counts do not create nodes or parent edges.",
@@ -22,14 +22,16 @@
       "Edinburgh Zoo says Haggis moved to another zoo but does not identify the destination. That move is not assigned to an institution.",
       "No animal-photo bytes or media records are included."
     ],
-    "last_reviewed": "2026-10-08",
+    "last_reviewed": "2026-10-20",
     "source_categories": [
       "official zoo animal profiles",
+      "official zoo announcements",
       "official zoo announcements and biographies",
       "official zoo annual reports and historical chapters",
       "official zoo birth announcements",
       "official zoo care reports",
       "official zoo family records and histories",
+      "official zoo histories",
       "official zoo newsletters and magazines",
       "official zoo transfer announcements",
       "specialist group and zoo association publications"
@@ -37,7 +39,7 @@
     "accent": "#776047",
     "translations": {
       "ja": {
-        "scope": "Cincinnati、San Diego、Prague、Budapest、Ostrava、日本、Berlin、Londonの公開資料にあるカバの個体名と直接確認可能な親子関係。; 英国、日本、カナダ、米国、タイの動物園が公表した、個体名と親子関係を確認できるコビトカバの公開記録です。3世代にまたがるトロント動物園・ジョンボール動物園の家系と、複数施設の家族を含みます。",
+        "scope": "Cincinnati、San Diego、Prague、Budapest、Ostrava、日本、Berlin、Londonの公開資料にあるカバの個体名と直接確認可能な親子関係。; 英国、日本、カナダ、米国、タイの動物園が公表した、個体名と親子関係を確認できるコビトカバの公開記録です。3世代にまたがるトロント動物園・ジョンボール動物園の家系と、複数施設の家族を含みます。 Phase 3ではABQ BioParkのカバ家族とBasel Zoo、Taronga Zooのコビトカバ系譜を追加し、2種を区別しています。",
         "limitations": [
           "公開動物園・保全・研究資料に基づくHippopotamus amphibiusの個体選定であり、完全な一覧や血統台帳ではありません。",
           "親子関係は出典が親を直接示す場合のみ記録します。父親不明、無名の子、同居、曖昧な集計から記録を作成していません。",
@@ -53,7 +55,7 @@
         ]
       },
       "ru": {
-        "scope": "Именованные обыкновенные бегемоты и прямо подтверждённое родство из публичных материалов Cincinnati, San Diego, Prague, Budapest, Ostrava, Японии, Berlin и London.; Именованные карликовые бегемоты и подтверждённое родство из официальных записей зоопарков Великобритании, Японии, Канады, США и Таиланда. Включена семейная линия из трёх поколений между зоопарками Торонто и Джона Болла, а также семьи из других учреждений.",
+        "scope": "Именованные обыкновенные бегемоты и прямо подтверждённое родство из публичных материалов Cincinnati, San Diego, Prague, Budapest, Ostrava, Японии, Berlin и London.; Именованные карликовые бегемоты и подтверждённое родство из официальных записей зоопарков Великобритании, Японии, Канады, США и Таиланда. Включена семейная линия из трёх поколений между зоопарками Торонто и Джона Болла, а также семьи из других учреждений. Фаза 3 добавляет семью обычных бегемотов из ABQ BioPark и линии карликовых бегемотов из зоопарков Базеля и Таронги; два вида остаются раздельными.",
         "limitations": [
           "Выборка Hippopotamus amphibius из общедоступных публикаций зоопарков и природоохранных организаций; это не полный каталог или родословная.",
           "Родство включено только при прямом указании в источнике. Неизвестные отцы, безымянные детёныши, совместное содержание и неоднозначные подсчёты не создают записи.",
@@ -2112,6 +2114,249 @@
         "notes": "Source-backed identity reviewed. Current living status was not established by the historical pages in this corpus."
       },
       "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-abq-karen",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Karen",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-abq-maisy-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "ABQ BioPark identifies Karen as the mother of Matilda and Maisy."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-abq-moe",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Moe",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-abq-maisy-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "ABQ BioPark identifies Moe as the father of Matilda and Maisy."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-abq-matilda",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Matilda",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-abq-maisy-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "ABQ BioPark identifies Matilda as Karen and Moe’s four-year-old daughter in October 2025; her birth date remains unknown."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-common-animal-abq-maisy",
+      "taxon": "Hippopotamus amphibius",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Maisy",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-common-source-abq-maisy-birth",
+          "hippopotamus-common-source-abq-maisy-name"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "ABQ BioPark directly reports Maisy’s sex, name, exact birth date and parents."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-pygmy-animal-basel-ashaki",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Ashaki",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-basel-voobadee-family"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Basel Zoo identifies Ashaki as the mother of Voobadee and Napoleon’s mate; exact birth date is not reported."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-pygmy-animal-basel-napoleon",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Napoleon",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-basel-voobadee-family"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Basel Zoo identifies Napoleon as Voobadee’s father and reports his 2007 birth and later moves."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-pygmy-animal-basel-voobadee",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Voobadee",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-basel-voobadee-family"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Basel Zoo reports Voobadee’s sex, exact birth date, parent pair and 2025 transfer to Mulhouse."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-pygmy-animal-basel-ume",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Ume",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-basel-voobadee-family"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Basel Zoo reports Ume’s birth at Basel Zoo in 1997 and 2025 return; parents are not reported."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-pygmy-animal-taronga-kambiri",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Kambiri",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-taronga-lololi-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Taronga Zoo identifies Kambiri as mother of female pygmy hippo Lololi."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-pygmy-animal-taronga-fergus",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "male",
+      "status": "unknown",
+      "name": {
+        "canonical": "Fergus",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-taronga-lololi-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Taronga Zoo identifies Fergus as father of female pygmy hippo Lololi."
+      },
+      "population": "zoo_captive"
+    },
+    {
+      "id": "hippopotamus-pygmy-animal-taronga-lololi",
+      "taxon": "Choeropsis liberiensis",
+      "sex": "female",
+      "status": "unknown",
+      "name": {
+        "canonical": "Lololi",
+        "language": "en",
+        "source_ids": [
+          "hippopotamus-pygmy-source-taronga-lololi-birth"
+        ],
+        "localized": []
+      },
+      "aliases": [],
+      "external_ids": [],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Taronga Zoo names Lololi, reports her sex and parent pair. Its exact date conflicts with its age statement and is not used."
+      },
+      "population": "zoo_captive"
     }
   ],
   "claims": [
@@ -3795,6 +4040,172 @@
         "reviewed_on": "2026-10-08",
         "notes": "Cited official zoo record directly states this sex or identifies this individual as a mother, father, sire, or dam."
       }
+    },
+    {
+      "id": "claim:hippopotamus-common-animal-abq-karen-sex",
+      "subject": "hippopotamus-common-animal-abq-karen",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-abq-maisy-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
+    },
+    {
+      "id": "claim:hippopotamus-common-animal-abq-moe-sex",
+      "subject": "hippopotamus-common-animal-abq-moe",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-abq-maisy-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
+    },
+    {
+      "id": "claim:hippopotamus-common-animal-abq-matilda-sex",
+      "subject": "hippopotamus-common-animal-abq-matilda",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-abq-maisy-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
+    },
+    {
+      "id": "claim:hippopotamus-common-animal-abq-maisy-sex",
+      "subject": "hippopotamus-common-animal-abq-maisy",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-abq-maisy-birth",
+        "hippopotamus-common-source-abq-maisy-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
+    },
+    {
+      "id": "claim:hippopotamus-pygmy-animal-basel-ashaki-sex",
+      "subject": "hippopotamus-pygmy-animal-basel-ashaki",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
+    },
+    {
+      "id": "claim:hippopotamus-pygmy-animal-basel-napoleon-sex",
+      "subject": "hippopotamus-pygmy-animal-basel-napoleon",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
+    },
+    {
+      "id": "claim:hippopotamus-pygmy-animal-basel-voobadee-sex",
+      "subject": "hippopotamus-pygmy-animal-basel-voobadee",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
+    },
+    {
+      "id": "claim:hippopotamus-pygmy-animal-basel-ume-sex",
+      "subject": "hippopotamus-pygmy-animal-basel-ume",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
+    },
+    {
+      "id": "claim:hippopotamus-pygmy-animal-taronga-kambiri-sex",
+      "subject": "hippopotamus-pygmy-animal-taronga-kambiri",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-taronga-lololi-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
+    },
+    {
+      "id": "claim:hippopotamus-pygmy-animal-taronga-fergus-sex",
+      "subject": "hippopotamus-pygmy-animal-taronga-fergus",
+      "claim_type": "sex",
+      "value": "male",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-taronga-lololi-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
+    },
+    {
+      "id": "claim:hippopotamus-pygmy-animal-taronga-lololi-sex",
+      "subject": "hippopotamus-pygmy-animal-taronga-lololi",
+      "claim_type": "sex",
+      "value": "female",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-taronga-lololi-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly reports the animal’s sex."
+      }
     }
   ],
   "relationships": [
@@ -4987,6 +5398,128 @@
         "status": "reviewed",
         "reviewed_on": "2026-10-07",
         "notes": "Cincinnati Zoo directly identifies this parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-abq-karen-matilda",
+      "subject": "hippopotamus-common-animal-abq-karen",
+      "object": "hippopotamus-common-animal-abq-matilda",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-abq-maisy-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-abq-moe-matilda",
+      "subject": "hippopotamus-common-animal-abq-moe",
+      "object": "hippopotamus-common-animal-abq-matilda",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-abq-maisy-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-abq-karen-maisy",
+      "subject": "hippopotamus-common-animal-abq-karen",
+      "object": "hippopotamus-common-animal-abq-maisy",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-abq-maisy-birth",
+        "hippopotamus-common-source-abq-maisy-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-common-relationship-abq-moe-maisy",
+      "subject": "hippopotamus-common-animal-abq-moe",
+      "object": "hippopotamus-common-animal-abq-maisy",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-common-source-abq-maisy-birth",
+        "hippopotamus-common-source-abq-maisy-name"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-basel-ashaki-voobadee",
+      "subject": "hippopotamus-pygmy-animal-basel-ashaki",
+      "object": "hippopotamus-pygmy-animal-basel-voobadee",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-basel-napoleon-voobadee",
+      "subject": "hippopotamus-pygmy-animal-basel-napoleon",
+      "object": "hippopotamus-pygmy-animal-basel-voobadee",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-taronga-kambiri-lololi",
+      "subject": "hippopotamus-pygmy-animal-taronga-kambiri",
+      "object": "hippopotamus-pygmy-animal-taronga-lololi",
+      "type": "biological_mother",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-taronga-lololi-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
+      }
+    },
+    {
+      "id": "hippopotamus-pygmy-relationship-taronga-fergus-lololi",
+      "subject": "hippopotamus-pygmy-animal-taronga-fergus",
+      "object": "hippopotamus-pygmy-animal-taronga-lololi",
+      "type": "biological_father",
+      "status": "confirmed",
+      "source_ids": [
+        "hippopotamus-pygmy-source-taronga-lololi-birth"
+      ],
+      "review": {
+        "status": "reviewed",
+        "reviewed_on": "2026-10-20",
+        "notes": "Official zoo source directly identifies this biological parent and offspring."
       }
     }
   ],
@@ -6317,6 +6850,171 @@
         "hippopotamus-pygmy-iris",
         "hippopotamus-pygmy-corwin"
       ]
+    },
+    {
+      "id": "hippopotamus-common-event-abq-maisy-birth",
+      "animal_id": "hippopotamus-common-animal-abq-maisy",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2025-10-14"
+      },
+      "institution_id": "hippopotamus-common-institution-abq-biopark",
+      "source_ids": [
+        "hippopotamus-common-source-abq-maisy-birth",
+        "hippopotamus-common-source-abq-maisy-name"
+      ],
+      "notes": "ABQ BioPark reports birth around 9:10 am on October 14, 2025 and later names the female calf Maisy.",
+      "related_animal_ids": [
+        "hippopotamus-common-animal-abq-karen",
+        "hippopotamus-common-animal-abq-moe"
+      ]
+    },
+    {
+      "id": "hippopotamus-common-event-abq-matilda-birth",
+      "animal_id": "hippopotamus-common-animal-abq-matilda",
+      "type": "birth",
+      "date": {
+        "precision": "unknown",
+        "notes": "Only age is reported; exact birth date is unknown."
+      },
+      "institution_id": "hippopotamus-common-institution-abq-biopark",
+      "source_ids": [
+        "hippopotamus-common-source-abq-maisy-birth"
+      ],
+      "notes": "ABQ BioPark reports Matilda was four years old in October 2025 but gives no birth date.",
+      "related_animal_ids": [
+        "hippopotamus-common-animal-abq-karen",
+        "hippopotamus-common-animal-abq-moe"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-basel-voobadee-birth",
+      "animal_id": "hippopotamus-pygmy-animal-basel-voobadee",
+      "type": "birth",
+      "date": {
+        "precision": "exact",
+        "value": "2024-03-11"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-basel-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "notes": "Basel Zoo reports exact birth date and parent pair.",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-animal-basel-ashaki",
+        "hippopotamus-pygmy-animal-basel-napoleon"
+      ]
+    },
+    {
+      "id": "hippopotamus-pygmy-event-basel-voobadee-transfer",
+      "animal_id": "hippopotamus-pygmy-animal-basel-voobadee",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2025-07-28"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-mulhouse-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "notes": "Basel Zoo reports move to Mulhouse on July 28, 2025.",
+      "from_institution_id": "hippopotamus-pygmy-institution-basel-zoo",
+      "to_institution_id": "hippopotamus-pygmy-institution-mulhouse-zoo"
+    },
+    {
+      "id": "hippopotamus-pygmy-event-basel-napoleon-birth",
+      "animal_id": "hippopotamus-pygmy-animal-basel-napoleon",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "2007"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-paris-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "notes": "Basel Zoo reports Napoleon was born in 2007 at Paris Zoo."
+    },
+    {
+      "id": "hippopotamus-pygmy-event-basel-napoleon-to-basel",
+      "animal_id": "hippopotamus-pygmy-animal-basel-napoleon",
+      "type": "transfer",
+      "date": {
+        "precision": "approximate",
+        "value": "2008"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-basel-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "notes": "Basel Zoo reports Napoleon arrived in 2008; exact date is not given.",
+      "from_institution_id": "hippopotamus-pygmy-institution-paris-zoo",
+      "to_institution_id": "hippopotamus-pygmy-institution-basel-zoo"
+    },
+    {
+      "id": "hippopotamus-pygmy-event-basel-napoleon-to-cabarceno",
+      "animal_id": "hippopotamus-pygmy-animal-basel-napoleon",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2025-08-12"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-cabarceno-park",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "notes": "Basel Zoo reports move on August 12, 2025.",
+      "from_institution_id": "hippopotamus-pygmy-institution-basel-zoo",
+      "to_institution_id": "hippopotamus-pygmy-institution-cabarceno-park"
+    },
+    {
+      "id": "hippopotamus-pygmy-event-basel-ume-birth",
+      "animal_id": "hippopotamus-pygmy-animal-basel-ume",
+      "type": "birth",
+      "date": {
+        "precision": "approximate",
+        "value": "1997"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-basel-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "notes": "Basel Zoo reports Ume was born at Basel Zoo in 1997; parents are not identified."
+    },
+    {
+      "id": "hippopotamus-pygmy-event-basel-ume-return",
+      "animal_id": "hippopotamus-pygmy-animal-basel-ume",
+      "type": "transfer",
+      "date": {
+        "precision": "exact",
+        "value": "2025-08-12"
+      },
+      "institution_id": "hippopotamus-pygmy-institution-basel-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-basel-voobadee-family"
+      ],
+      "notes": "Basel Zoo reports Ume returned from Cabárceno on August 12, 2025.",
+      "from_institution_id": "hippopotamus-pygmy-institution-cabarceno-park",
+      "to_institution_id": "hippopotamus-pygmy-institution-basel-zoo"
+    },
+    {
+      "id": "hippopotamus-pygmy-event-taronga-lololi-birth",
+      "animal_id": "hippopotamus-pygmy-animal-taronga-lololi",
+      "type": "birth",
+      "date": {
+        "precision": "unknown",
+        "notes": "The official page conflicts internally: four-week-old in April 2025 versus 16 January 2024."
+      },
+      "institution_id": "hippopotamus-pygmy-institution-taronga-zoo",
+      "source_ids": [
+        "hippopotamus-pygmy-source-taronga-lololi-birth"
+      ],
+      "notes": "Taronga Zoo reports a birth but gives a conflicting exact date and age on the same April 2025 page; date left unknown until corrected.",
+      "related_animal_ids": [
+        "hippopotamus-pygmy-animal-taronga-kambiri",
+        "hippopotamus-pygmy-animal-taronga-fergus"
+      ]
     }
   ],
   "institutions": [
@@ -6778,6 +7476,72 @@
       ],
       "country_code": "US",
       "location": "St. Louis, Missouri"
+    },
+    {
+      "id": "hippopotamus-common-institution-abq-biopark",
+      "names": [
+        {
+          "value": "ABQ BioPark",
+          "language": "en"
+        }
+      ],
+      "country_code": "US",
+      "location": "Albuquerque, New Mexico"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-basel-zoo",
+      "names": [
+        {
+          "value": "Basel Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "CH",
+      "location": "Basel"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-paris-zoo",
+      "names": [
+        {
+          "value": "Paris Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "FR",
+      "location": "Paris"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-mulhouse-zoo",
+      "names": [
+        {
+          "value": "Mulhouse Zoo",
+          "language": "en"
+        }
+      ],
+      "country_code": "FR",
+      "location": "Mulhouse"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-cabarceno-park",
+      "names": [
+        {
+          "value": "Cabárceno Nature Park",
+          "language": "en"
+        }
+      ],
+      "country_code": "ES",
+      "location": "Cantabria"
+    },
+    {
+      "id": "hippopotamus-pygmy-institution-taronga-zoo",
+      "names": [
+        {
+          "value": "Taronga Zoo Sydney",
+          "language": "en"
+        }
+      ],
+      "country_code": "AU",
+      "location": "Sydney, New South Wales"
     }
   ],
   "media": [
@@ -7624,6 +8388,54 @@
       "source_type": "official_zoo_announcement",
       "notes": "Identifies Tucker as male, reports he came to Cincinnati from San Francisco earlier in September 2021, and identifies Bibi as Fiona's mother.",
       "data_use": "Use factual metadata and source attribution only. Do not republish page text or copy its images; link to the original page.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-abq-maisy-birth",
+      "title": "Hip-Hippo Hooray! ABQ BioPark Celebrates Birth of New Hippo Calf",
+      "publisher": "ABQ BioPark, City of Albuquerque",
+      "url": "https://www.cabq.gov/artsculture/biopark/news/hip-hippo-hooray-abq-biopark-celebrates-birth-of-new-hippo-calf",
+      "publication_date": "2025-10-14",
+      "accessed_date": "2026-10-20",
+      "source_type": "official_zoo_announcement",
+      "notes": "Reports the 2025-10-14 birth of Karen and Moe’s fourth common-hippo calf; Matilda is identified as their four-year-old daughter.",
+      "data_use": "Use factual identification, dates and relationships with attribution only. Do not republish source prose or copy images; link to the original page.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-common-source-abq-maisy-name",
+      "title": "ABQ BioPark Announces Winner of Baby Hippo Naming Contest",
+      "publisher": "ABQ BioPark, City of Albuquerque",
+      "url": "https://www.cabq.gov/artsculture/biopark/news/abq-biopark-announces-winner-of-baby-hippo-naming-contest",
+      "publication_date": "2025-11-05",
+      "accessed_date": "2026-10-20",
+      "source_type": "official_zoo_announcement",
+      "notes": "Names the female calf Maisy and confirms she is Karen and Moe’s calf.",
+      "data_use": "Use factual identification, dates and relationships with attribution only. Do not republish source prose or copy images; link to the original page.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-basel-voobadee-family",
+      "title": "Merry-go-round of males for the pygmy hippos",
+      "publisher": "Basel Zoo",
+      "url": "https://www.zoobasel.ch/en/aktuelles/news/1500/maennchen-rochade-bei-den-zwergflusspferden/",
+      "publication_date": "2025-09-03",
+      "accessed_date": "2026-10-20",
+      "source_type": "official_zoo_history",
+      "notes": "Identifies pygmy hippos Ashaki, Napoleon, Voobadee and Ume, Voobadee’s exact birth date and parents, Napoleon’s move, and Ume’s return to Basel.",
+      "data_use": "Use factual identification, dates and relationships with attribution only. Do not republish source prose or copy images; link to the original page.",
+      "tier": "B"
+    },
+    {
+      "id": "hippopotamus-pygmy-source-taronga-lololi-birth",
+      "title": "Pygmy Hippo Calf born at Taronga Zoo!",
+      "publisher": "Taronga Zoo Sydney",
+      "url": "https://www.taronga.org.au/about/newsroom/posts/pygmy-hippo-calf-born-at-taronga-zoo",
+      "publication_date": "2025-04-08",
+      "accessed_date": "2026-10-20",
+      "source_type": "official_zoo_announcement",
+      "notes": "Names female pygmy calf Lololi and identifies mother Kambiri and father Fergus. Page calls her four weeks old but also gives 16 January 2024 as birth date, inconsistent with its April 2025 post; birth date is left unknown.",
+      "data_use": "Use factual identification, dates and relationships with attribution only. Do not republish source prose or copy images; link to the original page.",
       "tier": "B"
     }
   ]

@@ -1,10 +1,10 @@
 # Polar-bear atlas source notes
 
-Research and review date: **2026-10-08**. Existing source pages were first reviewed on 2026-10-07; the added zoo pages and Dryad terms were checked on 2026-10-08. The canonical dataset is [`atlases/polar-bear/atlas.json`](../atlases/polar-bear/atlas.json).
+Research and review date: **2026-10-20**. Phase 2 sources were reviewed on 2026-10-07/08; Phase 3 source pages below were checked on 2026-10-20. The canonical dataset is [`atlases/polar-bear/atlas.json`](../atlases/polar-bear/atlas.json).
 
 ## Corpus and counting
 
-The reviewed corpus contains 64 named polar bears, 58 biological parent links, 84 life events, 7 claims, 31 institution/place records, 28 source records, and five link-only media references. It preserves the original Tallinn Zoo (10 bears), Tierpark Berlin, and Prague Zoo (Bora family) material and adds 42 named zoo records from public records of Zoo Rostock, Toronto Zoo, Columbus Zoo and Aquarium, Tiergarten Nürnberg, and Prague Zoo. This remains a source-bounded zoo/captive-history sample, not a complete studbook. The Western Hudson Bay wild research pedigree and a broader 414-bear Hudson Bay-region candidate are separate research populations and have no records in this atlas because Dryad’s published download routes denied access.
+The current corpus contains 72 named polar bears, 63 biological parent links, 97 life events, 7 claims, 39 institution/place records, 33 source records, and five link-only media references. Phase 3 adds eight named bears from public Toledo, Oregon, Eindhoven, and Louisville Zoo records, with five directly sourced parent links. The dataset remains a source-bounded zoo/captive-history sample, not a complete studbook. The 4,449-individual Western Hudson Bay research pedigree and a broader 414-bear Hudson Bay-region candidate are separate populations and remain absent because Dryad’s published file routes denied access.
 
 ## Primary sources
 
@@ -44,6 +44,18 @@ The reviewed corpus contains 64 named polar bears, 58 biological parent links, 8
 | `source:polar-bear:nuremberg-charlotte` | [Kleiner Eisbär Charlotte ist erstmals im Freien](https://tiergarten.nuernberg.de/presse/detail/news/2015-03-12-kleiner-eisbaer-charlotte-ist-erstmals-im-freien) (German) | 2015-03-12 | Names female Charlotte, gives her birth date, and identifies Vera and Felix as parents and Flocke as a sibling. |
 | `source:polar-bear:nuremberg-twin-transfer` | [Eisbärenzwillinge ziehen nach Warschau um](https://tiergarten.nuernberg.de/entdecken/aktuell/detail/news/2013-04-17-eisbaerenzwillinge-ziehen-nach-warschau-um) (German) | 2013-04-17 | Gives Gregor and Aleut’s exact departure date from Nuremberg for Warsaw. |
 | `source:polar-bear:prague-gregor-aleut` | [Polar Bear Twins Have Arrived at Prague Zoo](https://www.zoopraha.cz/en/about-zoo/news/14734-polar-bear-twins-have-arrived-at-prague-zoo) | 2024-05-21 | Confirms Gregor and Aleut arrived from Warsaw in May 2024 and repeats their birthplace/date. Parent edges cite Nuremberg’s direct parent report. |
+
+## Phase 3 official zoo sources (reviewed 2026-10-20)
+
+| Source ID | Direct source | Published | Atlas use and limits |
+|---|---|---|---|
+| `source:polar-bear:toledo-nuka-family-2026` | [Toledo Zoo Welcomes Back Polar Bear Nuka](https://www.toledozoo.org/press-releases/toledo-zoo-welcomes-back-polar-bear-nuka) | 2026-01-30 | Names Toledo parents Nuka and Crystal and their twins Kallik and Kallu. Reports the twins’ 2025 transfer to Saint Louis and Nuka’s 2011–2022 Detroit history. |
+| `source:polar-bear:oregon-kallik-2026` | [He's beary welcome: Polar bear Kallik arrives at zoo](https://www.oregonzoo.org/index.php/news/hes-beary-welcome-polar-bear-kallik-arrives-zoo) | 2026-01-20 | Gives Kallik’s exact 2022-11-11 birth at Toledo, confirms Kallu is his twin, and reports Kallik’s move from Saint Louis to Oregon. |
+| `source:polar-bear:eindhoven-otis-2026` | [Unique moment: polar bear cub Otis explores outdoor enclosure at Eindhoven Zoo](https://www.eindhovenzoo.nl/en/news/polar-bear-cub-otis-explores-exteriors) | Not stated | Names male Otis and identifies mother Frimas. It says “end of November” and “last year” but has no publication date to anchor that relative year; the atlas leaves his birth date unknown. |
+| `source:polar-bear:louisville-polar-bears-2024` | [Star Polar Bear Qannik Finally Gets Her “Bo!”](https://louisvillezoo.org/star-polar-bear-qannik-finally-gets-her-bo/) | 2024-02-16 | Supports Qannik’s sex, January 2011 birth and rescue history, and Borealis’s sex and Toledo birth. It says Qannik is unrelated to the managed bear population; no parent edge is added. |
+| `source:polar-bear:louisville-our-polar-bears` | [Our Polar Bears](https://louisvillezoo.org/glacier-run/our-polar-bears/) | Not stated | Supplies Borealis’s exact 2018-12-09 birth date and February 2024 arrival at Louisville. |
+
+The Eindhoven page’s relative date remains unanchored, so the event is retained with unknown date precision. The new Toledo family is connected by the two parent pairs directly reported by the zoos. Qannik and Borealis remain separate nodes because no parentage for either is published in these sources.
 
 The 42 added animal records are partitioned by source family as follows: 18 Rostock-associated, 6 Toronto, 9 Columbus, and 9 Prague/Nuremberg historical records. These are records with a direct official zoo name/source, not a complete inventory of animals mentioned in studbook summaries. All new source rows above were accessed on **2026-10-08**; source metadata and exact URLs are in the canonical atlas and [`atlases/polar-bear/import_report.json`](../atlases/polar-bear/import_report.json).
 
