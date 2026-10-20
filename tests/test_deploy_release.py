@@ -1,6 +1,7 @@
 import json
 import os
 import stat
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -40,6 +41,23 @@ def make_dist(root: Path) -> Path:
 
 
 class DeployReleaseTests(unittest.TestCase):
+    def test_service_restart_fails_if_the_relay_exits_during_startup(self):
+        from tools import deploy_release as deploy_module
+
+        results = [
+            subprocess.CompletedProcess(["systemctl", "restart"], 0),
+            subprocess.CompletedProcess(["systemctl", "is-active"], 0),
+            subprocess.CompletedProcess(["systemctl", "is-active"], 3),
+        ]
+        with (
+            patch.object(deploy_module.subprocess, "run", side_effect=results) as run,
+            patch("time.sleep"),
+        ):
+            with self.assertRaisesRegex(RuntimeError, "did not remain active"):
+                deploy_module._restart_media_service()
+
+        self.assertEqual(run.call_count, 3)
+
     def test_deploy_uses_an_immutable_revision_directory(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory) / "www"

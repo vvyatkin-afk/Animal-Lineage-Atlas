@@ -1,9 +1,16 @@
+import shutil
+import socket
 import subprocess
 import tempfile
+import time
 import unittest
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 from tools.manage_nginx_relay import NginxPaths, install_nginx_relay, rollback_nginx_relay
+
+NGINX_BINARY = shutil.which("nginx") or ("/usr/sbin/nginx" if Path("/usr/sbin/nginx").is_file() else None)
 
 
 class NginxRelayManagementTests(unittest.TestCase):
@@ -30,6 +37,112 @@ class NginxRelayManagementTests(unittest.TestCase):
         ).encode()
         self.main.write_bytes(self.original_main)
         self.snippet_bytes = b"location ~ ^/atlas/media/([a-f0-9]{32})/(thumb|profile)$ { return 404; }\n"
+
+    @unittest.skipUnless(NGINX_BINARY, "Nginx is required to validate the deployed route snippet")
+    def test_production_media_route_snippet_passes_nginx_config_test(self):
+        repo_snippet = Path(__file__).parents[1] / "deploy/nginx/atlas-media-relay.conf"
+        config = Path(self.temporary.name) / "nginx-test.conf"
+        config.write_text(
+            f"pid {Path(self.temporary.name) / 'nginx.pid'};\n"
+            f"error_log {Path(self.temporary.name) / 'error.log'} notice;\n"
+            "events {}\n"
+            "http {\n"
+            "    access_log off;\n"
+            "    server {\n"
+            "        listen 127.0.0.1:18081;\n"
+            f'        include "{repo_snippet}";\n'
+            "        location / { return 404; }\n"
+            "    }\n"
+            "}\n",
+            encoding="utf-8",
+        )
+        result = subprocess.run(
+            [NGINX_BINARY, "-t", "-c", str(config)],
+            capture_output=True,
+            check=False,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    @unittest.skipUnless(NGINX_BINARY, "Nginx is required to exercise the deployed route")
+    def test_production_media_route_matches_real_requests_and_forwards_captures(self):
+        repo_snippet = Path(__file__).parents[1] / "deploy/nginx/atlas-media-relay.conf"
+        source = repo_snippet.read_text(encoding="utf-8")
+        proxy_directive = "proxy_pass http://127.0.0.1:4175/media/$1/$2;"
+        self.assertEqual(source.count(proxy_directive), 1)
+
+        # Keep the exact production location expression and replace only the
+        # network hop, so this test proves Nginx's actual regex/capture behavior.
+        test_snippet = Path(self.temporary.name) / "atlas-media-relay-test.conf"
+        test_snippet.write_text(
+            source.replace(proxy_directive, 'return 200 "$1/$2";'),
+            encoding="utf-8",
+        )
+        with socket.socket() as reservation:
+            reservation.bind(("127.0.0.1", 0))
+            port = reservation.getsockname()[1]
+
+        base = Path(self.temporary.name)
+        config = base / "nginx-request-test.conf"
+        config.write_text(
+            f"pid {base / 'request-test.pid'};\n"
+            f"error_log {base / 'request-test-error.log'} notice;\n"
+            "daemon off;\n"
+            "master_process off;\n"
+            "events { worker_connections 16; }\n"
+            "http {\n"
+            "    access_log off;\n"
+            "    server {\n"
+            f"        listen 127.0.0.1:{port};\n"
+            f'        include "{test_snippet}";\n'
+            "        location / { return 404; }\n"
+            "    }\n"
+            "}\n",
+            encoding="utf-8",
+        )
+        process = subprocess.Popen(
+            [NGINX_BINARY, "-c", str(config)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        try:
+            route_prefixes = ("/atlas", "/atlas.red-panda", "/atlas.polar-bear", "/atlas.hippopotamus")
+            media_id = "a426db98f35e4bc984275cc031467ac9"
+            for prefix in route_prefixes:
+                for variant in ("thumb", "profile"):
+                    url = f"http://127.0.0.1:{port}{prefix}/media/{media_id}/{variant}"
+                    deadline = time.monotonic() + 3
+                    while True:
+                        if process.poll() is not None:
+                            stdout, stderr = process.communicate()
+                            self.fail(f"Nginx exited before serving a request: {stdout}{stderr}")
+                        try:
+                            with urllib.request.urlopen(url, timeout=0.2) as response:
+                                self.assertEqual(response.status, 200)
+                                self.assertEqual(
+                                    response.read().decode("ascii"),
+                                    f"{media_id}/{variant}",
+                                )
+                            break
+                        except urllib.error.HTTPError as error:
+                            self.fail(f"Valid media route returned HTTP {error.code}: {url}")
+                        except urllib.error.URLError:
+                            if time.monotonic() >= deadline:
+                                self.fail("Nginx did not start serving the route within three seconds")
+                            time.sleep(0.02)
+
+            invalid_url = f"http://127.0.0.1:{port}/atlas.red-panda/media/{media_id[:-1]}/profile"
+            with self.assertRaises(urllib.error.HTTPError) as error:
+                urllib.request.urlopen(invalid_url, timeout=1)
+            self.assertEqual(error.exception.code, 404)
+        finally:
+            process.terminate()
+            try:
+                process.communicate(timeout=3)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.communicate()
 
     def runner(self, calls, failure=None):
         def run(command, *, check):
