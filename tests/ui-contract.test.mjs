@@ -150,6 +150,28 @@ test('all interface locales render the same required label keys', async () => {
   }
 });
 
+test('layout diagnostics have translated accessible labels in every interface locale', async () => {
+  const messages = await loadMessages();
+  assert.ok(messages, 'shared messages module should load');
+  const keys = [
+    'layoutDiagnosticsLabel',
+    'layoutCrossingsLabel',
+    'layoutRouteLengthLabel',
+    'layoutGenerationWidthLabel',
+    'layoutParentOrderLabel',
+    'layoutParentOrderUnconstrained',
+  ];
+  const english = messages.getUiMessages('en');
+  for (const locale of ['en', 'ja', 'ru']) {
+    const translated = messages.getUiMessages(locale);
+    for (const key of keys) assert.ok(translated[key]?.trim(), `${locale} provides ${key}`);
+  }
+  for (const locale of ['ja', 'ru']) {
+    const translated = messages.getUiMessages(locale);
+    for (const key of keys) assert.notEqual(translated[key], english[key], `${key} is translated to ${locale}`);
+  }
+});
+
 test('upstream direct photo URLs remain link-only metadata and cannot be embedded', async () => {
   const app = await readFile(new URL('../apps/atlas/main.ts', import.meta.url), 'utf8');
   const graph = await readFile(new URL('../packages/ui/genealogy-view.ts', import.meta.url), 'utf8');

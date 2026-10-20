@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 11:36 UTC
+Updated: 2026-10-20 11:48 UTC
 
 ## Approved scope and baseline
 
@@ -53,7 +53,7 @@ These measurements use 24-segment renderer curves, transverse-intersection rules
 - [x] Prepare bounded architecture and test-first implementation tasks in docs/superpowers/plans/2026-10-20-phase4-layout-media.md.
 - [x] Implement shared rendered-route metrics; 57/57 Node tests and TypeScript checks pass. The expected-red log and API-missing failure are recorded in the ignored SDD ledger.
 - [x] Implement deterministic focused/global layout optimization; 27/27 genealogy tests and TypeScript checks pass.
-- [ ] Add focused-only parent ordering, regression fixtures, and opt-in diagnostics.
+- [x] Add focused-only parent ordering, regression fixtures, and opt-in diagnostics. The panel is hidden by default and enabled only with `layoutDiagnostics=1`; focused views show mother/father side violations, while global views say parent-side ordering is unconstrained. `npm run build`, the UI contract tests (11/11), and serial Playwright suite (18/18) pass. A mobile canvas test pixel probe was updated to tolerate antialiasing at the full-graph fit scale.
 - [ ] Add verified media metadata, same-origin UI references, and secure relay service.
 - [ ] Run serial browser and full Node/Python/schema/lint/type checks; capture before/after comparisons.
 - [ ] Complete independent review and green GitHub CI; push and merge reviewed commits.

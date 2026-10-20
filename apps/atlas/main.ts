@@ -1,5 +1,7 @@
-import { buildFocusedGenealogy, buildGlobalGenealogy, createGenealogyIndex, type GraphAnimal, type GraphGrouping, type GraphRelationship } from '../../packages/genealogy/layout.ts';
+import { buildFocusedGenealogy, buildGlobalGenealogy, createGenealogyIndex, type GenealogyGraph, type GraphAnimal, type GraphGrouping, type GraphRelationship } from '../../packages/genealogy/layout.ts';
 import { createViewState } from '../../packages/genealogy/state.ts';
+import { measureGenealogyGraph, type LayoutMetrics } from '../../packages/genealogy/metrics.ts';
+import type { GenealogyRouteMode } from '../../packages/genealogy/edge-route.ts';
 import { getLocalizedCoverage, getUiMessages, type UiMessages } from '../../packages/i18n/index.ts';
 import { createLocalResolver, resolvePublicMedia, type LocalMediaManifest, type MediaReference, type MediaResult } from '../../packages/media/resolver.ts';
 import { buildAtlasSearchIndex } from '../../packages/search/atlas-index.ts';
@@ -49,6 +51,7 @@ function localizedCountryName(code: string, locale: string): string {
 async function boot() {
   const atlasId = document.body.dataset.atlas ?? 'red-panda';
   const basePath = document.body.dataset.basePath ?? '/atlas.red-panda/';
+  const layoutDiagnosticsEnabled = new URLSearchParams(window.location.search).get('layoutDiagnostics') === '1';
   const appStorageKey = `animal-lineage-atlas:${atlasId}:v1`;
   const languageSelect = requiredElement<HTMLSelectElement>('language-select');
   const queryInput = requiredElement<HTMLInputElement>('search-input');
@@ -63,6 +66,8 @@ async function boot() {
   const resultCount = requiredElement<HTMLElement>('result-count');
   const searchResults = requiredElement<HTMLElement>('search-results');
   const graphContainer = requiredElement<HTMLElement>('genealogy-container');
+  const layoutDiagnostics = requiredElement<HTMLElement>('layout-diagnostics');
+  layoutDiagnostics.hidden = !layoutDiagnosticsEnabled;
   const dialog = requiredElement<HTMLDialogElement>('profile-dialog');
   const fitAllButton = requiredElement<HTMLButtonElement>('fit-all');
   const profileContent = requiredElement<HTMLElement>('profile-dialog').querySelector<HTMLElement>('[data-profile-content]');
@@ -142,9 +147,40 @@ async function boot() {
   let profileRequestVersion = 0;
   let treeController: GenealogyViewController | null = null;
   let fitLargestGlobalOnNextRender = initialFocusId === null;
+  let lastLayoutMetrics: LayoutMetrics | null = null;
+  let lastLayoutMode: GenealogyRouteMode | null = null;
   function labels(): UiMessages {
     const locale = languageSelect.value || 'en';
     return getUiMessages(locale);
+  }
+
+  function renderLayoutDiagnosticValues() {
+    if (!layoutDiagnosticsEnabled || !lastLayoutMetrics || !lastLayoutMode) return;
+    const locale = languageSelect.value || 'en';
+    const setValue = (key: string, value: string, rawValue: string) => {
+      const element = layoutDiagnostics.querySelector<HTMLElement>(`[data-diagnostic="${key}"]`);
+      if (!element) return;
+      element.dataset.value = rawValue;
+      element.textContent = value;
+    };
+    const widestGeneration = Math.max(0, ...lastLayoutMetrics.generationWidths.map((row) => row.width));
+    setValue('crossings', lastLayoutMetrics.crossingPairs.toLocaleString(locale), String(lastLayoutMetrics.crossingPairs));
+    setValue('route-length', lastLayoutMetrics.totalRouteLength.toLocaleString(locale, { maximumFractionDigits: 1 }), String(Math.round(lastLayoutMetrics.totalRouteLength)));
+    setValue('generation-width', widestGeneration.toLocaleString(locale, { maximumFractionDigits: 0 }), String(Math.round(widestGeneration)));
+    if (lastLayoutMode === 'focused') {
+      setValue('parent-order', lastLayoutMetrics.parentOrderViolations.toLocaleString(locale), String(lastLayoutMetrics.parentOrderViolations));
+    } else {
+      setValue('parent-order', labels().layoutParentOrderUnconstrained, 'unconstrained');
+    }
+  }
+
+  function updateLayoutDiagnostics(graph: GenealogyGraph, mode: GenealogyRouteMode) {
+    layoutDiagnostics.hidden = !layoutDiagnosticsEnabled;
+    if (!layoutDiagnosticsEnabled) return;
+    layoutDiagnostics.dataset.layoutMode = mode;
+    lastLayoutMetrics = measureGenealogyGraph(graph, mode);
+    lastLayoutMode = mode;
+    renderLayoutDiagnosticValues();
   }
 
   function updateStaticLabels() {
@@ -175,6 +211,7 @@ async function boot() {
     requiredElement<HTMLElement>('zoom-in').title = copy.zoomInLabel;
     requiredElement<HTMLElement>('zoom-out').setAttribute('aria-label', copy.zoomOutLabel);
     requiredElement<HTMLElement>('zoom-out').title = copy.zoomOutLabel;
+    renderLayoutDiagnosticValues();
   }
 
   const populationLabelKeys: Record<string, keyof UiMessages> = {
@@ -263,6 +300,7 @@ async function boot() {
       const graph = buildGlobalGenealogy(graphIndex, { grouping: current.grouping as GraphGrouping });
       graphContainer.dataset.layoutBuilds = String(Number(graphContainer.dataset.layoutBuilds ?? '0') + 1);
       graphContainer.dataset.layoutMs = (performance.now() - renderStarted).toFixed(3);
+      updateLayoutDiagnostics(graph, 'global');
       treeController = renderGlobalGenealogy(
         graphContainer,
         graph,
@@ -293,6 +331,7 @@ async function boot() {
       maxNodes: current.focusDepth === 'all' ? graphIndex.animalById.size : mobile ? 150 : 300,
     });
     graphContainer.dataset.layoutBuilds = String(Number(graphContainer.dataset.layoutBuilds ?? '0') + 1);
+    updateLayoutDiagnostics(graph, 'focused');
     treeController = renderGenealogy(graphContainer, graph, current, labels(), openProfile, (patch) => { state.update(patch); });
     graphContainer.dataset.graphRenderMs = (performance.now() - renderStarted).toFixed(3);
   }

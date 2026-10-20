@@ -106,6 +106,7 @@ export function renderGenealogy(
     tabindex: '0',
     'aria-label': messages.treeLabel,
     'data-genealogy': 'true',
+    'data-layout-mode': 'focused',
   });
   if (!graph.nodes.length) {
     const empty = document.createElement('p');

@@ -186,9 +186,13 @@ test('country-coded nodes use bundled SVG flags at overview and card detail leve
     const context = canvasElement.getContext('2d');
     if (!context) return null;
     const pixels = context.getImageData(0, 0, canvasElement.width, canvasElement.height).data;
-    const nodeColors = new Set(['71,119,92', '120,131,125', '176,147,94']);
+    const nodeColors = [[71, 119, 92], [120, 131, 125], [176, 147, 94], [135, 76, 133], [63, 111, 145]];
     for (let index = 0; index < pixels.length; index += 4) {
-      if (nodeColors.has(`${pixels[index]},${pixels[index + 1]},${pixels[index + 2]}`)) {
+      const matchesNodeColor = nodeColors.some(([red, green, blue]) =>
+        Math.abs((pixels[index] ?? 0) - red) <= 8
+        && Math.abs((pixels[index + 1] ?? 0) - green) <= 8
+        && Math.abs((pixels[index + 2] ?? 0) - blue) <= 8);
+      if (matchesNodeColor) {
         const pixelIndex = index / 4;
         const ratio = canvasElement.width / canvasElement.clientWidth;
         return { x: (pixelIndex % canvasElement.width) / ratio, y: Math.floor(pixelIndex / canvasElement.width) / ratio };
@@ -218,6 +222,51 @@ test('country-coded nodes use bundled SVG flags at overview and card detail leve
   expect(flagRequests.some((pathname) => pathname.endsWith('/flags/us.svg'))).toBeTruthy();
   await expect(canvas).toHaveAttribute('data-node-count', '72');
   await viewport.screenshot({ path: `${screenshotDir}/phase3-polar-bear-flags-desktop-1440x900.png` });
+});
+
+test('focused Futa parents are ordered and layout diagnostics stay hidden by default', async ({ page }) => {
+  await blockRemoteImages(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/atlas.red-panda/?animal=red-panda%3Afuta');
+  const diagnostics = page.locator('#layout-diagnostics');
+  await expect(diagnostics).toBeHidden();
+  await expect(page.locator('svg[data-genealogy="true"]')).toBeVisible();
+  const parents = await page.evaluate(async () => {
+    const atlas = await (await fetch('./runtime.json')).json() as {
+      relationships: Array<{ subject: string; object: string; type: string }>;
+    };
+    return {
+      mother: atlas.relationships.find((edge) => edge.object === 'red-panda:futa' && edge.type === 'biological_mother')?.subject,
+      father: atlas.relationships.find((edge) => edge.object === 'red-panda:futa' && edge.type === 'biological_father')?.subject,
+    };
+  });
+  expect(parents.mother).toBeTruthy();
+  expect(parents.father).toBeTruthy();
+  const xPosition = async (animalId: string) => page.locator(`.genealogy-node[data-animal-id="${animalId}"]`).getAttribute('transform')
+    .then((transform) => Number(transform?.match(/translate\(([-\d.]+)/)?.[1]));
+  expect(await xPosition(parents.mother!)).toBeLessThan(await xPosition(parents.father!));
+});
+
+test('layoutDiagnostics=1 displays measured global metrics and leaves parent sex ordering unconstrained', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/atlas.red-panda/?layoutDiagnostics=1');
+  const diagnostics = page.locator('#layout-diagnostics');
+  await expect(diagnostics).toBeVisible();
+  await expect(diagnostics).toHaveAttribute('data-layout-mode', 'global');
+  await expect(diagnostics.locator('[data-diagnostic="crossings"]')).toHaveAttribute('data-value', /^[1-9]\d*$/);
+  await expect(diagnostics.locator('[data-diagnostic="route-length"]')).toHaveAttribute('data-value', /^[1-9]\d*$/);
+  await expect(diagnostics.locator('[data-diagnostic="generation-width"]')).toHaveAttribute('data-value', /^[1-9]\d*$/);
+  await expect(diagnostics.locator('[data-diagnostic="parent-order"]')).toHaveAttribute('data-value', 'unconstrained');
+  await expect(diagnostics.locator('[data-diagnostic="parent-order"]')).toContainText(/not constrained/i);
+});
+
+test('layout diagnostics remain usable on a mobile focused view', async ({ page }) => {
+  await blockRemoteImages(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/atlas.red-panda/?animal=red-panda%3Afuta&layoutDiagnostics=1');
+  await expect(page.locator('#layout-diagnostics')).toBeVisible();
+  await expect(page.locator('#layout-diagnostics [data-diagnostic="parent-order"]')).toHaveAttribute('data-value', '0');
+  await expect(page.locator('svg[data-genealogy="true"]')).toBeVisible();
 });
 
 test('sex, life-status, and photo filters update visible graph nodes and only retain edges between visible animals', async ({ page }) => {
@@ -297,9 +346,13 @@ test('mobile full graph fits all rows, remains within the viewport, and supports
     const context = canvasElement.getContext('2d');
     if (!context) return null;
     const pixels = context.getImageData(0, 0, canvasElement.width, canvasElement.height).data;
-    const nodeColors = new Set(['71,119,92', '120,131,125', '176,147,94']);
+    const nodeColors = [[71, 119, 92], [120, 131, 125], [176, 147, 94], [135, 76, 133], [63, 111, 145]];
     for (let index = 0; index < pixels.length; index += 4) {
-      if (nodeColors.has(`${pixels[index]},${pixels[index + 1]},${pixels[index + 2]}`)) {
+      const matchesNodeColor = nodeColors.some(([red, green, blue]) =>
+        Math.abs((pixels[index] ?? 0) - red) <= 8
+        && Math.abs((pixels[index + 1] ?? 0) - green) <= 8
+        && Math.abs((pixels[index + 2] ?? 0) - blue) <= 8);
+      if (matchesNodeColor) {
         const pixelIndex = index / 4;
         const ratio = canvasElement.width / canvasElement.clientWidth;
         return { x: (pixelIndex % canvasElement.width) / ratio, y: Math.floor(pixelIndex / canvasElement.width) / ratio };

@@ -249,6 +249,7 @@ export function renderGlobalGenealogy(
   wrapper.className = 'global-graph-shell';
   wrapper.dataset.globalOverview = 'true';
   wrapper.dataset.globalGraph = 'true';
+  wrapper.dataset.layoutMode = 'global';
 
   const summary = document.createElement('p');
   summary.className = 'global-index-summary';
@@ -272,6 +273,7 @@ export function renderGlobalGenealogy(
     .replace('{animals}', String(graph.nodes.length))
     .replace('{components}', String(graph.componentCount ?? 0)));
   canvas.dataset.globalGraphCanvas = 'true';
+  canvas.dataset.layoutMode = 'global';
   canvas.dataset.nodeCount = String(graph.nodes.length);
   canvas.dataset.edgeCount = String(graph.edges.length);
   const nodeLayer = document.createElement('div');

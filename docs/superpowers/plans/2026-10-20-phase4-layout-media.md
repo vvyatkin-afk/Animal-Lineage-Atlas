@@ -87,11 +87,11 @@
 - Add diagnostics behind the explicit layoutDiagnostics=1 query flag; display measured crossings, route length, generation width, and focused parent-side violations.
 - Preserve pan/zoom, hit testing, virtualization, relation colors, confidence dashes, and the default uncluttered UI.
 
-- [ ] Add failing browser tests for focused mother-left/father-right, no global ordering, diagnostic visibility, and hidden-by-default behavior.
-- [ ] Run the affected browser tests and confirm expected failures.
-- [ ] Implement the diagnostics and rerender the optimized row positions.
-- [ ] Run desktop and mobile browser cases serially and capture the same baseline cases.
-- [ ] Commit the UI change.
+- [x] Add failing browser tests for focused mother-left/father-right, no global ordering, diagnostic visibility, and hidden-by-default behavior.
+- [x] Run the affected browser tests and confirm expected failures.
+- [x] Implement the diagnostics and rerender the optimized row positions.
+- [x] Run desktop and mobile browser cases serially; all 18 Playwright tests pass. The same-view after screenshots and comparisons remain in Task 6.
+- [x] Commit the UI change.
 
 ### Task 4: Rights-reviewed media metadata and profile/gallery integration
 
