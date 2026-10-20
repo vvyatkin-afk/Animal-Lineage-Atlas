@@ -94,7 +94,7 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 - The independent audit of `c667489` withheld approval on one P2 finding: relation colors and confidence patterns were mixed in the global canvas, and focused SVG styles could render unknown biological edges as solid. This was a real visual semantics defect; the review found no other blockers.
 - Added a shared relationship edge-style mapping: relation type controls stroke color, while confidence controls dash pattern. Global canvas and focused SVG now use the same mapping. The legend's relation samples are solid and its confidence samples show confirmed, probable, disputed, and unknown patterns independently.
 - Added a 20-case type-by-status fixture and a browser assertion over focused Futa edges. Verification passed: 54 Node tests, 82 Python tests, lint, typecheck, data/schema validation, four-path build, no-photo scan, and 15/15 serial browser tests at desktop and mobile viewports.
-- The previous GitHub required check passed on the prior `c5affac` PR head. The edge-style correction has not yet been pushed; new CI and independent re-review are pending. Production remains on the Phase 2 symlinks, and legacy `/red-panda/` remains untouched.
+- The previous GitHub required check passed on `c5affac`. The edge-style correction is committed and pushed as `4cfb024` to draft PR #6. Its required `validate-build-browser` check is pending (run `39404139121`), and the independent reviewer is rechecking the corrected code. Production remains on the Phase 2 symlinks, and legacy `/red-panda/` remains untouched.
 
 ### Verified Phase 3 milestone — 2026-10-20 09:12 UTC
 
@@ -108,7 +108,7 @@ Dryad's official DOI landing page is public and describes a 4,449-individual ped
 
 ## NEXT_ACTIONS
 
-1. Commit and push the edge-style correction, then wait for required GitHub CI and the independent reviewer to recheck the new head; resolve any remaining findings and rerun affected plus full release checks.
+1. Wait for required GitHub CI and the independent reviewer to recheck the pushed edge-style correction; resolve any remaining findings and rerun affected plus full release checks.
 2. Keep PR #6 in draft until review is clean and CI is green, then mark it ready and merge.
 3. After merge and green CI, deploy only `/atlas/`, `/atlas.red-panda/`, `/atlas.polar-bear/`, and `/atlas.hippopotamus/`; verify all four plus legacy `/red-panda/`, capture screenshots and manifest, and record rollback evidence.
 
