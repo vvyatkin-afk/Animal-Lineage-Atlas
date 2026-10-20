@@ -211,3 +211,15 @@ test('per-client rate limits return a bounded retry response', async (t) => {
   assert.equal(limited.status, 429);
   assert.ok(Number(limited.headers['retry-after']) >= 1);
 });
+
+test('rate-limit state has a hard bucket cap and aggregates overflow clients', async (t) => {
+  const { origin } = await makeRelay(t, { maxRequestsPerMinute: 1, maxRateBuckets: 3 });
+  const requestAs = (address) => get(origin, `/media/${mediaId}/thumb`, { 'x-real-ip': address });
+
+  assert.equal((await requestAs('198.51.100.1')).status, 200);
+  assert.equal((await requestAs('198.51.100.2')).status, 200);
+  assert.equal((await requestAs('198.51.100.3')).status, 200, 'the last table slot is shared by overflow clients');
+  assert.equal((await requestAs('198.51.100.4')).status, 429, 'new clients share the overflow rate bucket');
+  assert.equal((await requestAs('198.51.100.5')).status, 429, 'additional unique addresses cannot grow the table');
+  assert.equal((await requestAs('198.51.100.1')).status, 429, 'known clients retain their own rate bucket');
+});

@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 12:27 UTC
+Updated: 2026-10-20 12:44 UTC
 
 ## Approved scope and baseline
 
@@ -34,11 +34,11 @@ Phase 4 rechecked the Commons source on 2026-10-20 and confirmed the two publish
 
 The optimizer keeps generation rows, IDs, and relationship records fixed. Focused mode enforces mother-left/father-right using stable precedence ordering; contradictory constraints terminate deterministically and report the violations that cannot be satisfied together. Global mode has no sex-side constraint. The family view optimizes each relationship-connected component as a block, including its social edges, to avoid creating crossings between unrelated groups.
 
-For interactive performance, candidate search on a global graph above 500 nodes uses generation-span inversion counts and sampled route length. Exact rendered-route crossings are measured for the resulting release layout; exact crossing counts choose among candidates for focused and smaller global graphs. The 1,554-node global red-panda build completes in about 0.95 seconds, and a 5,000-node row-only fixture in about 0.22 seconds. This is a bounded heuristic, not a global-optimality claim.
+For interactive performance, candidate search on a global graph above 500 nodes uses a layered crossing estimate and sampled route length. Each long edge is split into virtual segments at every intervening generation row, so the estimate includes crossings between different generation spans. The exact 24-sample rendered-route crossing counts remain the release metric; exact candidate ranking is used for focused and smaller global graphs. The 1,554-node global red-panda build stays within the two-second budget, and a 5,000-node row-only fixture remains bounded. This is a bounded heuristic, not a global-optimality claim.
 
 | View | Baseline crossings | After crossings | Change | Baseline route length | After route length | Change |
 |---|---:|---:|---:|---:|---:|---:|
-| Red panda, all 1,554 animals | 48,041 | 43,050 | −10.4% | 5,472,576.87 | 4,657,060.61 | −14.9% |
+| Red panda, all 1,554 animals | 48,041 | 42,931 | −10.6% | 5,472,576.87 | 4,662,636.83 | −14.8% |
 | Red panda, largest 823-animal component | 35,210 | 31,352 | −11.0% | 3,428,194.25 | 3,163,209.23 | −7.7% |
 | Futa focused, depth 3 | 277 | 6 | −97.8% | 126,772.03 | 102,548.13 | −19.1% |
 | Futa focused, all known | 286 | 18 | −93.7% | 142,595.56 | 121,431.54 | −14.8% |
@@ -63,9 +63,10 @@ The after capture pairs the same 14 desktop and mobile views with baseline scree
 - [x] Implement the loopback-only HTTPS image relay, with fixed-ID lookup, DNS pinning and all-answer validation, same-host redirects, byte and image-dimension checks, MIME sniffing, rate/concurrency limits, memory-only cache, ETags, and generic failure responses. Node 20.19 exposed a live integration bug: its network lookup callback requested the `all` form; the pinned callback now handles both documented signatures. The official [Node 20.19 DNS docs](https://nodejs.org/download/release/v20.19.0/docs/api/dns.html) describe that callback difference.
 - [x] Stage full relay code and allowlist under `/var/lib/animal-lineage-atlas`, outside Nginx's document root. Release manifests record previous relay targets and enablement; failed activation restores the prior service state. Rollback also restores the four Atlas symlinks and stops/disables the service when no earlier relay existed.
 - [x] Add a reversible Nginx manager. It inserts one include into the existing Atlas server block, saves a mode-0700 backup, validates and reloads, and restores only when installed file hashes still match. It does not rewrite any `/red-panda/` location.
-- [x] Focused relay tests pass (8/8); deploy/rollback, Nginx manager, and screenshot-scanner Python tests pass (29/29); ESLint passes. Live in-memory service verification returned 330×220 JPEG (39,751 bytes) and 960×640 JPEG (247,773 bytes). Production Nginx/service installation remains for the release phase.
-- [x] Full validation is green: Node 74/74, Python 99/99, Playwright Chromium 19/19 serially, ESLint, TypeScript, all three data/schema validations, build, and worktree/build no-photo scans.
+- [x] Focused relay tests pass (9/9), including a hard cap on rate-limit client state with an aggregate overflow bucket; deploy/rollback, Nginx manager, and screenshot-scanner Python tests pass (29/29); ESLint passes. Live in-memory service verification returned 330×220 JPEG (39,751 bytes) and 960×640 JPEG (247,773 bytes). Production Nginx/service installation remains for the release phase.
+- [x] Full local validation after review fixes is green: Node 76/76, Python 99/99, Playwright Chromium 19/19 serially, ESLint, TypeScript, all three data/schema validations, build, and worktree/build no-photo scans. The local browser suite used a persistent static server after the Playwright-managed server exited during an earlier run.
+- [x] Independent read-only review completed on 82304d2. Its two Important findings were fixed with regression tests: mixed-generation-span crossings are represented by virtual layered segments, and unique client addresses share a bounded overflow bucket after the rate table reaches its cap. Follow-up review and CI for these fixes are pending.
 - [x] Capture reproducible after metrics and paired desktop/mobile screenshots; compute the seven-case comparison report. All seven cases reduce both crossings and route length.
-- [ ] Complete independent review and green GitHub CI; push and merge reviewed commits.
+- [ ] Complete follow-up review and green GitHub CI; push and merge the reviewed fixes.
 - [ ] Back up release state, deploy the four Atlas paths and relay integration, verify image HTTP bytes and Chromium rendering, and record rollback evidence.
 - [ ] Confirm legacy /red-panda/ unchanged and publish docs/PHASE4_RELEASE.md.

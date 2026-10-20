@@ -17,6 +17,8 @@ const DEFAULT_TIMEOUT_MS = 6000;
 const DEFAULT_MAX_REDIRECTS = 2;
 const DEFAULT_RATE_LIMIT = 60;
 const DEFAULT_RATE_WINDOW_MS = 60_000;
+const DEFAULT_MAX_RATE_BUCKETS = 4096;
+const RATE_LIMIT_OVERFLOW_KEY = Symbol('overflow rate bucket');
 const DEFAULT_MAX_CONCURRENT = 12;
 const TOTAL_MAX_BYTES = 393_216;
 const PUBLIC_MEDIA_FORMAT = 'animal-lineage-atlas-approved-media-v1';
@@ -405,6 +407,9 @@ export function createMediaRelayServer(options = {}) {
   const now = options.now ?? Date.now;
   const rateLimit = options.maxRequestsPerMinute ?? DEFAULT_RATE_LIMIT;
   const rateWindowMs = options.rateWindowMs ?? DEFAULT_RATE_WINDOW_MS;
+  const maxRateBuckets = Number.isInteger(options.maxRateBuckets)
+    ? Math.max(2, options.maxRateBuckets)
+    : DEFAULT_MAX_RATE_BUCKETS;
   const maxConcurrent = options.maxConcurrent ?? DEFAULT_MAX_CONCURRENT;
   const cache = new Map();
   const rate = new Map();
@@ -438,15 +443,27 @@ export function createMediaRelayServer(options = {}) {
   };
   const rateLimited = (address) => {
     const timestamp = now();
-    let bucket = rate.get(address);
+    let key = address;
+    let bucket = rate.get(key);
+    if (!bucket && rate.size >= maxRateBuckets - 1) {
+      const overflowBucket = rate.get(RATE_LIMIT_OVERFLOW_KEY);
+      if (overflowBucket && overflowBucket.expiresAt > timestamp) {
+        key = RATE_LIMIT_OVERFLOW_KEY;
+        bucket = overflowBucket;
+      } else {
+        if (overflowBucket) rate.delete(RATE_LIMIT_OVERFLOW_KEY);
+        for (const [existingKey, existingBucket] of rate) {
+          if (existingBucket.expiresAt <= timestamp) rate.delete(existingKey);
+        }
+        if (rate.size >= maxRateBuckets - 1) key = RATE_LIMIT_OVERFLOW_KEY;
+        bucket = rate.get(key);
+      }
+    }
     if (!bucket || bucket.expiresAt <= timestamp) {
       bucket = { count: 0, expiresAt: timestamp + rateWindowMs };
-      rate.set(address, bucket);
+      rate.set(key, bucket);
     }
     bucket.count += 1;
-    if (rate.size > 4096) {
-      for (const [key, value] of rate) if (value.expiresAt <= timestamp) rate.delete(key);
-    }
     return bucket.count > rateLimit ? Math.max(1, Math.ceil((bucket.expiresAt - timestamp) / 1000)) : 0;
   };
 

@@ -578,6 +578,43 @@ test('layout optimizer removes a feasible crossing without changing rows, nodes,
   assert.equal(metricsModule.measureGenealogyGraph({ nodes: result.nodes, edges, generationRows: result.generationRows, truncated: false }, 'focused').crossingPairs, 0);
 });
 
+test('large-graph optimizer detects and removes crossings between edges with different generation spans', async () => {
+  const optimizer = await loadLayoutOptimizer();
+  const metricsModule = await loadLayoutMetrics();
+  assert.ok(optimizer, 'generation-row optimizer should load');
+  assert.ok(metricsModule, 'layout metrics should load');
+  const rows = [
+    { generation: 0, animalIds: ['a'] },
+    { generation: 1, animalIds: ['other-1', 'b'] },
+    { generation: 2, animalIds: ['other-2', 'd'] },
+    { generation: 3, animalIds: ['c'] },
+    { generation: 10, animalIds: Array.from({ length: 501 }, (_, index) => `isolated-${index}`) },
+  ];
+  const nodes = rows.flatMap((row) => row.animalIds.map((id, index) => metricNode(
+    id,
+    (index - (row.animalIds.length - 1) / 2) * 200,
+    row.generation * 200,
+    row.generation,
+  )));
+  const nodesById = new Map(nodes.map((node) => [node.id, node]));
+  const edges = [metricEdge('long-edge', 'a', 'd'), metricEdge('offset-edge', 'b', 'c')];
+  const options = { maxSweeps: 0, maxExactCandidates: 0, maxSwapEvaluations: 0 };
+  const initial = optimizer.optimizeGenerationRows(rows, edges, nodesById, 'global', options);
+  const crossings = (result) => metricsModule.countGenealogyRouteCrossings({
+    nodes: result.nodes,
+    edges,
+    generationRows: result.generationRows,
+    truncated: false,
+  }, 'global');
+  assert.equal(crossings(initial), 1, 'the fixture has one rendered crossing across overlapping, unequal edge spans');
+
+  const optimized = optimizer.optimizeGenerationRows(rows, edges, nodesById, 'global', {
+    ...options,
+    maxSwapEvaluations: 1,
+  });
+  assert.equal(crossings(optimized), 0, 'the span-aware candidate score accepts the crossing-free adjacent swap');
+});
+
 test('layout optimizer preserves one shared ancestor and every pedigree-collapse edge', async () => {
   const optimizer = await loadLayoutOptimizer();
   assert.ok(optimizer, 'generation-row optimizer should load');

@@ -372,50 +372,77 @@ function makeNormalizedRanks(rows: GenerationRow[]): Map<string, number> {
   return ranks;
 }
 
+/** Split long edges into virtual row-to-row segments so mixed generation spans can cross. */
 function countLayeredCrossings(rows: GenerationRow[], edges: GraphEdge[], nodesById: ReadonlyMap<string, GraphNode>): number {
-  const rankById = new Map<string, number>();
-  for (const row of rows) row.animalIds.forEach((id, index) => rankById.set(id, index));
-  const groups = new Map<string, GraphEdge[]>();
+  const generations = rows.map((row) => row.generation).sort((left, right) => left - right);
+  const crossingsByBand = new Map<string, Array<{ startX: number; endX: number; edge: GraphEdge }>>();
+  const sameGeneration = new Map<number, Array<{ startX: number; endX: number; edge: GraphEdge }>>();
   for (const edge of edges) {
     const from = nodesById.get(edge.from);
     const to = nodesById.get(edge.to);
     if (!from || !to || from.id === to.id) continue;
-    const key = `${from.generation}\u0000${to.generation}`;
-    const group = groups.get(key) ?? [];
-    group.push(edge);
-    groups.set(key, group);
+    if (from.generation === to.generation) {
+      const group = sameGeneration.get(from.generation) ?? [];
+      group.push({ startX: from.x, endX: to.x, edge });
+      sameGeneration.set(from.generation, group);
+      continue;
+    }
+
+    const minimumGeneration = Math.min(from.generation, to.generation);
+    const maximumGeneration = Math.max(from.generation, to.generation);
+    for (let index = 0; index < generations.length - 1; index += 1) {
+      const upperGeneration = generations[index];
+      const lowerGeneration = generations[index + 1];
+      if (upperGeneration === undefined || lowerGeneration === undefined
+        || upperGeneration < minimumGeneration || lowerGeneration > maximumGeneration) continue;
+      const span = to.generation - from.generation;
+      const upperFraction = (upperGeneration - from.generation) / span;
+      const lowerFraction = (lowerGeneration - from.generation) / span;
+      const groupKey = `${upperGeneration}\u0000${lowerGeneration}`;
+      const group = crossingsByBand.get(groupKey) ?? [];
+      group.push({
+        startX: from.x + (to.x - from.x) * upperFraction,
+        endX: from.x + (to.x - from.x) * lowerFraction,
+        edge,
+      });
+      crossingsByBand.set(groupKey, group);
+    }
   }
 
+  return [...crossingsByBand.values(), ...sameGeneration.values()]
+    .reduce((total, segments) => total + countSegmentCrossings(segments), 0);
+}
+
+function countSegmentCrossings(segments: Array<{ startX: number; endX: number; edge: GraphEdge }>): number {
+  const ordered = [...segments].sort((left, right) => left.startX - right.startX
+    || left.endX - right.endX
+    || left.edge.from.localeCompare(right.edge.from)
+    || left.edge.to.localeCompare(right.edge.to));
+  if (ordered.length < 2) return 0;
+  const endRanks = new Map([...new Set(ordered.map((item) => item.endX))]
+    .sort((left, right) => left - right)
+    .map((x, index) => [x, index]));
+  const tree = new FenwickTree(endRanks.size);
+  let inserted = 0;
   let crossings = 0;
-  for (const group of groups.values()) {
-    const ordered = group.flatMap((edge) => {
-      const fromRank = rankById.get(edge.from);
-      const toRank = rankById.get(edge.to);
-      return fromRank === undefined || toRank === undefined ? [] : [{ edge, fromRank, toRank }];
-    }).sort((left, right) => left.fromRank - right.fromRank
-      || left.edge.from.localeCompare(right.edge.from)
-      || left.toRank - right.toRank
-      || left.edge.to.localeCompare(right.edge.to));
-    if (ordered.length < 2) continue;
-    const targetCount = Math.max(...ordered.map((item) => item.toRank)) + 1;
-    const tree = new FenwickTree(targetCount);
-    let inserted = 0;
-    for (let start = 0; start < ordered.length;) {
-      let end = start + 1;
-      while (end < ordered.length && ordered[end]?.edge.from === ordered[start]?.edge.from) end += 1;
-      for (let index = start; index < end; index += 1) {
-        const item = ordered[index];
-        if (!item) continue;
-        crossings += inserted - tree.sum(item.toRank + 1);
-      }
-      for (let index = start; index < end; index += 1) {
-        const item = ordered[index];
-        if (!item) continue;
-        tree.add(item.toRank, 1);
-        inserted += 1;
-      }
-      start = end;
+  for (let start = 0; start < ordered.length;) {
+    let end = start + 1;
+    while (end < ordered.length && Math.abs((ordered[end]?.startX ?? 0) - (ordered[start]?.startX ?? 0)) <= EPSILON) end += 1;
+    for (let index = start; index < end; index += 1) {
+      const item = ordered[index];
+      if (!item) continue;
+      const endRank = endRanks.get(item.endX);
+      if (endRank !== undefined) crossings += inserted - tree.sum(endRank + 1);
     }
+    for (let index = start; index < end; index += 1) {
+      const item = ordered[index];
+      if (!item) continue;
+      const endRank = endRanks.get(item.endX);
+      if (endRank === undefined) continue;
+      tree.add(endRank, 1);
+      inserted += 1;
+    }
+    start = end;
   }
   return crossings;
 }
