@@ -64,8 +64,9 @@ The browser requests each approved full-size original directly from `upload.wiki
 - [x] Embed only individually identified/rights-cleared photos, load originals directly in Chromium, expose per-file credits/licenses/sources, and keep all unverified records link-only.
 - [x] Pass full local data, Python, Node, lint, type, build, no-photo, and serial browser checks; complete independent reviews.
 - [x] Push the branch and open Phase 5 PR [#11](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/pull/11).
-- [ ] Review green CI on the exact PR head, complete merge review, and merge.
+- [x] GitHub Atlas CI run [39467295994](https://github.com/vvyatkin-afk/Animal-Lineage-Atlas/actions/runs/39467295994) passed on PR head `fdefeb479a2df21009d2c06b4ede3fd26dbfb4cc`.
+- [ ] Merge the reviewed PR head after its current post-evidence-update CI run passes.
 - [ ] Deploy all four Atlas routes atomically with a recorded rollback manifest; smoke-test them and confirm `/red-panda/` and unrelated projects remain unchanged.
 - [ ] Write final production SHA, public route URLs, CI evidence, deployment manifest, and verified rollback commands to `docs/PHASE5_RELEASE.md`.
 
-Production is still on Phase 4 until the remaining CI, merge, deploy and live-smoke steps are complete. First Phase 5 branch commit: `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`. Phase 5 implementation commit: `42ada5f883f8950493a9d0215cb9254b24c95d60`. Evidence update: `b5b019e` (before this PR-tracking edit). PR #11 is open; its first post-implementation Atlas CI run began at 2026-10-20 17:34 UTC.
+Production is still on Phase 4 until merge, deploy and live-smoke steps are complete. First Phase 5 branch commit: `6ddcaf9995db87c08b56da0721f6c2ae5d8ca905`. Phase 5 implementation commit: `42ada5f883f8950493a9d0215cb9254b24c95d60`. Evidence update: `b5b019e`. CI run `39467295994` passed at 2026-10-20 17:35 UTC on head `fdefeb479a2df21009d2c06b4ede3fd26dbfb4cc`; the progress update adding that result starts a new CI run before merge.
