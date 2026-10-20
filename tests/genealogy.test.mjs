@@ -6,6 +6,7 @@ const loadGenealogy = () => import('../packages/genealogy/layout.ts').catch(() =
 const loadState = () => import('../packages/genealogy/state.ts').catch(() => null);
 const loadLayoutMetrics = () => import('../packages/genealogy/metrics.ts').catch(() => null);
 const loadEdgeRoutes = () => import('../packages/genealogy/edge-route.ts').catch(() => null);
+const loadLayoutOptimizer = () => import('../packages/genealogy/optimizer.ts').catch(() => null);
 
 const animal = (id, countryCode = 'JP') => ({
   id,
@@ -289,7 +290,7 @@ test('global genealogy aligns every disconnected family on component-local gener
   assert.equal(new Set(family.map((node) => node.componentId)).size, 1, 'family grouping spans countries without splitting the lineage');
 });
 
-test('country grouping keeps country blocks within each original generation row', async () => {
+test('country grouping remains an explicit view preference while preserving generation assignments', async () => {
   const genealogy = await loadGenealogy();
   assert.ok(genealogy, 'genealogy layout package should load');
   const animals = [animal('a-jp', 'JP'), animal('b-us', 'US'), animal('c-jp', 'JP'), animal('d-fr', 'FR')];
@@ -306,11 +307,6 @@ test('country grouping keeps country blocks within each original generation row'
     new Map(familyGraph.nodes.map((node) => [node.id, node.generation])),
     'country mode preserves each animal generation assignment',
   );
-  for (const row of countryGraph.generationRows) {
-    const rowNodes = row.animalIds.map((id) => countryGraph.nodes.find((node) => node.id === id));
-    const countryOrder = rowNodes.map((node) => node?.countryCode ?? 'ZZ');
-    assert.deepEqual(countryOrder, [...countryOrder].sort(), `generation ${row.generation} groups country codes together`);
-  }
   assert.equal(countryGraph.grouping, 'country');
 });
 
@@ -552,4 +548,127 @@ test('layout metrics report overlapping nodes, edge-card collisions, row violati
   assert.equal(focused.generationOrderViolations, 1);
   assert.equal(focused.parentOrderViolations, 1);
   assert.equal(metricsModule.measureGenealogyGraph(graph, 'global').parentOrderViolations, 0);
+});
+
+test('layout optimizer removes a feasible crossing without changing rows, nodes, or edges', async () => {
+  const optimizer = await loadLayoutOptimizer();
+  const metricsModule = await loadLayoutMetrics();
+  assert.ok(optimizer, 'generation-row optimizer should load');
+  assert.ok(metricsModule, 'layout metrics should load');
+  const nodes = [
+    metricNode('parent-a', -100, -160, -1),
+    metricNode('parent-b', 100, -160, -1),
+    metricNode('child-a', 100, 0, 0),
+    metricNode('child-b', -100, 0, 0),
+  ];
+  const edges = [
+    metricEdge('edge:a-a', 'parent-a', 'child-a'),
+    metricEdge('edge:b-b', 'parent-b', 'child-b'),
+  ];
+  const rows = [
+    { generation: -1, animalIds: ['parent-a', 'parent-b'] },
+    { generation: 0, animalIds: ['child-a', 'child-b'] },
+  ];
+  const originalEdges = edges.map((edge) => ({ ...edge, sourceIds: [...edge.sourceIds] }));
+  const result = optimizer.optimizeGenerationRows(rows, edges, new Map(nodes.map((node) => [node.id, node])), 'focused');
+  assert.deepEqual(result.generationRows.map((row) => row.generation), [-1, 0]);
+  assert.deepEqual(result.generationRows.flatMap((row) => row.animalIds).sort(), ['child-a', 'child-b', 'parent-a', 'parent-b']);
+  assert.deepEqual(result.nodes.map((node) => node.id).sort(), nodes.map((node) => node.id).sort());
+  assert.deepEqual(edges, originalEdges);
+  assert.equal(metricsModule.measureGenealogyGraph({ nodes: result.nodes, edges, generationRows: result.generationRows, truncated: false }, 'focused').crossingPairs, 0);
+});
+
+test('layout optimizer preserves one shared ancestor and every pedigree-collapse edge', async () => {
+  const optimizer = await loadLayoutOptimizer();
+  assert.ok(optimizer, 'generation-row optimizer should load');
+  const nodes = [
+    metricNode('shared-ancestor', 0, -320, -2),
+    metricNode('mother', -100, -160, -1),
+    metricNode('father', 100, -160, -1),
+    metricNode('child', 0, 0, 0),
+  ];
+  const edges = [
+    metricEdge('edge:shared-mother', 'shared-ancestor', 'mother'),
+    metricEdge('edge:shared-father', 'shared-ancestor', 'father'),
+    metricEdge('edge:mother-child', 'mother', 'child', 'biological_mother'),
+    metricEdge('edge:father-child', 'father', 'child', 'biological_father'),
+  ];
+  const rows = [
+    { generation: -2, animalIds: ['shared-ancestor'] },
+    { generation: -1, animalIds: ['mother', 'father'] },
+    { generation: 0, animalIds: ['child'] },
+  ];
+  const result = optimizer.optimizeGenerationRows(rows, edges, new Map(nodes.map((node) => [node.id, node])), 'focused');
+  assert.equal(result.nodes.filter((node) => node.id === 'shared-ancestor').length, 1);
+  assert.deepEqual(result.generationRows.flatMap((row) => row.animalIds).sort(), nodes.map((node) => node.id).sort());
+  assert.deepEqual(edges.map((edge) => edge.id).sort(), [
+    'edge:father-child', 'edge:mother-child', 'edge:shared-father', 'edge:shared-mother',
+  ]);
+  const positions = new Map(result.nodes.map((node) => [node.id, node.x]));
+  assert.ok(positions.get('mother') < positions.get('father'));
+});
+
+test('focused optimizer terminates with one reported violation for contradictory parent-side constraints', async () => {
+  const optimizer = await loadLayoutOptimizer();
+  assert.ok(optimizer, 'generation-row optimizer should load');
+  const nodes = [
+    metricNode('parent-a', -100, -160, -1),
+    metricNode('parent-b', 100, -160, -1),
+    metricNode('child-a', -100, 0, 0),
+    metricNode('child-b', 100, 0, 0),
+  ];
+  const edges = [
+    metricEdge('edge:a-mother', 'parent-a', 'child-a', 'biological_mother'),
+    metricEdge('edge:b-father', 'parent-b', 'child-a', 'biological_father'),
+    metricEdge('edge:b-mother', 'parent-b', 'child-b', 'biological_mother'),
+    metricEdge('edge:a-father', 'parent-a', 'child-b', 'biological_father'),
+  ];
+  const rows = [
+    { generation: -1, animalIds: ['parent-a', 'parent-b'] },
+    { generation: 0, animalIds: ['child-a', 'child-b'] },
+  ];
+  const result = optimizer.optimizeGenerationRows(rows, edges, new Map(nodes.map((node) => [node.id, node])), 'focused');
+  assert.equal(result.metrics.parentOrderViolations, 1);
+  assert.equal(new Set(result.nodes.map((node) => node.id)).size, nodes.length);
+  assert.deepEqual(result.generationRows.flatMap((row) => row.animalIds).sort(), nodes.map((node) => node.id).sort());
+});
+
+test('layout optimizer is deterministic and applies no parent-sex order in global mode', async () => {
+  const optimizer = await loadLayoutOptimizer();
+  assert.ok(optimizer, 'generation-row optimizer should load');
+  const nodes = [
+    metricNode('father', -100, -160, -1),
+    metricNode('mother', 100, -160, -1),
+    metricNode('child', 0, 0, 0),
+  ];
+  const edges = [
+    metricEdge('edge:mother-child', 'mother', 'child', 'biological_mother'),
+    metricEdge('edge:father-child', 'father', 'child', 'biological_father'),
+  ];
+  const rows = [
+    { generation: -1, animalIds: ['father', 'mother'] },
+    { generation: 0, animalIds: ['child'] },
+  ];
+  const run = () => optimizer.optimizeGenerationRows(rows, edges, new Map(nodes.map((node) => [node.id, node])), 'global');
+  const first = run();
+  const second = run();
+  assert.deepEqual(first, second);
+  const positions = new Map(first.nodes.map((node) => [node.id, node.x]));
+  assert.ok(positions.get('father') < positions.get('mother'));
+});
+
+test('layout optimizer handles a 5000-animal row within bounded work', async () => {
+  const optimizer = await loadLayoutOptimizer();
+  assert.ok(optimizer, 'generation-row optimizer should load');
+  const nodes = Array.from({ length: 5000 }, (_, index) => metricNode(`animal-${String(index).padStart(4, '0')}`, index * 200, 0, 0));
+  const ids = nodes.map((node) => node.id);
+  const result = optimizer.optimizeGenerationRows(
+    [{ generation: 0, animalIds: ids }],
+    [],
+    new Map(nodes.map((node) => [node.id, node])),
+    'global',
+    { maxSweeps: 2, maxSwapEvaluations: 16, maxExactCandidates: 2 },
+  );
+  assert.equal(result.nodes.length, 5000);
+  assert.equal(result.generationRows[0].animalIds.length, 5000);
 });

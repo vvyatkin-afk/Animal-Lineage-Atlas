@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 11:23 UTC
+Updated: 2026-10-20 11:36 UTC
 
 ## Approved scope and baseline
 
@@ -28,13 +28,31 @@ The baseline has no node overlaps or generation-order violations. The full red-p
 
 The production atlases contain zero media records, so the existing resolver has no image to display. A newly verified Futa image is available from Wikimedia Commons: File:Futa 20261004 3.jpg, by Misei sen, CC BY 4.0. The file page identifies the subject in Japanese as Chiba City Zoo's Futa, and Chiba Zoo's official 2026 page identifies Futa and says he will turn 23 on 2026-07-05. Required attribution is photographer credit, license link, and notice of changes. Sources: [Commons file/license](https://commons.wikimedia.org/wiki/File:Futa_20261004_3.jpg) and [Chiba City Zoo 23rd-birthday page](https://www.city.chiba.jp/zoo/event/0705futabirthday.html). No image bytes have been downloaded or stored. Rights for additional red pandas, polar bears, and hippos remain under review; unverified records stay link-only.
 
+## Layout optimizer checkpoint
+
+The optimizer keeps generation rows, IDs, and relationship records fixed. Focused mode enforces mother-left/father-right using stable precedence ordering; contradictory constraints terminate deterministically and report the violations that cannot be satisfied together. Global mode has no sex-side constraint. The family view optimizes each relationship-connected component as a block, including its social edges, to avoid creating crossings between unrelated groups.
+
+For interactive performance, candidate search on a global graph above 500 nodes uses generation-span inversion counts and sampled route length. Exact rendered-route crossings are measured for the resulting release layout; exact crossing counts choose among candidates for focused and smaller global graphs. The 1,554-node global red-panda build completes in about 0.95 seconds, and a 5,000-node row-only fixture in about 0.22 seconds. This is a bounded heuristic, not a global-optimality claim.
+
+| View | Baseline crossings | After crossings | Change | Baseline route length | After route length | Change |
+|---|---:|---:|---:|---:|---:|---:|
+| Red panda, all 1,554 animals | 48,041 | 43,050 | −10.4% | 5,472,576.87 | 4,657,060.61 | −14.9% |
+| Red panda, largest 823-animal component | 35,210 | 31,352 | −11.0% | 3,428,194.25 | 3,163,209.23 | −7.7% |
+| Futa focused, depth 3 | 277 | 6 | −97.8% | 126,772.03 | 102,548.13 | −19.1% |
+| Futa focused, all known | 286 | 18 | −93.7% | 142,595.56 | 121,431.54 | −14.8% |
+| Rakesh focused, depth 3 | 10 | 4 | −60.0% | 4,049.75 | 2,908.52 | −28.2% |
+| Polar bear, all | 33 | 28 | −15.2% | 16,217.28 | 15,820.18 | −2.4% |
+| Hippopotamus, all | 39 | 35 | −10.3% | 27,100.89 | 26,477.58 | −2.3% |
+
+These measurements use 24-segment renderer curves, transverse-intersection rules, shared-endpoint exclusions, and full centerline lengths. The optimized cases have no node overlaps, generation-order violations, or focused parent-side violations. Interim machine-readable output: `/tmp/phase4-after-layout-metrics.json`. Task 6 will commit the reproducible after report and screenshot comparisons.
+
 ## Milestones
 
 - [x] Read the full approved brief and media-rights policy.
 - [x] Capture production baseline screenshots and graph metrics before implementation.
 - [x] Prepare bounded architecture and test-first implementation tasks in docs/superpowers/plans/2026-10-20-phase4-layout-media.md.
 - [x] Implement shared rendered-route metrics; 57/57 Node tests and TypeScript checks pass. The expected-red log and API-missing failure are recorded in the ignored SDD ledger.
-- [ ] Implement deterministic focused/global layout optimization.
+- [x] Implement deterministic focused/global layout optimization; 27/27 genealogy tests and TypeScript checks pass.
 - [ ] Add focused-only parent ordering, regression fixtures, and opt-in diagnostics.
 - [ ] Add verified media metadata, same-origin UI references, and secure relay service.
 - [ ] Run serial browser and full Node/Python/schema/lint/type checks; capture before/after comparisons.

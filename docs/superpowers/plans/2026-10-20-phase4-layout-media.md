@@ -63,12 +63,14 @@
 - Focus mode uses alternating barycenter/median sweeps, bounded adjacent swaps, mother-left/father-right constraints, and exact rendered-route crossing evaluation for accepted candidates.
 - Global mode uses the same crossing-first objective with no parent-sex ordering; country grouping remains an explicit view choice.
 - Route-length refinement runs only among layouts with the best crossing count; horizontal spacing remains non-overlapping and width/movement break ties.
+- The family view packs relationship-connected components and optimizes each component's rows together, including its social edges, so unrelated components do not create cross-component parentage lines.
+- Runtime bound: for global graphs above 500 nodes, candidate ranking uses generation-span inversion counts plus rendered route length instead of exact all-pairs curve scoring. Exact sampled-route crossings are measured on the resulting release layout. Focused and smaller global graphs use exact route crossings to choose among candidates. The full 1,554-node layout remains below the existing two-second budget.
 
-- [ ] Add failing tests for zero-crossing feasible pedigrees, shared ancestors, related/polygamous conflict, deterministic output, and no global sex-side enforcement.
-- [ ] Run the focused tests and verify they fail before implementation.
-- [ ] Implement bounded sweeps, local swaps, and horizontal compaction without changing relationship records.
-- [ ] Run genealogy tests and the 5,000-record scale fixture.
-- [ ] Commit the optimizer change.
+- [x] Add failing tests for zero-crossing feasible pedigrees, shared ancestors, related/polygamous conflict, deterministic output, and no global sex-side enforcement.
+- [x] Run the focused tests and verify they fail before implementation.
+- [x] Implement bounded sweeps, local swaps, and horizontal compaction without changing relationship records.
+- [x] Run genealogy tests and the 5,000-record scale fixture.
+- [x] Commit the optimizer change.
 
 ### Task 3: Focused/global UI diagnostics and tree rendering
 

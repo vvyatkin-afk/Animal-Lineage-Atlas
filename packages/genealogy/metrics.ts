@@ -94,27 +94,6 @@ function pathCrossesAt(
     && rightSideBefore * rightSideAfter < -EPSILON;
 }
 
-function routeIntersectsRoute(left: GenealogyEdgeRoute, right: GenealogyEdgeRoute): boolean {
-  if (!boxesOverlap(left.bounds, right.bounds)) return false;
-  for (let leftIndex = 1; leftIndex < left.points.length; leftIndex += 1) {
-    const leftStart = left.points[leftIndex - 1];
-    const leftEnd = left.points[leftIndex];
-    if (!leftStart || !leftEnd) continue;
-    const leftSegmentBounds = segmentBounds(leftStart, leftEnd);
-    for (let rightIndex = 1; rightIndex < right.points.length; rightIndex += 1) {
-      const rightStart = right.points[rightIndex - 1];
-      const rightEnd = right.points[rightIndex];
-      if (!rightStart || !rightEnd || !boxesOverlap(leftSegmentBounds, segmentBounds(rightStart, rightEnd))) continue;
-      const intersection = segmentIntersection(leftStart, leftEnd, rightStart, rightEnd);
-      if (!intersection) continue;
-      const leftPosition = leftIndex - 1 + intersection.alongA;
-      const rightPosition = rightIndex - 1 + intersection.alongB;
-      if (pathCrossesAt(left, leftPosition, right, rightPosition)) return true;
-    }
-  }
-  return false;
-}
-
 function segmentIntersectsRectangle(start: RoutePoint, end: RoutePoint, bounds: RouteBounds): boolean {
   const deltaX = end.x - start.x;
   const deltaY = end.y - start.y;
@@ -196,26 +175,66 @@ function measureBounds(nodes: GraphNode[]): { bounds: LayoutMetrics['bounds']; g
   return { bounds: { left, top, right, bottom, width: right - left, height: bottom - top }, generationWidths };
 }
 
-/** Measure centerline geometry shared by the renderer, diagnostics, and release reports. */
-export function measureGenealogyGraph(graph: GenealogyGraph, mode: GenealogyRouteMode): LayoutMetrics {
+/** Count exact sampled centerline crossings without calculating node collisions. */
+export function countGenealogyRouteCrossings(graph: GenealogyGraph, mode: GenealogyRouteMode): number {
   const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
   const routes = graph.edges.flatMap((edge) => {
     const route = routeGenealogyEdge(edge, nodesById, mode);
     return route ? [route] : [];
-  }).sort((left, right) => left.bounds.left - right.bounds.left || left.id.localeCompare(right.id));
+  });
 
-  let crossingPairs = 0;
-  for (let leftIndex = 0; leftIndex < routes.length; leftIndex += 1) {
-    const left = routes[leftIndex];
-    if (!left) continue;
-    for (let rightIndex = leftIndex + 1; rightIndex < routes.length; rightIndex += 1) {
-      const right = routes[rightIndex];
-      if (!right || right.bounds.left > left.bounds.right) break;
-      if (left.edge.from === right.edge.from || left.edge.from === right.edge.to
-        || left.edge.to === right.edge.from || left.edge.to === right.edge.to) continue;
-      if (routeIntersectsRoute(left, right)) crossingPairs += 1;
+  // Sweep sampled segment bounds instead of testing every pair of 24-segment
+  // curves. This preserves the same exact segment/intersection rule while
+  // keeping global graph optimization responsive.
+  const segments: Array<{ routeIndex: number; segmentIndex: number; start: RoutePoint; end: RoutePoint; bounds: RouteBounds }> = [];
+  routes.forEach((route, routeIndex) => {
+    for (let segmentIndex = 1; segmentIndex < route.points.length; segmentIndex += 1) {
+      const start = route.points[segmentIndex - 1];
+      const end = route.points[segmentIndex];
+      if (start && end) segments.push({ routeIndex, segmentIndex, start, end, bounds: segmentBounds(start, end) });
     }
+  });
+  segments.sort((left, right) => left.bounds.left - right.bounds.left
+    || left.bounds.top - right.bounds.top
+    || left.routeIndex - right.routeIndex
+    || left.segmentIndex - right.segmentIndex);
+
+  const crossedRoutePairs = new Set<number>();
+  const active: typeof segments = [];
+  for (const current of segments) {
+    let activeWrite = 0;
+    for (const prior of active) {
+      if (prior.bounds.right + EPSILON < current.bounds.left) continue;
+      active[activeWrite] = prior;
+      activeWrite += 1;
+      if (prior.routeIndex === current.routeIndex || !boxesOverlap(prior.bounds, current.bounds)) continue;
+      const leftRoute = routes[current.routeIndex];
+      const rightRoute = routes[prior.routeIndex];
+      if (!leftRoute || !rightRoute) continue;
+      if (leftRoute.edge.from === rightRoute.edge.from || leftRoute.edge.from === rightRoute.edge.to
+        || leftRoute.edge.to === rightRoute.edge.from || leftRoute.edge.to === rightRoute.edge.to) continue;
+      const pairKey = Math.min(current.routeIndex, prior.routeIndex) * routes.length + Math.max(current.routeIndex, prior.routeIndex);
+      if (crossedRoutePairs.has(pairKey)) continue;
+      const intersection = segmentIntersection(current.start, current.end, prior.start, prior.end);
+      if (!intersection) continue;
+      const currentPosition = current.segmentIndex - 1 + intersection.alongA;
+      const priorPosition = prior.segmentIndex - 1 + intersection.alongB;
+      if (pathCrossesAt(leftRoute, currentPosition, rightRoute, priorPosition)) crossedRoutePairs.add(pairKey);
+    }
+    active.length = activeWrite;
+    active.push(current);
   }
+  return crossedRoutePairs.size;
+}
+
+/** Measure centerline geometry shared by the renderer, diagnostics, and release reports. */
+export function measureGenealogyGraph(graph: GenealogyGraph, mode: GenealogyRouteMode): LayoutMetrics {
+  const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const crossingPairs = countGenealogyRouteCrossings(graph, mode);
+  const routes = graph.edges.flatMap((edge) => {
+    const route = routeGenealogyEdge(edge, nodesById, mode);
+    return route ? [route] : [];
+  });
 
   let edgeNodeCollisionPairs = 0;
   for (const route of routes) {
