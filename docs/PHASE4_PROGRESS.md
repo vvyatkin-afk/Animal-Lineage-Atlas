@@ -1,6 +1,6 @@
 # Phase 4 Progress
 
-Updated: 2026-10-20 12:12 UTC
+Updated: 2026-10-20 12:27 UTC
 
 ## Approved scope and baseline
 
@@ -46,7 +46,9 @@ For interactive performance, candidate search on a global graph above 500 nodes 
 | Polar bear, all | 33 | 28 | −15.2% | 16,217.28 | 15,820.18 | −2.4% |
 | Hippopotamus, all | 39 | 35 | −10.3% | 27,100.89 | 26,477.58 | −2.3% |
 
-These measurements use 24-segment renderer curves, transverse-intersection rules, shared-endpoint exclusions, and full centerline lengths. The optimized cases have no node overlaps, generation-order violations, or focused parent-side violations. Interim machine-readable output: `/tmp/phase4-after-layout-metrics.json`. Task 6 will commit the reproducible after report and screenshot comparisons.
+These measurements use 24-segment renderer curves, transverse-intersection rules, shared-endpoint exclusions, and full centerline lengths. The optimized cases have no node overlaps, generation-order violations, or focused parent-side violations. Reproducible after metrics are in [layout-metrics.json](../reports/phase4/after/layout-metrics.json); [layout-comparison.json](../reports/phase4/comparisons/layout-comparison.json) records all seven baseline comparisons and constraints.
+
+The after capture pairs the same 14 desktop and mobile views with baseline screenshots. Hashes, viewport, visible node counts, and capture revision are recorded in [screenshot-manifest.json](../reports/phase4/after/screenshot-manifest.json). The Futa profile screenshots include the 960×640 licensed relay image and its photographer/license attribution; the capture serves the image through the actual relay code in memory. The no-photo scanner accepts these PNGs only by their listed hashes. The resulting fit-all views show all 1,554 red-panda nodes, 72 polar bears, and 96 hippos; the largest-component view reports 826 visible nodes at desktop fit scale.
 
 ## Milestones
 
@@ -62,7 +64,8 @@ These measurements use 24-segment renderer curves, transverse-intersection rules
 - [x] Stage full relay code and allowlist under `/var/lib/animal-lineage-atlas`, outside Nginx's document root. Release manifests record previous relay targets and enablement; failed activation restores the prior service state. Rollback also restores the four Atlas symlinks and stops/disables the service when no earlier relay existed.
 - [x] Add a reversible Nginx manager. It inserts one include into the existing Atlas server block, saves a mode-0700 backup, validates and reloads, and restores only when installed file hashes still match. It does not rewrite any `/red-panda/` location.
 - [x] Focused relay tests pass (8/8); deploy/rollback, Nginx manager, and screenshot-scanner Python tests pass (29/29); ESLint passes. Live in-memory service verification returned 330×220 JPEG (39,751 bytes) and 960×640 JPEG (247,773 bytes). Production Nginx/service installation remains for the release phase.
-- [ ] Run serial browser and full Node/Python/schema/lint/type checks; capture before/after comparisons.
+- [x] Full validation is green: Node 74/74, Python 99/99, Playwright Chromium 19/19 serially, ESLint, TypeScript, all three data/schema validations, build, and worktree/build no-photo scans.
+- [x] Capture reproducible after metrics and paired desktop/mobile screenshots; compute the seven-case comparison report. All seven cases reduce both crossings and route length.
 - [ ] Complete independent review and green GitHub CI; push and merge reviewed commits.
 - [ ] Back up release state, deploy the four Atlas paths and relay integration, verify image HTTP bytes and Chromium rendering, and record rollback evidence.
 - [ ] Confirm legacy /red-panda/ unchanged and publish docs/PHASE4_RELEASE.md.

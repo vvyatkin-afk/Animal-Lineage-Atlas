@@ -148,7 +148,7 @@
 - [x] Run the focused tests and verify each security case fails before implementation.
 - [x] Implement the service, tests, service unit, scoped Nginx snippet, deploy/rollback tracking, reversible Nginx manager, and policy documentation.
 - [x] Run relay, server/deployment tests, and the no-photo scan. The live source check also verified both actual JPEG variants in memory.
-- [ ] Commit the relay and operational change.
+- [x] Commit the relay and operational change (`6da1513`).
 
 ### Task 6: Full Phase 4 validation, review, CI, and release
 
@@ -157,13 +157,15 @@
 - Create: tools/measure_layout_phase4.mjs
 - Create: reports/phase4/after/layout-metrics.json
 - Create: reports/phase4/comparisons/
+- Create: tools/capture_phase4_screenshots.mjs
+- Create: reports/phase4/after/*.png and screenshot-manifest.json
 - Create: docs/PHASE4_PROGRESS.md
 - Create: docs/PHASE4_RELEASE.md
 - Modify: .github/workflows/ as needed
 
-- [ ] Add reproducible post-change metric and screenshot capture on the same deterministic cases.
-- [ ] Verify Node, Python, lint, typecheck, data/schema, build, no-photo scan, and serial desktop/mobile browser suites.
-- [ ] Compare baseline and optimized screenshots/metrics, report objective crossing and length changes, and document residual causes.
+- [x] Add reproducible post-change metric and screenshot capture on the same deterministic cases.
+- [x] Verify Node 74/74, Python 99/99, ESLint, typecheck, data/schema, build, no-photo scan, and serial desktop/mobile browser 19/19.
+- [x] Compare baseline and optimized screenshots/metrics; all seven cases reduce crossings and route length, with no node overlaps, generation violations, or focused parent-side violations.
 - [ ] Obtain independent read-only review and green GitHub CI; fix Critical/Important findings before merge.
 - [ ] Back up the active manifest and verify rollback targets, deploy only the four Atlas paths plus the approved relay integration, and smoke test actual image bytes in production Chromium.
 - [ ] Verify the legacy path hashes, service health, all URLs, rollback readiness, and final release SHA; update the release record and commit.

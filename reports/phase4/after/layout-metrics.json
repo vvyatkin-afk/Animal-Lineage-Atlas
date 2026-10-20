@@ -1,0 +1,151 @@
+{
+  "schema_version": "phase4-layout-after-v1",
+  "captured_at": "2026-10-20T12:27:09.419Z",
+  "source_revision": "6da15136cea1d640c8d293b7d74a0dd1d7b6ce57",
+  "baseline_revision": "5ad2d2480ae2a7789fab81445a0f1961cdcbd2ed",
+  "method": {
+    "route": "Shared renderer route geometry; cubic Beziers sampled into 24 segments; route length sums the rendered centerline. A crossing requires both polylines to pass from opposite sides of each other; tangencies and edge pairs sharing an animal endpoint do not count. Dashed and solid routes are both measured; dash gaps do not alter centerline totals.",
+    "node_rect": "176x74 world-unit bounds. Edge-node collision pairs exclude each edge endpoint."
+  },
+  "atlases": {
+    "red-panda": {
+      "records": 1554,
+      "relationships": 2394,
+      "components": 171,
+      "largest_component_animals": 823,
+      "global": {
+        "nodes": 1554,
+        "edges": 2394,
+        "generations": 14,
+        "truncated": false,
+        "crossings": {
+          "edge_pairs": 43050,
+          "samples_per_curve": 24
+        },
+        "total_route_length": 4657060.61,
+        "node_overlap_pairs": 0,
+        "edge_node_collision_pairs": 3884,
+        "generation_order_violations": 0,
+        "parent_order_violations": 0,
+        "width": 98418,
+        "height": 2934
+      },
+      "largest_component": {
+        "nodes": 823,
+        "edges": 1468,
+        "generations": 14,
+        "truncated": false,
+        "crossings": {
+          "edge_pairs": 31352,
+          "samples_per_curve": 24
+        },
+        "total_route_length": 3163209.23,
+        "node_overlap_pairs": 0,
+        "edge_node_collision_pairs": 2934,
+        "generation_order_violations": 0,
+        "parent_order_violations": 0,
+        "width": 23502,
+        "height": 2934
+      },
+      "focus": {
+        "futa_default": {
+          "nodes": 100,
+          "edges": 100,
+          "generations": 7,
+          "truncated": false,
+          "crossings": {
+            "edge_pairs": 6,
+            "samples_per_curve": 24
+          },
+          "total_route_length": 102548.13,
+          "node_overlap_pairs": 0,
+          "edge_node_collision_pairs": 0,
+          "generation_order_violations": 0,
+          "parent_order_violations": 0,
+          "width": 8376,
+          "height": 1034
+        },
+        "futa_all": {
+          "nodes": 121,
+          "edges": 121,
+          "generations": 9,
+          "truncated": false,
+          "crossings": {
+            "edge_pairs": 18,
+            "samples_per_curve": 24
+          },
+          "total_route_length": 121431.54,
+          "node_overlap_pairs": 0,
+          "edge_node_collision_pairs": 0,
+          "generation_order_violations": 0,
+          "parent_order_violations": 0,
+          "width": 8376,
+          "height": 1354
+        },
+        "rakesh_default": {
+          "nodes": 14,
+          "edges": 13,
+          "generations": 4,
+          "truncated": false,
+          "crossings": {
+            "edge_pairs": 4,
+            "samples_per_curve": 24
+          },
+          "total_route_length": 2908.52,
+          "node_overlap_pairs": 0,
+          "edge_node_collision_pairs": 0,
+          "generation_order_violations": 0,
+          "parent_order_violations": 0,
+          "width": 1376,
+          "height": 554
+        }
+      }
+    },
+    "polar-bear": {
+      "records": 72,
+      "relationships": 63,
+      "components": 23,
+      "largest_component_animals": 9,
+      "global": {
+        "nodes": 72,
+        "edges": 63,
+        "generations": 3,
+        "truncated": false,
+        "crossings": {
+          "edge_pairs": 28,
+          "samples_per_curve": 24
+        },
+        "total_route_length": 15820.18,
+        "node_overlap_pairs": 0,
+        "edge_node_collision_pairs": 3,
+        "generation_order_violations": 0,
+        "parent_order_violations": 0,
+        "width": 8450,
+        "height": 514
+      }
+    },
+    "hippopotamus": {
+      "records": 96,
+      "relationships": 86,
+      "components": 28,
+      "largest_component_animals": 19,
+      "global": {
+        "nodes": 96,
+        "edges": 86,
+        "generations": 5,
+        "truncated": false,
+        "crossings": {
+          "edge_pairs": 35,
+          "samples_per_curve": 24
+        },
+        "total_route_length": 26477.58,
+        "node_overlap_pairs": 0,
+        "edge_node_collision_pairs": 17,
+        "generation_order_violations": 0,
+        "parent_order_violations": 0,
+        "width": 11838,
+        "height": 954
+      }
+    }
+  }
+}

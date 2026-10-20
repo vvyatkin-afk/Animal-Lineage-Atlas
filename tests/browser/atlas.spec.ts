@@ -2,10 +2,12 @@ import { mkdirSync } from 'node:fs';
 import { test, expect, type Page } from '@playwright/test';
 
 const screenshotDir = '/tmp/animal-lineage-atlas-qa';
+const futaRelayPath = '/atlas.red-panda/media/a426db98f35e4bc984275cc031467ac9/profile';
 mkdirSync(screenshotDir, { recursive: true });
 
-function observeErrors(page: Page) {
+function observeErrors(page: Page, expectedFailedImages: string[] = []) {
   const errors: string[] = [];
+  const expectedFailures = new Set(expectedFailedImages);
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('console', (message) => {
     if (message.type() === 'error' && !message.text().includes('net::ERR_FAILED')) {
@@ -18,11 +20,24 @@ function observeErrors(page: Page) {
     }
   });
   page.on('requestfailed', (request) => {
+    if (expectedFailures.has(new URL(request.url()).pathname)) return;
     const isExpectedBlockedImage = request.resourceType() === 'image'
       && new URL(request.url()).origin !== 'http://127.0.0.1:4173';
     if (!isExpectedBlockedImage) errors.push(`request failed: ${request.url()}`);
   });
   return errors;
+}
+
+async function failApprovedRelay(page: Page) {
+  await page.route('**/media/a426db98f35e4bc984275cc031467ac9/profile', (route) => route.abort('failed'));
+}
+
+async function fulfillApprovedRelayFixture(page: Page) {
+  await page.route('**/media/a426db98f35e4bc984275cc031467ac9/profile', (route) => route.fulfill({
+    status: 200,
+    contentType: 'image/svg+xml',
+    body: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="24"><rect width="32" height="24" fill="#789"/></svg>',
+  }));
 }
 
 async function blockRemoteImages(page: Page) {
@@ -393,8 +408,9 @@ test('hub renders all atlas cards, changes locale, and works at desktop size', a
 });
 
 test('each child path opens a direct profile and shows its family tree', async ({ page }) => {
-  const errors = observeErrors(page);
+  const errors = observeErrors(page, [futaRelayPath]);
   await blockRemoteImages(page);
+  await failApprovedRelay(page);
   const profiles = [
     { path: '/atlas.red-panda/', id: 'red-panda:futa', name: '風太（フウタ）', atlas: 'red-panda', expectedDetail: null },
     { path: '/atlas.red-panda/', id: 'red-panda:kelu', name: 'Kelú', atlas: 'red-panda', expectedDetail: 'Zoológico de Parquemet' },
@@ -502,6 +518,7 @@ test('Futa profile uses a same-origin approved media URL with CC BY attribution 
 
 test('optional local manifest renders a local media asset in the profile UI', async ({ page }) => {
   const errors = observeErrors(page);
+  await fulfillApprovedRelayFixture(page);
   await interceptRedPandaDetails(page, (chunk) => {
     const media = chunk.media as Array<Record<string, unknown>>;
     media.push({
@@ -538,8 +555,9 @@ test('optional local manifest renders a local media asset in the profile UI', as
 });
 
 test('failed remote image falls back while search and genealogy remain usable', async ({ page }) => {
-  const errors = observeErrors(page);
+  const errors = observeErrors(page, [futaRelayPath]);
   await blockRemoteImages(page);
+  await failApprovedRelay(page);
   await interceptRedPandaDetails(page, (chunk) => {
     const media = chunk.media as Array<Record<string, unknown>>;
     media.push({
@@ -553,7 +571,7 @@ test('failed remote image falls back while search and genealogy remain usable', 
     });
   });
   await page.goto(`/atlas.red-panda/?animal=${encodeURIComponent('red-panda:futa')}`);
-  await expect(page.locator('#profile-dialog .media-placeholder')).toHaveCount(2);
+  await expect(page.locator('#profile-dialog .media-placeholder')).toHaveCount(1);
   await expect(page.locator('#profile-dialog .profile-image')).toHaveCount(0);
   await expect(page.locator('#profile-dialog a[href="https://example.org/animal-record"]')).toBeVisible();
   await expect(page.locator('#search-results .result-card').first()).toBeVisible();
@@ -565,6 +583,7 @@ test('failed remote image falls back while search and genealogy remain usable', 
 
 test('mobile atlas fits the viewport and supports keyboard profile controls', async ({ page }) => {
   const errors = observeErrors(page);
+  await fulfillApprovedRelayFixture(page);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`/atlas.hippopotamus/?animal=${encodeURIComponent('hippopotamus:fiona')}`);
   await expect(page.locator('.language-control > span')).toBeVisible();
